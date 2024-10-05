@@ -22,7 +22,6 @@
 }
 
 .toggle-sidebar-label {
-
   padding: 1rem;
   cursor: pointer;
   background-color: #333;
@@ -45,12 +44,12 @@
   transition: all 0.3s ease-in-out;
 }
 
-.toggle-sidebar-checkbox:checked~.sidebar {
+.toggle-sidebar-checkbox:checked ~ .sidebar {
   width: 250px;
   transition: all 0.3s ease-in-out;
 }
 
-.toggle-sidebar-checkbox:checked~.app__content {
+.toggle-sidebar-checkbox:checked ~ .app__content {
   margin-left: 250px;
   width: calc(100% - 250px);
   transition: all 0.3s ease-in-out;
