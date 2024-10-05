@@ -1,42 +1,87 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #282c34;
+  color: white;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: row;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.toggle-sidebar-checkbox {
+  display: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.toggle-sidebar-label {
+
+  padding: 1rem;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  z-index: 1000;
 }
 
-.card {
-  padding: 2em;
+.toggle-sidebar-label i {
+  font-size: 2rem;
+  color: aliceblue;
 }
 
-.read-the-docs {
-  color: #888;
+.sidebar {
+  width: 80px;
+  height: 100vh;
+  background-color: #444;
+  position: fixed;
+  top: 0;
+  left: 0px;
+  transition: all 0.3s ease-in-out;
+}
+
+.toggle-sidebar-checkbox:checked~.sidebar {
+  width: 250px;
+  transition: all 0.3s ease-in-out;
+}
+
+.toggle-sidebar-checkbox:checked~.app__content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  transition: all 0.3s ease-in-out;
+}
+
+.app__content {
+  margin-left: 80px;
+  width: calc(100% - 80px);
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+}
+
+.app__content__body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.topbar {
+  width: 100%;
+  height: 60px;
+  background-color: #e02828;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
 }
