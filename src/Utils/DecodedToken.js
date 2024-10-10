@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+import * as jwtDecode from "jwt-decode";
 
 const getDecodedToken = () => {
   const token = sessionStorage.getItem("token");
