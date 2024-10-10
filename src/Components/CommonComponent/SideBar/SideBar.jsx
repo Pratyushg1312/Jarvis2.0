@@ -1,8 +1,11 @@
 import React from "react";
 import {
   Buildings,
+  CaretRight,
   HandCoins,
   Laptop,
+  List,
+  Minus,
   Money,
   OfficeChair,
   Speedometer,
@@ -13,11 +16,12 @@ import {
 const SideBar = () => {
   return (
     <div className="sideBar">
+      <div className="sidebarToggle">
+        <label htmlFor="toggle-sidebar" className="toggle-sidebar-label">
+          <CaretRight />
+        </label>
+      </div>
       <div className="sideBarIn">
-        <div className="sideBarLogo">
-          <img src="./assets/images/logo/logo.png" width={40} height={40} />
-          <h3>Creativefuel</h3>
-        </div>
         <div className="sideBarContent">
           <div className="sidebarMenu">
             <ul className="navbar-nav">
@@ -28,6 +32,46 @@ const SideBar = () => {
                   </i>
                   <h5>Dashboard</h5>
                 </a>
+              </li>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i>
+                    <List weight="duotone" />
+                  </i>
+                  <h5>Dropdown</h5>
+                </a>
+                <ul className="dropdown-menu">
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <span>
+                        <Minus />
+                      </span>
+                      Dropdown menu one
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <span>
+                        <Minus />
+                      </span>
+                      Dropdown menu two
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <span>
+                        <Minus />
+                      </span>
+                      Dropdown menu three
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
@@ -84,34 +128,6 @@ const SideBar = () => {
                   </i>
                   <h5>Community</h5>
                 </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
               </li>
             </ul>
           </div>
