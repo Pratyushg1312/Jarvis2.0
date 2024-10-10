@@ -7,7 +7,7 @@ const TopBar = () => {
     <div className="topBar">
       <div className="topBarLeft">
         <div className="brandLogo">
-          <img src="./assets/images/logo/logo.png" width={40} height={40} />
+          <img src="/assets/images/logo/logo.png" width={40} height={40} />
           <h3>
             Creative<span>fuel</span>
           </h3>
@@ -35,7 +35,7 @@ const TopBar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <Avatar alt="Avatar" src="./assets/images/avatar/anmol.jpeg" />
+                <Avatar alt="Avatar" src="/assets/images/avatar/anmol.jpeg" />
                 <h4>
                   Anmol<span>User</span>
                 </h4>
