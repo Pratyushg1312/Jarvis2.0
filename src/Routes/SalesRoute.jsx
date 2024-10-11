@@ -8,6 +8,8 @@ const SalesRoute = () => {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route path="dashboard" element={<DummyPage name={"Sales Dashboard"} />} />
+                <Route path="dashboard2" element={<DummyPage name={"sales 2nd Dashboard"} />} />
+
             </Route>
             <Route path="accounts" element={<DummyPage name={"Account Page"} />} />
         </Routes>

@@ -7,6 +7,7 @@ const UserRoute = () => {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route path="dashboard" element={<DummyPage name={"User Dashboard"} />} />
+
             </Route>
             <Route path="dummy" element={<DummyPage name={"fake Page"} />} />
         </Routes>

@@ -7,8 +7,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import { AppleLogo } from "@phosphor-icons/react";
+import { useNavigate } from 'react-router-dom';
 
 const DummyPage = ({ name }) => {
+    const navigate = useNavigate();
     return (
         <>
             {name && <div>{name}</div>}
@@ -44,11 +46,12 @@ const DummyPage = ({ name }) => {
                             </LocalizationProvider>
                         </div>
                         <div className="col-md-4">
-                            <Button color="info" variant="contained">
+                            <Button color="info" variant="contained" onClick={() => navigate("/finance/dashboard")}>
+
                                 Contained
                             </Button>
                             &nbsp;
-                            <Button color="info" variant="outlined">
+                            <Button color="info" variant="outlined" onClick={() => navigate("/sales/dashboard2")}>
                                 Contained
                             </Button>
                         </div>
