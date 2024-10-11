@@ -1,18 +1,28 @@
 import React from "react";
-import { getDecodedToken } from "../Utils/DecodedToken";
-import { Route, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const isAuthenticated = () => {
-  return getDecodedToken() !== null;
+  const token = sessionStorage.getItem("token");
+  if (token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        console.error("Token expired");
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Invalid token:", error);
+      return false;
+    }
+  }
 };
 
-const ProtectedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      isAuthenticated() ? <Component {...props} /> : <Redirect to="/login" />
-    }
-  />
-);
+const ProtectedRoute = ({ children }) => {
+  return isAuthenticated() ? children : <Navigate to="/login" />;
+};
 
 export default ProtectedRoute;

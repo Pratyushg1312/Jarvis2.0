@@ -1,6 +1,6 @@
-import * as jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
-const getDecodedToken = () => {
+const GetDecodedToken = () => {
   const token = sessionStorage.getItem("token");
   if (token) {
     try {
@@ -13,4 +13,4 @@ const getDecodedToken = () => {
   return null;
 };
 
-export default getDecodedToken;
+export default GetDecodedToken;

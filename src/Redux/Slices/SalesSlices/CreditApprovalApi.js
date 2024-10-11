@@ -29,7 +29,6 @@ const CreditApprovalApi = createApi({
       onQueryStarted: async ({ dispatch, queryFulfilled }) => {
         try {
           const { data: addedCreditApproval } = await queryFulfilled;
-
           dispatch(
             CreditApprovalApi.util.updateQueryData(
               "getAllCreditApprovals",
