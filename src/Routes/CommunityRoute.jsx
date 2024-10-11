@@ -3,15 +3,14 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from '../Components/CommonComponent/Layout/Layout';
 import DummyPage from '../Pages/Dummy/DummyPage';
 
-const SalesRoute = () => {
+const CommunityRoute = () => {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route path="dashboard" element={<DummyPage name={"Sales Dashboard"} />} />
+                <Route path="dashboard" element={<DummyPage name={"Fake Dashboard"} />} />
             </Route>
-            <Route path="accounts" element={<DummyPage name={"Account Page"} />} />
-        </Routes>
-    );
-};
+            <Route path="dummy" element={<DummyPage name={"fake Page"} />} />
+        </Routes>)
+}
 
-export default SalesRoute;
+export default CommunityRoute

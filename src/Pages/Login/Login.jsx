@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLoginMutation } from '../../Redux/Slices/LoginSlices/LoginApi';
+import { useNavigate } from 'react-router-dom';
+import { Session } from '../../Utils/Session';
 
 const Login = () => {
     const [form, setForm] = useState({
         user_login_id: "",
         user_login_password: ""
     });
+    const navigate = useNavigate();
     const [
         login, {
             data: loginData,
@@ -14,12 +17,25 @@ const Login = () => {
             isSuccess: loginIsSuccess
         }
     ] = useLoginMutation();
+    useEffect(() => {
+        if (loginIsSuccess) {
+            sessionStorage.setItem("token", loginData?.token);
+            setTimeout(() => {
+                sessionStorage.removeItem("token");
+                navigate("/login");
+            }, Session); // 10 hours
+
+            navigate("/");
+        }
+    }, [loginIsSuccess]);
     async function handelSubmit(e) {
         e.preventDefault();
         try {
             await login(form).unwrap();
-        } catch (error) {
 
+
+        } catch (error) {
+            console.error(error);
         }
     }
     return (

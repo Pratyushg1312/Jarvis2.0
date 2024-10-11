@@ -13,11 +13,10 @@ const LoginApi = createApi({
       }),
       onQueryStarted: async (loggedData, { dispatch, queryFulfilled }) => {
         try {
-          const { data: addedDepartment } = await queryFulfilled;
-          console.log("loggedData", loggedData);
-          console.log("addedDepartment", addedDepartment);
+          const { data: response } = await queryFulfilled;
+          // sessionStorage.setItem("token", response.token);
         } catch (error) {
-          console.error("Failed to add department:", error);
+          console.error(error);
         }
       },
     }),
@@ -25,3 +24,4 @@ const LoginApi = createApi({
 });
 
 export const { useLoginMutation } = LoginApi;
+export default LoginApi;

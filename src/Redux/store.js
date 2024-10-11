@@ -28,6 +28,8 @@ import TargetCompetitionApi from "./Slices/SalesSlices/TargetCompetitionApi";
 import SalePocApi from "./Slices/SalesSlices/SalesPocApi";
 import SalesReportApi from "./Slices/SalesSlices/SalesReportApi";
 import IncentiveSharingApi from "./Slices/SalesSlices/IncentiveSharingApi";
+import LoginApi from "./Slices/LoginSlices/LoginApi";
+import UserApi from "./Slices/UserSlices/UserApi";
 
 const store = configureStore({
   reducer: {
@@ -59,6 +61,8 @@ const store = configureStore({
     [SalePocApi.reducerPath]: SalePocApi.reducer,
     [SalesReportApi.reducerPath]: SalesReportApi.reducer,
     [IncentiveSharingApi.reducerPath]: IncentiveSharingApi.reducer,
+    [LoginApi.reducerPath]: LoginApi.reducer,
+    [UserApi.reducerPath]: UserApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -89,7 +93,9 @@ const store = configureStore({
       .concat(TargetCompetitionApi.middleware)
       .concat(SalePocApi.middleware)
       .concat(SalesReportApi.middleware)
-      .concat(IncentiveSharingApi.middleware),
+      .concat(IncentiveSharingApi.middleware)
+      .concat(LoginApi.middleware)
+      .concat(UserApi.middleware),
 });
 setupListeners(store.dispatch);
 
