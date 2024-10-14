@@ -1849,11 +1849,9 @@ small,
   height: 100%;
   /* background: linear-gradient(243deg, #dfe9f6 0%, #dce5f2 50%, #e3eaf2 100%); */
   /* background: linear-gradient(243deg, #d7dfe9 0%, #d4ddea 50%, #dfe6ee 100%); */
-  background: linear-gradient(
-    243deg,
-    rgb(100 169 242 / 10%) 0%,
-    rgb(109 84 248 / 10%) 100%
-  );
+  background: linear-gradient(243deg,
+      rgb(100 169 242 / 10%) 0%,
+      rgb(109 84 248 / 10%) 100%);
   display: none;
 }
 
@@ -2033,12 +2031,12 @@ input:-internal-autofill-selected {
   padding: 30px 30px;
 }
 
-.toggle-sidebar-checkbox:checked ~ .sideBar {
+.toggle-sidebar-checkbox:checked~.sideBar {
   width: 300px;
   transition: var(--transition);
 }
 
-.toggle-sidebar-checkbox:checked ~ .pageWrapper {
+.toggle-sidebar-checkbox:checked~.pageWrapper {
   /* margin-left: 300px; */
   /* width: calc(100% - 300px); */
   /* transition: var(--transition); */
@@ -2130,6 +2128,7 @@ input:-internal-autofill-selected {
         border: 1px solid transparent;
         border-radius: var(--radiusS);
 
+
         i {
           display: flex;
           align-items: center;
@@ -2177,6 +2176,7 @@ input:-internal-autofill-selected {
           }
         }
 
+
         &:hover {
           color: var(--primary);
 
@@ -2196,6 +2196,7 @@ input:-internal-autofill-selected {
           border-color: var(--primary);
           background-color: var(--primary);
         }
+
         &:hover {
           color: var(--primary);
         }
@@ -2254,6 +2255,7 @@ input:-internal-autofill-selected {
 
     & .nav-item {
       width: 100%;
+
       .nav-link {
         flex-direction: row;
         background-color: var(--sidebarBg);
@@ -2440,11 +2442,9 @@ input:-internal-autofill-selected {
   color: var(--primary);
   /* border-color: var(--primary); */
   /* background-color: rgb(85 54 192 / 60%); */
-  background: linear-gradient(
-    180deg,
-    rgb(85 54 192 / 0%) 0%,
-    rgb(85 54 192 / 60%)
-  );
+  background: linear-gradient(180deg,
+      rgb(85 54 192 / 0%) 0%,
+      rgb(85 54 192 / 60%));
 }
 
 .row {
@@ -2452,7 +2452,14 @@ input:-internal-autofill-selected {
   margin-left: calc(-0.3 * var(--bs-gutter-x));
 }
 
-.row > * {
+.row>* {
   padding-right: calc(var(--bs-gutter-x) * 0.3);
   padding-left: calc(var(--bs-gutter-x) * 0.3);
+}
+
+.form-error {
+  color: var(--error) !important;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
 }

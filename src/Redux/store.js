@@ -30,9 +30,11 @@ import SalesReportApi from "./Slices/SalesSlices/SalesReportApi";
 import IncentiveSharingApi from "./Slices/SalesSlices/IncentiveSharingApi";
 import LoginApi from "./Slices/LoginSlices/LoginApi";
 import UserApi from "./Slices/UserSlices/UserApi";
+import notificationReducer from "./Slices/NotificationSlices/NotificationSlice";
 
 const store = configureStore({
   reducer: {
+    notification: notificationReducer,
     [SalesAccountApi.reducerPath]: SalesAccountApi.reducer,
     [SalesAccountTypeApi.reducerPath]: SalesAccountTypeApi.reducer,
     [CompanyTypeApi.reducerPath]: CompanyTypeApi.reducer,

@@ -19,7 +19,7 @@ const Router = () => {
                 <Route path="/login" element={<Login />} />
 
                 <Route
-                    path="/"
+                    path="*"
                     element={
                         <ProtectedRoute>
                             <DummyRoute />

@@ -12,6 +12,7 @@ import {
   TreasureChest,
   UsersThree,
 } from "@phosphor-icons/react";
+import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
   return (
@@ -26,12 +27,12 @@ const SideBar = () => {
           <div className="sidebarMenu">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link active" href="#">
+                <NavLink className="nav-link" to="/">
                   <i>
                     <Speedometer weight="duotone" />
                   </i>
                   <h5>Dashboard</h5>
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item dropdown">
                 <a
@@ -114,12 +115,50 @@ const SideBar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink className="nav-link dropdown-toggle" to="/sales"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
                   <i>
                     <Money weight="duotone" />
                   </i>
                   <h5>Sales</h5>
-                </a>
+                </NavLink>
+                <ul className="dropdown-menu">
+                  <li>
+                    <NavLink className="dropdown-item" to="/sales/dashboard">
+                      <span>
+                        <Minus />
+                      </span>
+                      Dashboard
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink className="dropdown-item" to="/sales/account-overview">
+                      <span>
+                        <Minus />
+                      </span>
+                      Account
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink className="dropdown-item" to="/sales/salesbooking-overview">
+                      <span>
+                        <Minus />
+                      </span>
+                      Sales Booking
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink className="dropdown-item" to="/sales/incentive-overview">
+                      <span>
+                        <Minus />
+                      </span>
+                      Incentive
+                    </NavLink>
+                  </li>
+                </ul>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">

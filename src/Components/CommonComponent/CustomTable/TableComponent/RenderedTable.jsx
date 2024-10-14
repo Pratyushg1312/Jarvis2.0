@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Dropdown from "./Dropdown";
 import SkeletonLoader from "./SkeletonLoader";
 import axios from "axios";
-import CustomSelect from "../../CustomSelect";
-import FieldContainer from "../../FieldContainer";
+import CustomSelect from "../../FormElement/CustomSelect";
+import FieldContainer from "../../FormElement/FieldContainer";
 
 
 const RenderedTable = ({

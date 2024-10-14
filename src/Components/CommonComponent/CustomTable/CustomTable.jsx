@@ -4,7 +4,7 @@ import PaginationComp from './TableComponent/PaginationComp';
 import TableToolkit from './TableComponent/TableToolkit';
 import RenderedTable from './TableComponent/RenderedTable';
 import { baseUrl } from '../../../Config';
-import getDecodedToken from '../../../Utils/DecodedToken'
+import GetDecodedToken from '../../../Utils/GetDecodedToken'
 import axios from 'axios';
 import TotalRow from './TableComponent/TotalRow';
 // note: sync the table pagination and  sorted rows
@@ -69,7 +69,7 @@ const CustomTable = ({
   const [applyFlag, setApplyFlag] = useState(false);
 
   const token = sessionStorage.getItem('token');
-  const decodedToken = getDecodedToken(token);
+  const decodedToken = GetDecodedToken(token);
 
   const loginUserId = decodedToken.id;
   let pagination = Pagination?.length > 0 ? Pagination : [100, 50, 10];
@@ -484,7 +484,17 @@ const CustomTable = ({
         originalData1={originalData}
 
       />
-
+      {showTotal && (
+        <TotalRow
+          columnsheader={columnsheader}
+          unSortedData={unSortedData}
+          visibleColumns={visibleColumns}
+          rowSelectable={rowSelectable}
+          headref={headref}
+          tableref={tableref}
+          applyFlag={applyFlag}
+        />
+      )}
       <div className="table-container" ref={tableref}>
         <RenderedTable
           headref={headref}
@@ -530,17 +540,7 @@ const CustomTable = ({
         />
       </div>
 
-      {showTotal && (
-        <TotalRow
-          columnsheader={columnsheader}
-          unSortedData={unSortedData}
-          visibleColumns={visibleColumns}
-          rowSelectable={rowSelectable}
-          headref={headref}
-          tableref={tableref}
-          applyFlag={applyFlag}
-        />
-      )}
+
       <PaginationComp
         data={unSortedData}
         Pagination={pagination}
