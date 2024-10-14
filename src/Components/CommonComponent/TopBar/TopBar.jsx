@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import { GearSix, MagnifyingGlass, SignOut, User } from "@phosphor-icons/react";
+import {
+  GearSix,
+  MagnifyingGlass,
+  MoonStars,
+  SignOut,
+  Sun,
+  User,
+} from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
-import { useGetAllUsersQuery, useGetUserAuthQuery, useGetUserDetailsByIdMutation } from "../../../Redux/Slices/UserSlices/UserApi";
+import {
+  useGetAllUsersQuery,
+  useGetUserAuthQuery,
+  useGetUserDetailsByIdMutation,
+} from "../../../Redux/Slices/UserSlices/UserApi";
 import GetDecodedToken from "../../../Utils/getDecodedToken";
 import { UserRole } from "../../../Utils/UserRole";
 
@@ -17,18 +28,19 @@ const TopBar = () => {
     isSuccess: allUserIsSuccess,
   } = useGetAllUsersQuery();
   const [
-    getData, {
+    getData,
+    {
       data: userData,
       error: userError,
       isLoading: userIsLoading,
-      isSuccess: userIsSuccess
-    }
+      isSuccess: userIsSuccess,
+    },
   ] = useGetUserDetailsByIdMutation();
   const {
     data: userAuthData,
     error: userAuthError,
     isLoading: userAuthIsLoading,
-    isSuccess: userAuthIsSuccess
+    isSuccess: userAuthIsSuccess,
   } = useGetUserAuthQuery(loginUser, { skip: !loginUser });
 
   async function getUserData() {
@@ -43,7 +55,6 @@ const TopBar = () => {
     getUserData();
   }, []);
 
-
   function convertTimestamps(user) {
     const { exp, iat, ...rest } = user;
     return {
@@ -53,7 +64,13 @@ const TopBar = () => {
     };
   }
 
-
+  // Toggle Dark/Light Theme
+  useEffect(() => {
+    document.getElementById("theme-toggle").addEventListener("click", (e) => {
+      const checked = e.target.checked;
+      document.body.setAttribute("theme", checked ? "dark" : "light");
+    });
+  }, []);
 
   return (
     <div className="topBar">
@@ -79,6 +96,20 @@ const TopBar = () => {
                 placeholder="Search here . . ."
               ></input>
             </div>
+            <div className="theme-switch">
+              <input type="checkbox" id="theme-toggle" />
+
+              <label htmlFor="theme-toggle">
+                <div className="theme-sw iconBtn">
+                  <i>
+                    <Sun />
+                  </i>
+                  <i>
+                    <MoonStars />
+                  </i>
+                </div>
+              </label>
+            </div>
             <div className="dropdown userDropdown">
               <a
                 className="dropdown-toggle"
@@ -89,7 +120,8 @@ const TopBar = () => {
               >
                 <Avatar alt="Avatar" src={userData?.image} />
                 <h4>
-                  {userData?.user_name}<span>{UserRole(userRole)}</span>
+                  {userData?.user_name}
+                  <span>{UserRole(userRole)}</span>
                 </h4>
               </a>
 
@@ -111,10 +143,14 @@ const TopBar = () => {
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="" onClick={() => {
-                    sessionStorage.removeItem("token");
-                    navigate("/login");
-                  }}>
+                  <a
+                    className="dropdown-item"
+                    href=""
+                    onClick={() => {
+                      sessionStorage.removeItem("token");
+                      navigate("/login");
+                    }}
+                  >
                     <span>
                       <SignOut />
                     </span>
