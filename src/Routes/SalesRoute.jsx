@@ -1,17 +1,17 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../Components/CommonComponent/Layout/Layout';
-import DummyPage from '../Pages/Dummy/DummyPage';
+import { SalesDashboard, SalesAccountOverview, SalesIncentiveOverview, SalesBookingOverview } from '../Pages/Sales/Index';
 
 const SalesRoute = () => {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route path="dashboard" element={<DummyPage name={"Sales Dashboard"} />} />
-                <Route path="dashboard2" element={<DummyPage name={"sales 2nd Dashboard"} />} />
-
+                <Route path="/dashboard" element={<SalesDashboard />} />
+                <Route path="account-overview" element={<SalesAccountOverview />} />
+                <Route path="salesbooking-overview" element={<SalesBookingOverview />} />
+                <Route path="incentive-overview" element={<SalesIncentiveOverview />} />
             </Route>
-            <Route path="accounts" element={<DummyPage name={"Account Page"} />} />
         </Routes>
     );
 };
