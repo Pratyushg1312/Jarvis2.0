@@ -1,26 +1,27 @@
 :root {
   --primary: #8833ff;
-  --primaryLight: rgb(136 51 255 / 15%);
+  --primaryLight: rgb(136 51 255 / 10%);
   --secondary: #ff6633;
-  --secondaryLight: rgb(255 102 51 / 15%);
+  --secondaryLight: rgb(255 102 51 / 10%);
   --tertiary: #3361ff;
-  --tertiaryLight: rgb(51 97 255 /15%);
-  --border: #e2e5eb;
-  --borderLight: #e9f4f6;
-  --borderDark: #b6b6b6;
+  --tertiaryLight: rgb(51 97 255 /10%);
+  --border: #eaedf3;
+  --borderLight: #f0f0f2;
+  --borderDark: #d7dbe2;
+  --inputBg: #ffffff;
   --bodyBg: #f7f8fa;
   --bodySubBg: #f3f3f3;
-  --dark: #3f434d;
+  --dark: #35373e;
   --medium: #6b7a99;
   --light: #abafb1;
   --success: #29cc39;
-  --successLight: #29cc39;
-  --error: #e62e2e;
-  --errorLight: #e62e2e;
-  --warning: #ffcb33;
-  --warningLight: #ffcb33;
+  --successLight: rgb(41 204 57/ 10%);
+  --danger: #e62e2e;
+  --dangerLight: rgb(230 46 46 / 10%);
+  --warning: #ffbb33;
+  --warningLight: rgb(255 187 51 / 10%);
   --info: #33bfff;
-  --infoLight: #33bfff;
+  --infoLight: rgb(51 191 255 / 10%);
   --white: #ffffff;
   --whiteText: #ffffff;
   --whiteBg: #ffffff;
@@ -38,6 +39,51 @@
   --transition: all 0.3s ease-in-out;
   --bodyFont: "Roboto", sans-serif;
   --shadowOne: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
+  --cardShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
+}
+
+body[theme="dark"] {
+  --primary: #8833ff;
+  --primaryLight: rgb(136 51 255 / 10%);
+  --secondary: #ff6633;
+  --secondaryLight: rgb(255 102 51 / 10%);
+  --tertiary: #3361ff;
+  --tertiaryLight: rgb(51 97 255 /10%);
+  --border: #eaedf3;
+  --borderLight: #f0f0f2;
+  --borderDark: #d7dbe2;
+  --inputBg: #ffffff;
+  --bodyBg: #f7f8fa;
+  --bodySubBg: #f3f3f3;
+  --dark: #35373e;
+  --medium: #6b7a99;
+  --light: #abafb1;
+  --success: #29cc39;
+  --successLight: rgb(41 204 57/ 10%);
+  --danger: #e62e2e;
+  --dangerLight: rgb(230 46 46 / 10%);
+  --warning: #ffbb33;
+  --warningLight: rgb(255 187 51 / 10%);
+  --info: #33bfff;
+  --infoLight: rgb(51 191 255 / 10%);
+  --white: #ffffff;
+  --whiteText: #ffffff;
+  --whiteBg: #ffffff;
+  --sidebarBg: #ffffff;
+  --sidebarBorder: #f5f6f7;
+  --cardBg: #ffffff;
+  --cardBorder: #f5f6f7;
+  --blurBg: #ffffff;
+  --blurBorder: #f5f6f7;
+  --sidebarSubBg: #ffffff;
+  --radiusXS: 6px;
+  --radiusS: 10px;
+  --radiusM: 14px;
+  --radiusL: 18px;
+  --transition: all 0.3s ease-in-out;
+  --bodyFont: "Roboto", sans-serif;
+  --shadowOne: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
+  --cardShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
 }
 
 *,
@@ -89,11 +135,12 @@ img {
   max-width: 100%;
 }
 
-.MuiButton-root {
+.MuiButton-root,
+.btn {
   box-shadow: none !important;
   outline: none !important;
   font-family: var(--bodyFont) !important;
-  font-size: 15px !important;
+  font-size: 14px !important;
   line-height: 24px !important;
   letter-spacing: 0.02rem !important;
   font-weight: 400 !important;
@@ -101,87 +148,200 @@ img {
   padding: 8px 26px !important;
   border: 1px solid !important;
   border-radius: var(--radiusS) !important;
-  min-height: 48px;
+  min-height: 46px;
 }
 
-.MuiButton-contained.MuiButton-colorPrimary {
+.MuiButton-contained.MuiButton-colorPrimary,
+.btn-primary {
   background-color: var(--primary);
   border-color: var(--primary) !important;
   color: var(--whiteText);
+
+  &:hover {
+    background-color: var(--primary);
+    border-color: var(--primary) !important;
+    color: var(--whiteText);
+  }
 }
 
-.MuiButton-outlined.MuiButton-colorPrimary {
+.MuiButton-outlined.MuiButton-colorPrimary,
+.btn-outline-primary {
   background-color: transparent !important;
   border-color: var(--primary) !important;
   color: var(--primary) !important;
+
+  &:hover {
+    background-color: transparent !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+  }
 }
 
-.MuiButton-contained.MuiButton-colorSecondary {
+.MuiButton-contained.MuiButton-colorSecondary,
+.btn-secondary {
   background-color: var(--secondary) !important;
   border-color: var(--secondary) !important;
-  color: var(--dark) !important;
+  color: var(--whiteText) !important;
+
+  &:hover {
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+    color: var(--whiteText) !important;
+  }
 }
 
-.MuiButton-outlined.MuiButton-colorSecondary {
+.MuiButton-outlined.MuiButton-colorSecondary,
+.btn-outline-secondary {
   background-color: transparent !important;
   border-color: var(--secondary) !important;
   color: var(--secondary) !important;
+
+  &:hover {
+    background-color: transparent !important;
+    border-color: var(--secondary) !important;
+    color: var(--secondary) !important;
+  }
 }
 
-.MuiButton-contained.MuiButton-colorSuccess {
+.MuiButton-contained.MuiButton-colorSuccess,
+.btn-success {
   background-color: var(--success) !important;
   border-color: var(--success) !important;
   color: var(--whiteText) !important;
+
+  &:hover {
+    background-color: var(--success) !important;
+    border-color: var(--success) !important;
+    color: var(--whiteText) !important;
+  }
 }
 
-.MuiButton-outlined.MuiButton-colorSuccess {
+.MuiButton-outlined.MuiButton-colorSuccess,
+.btn-outline-success {
   background-color: transparent !important;
   border-color: var(--success) !important;
   color: var(--success) !important;
+
+  &:hover {
+    background-color: transparent !important;
+    border-color: var(--success) !important;
+    color: var(--success) !important;
+  }
 }
 
-.MuiButton-contained.MuiButton-colorError {
-  background-color: var(--error) !important;
-  border-color: var(--error) !important;
+.MuiButton-contained.MuiButton-colorError,
+.btn-danger {
+  background-color: var(--danger) !important;
+  border-color: var(--danger) !important;
   color: var(--whiteText) !important;
+
+  &:hover {
+    background-color: var(--danger) !important;
+    border-color: var(--danger) !important;
+    color: var(--whiteText) !important;
+  }
 }
 
-.MuiButton-outlined.MuiButton-colorError {
+.MuiButton-outlined.MuiButton-colorError,
+.btn-outline-danger {
   background-color: transparent !important;
-  border-color: var(--error) !important;
-  color: var(--error) !important;
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+
+  &:hover {
+    background-color: transparent !important;
+    border-color: var(--danger) !important;
+    color: var(--danger) !important;
+  }
 }
 
-.MuiButton-contained.MuiButton-colorWarning {
+.MuiButton-contained.MuiButton-colorWarning,
+.btn-warning {
   background-color: var(--warning) !important;
   border-color: var(--warning) !important;
   color: var(--whiteText) !important;
+
+  &:hover {
+    background-color: var(--warning) !important;
+    border-color: var(--warning) !important;
+    color: var(--whiteText) !important;
+  }
 }
 
-.MuiButton-outlined.MuiButton-colorWarning {
+.MuiButton-outlined.MuiButton-colorWarning,
+.btn-outline-warning {
   background-color: transparent !important;
   border-color: var(--warning) !important;
   color: var(--warning) !important;
+
+  &:hover {
+    background-color: transparent !important;
+    border-color: var(--warning) !important;
+    color: var(--warning) !important;
+  }
 }
 
-.MuiButton-contained.MuiButton-colorInfo {
+.MuiButton-contained.MuiButton-colorInfo,
+.btn-info {
   background-color: var(--info) !important;
   border-color: var(--info) !important;
   color: var(--whiteText) !important;
 }
 
-.MuiButton-outlined.MuiButton-colorInfo {
+.MuiButton-outlined.MuiButton-colorInfo,
+.btn-outline-info {
   background-color: transparent !important;
   border-color: var(--info) !important;
   color: var(--info) !important;
 }
 
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  min-height: 46px;
+  border-radius: 100%;
+  padding: 0px 0px;
+  font-size: 20px;
+  color: var(--medium);
+  background-color: var(--cardBg);
+  border: 1px solid var(--cardBorder);
+  box-shadow: var(--shadowOne);
+  transition: var(--transition);
+
+  &:hover {
+    color: var(--dark) !important;
+  }
+}
+
+.MuiButton-root.iconBtn {
+  min-width: auto !important;
+  border-radius: 100% !important;
+  padding: 0px 0px !important;
+  font-size: 20px !important;
+  color: var(--medium) !important;
+  background-color: var(--cardBg) !important;
+  border: 1px solid var(--cardBorder) !important;
+  box-shadow: var(--shadowOne) !important;
+
+  &:hover {
+    color: var(--dark) !important;
+  }
+}
+
+.tabContent .MuiBox-root {
+  padding: 0px 0px;
+}
+
 .MuiTabs-root {
-  min-height: 52px !important;
+  min-height: 46px !important;
   position: relative;
-  background-color: var(--secondary);
-  border-radius: 60px;
-  padding: 2px 2px;
+  background-color: var(--cardBg);
+  box-shadow: var(--cardShadow);
+  border-radius: var(--radiusS);
 
   .MuiTabs-scroller {
     position: relative;
@@ -191,18 +351,18 @@ img {
       box-shadow: none;
       outline: none;
       font-family: var(--bodyFont);
-      font-size: 17px;
-      line-height: 26px;
-      letter-spacing: 0.01rem;
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: 0;
       font-weight: 400;
       text-transform: capitalize;
-      padding: 10px 26px;
-      min-height: 48px;
+      padding: 8px 26px;
+      min-height: 46px;
       min-width: auto;
       border: none;
-      border-radius: 60px;
+      border-radius: var(--radiusXS);
       background-color: transparent;
-      color: var(--whiteText);
+      color: var(--dark);
       transition: all 300ms ease-in-out;
 
       .MuiTouchRipple-root {
@@ -212,19 +372,19 @@ img {
 
     .MuiTab-root.Mui-selected {
       background-color: transparent;
-      color: var(--dark);
+      color: var(--whiteText);
     }
 
     span.MuiTabs-indicator {
       height: 100%;
       z-index: -1;
       background-color: var(--primary);
-      border-radius: 60px;
+      border-radius: var(--radiusS);
     }
   }
 }
 
-.MuiTabs-root.tabSm {
+/* .MuiTabs-root.tabSm {
   min-height: 46px !important;
 
   .MuiTab-root {
@@ -239,7 +399,7 @@ img {
       display: none;
     }
   }
-}
+} */
 
 .card {
   position: relative;
@@ -250,8 +410,8 @@ img {
   background-color: var(--cardBg);
   background-clip: border-box;
   border: 1px solid var(--cardBorder);
-  box-shadow: none;
-  border-radius: var(--radiusL);
+  box-shadow: var(--cardShadow);
+  border-radius: var(--radiusS);
   margin-bottom: 24px;
 
   .card-header {
@@ -260,44 +420,207 @@ img {
     justify-content: space-between;
     height: max-content;
     background-color: transparent;
-    border-radius: var(--radiusL) var(--radiusL) 0 0;
-    border-bottom: 1px solid transparent;
+    border-radius: var(--radiusS) var(--radiusS) 0 0;
+    border-bottom: none;
     width: 100%;
-    padding: 16px 16px 0px;
+    padding: 16px 24px 0px;
     gap: 8px;
-    min-height: auto;
+    min-height: 54px;
 
-    .MuiFormControl-root {
-      width: 240px;
+    .cardTitle {
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 500;
     }
 
-    .MuiFormControl-root {
-      .MuiFormLabel-root {
-        font-size: 14px;
-        line-height: 22px;
-        top: -5px;
+    .cardSubTitle {
+      color: var(--medium);
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    .cardAction {
+      display: flex;
+      align-items: center;
+      gap: 0px 12px;
+
+      .MuiButton-root,
+      .btn {
+        border-radius: var(--radiusXS) !important;
+        font-size: 13px !important;
+        line-height: 20px !important;
+        letter-spacing: 0rem !important;
+        padding: 6px 16px !important;
+        min-height: 38px;
       }
 
-      .Mui-focused.MuiFormLabel-root {
-        top: 2px;
+      .iconBtn {
+        font-size: 18px !important;
+        padding: 0px 0px !important;
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+        box-shadow: none !important;
+        background-color: var(--bodyBg) !important;
+        border: 1px solid var(--borderLight) !important;
+        border-radius: 100% !important;
       }
 
-      & .MuiInputBase-root {
-        .MuiInputBase-input {
-          padding: 13.5px 14px 9.5px;
+      .dropdown-toggle {
+        &::after {
+          display: none;
+        }
+      }
+
+      .dropdown-menu {
+        top: calc(100% - -10px);
+        min-width: 220px;
+        right: 0 !important;
+        left: auto !important;
+        padding: 12px 12px;
+        margin: 0;
+        background-color: var(--cardBg);
+        border: 1px solid var(--cardBorder);
+        box-shadow: var(--cardShadow);
+        border-radius: var(--radiusS);
+
+        .dropdown-item {
+          color: var(--medium);
+          font-size: 14px;
+          line-height: 22px;
+          font-weight: 400;
+          padding: 8px 14px;
+          border-radius: var(--radiusXS);
+          display: flex;
+          align-items: center;
+          gap: 0px 6px;
+          transition: var(--transition);
+
+          span {
+            width: 22px;
+            height: 22px;
+            font-size: 18px;
+          }
+
+          &:hover {
+            background-color: var(--primaryLight);
+            color: var(--primary);
+          }
+        }
+      }
+
+      .MuiTabs-root {
+        min-height: 38px !important;
+        position: relative;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: var(--radiusXS);
+
+        .MuiTabs-scroller {
+          position: relative;
+          z-index: 4;
+
+          .MuiTab-root {
+            font-size: 13px;
+            line-height: 20px;
+            letter-spacing: 0;
+            font-weight: 400;
+            text-transform: capitalize;
+            padding: 6px 16px;
+            min-height: 38px;
+
+            .MuiTouchRipple-root {
+              display: none;
+            }
+          }
+
+          .MuiTab-root.Mui-selected {
+            background-color: transparent;
+            color: var(--whiteText);
+          }
+
+          span.MuiTabs-indicator {
+            border-radius: var(--radiusXS);
+          }
+        }
+      }
+
+      .MuiFormControl-root {
+        width: 240px;
+
+        .MuiFormLabel-root {
+          font-size: 13px;
+          line-height: 16px;
+          -webkit-transform: translate(12px, 10px) scale(1);
+          -moz-transform: translate(12px, 10px) scale(1);
+          -ms-transform: translate(12px, 10px) scale(1);
+          transform: translate(12px, 10px) scale(1);
+          max-width: calc(100% - 24px);
+          position: absolute;
+          letter-spacing: 0;
+          margin: 0;
+        }
+
+        .Mui-focused.MuiFormLabel-root {
+          -webkit-transform: translate(12px, -5px) scale(0.75);
+          -moz-transform: translate(12px, -5px) scale(0.75);
+          -ms-transform: translate(12px, -5px) scale(0.75);
+          transform: translate(12px, -5px) scale(0.75);
+          background-color: var(--cardBg);
+        }
+
+        .MuiFormLabel-filled.MuiFormLabel-root {
+          -webkit-transform: translate(12px, -5px) scale(0.75);
+          -moz-transform: translate(12px, -5px) scale(0.75);
+          -ms-transform: translate(12px, -5px) scale(0.75);
+          transform: translate(12px, -5px) scale(0.75);
+          background-color: var(--cardBg);
+        }
+
+        & .MuiInputBase-root {
+          height: 38px;
+          margin: 0;
+          border-radius: var(--radiusXS);
+
+          .MuiInputBase-input {
+            padding: 6px 12px;
+            font-size: 13px;
+            letter-spacing: 0;
+          }
+        }
+      }
+
+      .MuiFormGroup-root {
+        flex-direction: row;
+
+        .MuiInputBase-root {
+          border-top-right-radius: 0 !important;
+          border-bottom-right-radius: 0 !important;
+        }
+
+        .MuiButton-root,
+        .btn {
+          padding: 0px 0px !important;
+          font-size: 18px !important;
+          min-width: 38px;
+          width: 38px;
+          border-top-left-radius: 0 !important;
+          border-bottom-left-radius: 0 !important;
         }
       }
     }
   }
 
   .card-header:first-child {
-    border-radius: var(--radiusL) var(--radiusL) 0 0;
+    border-radius: var(--radiusS) var(--radiusS) 0 0;
   }
 
   .card-body {
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 16px 16px 0px;
+    padding: 20px 24px 0px;
     width: 100%;
 
     .card {
@@ -307,9 +630,9 @@ img {
 
   .card-footer {
     background-color: transparent;
-    padding: 16px 20px;
-    border-top: 1px solid var(--border);
-    border-radius: 0 0 var(--radiusL) var(--radiusL);
+    padding: 0px 24px 24px;
+    border-top: 1px solid transparent;
+    border-radius: 0 0 var(--radiusS) var(--radiusS);
   }
 }
 
@@ -321,11 +644,15 @@ h5,
 h6 {
   margin: 0;
   padding: 0;
+  font-weight: 400;
+  color: var(--dark);
 }
 
 p {
   margin: 0;
   padding: 0;
+  font-weight: 400;
+  color: var(--medium);
 }
 
 ol,
@@ -346,22 +673,22 @@ a:not([href]):not([class]):hover {
 
 h1,
 .h1 {
-  font-size: 2.375rem;
+  font-size: 1.5rem;
 }
 
 h2,
 .h2 {
-  font-size: 1.875rem;
+  font-size: 1.375rem;
 }
 
 h3,
 .h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 h4,
 .h4 {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 h5,
@@ -372,6 +699,12 @@ h5,
 h6,
 .h6 {
   font-size: 0.875rem;
+}
+
+p,
+.p {
+  font-size: 0.855rem;
+  line-height: 1.3;
 }
 
 small,
@@ -429,7 +762,7 @@ small,
 }
 
 .m28 {
-  margin: 24px;
+  margin: 28px;
 }
 
 .m30 {
@@ -445,7 +778,7 @@ small,
 }
 
 .m36 {
-  margin: 32px;
+  margin: 36px;
 }
 
 .m40 {
@@ -453,7 +786,7 @@ small,
 }
 
 .m44 {
-  margin: 40px;
+  margin: 44px;
 }
 
 .m45 {
@@ -513,7 +846,7 @@ small,
 }
 
 .mt28 {
-  margin-top: 24px;
+  margin-top: 28px;
 }
 
 .mt30 {
@@ -529,7 +862,7 @@ small,
 }
 
 .mt36 {
-  margin-top: 32px;
+  margin-top: 36px;
 }
 
 .mt40 {
@@ -537,7 +870,7 @@ small,
 }
 
 .mt44 {
-  margin-top: 40px;
+  margin-top: 44px;
 }
 
 .mt45 {
@@ -597,7 +930,7 @@ small,
 }
 
 .mb28 {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .mb30 {
@@ -613,7 +946,7 @@ small,
 }
 
 .mb36 {
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 
 .mb40 {
@@ -621,7 +954,7 @@ small,
 }
 
 .mb44 {
-  margin-bottom: 40px;
+  margin-bottom: 44px;
 }
 
 .mb45 {
@@ -681,7 +1014,7 @@ small,
 }
 
 .ml28 {
-  margin-left: 24px;
+  margin-left: 28px;
 }
 
 .ml30 {
@@ -697,7 +1030,7 @@ small,
 }
 
 .ml36 {
-  margin-left: 32px;
+  margin-left: 36px;
 }
 
 .ml40 {
@@ -705,7 +1038,7 @@ small,
 }
 
 .ml44 {
-  margin-left: 40px;
+  margin-left: 44px;
 }
 
 .ml45 {
@@ -765,7 +1098,7 @@ small,
 }
 
 .mr28 {
-  margin-right: 24px;
+  margin-right: 28px;
 }
 
 .mr30 {
@@ -781,7 +1114,7 @@ small,
 }
 
 .mr36 {
-  margin-right: 32px;
+  margin-right: 36px;
 }
 
 .mr40 {
@@ -789,7 +1122,7 @@ small,
 }
 
 .mr44 {
-  margin-right: 40px;
+  margin-right: 44px;
 }
 
 .mr45 {
@@ -849,7 +1182,7 @@ small,
 }
 
 .p28 {
-  padding: 24px;
+  padding: 28px;
 }
 
 .p30 {
@@ -865,7 +1198,7 @@ small,
 }
 
 .p36 {
-  padding: 32px;
+  padding: 36px;
 }
 
 .p40 {
@@ -873,7 +1206,7 @@ small,
 }
 
 .p44 {
-  padding: 40px;
+  padding: 44px;
 }
 
 .p45 {
@@ -933,7 +1266,7 @@ small,
 }
 
 .pt28 {
-  padding-top: 24px;
+  padding-top: 28px;
 }
 
 .pt30 {
@@ -949,7 +1282,7 @@ small,
 }
 
 .pt36 {
-  padding-top: 32px;
+  padding-top: 36px;
 }
 
 .pt40 {
@@ -957,7 +1290,7 @@ small,
 }
 
 .pt44 {
-  padding-top: 40px;
+  padding-top: 44px;
 }
 
 .pt45 {
@@ -1017,7 +1350,7 @@ small,
 }
 
 .pb28 {
-  padding-bottom: 24px;
+  padding-bottom: 28px;
 }
 
 .pb30 {
@@ -1033,7 +1366,7 @@ small,
 }
 
 .pb36 {
-  padding-bottom: 32px;
+  padding-bottom: 36px;
 }
 
 .pb40 {
@@ -1041,7 +1374,7 @@ small,
 }
 
 .pb44 {
-  padding-bottom: 40px;
+  padding-bottom: 44px;
 }
 
 .pb45 {
@@ -1101,7 +1434,7 @@ small,
 }
 
 .pl28 {
-  padding-left: 24px;
+  padding-left: 28px;
 }
 
 .pl30 {
@@ -1117,7 +1450,7 @@ small,
 }
 
 .pl36 {
-  padding-left: 32px;
+  padding-left: 36px;
 }
 
 .pl40 {
@@ -1125,7 +1458,7 @@ small,
 }
 
 .pl44 {
-  padding-left: 40px;
+  padding-left: 44px;
 }
 
 .pl45 {
@@ -1185,7 +1518,7 @@ small,
 }
 
 .pr28 {
-  padding-right: 24px;
+  padding-right: 28px;
 }
 
 .pr30 {
@@ -1201,7 +1534,7 @@ small,
 }
 
 .pr36 {
-  padding-right: 32px;
+  padding-right: 36px;
 }
 
 .pr40 {
@@ -1209,7 +1542,7 @@ small,
 }
 
 .pr44 {
-  padding-right: 40px;
+  padding-right: 44px;
 }
 
 .pr45 {
@@ -1663,42 +1996,61 @@ small,
   background-color: var(--bodySubBg);
 }
 
+.border {
+  border: 1px solid var(--border) !important;
+}
+
+.border-top {
+  border-top: 1px solid var(--border) !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.border-start,
+.border-left {
+  border-left: 1px solid var(--border) !important;
+}
+
+.border-end,
+.border-right {
+  border-right: 1px solid var(--border) !important;
+}
+
 .MuiFormControl-root {
   width: 100%;
+  position: relative;
 
   .MuiFormLabel-root {
     font-family: var(--bodyFont) !important;
     color: var(--medium);
-    font-size: 15px;
+    font-size: 13.5px;
     line-height: 20px;
     font-weight: 400;
-    top: -2px;
     letter-spacing: 0.02rem;
-    -webkit-transform: translate(16px, 16px) scale(1);
-    -moz-transform: translate(16px, 16px) scale(1);
-    -ms-transform: translate(16px, 16px) scale(1);
-    transform: translate(16px, 16px) scale(1);
+    -webkit-transform: translate(0px, 0px) scale(1);
+    -moz-transform: translate(0px, 0px) scale(1);
+    -ms-transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1);
     transition: var(--transition);
+    position: relative;
+    margin-bottom: 4px;
   }
 
   .Mui-focused.MuiFormLabel-root {
     color: var(--dark);
-    top: 3px;
-    font-size: 100%;
-    -webkit-transform: translate(13px, -10px) scale(0.8);
-    -moz-transform: translate(13px, -10px) scale(0.8);
-    -ms-transform: translate(13px, -10px) scale(0.8);
-    transform: translate(13px, -10px) scale(0.8);
+    -webkit-transform: translate(0px, 0px) scale(1);
+    -moz-transform: translate(0px, 0px) scale(1);
+    -ms-transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1);
   }
 
   .MuiFormLabel-filled.MuiFormLabel-root {
-    color: var(--dark);
-    top: 4px;
-    font-size: 100%;
-    -webkit-transform: translate(13px, -10px) scale(0.8);
-    -moz-transform: translate(13px, -10px) scale(0.8);
-    -ms-transform: translate(13px, -10px) scale(0.8);
-    transform: translate(13px, -10px) scale(0.8);
+    -webkit-transform: translate(0px, 0px) scale(1);
+    -moz-transform: translate(0px, 0px) scale(1);
+    -ms-transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1);
   }
 
   .MuiInputBase-root {
@@ -1708,43 +2060,41 @@ small,
     line-height: 22px;
     font-weight: 400;
     letter-spacing: 0.02rem;
+    background-color: var(--inputBg);
+    border: 1px solid var(--borderLight);
     border-radius: var(--radiusS);
-    /* background-color: var(--whiteBg); */
-    background-color: #fdfdff;
-    height: 48px;
     outline: none;
-    margin-bottom: 16px;
+    height: 46px;
+    margin-bottom: 20px;
 
     &:hover {
-      background-color: #ffffff !important;
+      background-color: var(--inputBg) !important;
+      border-color: var(--border);
     }
 
     &:hover .MuiOutlinedInput-notchedOutline {
-      border-color: #ffffff !important;
+      border-color: var(--border) !important;
       border-width: 1px !important;
     }
 
     .MuiInputBase-input {
-      padding: 15.5px 14px 11.5px;
+      padding: 8px 14px 8px;
       color: var(--dark);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 400;
     }
 
     .MuiAutocomplete-input {
-      padding: 9.5px 4px 5.5px 5px !important;
+      padding: 7.5px 4px 7.5px 4px !important;
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: var(--borderLight);
-      border-color: #ffffff;
-      transition: var(--transition);
+      display: none;
     }
   }
 
   .Mui-focused.MuiInputBase-root .MuiOutlinedInput-notchedOutline {
-    border-color: var(--border) !important;
-    border-width: 1px !important;
+    border: none;
   }
 }
 
@@ -1752,7 +2102,7 @@ small,
   padding: 8px;
   margin: 0;
   border: 1px solid var(--borderLight);
-  border-radius: var(--radiusM);
+  border-radius: var(--radiusS);
   background-color: var(--whiteBg);
   box-shadow: 0px 4px 32px 0px rgba(61, 70, 112, 0.08);
   font-family: var(--bodyFont) !important;
@@ -1849,9 +2199,11 @@ small,
   height: 100%;
   /* background: linear-gradient(243deg, #dfe9f6 0%, #dce5f2 50%, #e3eaf2 100%); */
   /* background: linear-gradient(243deg, #d7dfe9 0%, #d4ddea 50%, #dfe6ee 100%); */
-  background: linear-gradient(243deg,
-      rgb(100 169 242 / 10%) 0%,
-      rgb(109 84 248 / 10%) 100%);
+  background: linear-gradient(
+    243deg,
+    rgb(100 169 242 / 10%) 0%,
+    rgb(109 84 248 / 10%) 100%
+  );
   display: none;
 }
 
@@ -1868,8 +2220,8 @@ small,
     }
 
     .MuiAvatar-root {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       border: 1px solid var(--blurBorder);
     }
 
@@ -1897,20 +2249,19 @@ small,
     margin: 0;
     background-color: var(--cardBg);
     border: 1px solid var(--cardBorder);
-    box-shadow: var(--shadowOne);
+    box-shadow: var(--cardShadow);
     border-radius: var(--radiusS);
 
     .dropdown-item {
       color: var(--medium);
       font-size: 14px;
-      line-height: 20px;
+      line-height: 22px;
       font-weight: 400;
-      padding: 10px 14px;
+      padding: 8px 14px;
       border-radius: var(--radiusXS);
       display: flex;
       align-items: center;
       gap: 0px 6px;
-      margin: 2px 0px;
       transition: var(--transition);
 
       span {
@@ -1933,7 +2284,7 @@ i.bi {
   justify-content: center;
 }
 
-.heading {
+/* .heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1952,7 +2303,7 @@ i.bi {
       min-height: 40px;
     }
   }
-}
+} */
 
 input:-internal-autofill-selected {
   appearance: menulist-button;
@@ -1967,8 +2318,8 @@ input:-internal-autofill-selected {
 
 .sidebarToggle {
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -1984,14 +2335,16 @@ input:-internal-autofill-selected {
   .toggle-sidebar-label {
     position: relative;
     cursor: pointer;
-    width: 30px;
-    height: 30px;
+    min-width: 24px;
+    min-height: 24px;
+    width: 24px;
+    height: 24px;
     border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--dark);
-    font-size: 18px;
+    font-size: 14px;
     transition: var(--transition);
 
     &:hover {
@@ -2013,7 +2366,7 @@ input:-internal-autofill-selected {
   height: 100vh;
   height: calc(100vh - 100px);
   background-color: transparent;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--borderDark);
   transition: var(--transition);
 }
 
@@ -2023,7 +2376,7 @@ input:-internal-autofill-selected {
 
 .sideBarIn {
   height: 100%;
-  padding: 30px 15px;
+  padding: 25px 15px;
   transition: var(--transition);
 }
 
@@ -2031,12 +2384,12 @@ input:-internal-autofill-selected {
   padding: 30px 30px;
 }
 
-.toggle-sidebar-checkbox:checked~.sideBar {
+.toggle-sidebar-checkbox:checked ~ .sideBar {
   width: 300px;
   transition: var(--transition);
 }
 
-.toggle-sidebar-checkbox:checked~.pageWrapper {
+.toggle-sidebar-checkbox:checked ~ .pageWrapper {
   /* margin-left: 300px; */
   /* width: calc(100% - 300px); */
   /* transition: var(--transition); */
@@ -2050,10 +2403,10 @@ input:-internal-autofill-selected {
   transition: var(--transition);
 
   img {
-    min-width: 48px;
-    min-height: 48px;
-    width: 48px;
-    height: 48px;
+    min-width: 46px;
+    min-height: 46px;
+    width: 46px;
+    height: 46px;
     object-fit: scale-down;
   }
 
@@ -2128,7 +2481,6 @@ input:-internal-autofill-selected {
         border: 1px solid transparent;
         border-radius: var(--radiusS);
 
-
         i {
           display: flex;
           align-items: center;
@@ -2176,7 +2528,6 @@ input:-internal-autofill-selected {
           }
         }
 
-
         &:hover {
           color: var(--primary);
 
@@ -2215,13 +2566,13 @@ input:-internal-autofill-selected {
         margin: 0;
         background-color: var(--cardBg);
         border: 1px solid var(--cardBorder);
-        box-shadow: var(--shadowOne);
+        box-shadow: var(--cardShadow);
         border-radius: var(--radiusS);
 
         .dropdown-item {
           color: var(--medium);
           font-size: 14px;
-          line-height: 18px;
+          line-height: 22px;
           font-weight: 400;
           padding: 8px 12px;
           border-radius: var(--radiusXS);
@@ -2270,9 +2621,9 @@ input:-internal-autofill-selected {
         }
 
         h5 {
+          color: currentColor;
           font-size: 14px;
           line-height: 16px;
-          font-weight: 400;
           position: relative;
           left: 0%;
           width: max-content;
@@ -2298,7 +2649,6 @@ input:-internal-autofill-selected {
 
           h5 {
             padding: 0px 0px;
-            font-weight: 400;
           }
         }
       }
@@ -2359,7 +2709,7 @@ input:-internal-autofill-selected {
   justify-content: space-between;
   align-items: center;
   background-color: var(--bodyBg);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--borderDark);
   transition: var(--transition);
 
   .navbar-collapse {
@@ -2380,17 +2730,17 @@ input:-internal-autofill-selected {
   .navbarRight {
     display: flex;
     align-items: center;
-    gap: 0px 20px;
+    gap: 0px 14px;
   }
 
   .navSearch {
     display: flex;
     align-items: center;
-    background-color: var(--whiteBg);
-    box-shadow: var(--shadowOne);
+    background-color: var(--cardBg);
+    box-shadow: var(--cardShadow);
     padding: 0px 6px 0px 16px;
     border-radius: 60px;
-    height: 48px;
+    height: 46px;
     min-width: 300px;
 
     span {
@@ -2417,6 +2767,63 @@ input:-internal-autofill-selected {
   }
 }
 
+.theme-switch {
+  position: relative;
+
+  #theme-toggle {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  #theme-toggle + label {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  #theme-toggle + label i {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transition: var(--transition);
+  }
+
+  #theme-toggle + label i:first-child {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #theme-toggle + label i:last-child {
+    top: 0%;
+    transform: translate(-50%, -100%);
+  }
+
+  #theme-toggle:checked ~ label {
+    overflow: hidden;
+
+    i:first-child {
+      top: 50%;
+      transform: translate(-50%, 100%);
+    }
+
+    i:last-child {
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.toggle-sidebar-checkbox:checked ~ .sideBar {
+}
+
 .MuiStack-root {
   padding: 0 !important;
   overflow: visible !important;
@@ -2426,35 +2833,147 @@ input:-internal-autofill-selected {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  min-height: 48px;
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  min-height: 46px;
   border-radius: var(--radiusS);
   font-size: 24px;
   color: var(--medium);
-  background: var(--blurBg);
-  /* border: 1px solid var(--blurBorder); */
+  background-color: var(--primaryLight);
   transition: var(--transition);
+}
+
+.icon.large {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  border-radius: var(--radiusL);
+  font-size: 30px;
+}
+
+.icon.small {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  border-radius: var(--radiusXS);
+  font-size: 20px;
 }
 
 .icon.primary {
   color: var(--primary);
-  /* border-color: var(--primary); */
-  /* background-color: rgb(85 54 192 / 60%); */
-  background: linear-gradient(180deg,
-      rgb(85 54 192 / 0%) 0%,
-      rgb(85 54 192 / 60%));
+  background-color: var(--primaryLight);
 }
 
-.row {
-  margin-right: calc(-0.3 * var(--bs-gutter-x));
-  margin-left: calc(-0.3 * var(--bs-gutter-x));
+.icon.secondary {
+  color: var(--secondary);
+  background-color: var(--secondaryLight);
+}
+
+.icon.tertiary {
+  color: var(--tertiary);
+  background-color: var(--tertiaryLight);
+}
+
+.icon.success {
+  color: var(--success);
+  background-color: var(--successLight);
+}
+
+.icon.danger {
+  color: var(--danger);
+  background-color: var(--dangerLight);
+}
+
+.icon.warning {
+  color: var(--warning);
+  background-color: var(--warningLight);
+}
+
+.icon.info {
+  color: var(--info);
+  background-color: var(--infoLight);
+}
+
+.icon.primary {
+  color: var(--primary);
+  background-color: var(--primaryLight);
+}
+
+/* .row {
+  margin-right: calc(-0.4 * var(--bs-gutter-x));
+  margin-left: calc(-0.4 * var(--bs-gutter-x));
 }
 
 .row>* {
   padding-right: calc(var(--bs-gutter-x) * 0.3);
   padding-left: calc(var(--bs-gutter-x) * 0.3);
+.row > * {
+  padding-right: calc(var(--bs-gutter-x) * 0.4);
+  padding-left: calc(var(--bs-gutter-x) * 0.4);
+} */
+
+.growthBadge {
+  display: flex;
+  align-items: center;
+  gap: 0px 3px;
+  color: var(--medium);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
+  padding: 5px 8px 5px 6px;
+  border-radius: var(--radiusXS);
+  background-color: var(--cardBg);
+  width: max-content;
+
+  span {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  span::before {
+    display: inline-block;
+    font-family: bootstrap-icons !important;
+    color: currentColor;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: -0.125em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.growthBadge.growthUp {
+  color: var(--success);
+  background-color: var(--successLight);
+}
+
+.growthBadge.growthDown {
+  color: var(--danger);
+  background-color: var(--dangerLight);
+}
+
+.growthBadge.growthBlank {
+  color: var(--medium);
+  background-color: var(--bodyBg);
+}
+
+.growthBadge.growthUp span::before {
+  content: "\F145";
+}
+
+.growthBadge.growthDown span::before {
+  content: "\F124";
 }
 
 .form-error {
