@@ -7,7 +7,7 @@
   --tertiaryLight: rgb(51 97 255 /10%);
   --border: #eaedf3;
   --borderLight: #f0f0f2;
-  --borderDark: #d7dbe2;
+  --borderDark: #dde1e9;
   --inputBg: #ffffff;
   --bodyBg: #f7f8fa;
   --bodySubBg: #f3f3f3;
@@ -28,10 +28,12 @@
   --sidebarBg: #ffffff;
   --sidebarBorder: #f5f6f7;
   --cardBg: #ffffff;
-  --cardBorder: #f5f6f7;
+  --cardBorder: #ffffff;
   --blurBg: #ffffff;
   --blurBorder: #f5f6f7;
   --sidebarSubBg: #ffffff;
+  --loaderColor: #69f1f1;
+  --loaderDark: #000000;
   --radiusXS: 6px;
   --radiusS: 10px;
   --radiusM: 14px;
@@ -51,7 +53,7 @@ body[theme="dark"] {
   --tertiaryLight: rgb(51 97 255 /10%);
   --border: #eaedf3;
   --borderLight: #f0f0f2;
-  --borderDark: #d7dbe2;
+  --borderDark: #dde1e9;
   --inputBg: #ffffff;
   --bodyBg: #f7f8fa;
   --bodySubBg: #f3f3f3;
@@ -149,6 +151,16 @@ img {
   border: 1px solid !important;
   border-radius: var(--radiusS) !important;
   min-height: 46px;
+}
+
+.MuiButton-root.sm,
+.btn.sm {
+  border-radius: var(--radiusXS) !important;
+  font-size: 13px !important;
+  line-height: 20px !important;
+  letter-spacing: 0rem !important;
+  padding: 6px 16px !important;
+  min-height: 38px;
 }
 
 .MuiButton-contained.MuiButton-colorPrimary,
@@ -482,7 +494,7 @@ img {
         padding: 12px 12px;
         margin: 0;
         background-color: var(--cardBg);
-        border: 1px solid var(--cardBorder);
+        border: 1px solid var(--borderLight);
         box-shadow: var(--cardShadow);
         border-radius: var(--radiusS);
 
@@ -698,7 +710,7 @@ h5,
 
 h6,
 .h6 {
-  font-size: 0.875rem;
+  font-size: 0.885rem;
 }
 
 p,
@@ -1943,6 +1955,18 @@ small,
   color: var(--light) !important;
 }
 
+.colorPrimary {
+  color: var(--primary) !important;
+}
+
+.colorSecondary {
+  color: var(--secondary) !important;
+}
+
+.colorTertiary {
+  color: var(--tertiary) !important;
+}
+
 .colorSuccess {
   color: var(--success) !important;
 }
@@ -2061,7 +2085,7 @@ small,
     font-weight: 400;
     letter-spacing: 0.02rem;
     background-color: var(--inputBg);
-    border: 1px solid var(--borderLight);
+    border: 1px solid var(--border);
     border-radius: var(--radiusS);
     outline: none;
     height: 46px;
@@ -2248,7 +2272,7 @@ small,
     padding: 12px 12px;
     margin: 0;
     background-color: var(--cardBg);
-    border: 1px solid var(--cardBorder);
+    border: 1px solid var(--borderLight);
     box-shadow: var(--cardShadow);
     border-radius: var(--radiusS);
 
@@ -2381,7 +2405,7 @@ input:-internal-autofill-selected {
 }
 
 .sidebarActive .sideBarIn {
-  padding: 30px 30px;
+  padding: 25px 30px;
 }
 
 .toggle-sidebar-checkbox:checked ~ .sideBar {
@@ -2565,7 +2589,7 @@ input:-internal-autofill-selected {
         padding: 10px 10px;
         margin: 0;
         background-color: var(--cardBg);
-        border: 1px solid var(--cardBorder);
+        border: 1px solid var(--borderLight);
         box-shadow: var(--cardShadow);
         border-radius: var(--radiusS);
 
@@ -2592,6 +2616,11 @@ input:-internal-autofill-selected {
             background-color: var(--primaryLight);
             color: var(--primary);
           }
+        }
+
+        .dropdown-item.active {
+          background-color: var(--primary);
+          color: var(--whiteText);
         }
       }
     }
@@ -2680,7 +2709,7 @@ input:-internal-autofill-selected {
   min-height: 100vh;
   transition: all 0.3s ease-in-out;
   position: relative;
-  z-index: 90;
+  /* z-index: 90; */
 }
 
 .pageBody {
@@ -2849,7 +2878,7 @@ input:-internal-autofill-selected {
   height: 56px;
   min-width: 56px;
   min-height: 56px;
-  border-radius: var(--radiusL);
+  border-radius: var(--radiusS);
   font-size: 30px;
 }
 
@@ -2897,11 +2926,6 @@ input:-internal-autofill-selected {
   background-color: var(--infoLight);
 }
 
-.icon.primary {
-  color: var(--primary);
-  background-color: var(--primaryLight);
-}
-
 /* .row {
   margin-right: calc(-0.4 * var(--bs-gutter-x));
   margin-left: calc(-0.4 * var(--bs-gutter-x));
@@ -2916,6 +2940,7 @@ input:-internal-autofill-selected {
 } */
 
 .growthBadge {
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0px 3px;
@@ -2981,4 +3006,261 @@ input:-internal-autofill-selected {
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .pageTitle {
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      color: var(--dark);
+      font-size: 17px;
+      line-height: 22px;
+      font-weight: 500;
+    }
+
+    .MuiBreadcrumbs-ol {
+      .MuiBreadcrumbs-li {
+        list-style: none;
+
+        p,
+        a {
+          display: inline-flex;
+          color: var(--medium);
+          font-size: 14px;
+          line-height: 20px;
+          font-weight: 400;
+          list-style: none;
+          text-decoration: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        a {
+          color: var(--dark);
+        }
+      }
+    }
+  }
+
+  .pageAction {
+    display: flex;
+    align-items: center;
+    gap: 0px 12px;
+
+    .MuiButton-root,
+    .btn {
+      border-radius: var(--radiusXS) !important;
+      font-size: 13px !important;
+      line-height: 20px !important;
+      letter-spacing: 0rem !important;
+      padding: 6px 16px !important;
+      min-height: 38px;
+    }
+
+    .iconBtn {
+      font-size: 18px !important;
+      padding: 0px 0px !important;
+      width: 38px !important;
+      height: 38px !important;
+      min-width: 38px !important;
+      min-height: 38px !important;
+      box-shadow: var(--shadowOne) !important;
+      background-color: var(--cardBg) !important;
+      border: 1px solid var(--cardBorder) !important;
+      border-radius: 100% !important;
+    }
+
+    .dropdown-toggle {
+      &::after {
+        display: none;
+      }
+    }
+
+    .dropdown-menu {
+      top: calc(100% - -10px);
+      min-width: 220px;
+      right: 0 !important;
+      left: auto !important;
+      padding: 12px 12px;
+      margin: 0;
+      background-color: var(--cardBg);
+      border: 1px solid var(--borderLight);
+      box-shadow: var(--cardShadow);
+      border-radius: var(--radiusS);
+
+      .dropdown-item {
+        color: var(--medium);
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 400;
+        padding: 8px 14px;
+        border-radius: var(--radiusXS);
+        display: flex;
+        align-items: center;
+        gap: 0px 6px;
+        transition: var(--transition);
+
+        span {
+          width: 22px;
+          height: 22px;
+          font-size: 18px;
+        }
+
+        &:hover {
+          background-color: var(--primaryLight);
+          color: var(--primary);
+        }
+      }
+    }
+
+    .MuiTabs-root {
+      min-height: 38px !important;
+      position: relative;
+      background-color: transparent;
+      box-shadow: none;
+      border-radius: var(--radiusXS);
+
+      .MuiTabs-scroller {
+        position: relative;
+        z-index: 4;
+
+        .MuiTab-root {
+          font-size: 13px;
+          line-height: 20px;
+          letter-spacing: 0;
+          font-weight: 400;
+          text-transform: capitalize;
+          padding: 6px 16px;
+          min-height: 38px;
+
+          .MuiTouchRipple-root {
+            display: none;
+          }
+        }
+
+        .MuiTab-root.Mui-selected {
+          background-color: transparent;
+          color: var(--whiteText);
+        }
+
+        span.MuiTabs-indicator {
+          border-radius: var(--radiusXS);
+        }
+      }
+    }
+
+    .MuiFormControl-root {
+      width: 240px;
+
+      .MuiFormLabel-root {
+        font-size: 13px;
+        line-height: 16px;
+        -webkit-transform: translate(12px, 10px) scale(1);
+        -moz-transform: translate(12px, 10px) scale(1);
+        -ms-transform: translate(12px, 10px) scale(1);
+        transform: translate(12px, 10px) scale(1);
+        max-width: calc(100% - 24px);
+        position: absolute;
+        letter-spacing: 0;
+        margin: 0;
+      }
+
+      .Mui-focused.MuiFormLabel-root {
+        -webkit-transform: translate(12px, -5px) scale(0.75);
+        -moz-transform: translate(12px, -5px) scale(0.75);
+        -ms-transform: translate(12px, -5px) scale(0.75);
+        transform: translate(12px, -5px) scale(0.75);
+        background-color: var(--cardBg);
+      }
+
+      .MuiFormLabel-filled.MuiFormLabel-root {
+        -webkit-transform: translate(12px, -5px) scale(0.75);
+        -moz-transform: translate(12px, -5px) scale(0.75);
+        -ms-transform: translate(12px, -5px) scale(0.75);
+        transform: translate(12px, -5px) scale(0.75);
+        background-color: var(--cardBg);
+      }
+
+      & .MuiInputBase-root {
+        height: 38px;
+        margin: 0;
+        border-radius: var(--radiusXS);
+
+        .MuiInputBase-input {
+          padding: 6px 12px;
+          font-size: 13px;
+          letter-spacing: 0;
+        }
+      }
+    }
+
+    .MuiFormGroup-root {
+      flex-direction: row;
+
+      .MuiInputBase-root {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+
+      .MuiButton-root,
+      .btn {
+        padding: 0px 0px !important;
+        font-size: 18px !important;
+        min-width: 38px;
+        width: 38px;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+    }
+
+    .pageMenu {
+      ul {
+        display: flex;
+        align-items: center;
+        gap: 0px 40px;
+
+        li {
+          position: relative;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: -18px;
+            transform: translate(-50%, -10%);
+            width: 4px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 100%;
+          }
+
+          a {
+            font-size: 14px;
+            line-height: 20px;
+            color: var(--dark);
+            font-weight: 400;
+            text-decoration: none;
+            padding: 2px 2px;
+            transition: var(--transition);
+
+            &:hover {
+              color: var(--primary);
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.MuiTypography-root {
+  font-family: var(--bodyFont) !important;
 }
