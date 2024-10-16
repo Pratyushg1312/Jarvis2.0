@@ -18,6 +18,9 @@ import {
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Link from "@mui/material/Link";
 
 const JarvisCards = () => {
   function CustomTabPanel(props) {
@@ -41,8 +44,44 @@ const JarvisCards = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  function handleClick(event) {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
+  }
   return (
     <>
+      <div className="pageHeader">
+        <div className="pageTitle">
+          <h2>Sales Dashboard</h2>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link>Sales</Link>
+            <Typography>Dashboard</Typography>
+          </Breadcrumbs>
+        </div>
+        <div className="pageAction">
+          <div className="pageMenu">
+            <ul>
+              <li>
+                <Link href="">View POC</Link>
+              </li>
+              <li>
+                <Link href="">Sales Report</Link>
+              </li>
+              <li>
+                <Link href="">View Target Competition</Link>
+              </li>
+              <li>
+                <Link href="">Add Account</Link>
+              </li>
+              <li>
+                <Link href="">Create Sale Booking</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <div className="row">
         <div className="col-md-4 col-sm-12 col-12">
           <div className="card">
@@ -180,7 +219,7 @@ const JarvisCards = () => {
                 <Blueprint />
               </div>
               <div>
-                <h5 className="fw_500">Weekly</h5>
+                <h6>Weekly</h6>
               </div>
             </div>
           </div>
@@ -192,7 +231,7 @@ const JarvisCards = () => {
                 <Invoice />
               </div>
               <div>
-                <h5 className="fw_500">Weekly</h5>
+                <h6>Weekly</h6>
               </div>
             </div>
           </div>
@@ -204,7 +243,7 @@ const JarvisCards = () => {
                 <Scroll />
               </div>
               <div>
-                <h5 className="fw_500">Weekly</h5>
+                <h6>Weekly</h6>
               </div>
             </div>
           </div>
@@ -216,7 +255,7 @@ const JarvisCards = () => {
                 <Files />
               </div>
               <div>
-                <h5 className="fw_500">Weekly</h5>
+                <h6>Weekly</h6>
               </div>
             </div>
           </div>
@@ -228,7 +267,7 @@ const JarvisCards = () => {
                 <FileX />
               </div>
               <div>
-                <h5 className="fw_500">Weekly</h5>
+                <h6>Weekly</h6>
               </div>
             </div>
           </div>
