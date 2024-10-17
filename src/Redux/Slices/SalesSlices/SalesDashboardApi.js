@@ -1,0 +1,47 @@
+import { createApi } from "@reduxjs/toolkit/query/react";
+import authBaseQuery from "../../../Utils/authBaseQuery"; // Assuming you already have this for authorized API calls.
+
+const SalesDashboardApi = createApi({
+  reducerPath: "salesDashboardApi",
+  baseQuery: authBaseQuery,
+  endpoints: (builder) => ({
+    getTop20Accounts: builder.query({
+      query: ({ userId, isAdmin }) =>
+        `sales/top20_account_list?userId=${userId}&isAdmin=${isAdmin}`,
+      transformResponse: (response) => response.data,
+    }),
+
+    getWeeklyMonthlyQuarterlyList: builder.query({
+      query: ({ userId, isAdmin }) =>
+        `sales/weekly_monthly_quarterly_list?userId=${userId}&isAdmin=${
+          isAdmin ? "true" : "false"
+        }`,
+      transformResponse: (response) => response.data,
+    }),
+
+    getBadgesSalesBookingData: builder.query({
+      query: (userId) => `sales/badges_sales_booking_data?userId=${userId}`,
+      transformResponse: (response) => response.data,
+    }),
+
+    getSaleBookingGridStatusCount: builder.query({
+      query: () => `sales/sale_booking_grid_status_count_list`,
+      transformResponse: (response) => response.data,
+    }),
+
+    getSaleBookingStatusList: builder.query({
+      query: () => `sales/sale_booking_status_list`,
+      transformResponse: (response) => response.data,
+    }),
+  }),
+});
+
+export const {
+  useGetTop20AccountsQuery,
+  useGetWeeklyMonthlyQuarterlyListQuery,
+  useGetBadgesSalesBookingDataQuery,
+  useGetSaleBookingGridStatusCountQuery,
+  useGetSaleBookingStatusListQuery,
+} = SalesDashboardApi;
+
+export default SalesDashboardApi;

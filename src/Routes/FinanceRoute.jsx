@@ -8,6 +8,8 @@ const FinanceRoute = () => {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route path="dashboard" element={<DummyPage name={"Finance Dashboard"} />} />
+                <Route path="incentive" element={<DummyPage name={"incentive"} />} />
+
             </Route>
         </Routes>
     );

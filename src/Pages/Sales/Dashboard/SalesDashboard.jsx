@@ -8,7 +8,7 @@ import {
 import Modal from "react-modal";
 import View from "../../../Components/CommonComponent/View/View";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
-import GetDecodedToken from "../../../utils/GetDecodedToken";
+import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import IncentiveRelease from "../../../Components/Sales/CommonComponent/Incentive/IncentiveRelease";
@@ -18,91 +18,64 @@ import { baseUrl } from "../../../Config";
 import formatString from "../../../Utils/formatString";
 import SalesBadges from "../../../Components/Sales/dashboard/SalesBadges";
 import Loader from "../../../Components/CommonComponent/Loader/Loader";
-import { formatIndianNumber } from "../../../utils/formatIndianNumber";
+import { formatIndianNumber } from "../../../Utils/formatIndianNumber";
 import MonthlyWeeklyCard from "../../../Components/Sales/dashboard/MonthlyWeeklyCard";
 import TargetCard from "../../../Components/Sales/dashboard/TargetCard";
 import { useGetAllTargetCompetitionsQuery } from "../../../Redux/Slices/SalesSlices/TargetCompetitionApi";
 import { useGetTotalSaleAmountDateWiseQuery } from "../../../Redux/Slices/SalesSlices/SaleBookingApi";
+import {
+  useGetBadgesSalesBookingDataQuery,
+  useGetSaleBookingGridStatusCountQuery,
+  useGetSaleBookingStatusListQuery,
+  useGetTop20AccountsQuery,
+  useGetWeeklyMonthlyQuarterlyListQuery,
+} from "../../../Redux/Slices/SalesSlices/SalesDashboardApi";
+import Typography from "@mui/material/Typography";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 const SalesDashboard = () => {
   const navigate = useNavigate();
   const loginUserId = GetDecodedToken().id;
   const loginUserRole = GetDecodedToken().role_id;
-  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [releaseModal, setReleaseModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState("");
-  const [weekMonthCard, setWeekMonthCard] = useState();
-  const [userBadgeData, setUserBadgeData] = useState();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-  const [salesBookingGridStat, setSalesBookingGridStat] = useState();
-  const [salesBookingStat, setSalesBookingStat] = useState();
 
-  async function getData() {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(
-        baseUrl +
-          `sales/top20_account_list?userId=${loginUserId}&isAdmin=${
-            loginUserRole == 1
-          }`,
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      );
+  const {
+    data: top20AccountsData,
+    isLoading: top20AccountsLoading,
+    isError: top20AccountsError,
+  } = useGetTop20AccountsQuery({
+    userId: loginUserId,
+    isAdmin: loginUserRole == 1,
+  });
 
-      const response1 = await axios.get(
-        baseUrl +
-          `sales/weekly_monthly_quarterly_list?userId=${loginUserId}&isAdmin=${
-            loginUserRole == 1 ? "true" : "false"
-          }`,
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      );
+  const {
+    data: weekMonthCard,
+    isLoading: weekMonthCardLoading,
+    isError: weekMonthCardError,
+  } = useGetWeeklyMonthlyQuarterlyListQuery({
+    userId: loginUserId,
+    isAdmin: loginUserRole == 1,
+  });
+  const {
+    data: userBadgeData,
+    isLoading: userBadgeDataLoading,
+    isError: userBadgeDataError,
+  } = useGetBadgesSalesBookingDataQuery({ userId: loginUserId });
+  const {
+    data: salesBookingGridStat,
+    isLoading: salesBookingGridStatLoading,
+    isError: salesBookingGridStatError,
+  } = useGetSaleBookingGridStatusCountQuery();
+  const {
+    data: salesBookingStat,
+    isLoading: salesBookingStatLoading,
+    isError: salesBookingStatError,
+  } = useGetSaleBookingStatusListQuery();
 
-      const responseOutstanding = await axios.get(
-        baseUrl + `sales/badges_sales_booking_data?userId=${loginUserId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      );
-      const salesBookingGridStatus = await axios.get(
-        baseUrl + `sales/sale_booking_grid_status_count_list`,
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      );
-      const salesBookingStatus = await axios.get(
-        baseUrl + `sales/sale_booking_status_list`,
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      );
-      setSalesBookingGridStat(salesBookingGridStatus.data.data);
-      setSalesBookingStat(salesBookingStatus.data.data);
-
-      setUserBadgeData(responseOutstanding.data.data);
-      setWeekMonthCard(response1.data.data);
-      setData(response.data.data);
-    } catch (error) {
-      if (error.message !== "Request failed with status code 404")
-        toastError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }
   const {
     data: allTargetCompetitionsData,
     refetch: refetchTargetCompetitions,
@@ -133,9 +106,6 @@ const SalesDashboard = () => {
       { skip: !startDate || !endDate }
     );
 
-  useEffect(() => {
-    getData();
-  }, []);
   const booking = [
     {
       key: "s.no",
@@ -273,6 +243,37 @@ const SalesDashboard = () => {
         />
       </Modal>
 
+      <div className="pageHeader">
+        <div className="pageTitle">
+          <h2>Sales Dashboard</h2>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link>Sales</Link>
+            <Typography>Dashboard</Typography>
+          </Breadcrumbs>
+        </div>
+        <div className="pageAction">
+          <div className="pageMenu">
+            <ul>
+              <li>
+                <Link href="">View POC</Link>
+              </li>
+              <li>
+                <Link href="">Sales Report</Link>
+              </li>
+              <li>
+                <Link href="">View Target Competition</Link>
+              </li>
+              <li>
+                <Link href="">Add Account</Link>
+              </li>
+              <li>
+                <Link href="">Create Sale Booking</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <div className="action_heading">
         <div className="action_title">
           <FormContainer mainTitle={"Dashboard"} link={true} />
@@ -315,27 +316,27 @@ const SalesDashboard = () => {
           data={weekMonthCard?.weeklyData}
           previousData={weekMonthCard?.lastWeekData}
           title="Weekly"
-          cardclassName="bgPrimary"
+          cardclassName="primary"
           titleclassName="colorPrimary"
-          colorclassName="bgPrimary"
+          colorclassName="primary"
         />
 
         <MonthlyWeeklyCard
           data={weekMonthCard?.monthlyData}
           previousData={weekMonthCard?.lastMonthData}
           title="Monthly"
-          cardclassName="bgSecondary"
+          cardclassName="secondary"
           titleclassName="colorSecondary"
-          colorclassName="bgSecondary"
+          colorclassName="secondary"
         />
 
         <MonthlyWeeklyCard
           data={weekMonthCard?.quarterlyData}
           previousData={weekMonthCard?.lastQuarterData}
           title="Quarterly"
-          cardclassName="bgTertiary"
+          cardclassName="tertiary"
           titleclassName="colorTertiary"
-          colorclassName="bgTertiary"
+          colorclassName="tertiary"
         />
       </div>
 
@@ -418,18 +419,19 @@ const SalesDashboard = () => {
         )}
       </div>
 
-      {/* {allTargetCompetitionsData?.map(
+      {allTargetCompetitionsData?.map(
         (data, index) =>
           data?.status == 1 && (
             <TargetCard
               index={index}
               data={data}
               totalSaleAmountDateWise={totalSaleAmountDateWise}
+              key={data?._id}
             />
           )
       )}
 
-      {loginUserRole == 1 && <SalesBadges userBadgeData={userBadgeData} />} */}
+      {loginUserRole == 1 && <SalesBadges userBadgeData={userBadgeData} />}
 
       {loginUserRole == 1 && (
         <>
@@ -451,7 +453,7 @@ const SalesDashboard = () => {
           />
           <View
             title={"Top Bookings"}
-            data={data}
+            data={top20AccountsData}
             columns={columns}
             isLoading={isLoading}
             pagination={[10]}

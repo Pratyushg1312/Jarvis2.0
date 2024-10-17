@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
-import { formatIndianNumber } from "../../../utils/formatIndianNumber";
-import { formatNumber } from "../../../utils/formatNumber";
+import { formatIndianNumber } from "../../../Utils/formatIndianNumber";
+import { formatNumber } from "../../../Utils/formatNumber";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { Accordion } from "@mui/material";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -11,7 +11,6 @@ import View from "../../CommonComponent/View/View";
 const TargetCard = ({ data, totalSaleAmountDateWise, index }) => {
     const loginUserRole = GetDecodedToken().role_id;
     const finalTargetAmount = data?.target_amount || 0;
-
     const currentSaleAmount =
         Array.isArray(totalSaleAmountDateWise) && totalSaleAmountDateWise.length > 0
             ? totalSaleAmountDateWise[0]?.totalCampaignAmount
@@ -54,7 +53,7 @@ const TargetCard = ({ data, totalSaleAmountDateWise, index }) => {
 
 
     return (
-        <div className="row" key={index}>
+        <div className="row" key={`mdsnckjnk${index}`}>
             <div className="col-12">
                 <div className="card cardAccordion target-card">
                     <div className="card-header">
@@ -65,7 +64,7 @@ const TargetCard = ({ data, totalSaleAmountDateWise, index }) => {
                             <div className="card-body pl0 pr0">
                                 <div className="saletargetWrapper">
                                     {loginUserRole === 1 && (
-                                        <div className="saletargetHead">
+                                        <div className="saletargetHead" key={"bsdkbckdchj"}>
                                             <h5>
                                                 Current sale -{" "}
                                                 <span className="mediumText">
@@ -83,7 +82,7 @@ const TargetCard = ({ data, totalSaleAmountDateWise, index }) => {
                                             </h5>
                                         </div>
                                     )}
-                                    <div className="saletargetHead">
+                                    <div className="saletargetHead" key={"nvasjkwecuvwd"}>
                                         <h5>
                                             Completed:{" "}
                                             <span>
@@ -126,7 +125,6 @@ const TargetCard = ({ data, totalSaleAmountDateWise, index }) => {
                                 title={"Sales User Contribution"}
                                 tableName={"Sales User Contribution in dashboard"}
                                 isLoading={false}
-                                component={buttonTab}
                             />
                         </AccordionDetails>
                     </Accordion>
@@ -136,7 +134,7 @@ const TargetCard = ({ data, totalSaleAmountDateWise, index }) => {
     );
 };
 
-function buttonTab() {
+function buttonTab(key) {
     return (
         <div className="icon-1">
             <i className="bi bi-trash"></i>

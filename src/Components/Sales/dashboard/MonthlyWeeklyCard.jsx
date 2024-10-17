@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import DateISOtoNormal from "../../../utils/DateISOtoNormal";
-import { formatIndianNumber } from "../../../utils/formatIndianNumber";
+import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
+import { formatIndianNumber } from "../../../Utils/formatIndianNumber";
 import { formatNumber } from "../../../Utils/formatNumber";
 import { CalendarDots } from "@phosphor-icons/react";
 

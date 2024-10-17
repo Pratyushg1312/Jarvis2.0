@@ -31,10 +31,13 @@ import IncentiveSharingApi from "./Slices/SalesSlices/IncentiveSharingApi";
 import LoginApi from "./Slices/LoginSlices/LoginApi";
 import UserApi from "./Slices/UserSlices/UserApi";
 import notificationReducer from "./Slices/NotificationSlices/NotificationSlice";
+import SalesDashboardApi from "./Slices/SalesSlices/SalesDashboardApi";
+import PreviousRouteReducer from "./Slices/BreadCrumbSlices/PreviousRoute";
 
 const store = configureStore({
   reducer: {
     notification: notificationReducer,
+    previousRoute: PreviousRouteReducer,
     [SalesAccountApi.reducerPath]: SalesAccountApi.reducer,
     [SalesAccountTypeApi.reducerPath]: SalesAccountTypeApi.reducer,
     [CompanyTypeApi.reducerPath]: CompanyTypeApi.reducer,
@@ -65,6 +68,7 @@ const store = configureStore({
     [IncentiveSharingApi.reducerPath]: IncentiveSharingApi.reducer,
     [LoginApi.reducerPath]: LoginApi.reducer,
     [UserApi.reducerPath]: UserApi.reducer,
+    [SalesDashboardApi.reducerPath]: SalesDashboardApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -97,7 +101,8 @@ const store = configureStore({
       .concat(SalesReportApi.middleware)
       .concat(IncentiveSharingApi.middleware)
       .concat(LoginApi.middleware)
-      .concat(UserApi.middleware),
+      .concat(UserApi.middleware)
+      .concat(SalesDashboardApi.middleware),
 });
 setupListeners(store.dispatch);
 
