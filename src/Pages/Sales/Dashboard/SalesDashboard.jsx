@@ -4,7 +4,6 @@ import {
   Scroll,
   Files,
   FileX,
-  CalendarBlank,
 } from "@phosphor-icons/react";
 import Modal from "react-modal";
 import View from "../../../Components/CommonComponent/View/View";
@@ -24,8 +23,6 @@ import MonthlyWeeklyCard from "../../../Components/Sales/dashboard/MonthlyWeekly
 import TargetCard from "../../../Components/Sales/dashboard/TargetCard";
 import { useGetAllTargetCompetitionsQuery } from "../../../Redux/Slices/SalesSlices/TargetCompetitionApi";
 import { useGetTotalSaleAmountDateWiseQuery } from "../../../Redux/Slices/SalesSlices/SaleBookingApi";
-import Typography from "@mui/material/Typography";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 const SalesDashboard = () => {
   const navigate = useNavigate();
@@ -276,37 +273,6 @@ const SalesDashboard = () => {
         />
       </Modal>
 
-      <div className="pageHeader">
-        <div className="pageTitle">
-          <h2>Sales Dashboard</h2>
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link>Sales</Link>
-            <Typography>Dashboard</Typography>
-          </Breadcrumbs>
-        </div>
-        <div className="pageAction">
-          <div className="pageMenu">
-            <ul>
-              <li>
-                <Link href="">View POC</Link>
-              </li>
-              <li>
-                <Link href="">Sales Report</Link>
-              </li>
-              <li>
-                <Link href="">View Target Competition</Link>
-              </li>
-              <li>
-                <Link href="">Add Account</Link>
-              </li>
-              <li>
-                <Link href="">Create Sale Booking</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
       <div className="action_heading">
         <div className="action_title">
           <FormContainer mainTitle={"Dashboard"} link={true} />
@@ -349,27 +315,27 @@ const SalesDashboard = () => {
           data={weekMonthCard?.weeklyData}
           previousData={weekMonthCard?.lastWeekData}
           title="Weekly"
-          cardclassName="primary"
+          cardclassName="bgPrimary"
           titleclassName="colorPrimary"
-          colorclassName="primary"
+          colorclassName="bgPrimary"
         />
 
         <MonthlyWeeklyCard
           data={weekMonthCard?.monthlyData}
           previousData={weekMonthCard?.lastMonthData}
           title="Monthly"
-          cardclassName="secondary"
+          cardclassName="bgSecondary"
           titleclassName="colorSecondary"
-          colorclassName="secondary"
+          colorclassName="bgSecondary"
         />
 
         <MonthlyWeeklyCard
           data={weekMonthCard?.quarterlyData}
           previousData={weekMonthCard?.lastQuarterData}
           title="Quarterly"
-          cardclassName="tertiary"
+          cardclassName="bgTertiary"
           titleclassName="colorTertiary"
-          colorclassName="tertiary"
+          colorclassName="bgTertiary"
         />
       </div>
 
@@ -452,7 +418,7 @@ const SalesDashboard = () => {
         )}
       </div>
 
-      {allTargetCompetitionsData?.map(
+      {/* {allTargetCompetitionsData?.map(
         (data, index) =>
           data?.status == 1 && (
             <TargetCard
@@ -463,7 +429,7 @@ const SalesDashboard = () => {
           )
       )}
 
-      {loginUserRole == 1 && <SalesBadges userBadgeData={userBadgeData} />}
+      {loginUserRole == 1 && <SalesBadges userBadgeData={userBadgeData} />} */}
 
       {loginUserRole == 1 && (
         <>

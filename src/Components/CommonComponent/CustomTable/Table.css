@@ -6,7 +6,8 @@
 
   .button-wrapper {
     display: flex;
-    gap: 0px 8px;
+    align-items: center;
+    gap: 0px 12px;
   }
 
   .flex-row {
@@ -15,24 +16,29 @@
 
   .tool-btn,
   .tool-input {
+    box-shadow: none;
+    outline: none;
     border: 1px solid var(--border);
     background-color: transparent;
     color: var(--dark);
     text-transform: capitalize;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
+    font-family: var(--bodyFont);
+    font-size: 13px;
     line-height: 16px;
-    font-weight: 500;
-    border-radius: 8px;
-    padding: 2px 10px;
-    height: 30px;
+    font-weight: 400;
+    border-radius: var(--radiusS);
+    padding: 2px 16px;
+    height: 34px;
+    transition: var(--transition);
 
     &:hover {
-      border: 1px solid #782be4;
-      color: #782be4;
+      box-shadow: none;
+      outline: none;
+      border: 1px solid var(--borderDark);
+      color: var(--dark);
 
       svg {
-        fill: #782be4;
+        fill: var(--dark);
       }
     }
   }
@@ -47,26 +53,37 @@
     }
 
     input {
+      box-shadow: none;
+      outline: none;
       border: none;
       background-color: transparent;
-      color: var(--medium);
+      color: var(--dark);
       text-transform: capitalize;
       font-family: "Inter", sans-serif;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 16px;
-      font-weight: 500;
-      padding: 2px 10px;
-      height: 30px;
+      font-weight: 400;
+      padding: 0px 0px 0px 10px;
+      height: 34px;
       width: 100%;
-      transition: all .2s ease-in-out;
+      transition: var(--transition);
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+
+      &:active {
+        box-shadow: none;
+        outline: none;
+      }
     }
   }
 
   thead {
-    height: 50px;
-    max-height: 50px;
-    background-color: var(--theme-bg);
-    font-size: 14px;
+    height: 60px;
+    max-height: 60px;
+    background-color: var(--tableHeadBg);
   }
 
   th {
@@ -74,8 +91,8 @@
     color: var(--dark);
     font-size: 14px;
     font-weight: 400;
-    height: 50px;
-    padding: 6px 12px;
+    height: 60px;
+    padding: 6px 16px;
   }
 
   td {
@@ -83,12 +100,12 @@
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
-    height: 50px;
-    padding: 6px 12px;
+    height: 55.1px;
+    padding: 6px 16px;
   }
 
   .col-opt {
-    color: #959DA3;
+    color: #959da3;
     display: flex;
   }
 
@@ -103,7 +120,7 @@
     width: 10px;
     height: 100%;
     cursor: col-resize;
-    color: #959DA3;
+    color: #959da3;
     padding-top: 5px;
   }
 
@@ -112,21 +129,8 @@
     width: 10px;
     height: 100%;
 
-    color: #959DA3;
+    color: #959da3;
     padding-top: 5px;
-  }
-
-  .pagination-controls {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .pagination-controls select {
-    margin-right: 10px;
-    border: none;
-    border-radius: 11px;
-    color: var(--medium);
-    background-color: transparent;
   }
 
   .sticky-header {
@@ -153,12 +157,11 @@
         outline: none;
 
         &:hover {
-
           background-color: var(--body-bg) !important;
           outline: none;
 
           td {
-            outline: none
+            outline: none;
           }
         }
       }
@@ -166,7 +169,6 @@
       height: 100px;
     }
   }
-
 }
 
 th {
@@ -182,56 +184,79 @@ th .table-header {
 }
 
 .footer-pagination {
+  height: 60px;
   display: flex;
   justify-content: end;
   align-items: center;
   gap: 16px;
-  padding: 10px 20px;
+  padding: 8px 16px;
   font-size: 13px;
   line-height: 20px;
-
-  .next-button,
-  .prev-button {
-    border: none;
-    background-color: transparent;
-    border-radius: 50%;
-
-    &:hover {
-      background-color: #e9e9e9;
-    }
-  }
-
-  .next-button:active,
-  .prev-button:active {
-    background-color: var(--white);
-  }
-
-  .next-button:disabled,
-  .prev-button:disabled {
-    svg {
-      fill: #959DA3;
-    }
-  }
+  font-weight: 400;
+  color: var(--medium);
+  border-top: 1px solid var(--border);
 
   .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 0px 8px;
+
+    button {
+      box-shadow: none;
+      outline: none;
+      margin: 0;
+      padding: 0;
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+      min-height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bodyBg);
+      border: 1px solid var(--border);
+      border-radius: 100%;
+      transition: var(--transition);
+
+      &:hover {
+        background-color: var(--tableHeadBg);
+      }
+
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    .next-button:active,
+    .prev-button:active {
+      background-color: var(--tableHeadBg);
+    }
+
+    .next-button:disabled,
+    .prev-button:disabled {
+      svg {
+        fill: var(--medium);
+      }
+    }
   }
 
-  .pagination button {
-    margin: 0px 0px;
-    padding: 4px 4px;
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-    /* background-color: var(--body-bg); */
-    transition: var(--transition);
-  }
+  .pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 0px 8px;
+    margin-left: 0;
+    margin-right: auto;
 
-  .pagination .active {
-    background-color: var(--primary);
-    color: var(--white);
+    select {
+      border-radius: var(--radiusL);
+      color: var(--medium);
+      background-color: var(--bodyBg);
+      border: 1px solid var(--border);
+      padding: 4px 6px;
+      height: 26px;
+    }
   }
 }
 
@@ -253,14 +278,13 @@ th .table-header {
   flex-direction: column;
   width: 100%;
   height: max-content;
-
 }
 
 .total-container,
 .table-container {
-  --sb-track-color: #ffffff;
+  --sb-track-color: transparent;
   --sb-thumb-color: #f1f1f1;
-  --sb-size: 7px;
+  --sb-size: 0px;
 }
 
 .total-container::-webkit-scrollbar,
@@ -282,7 +306,6 @@ th .table-header {
 }
 
 @supports not selector(::-webkit-scrollbar) {
-
   .total-container,
   .table-container {
     scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
@@ -296,7 +319,7 @@ th .table-header {
   border: 1px solid var(--border);
   border-left: none;
   border-right: none;
-  padding: 12px 12px;
+  padding: 12px 16px;
 
   .dropdown {
     .dropdown-btn {
@@ -304,33 +327,39 @@ th .table-header {
       background-color: transparent;
       color: var(--dark);
       text-transform: capitalize;
-      font-family: "Inter", sans-serif;
-      font-size: 12px;
+      font-family: var(--bodyFont);
+      font-size: 13px;
       line-height: 16px;
-      font-weight: 500;
-      border-radius: 8px;
-      padding: 2px 10px;
-      height: 30px;
+      font-weight: 400;
+      border-radius: var(--radiusS);
+      padding: 2px 16px;
+      height: 34px;
+      transition: var(--transition);
 
       &:hover {
-        border: 1px solid #782be4;
-        color: #782be4;
+        border: 1px solid var(--borderDark);
+        color: var(--dark);
+
+        svg {
+          fill: var(--dark);
+        }
       }
     }
   }
 
   .dropdown-content {
     position: absolute;
-    background-color: var(--body-sub-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radiusM);
     min-width: max-content;
-    padding: 10px 10px;
+    padding: 0px 0px;
     overflow-y: scroll;
-    top: 40px;
+    top: 46px;
     left: 0;
     z-index: 999;
     max-height: 400px;
+    background-color: var(--cardBg);
+    border: 1px solid var(--borderLight);
+    box-shadow: var(--cardShadow);
+    border-radius: var(--radiusS);
 
     ul {
       display: flex;
@@ -361,11 +390,13 @@ th .table-header {
   justify-content: flex-start;
   align-items: center;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--dark);
   width: 100%;
 
   p {
+    font-size: 14px;
+    font-weight: 400;
     color: var(--dark);
     white-space: nowrap;
   }
@@ -434,7 +465,6 @@ th .table-header {
         transform: rotate(90deg);
         line-height: 0.5;
       }
-
     }
 
     .form-check-input {
@@ -444,10 +474,7 @@ th .table-header {
     .form-check-label {
       margin-left: 40px;
     }
-
   }
-
-
 
   .dropdownIn {
     padding: 14px 14px;
@@ -464,7 +491,6 @@ th .table-header {
         padding: 0px 0px;
         font-size: 14px;
         font-weight: 400;
-
       }
 
       .nav-item .form-group {
@@ -565,4 +591,16 @@ h6 {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.tableDropdownHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10.8px 16px;
+  border-bottom: 1px solid var(--border);
+  min-height: 50px;
+}
+
+.tableDropdownContent {
 }
