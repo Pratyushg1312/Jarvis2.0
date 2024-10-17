@@ -10,7 +10,7 @@
   --borderDark: #dde1e9;
   --inputBg: #ffffff;
   --bodyBg: #f7f8fa;
-  --bodySubBg: #f3f3f3;
+  --bodySubBg: #ffffff;
   --dark: #35373e;
   --medium: #6b7a99;
   --light: #abafb1;
@@ -34,6 +34,7 @@
   --sidebarSubBg: #ffffff;
   --loaderColor: #69f1f1;
   --loaderDark: #000000;
+  --tableHeadBg: #f1f4fb;
   --radiusXS: 6px;
   --radiusS: 10px;
   --radiusM: 14px;
@@ -2766,7 +2767,9 @@ input:-internal-autofill-selected {
     display: flex;
     align-items: center;
     background-color: var(--cardBg);
+    border: 1px solid var(--cardBorder);
     box-shadow: var(--cardShadow);
+    box-shadow: none;
     padding: 0px 6px 0px 16px;
     border-radius: 60px;
     height: 46px;
@@ -2798,6 +2801,7 @@ input:-internal-autofill-selected {
 
 .theme-switch {
   position: relative;
+  height: 46px;
 
   #theme-toggle {
     visibility: hidden;
@@ -2869,7 +2873,8 @@ input:-internal-autofill-selected {
   border-radius: var(--radiusS);
   font-size: 24px;
   color: var(--medium);
-  background-color: var(--primaryLight);
+  background-color: var(--bodyBg);
+  border: 1px solid var(--borderLight);
   transition: var(--transition);
 }
 
@@ -2894,36 +2899,43 @@ input:-internal-autofill-selected {
 .icon.primary {
   color: var(--primary);
   background-color: var(--primaryLight);
+  border-color: var(--primaryLight);
 }
 
 .icon.secondary {
   color: var(--secondary);
   background-color: var(--secondaryLight);
+  border-color: var(--secondaryLight);
 }
 
 .icon.tertiary {
   color: var(--tertiary);
   background-color: var(--tertiaryLight);
+  border-color: var(--tertiaryLight);
 }
 
 .icon.success {
   color: var(--success);
   background-color: var(--successLight);
+  border-color: var(--successLight);
 }
 
 .icon.danger {
   color: var(--danger);
   background-color: var(--dangerLight);
+  border-color: var(--dangerLight);
 }
 
 .icon.warning {
   color: var(--warning);
   background-color: var(--warningLight);
+  border-color: var(--warningLight);
 }
 
 .icon.info {
   color: var(--info);
   background-color: var(--infoLight);
+  border-color: var(--infoLight);
 }
 
 /* .row {
@@ -3263,4 +3275,14 @@ input:-internal-autofill-selected {
 
 .MuiTypography-root {
   font-family: var(--bodyFont) !important;
+}
+
+.card.tableCard {
+  .card-header {
+    padding: 20px 24px 20px;
+  }
+
+  .card-body {
+    padding: 0px 0px 0px;
+  }
 }

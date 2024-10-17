@@ -1,14 +1,18 @@
 import React from "react";
 
 const CustomTableWrapper = ({ children, title }) => {
-    return (
-        <div className="card tableCard">
-            <div className="card-header">
-                <h4 className="card-title">{title}</h4>
-            </div>
-            <div className="card-body p0 border-0">{children}</div>
+  return (
+    <>
+      <div className="card tableCard">
+        <div className="card-header">
+          <div className="cardHeading">
+            <h5 className="cardTitle">{title}</h5>
+          </div>
         </div>
-    );
+        <div className="card-body">{children}</div>
+      </div>
+    </>
+  );
 };
 
 export default CustomTableWrapper;
