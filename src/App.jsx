@@ -7,6 +7,7 @@ import "./App.css";
 import Router from "./Routes/Router.jsx";
 import DummyPage from "./Pages/Dummy/DummyPage.jsx";
 import { Log } from "@phosphor-icons/react";
+import OfflinePage from "./Components/Sales/CommonComponent/OfflinePage/OfflinePage.jsx";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -44,7 +45,7 @@ function App() {
     };
 
     const checkboxElement = checkbox?.current;
-    checkboxElement.addEventListener("change", handleCheckboxChange);
+    checkboxElement?.addEventListener("change", handleCheckboxChange);
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
 
@@ -57,7 +58,7 @@ function App() {
   }, []);
 
   if (!isOnline) {
-    return <h1>You are offline. Please check your internet connection.</h1>;
+    return <OfflinePage />;
   }
 
   return (
