@@ -1,8 +1,14 @@
 import React from 'react'
+import FormContainer from '../../../Components/CommonComponent/FormElement/FormContainer'
 
 const SalesAccountOverview = () => {
     return (
-        <div>SalesAccountOverview</div>
+        <>
+            <FormContainer
+                mainTitle={"Accounts"}
+                link={"/sales"}
+            />
+        </>
     )
 }
 

@@ -7,7 +7,7 @@ import Basic from "/assets/images/badge/iron.png";
 import axios from "axios";
 import { baseUrl } from "../../../Config";
 import { useEffect, useState } from "react";
-import { formatNumber } from "../../../utils/formatNumber";
+import { formatNumber } from "../../../Utils/formatNumber";
 
 const badgeImageMap = {
     Diamond: Diamond,

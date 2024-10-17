@@ -1,116 +1,74 @@
 import { Link } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Log } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setPreviousRoute } from '../../../Redux/Slices/BreadCrumbSlices/PreviousRoute';
+
 
 const FormContainer = ({
     mainTitle,
     title,
-    uniqueVendorCount,
-    totalPendingAmount,
-    pendingRequestCount,
-    uniqueCustomerCount,
-    discardCount,
-    discardedRequestCount,
-    paidRequestCount,
-    totalRequestAmount,
-    handleOpenUniqueVendorClick,
-    uniqueCustomerInvoiceCount,
-    uniqueSalesExecutiveInvoiceCount,
-    nonInvcbalanceAmountTotal,
-    handleOpenUniqueSalesExecutive,
-    totalBalanceAmount,
     link,
-    uniqueNonInvoiceCustomerCount,
-    uniqueNonInvoiceSalesExecutiveCount,
-    balanceAmountPartial,
-    balanceAmountInstant,
-    tdsDeductedCount,
-    tdsDeductionCount,
-    partialTDSDeduction,
-    instantTDSDeduction,
-    // openCount,
-    // closeCount,
-    // aboutToCloseCount,
     buttonAccess,
     newbutton,
     newbuttonRouting,
     newbuttonName,
     children,
     handleSubmit,
-    withInvoiceCount,
-    withoutInvoiceCount,
-    handleOpenUniqueCustomerClick,
     submitButton = true,
     activeAccordionIndex,
     addNewButtonName,
     accordionButtons = [],
-    accIndex,
     onAccordionButtonClick,
-    refundAmountTotal,
-    balanceAmountTotal,
-    requestedAmountTotal,
-    pendingCount,
-    approvedCount,
-    rejectedCount,
-    baseAmountTotal,
-    campaignAmountTotal,
-    nonGstCount,
-    invoiceCount,
-    nonInvoiceCount,
-    totalBaseAmount,
-    uniqueVendorPartialCount,
-    uniqueVendorsInstantCount,
-    pendingAmountPartial,
-    pendingAmountInstant,
-    pendingInstantcount,
-    pendingPartialcount,
-    nonGstPartialCount,
-    nonGstInstantCount,
-    withInvcPartialImage,
-    withInvcInstantImage,
-    withoutInvcPartialImage,
-    incentiveReleasedAmtTotal,
-    withoutInvcInstantImage,
-    uniqueSalesExecutiveCount,
-    pendingApprovalAdditionalTitles = false,
-    includeAdditionalTitles = false,
-    paymentDoneAdditionalTitles = false,
-    gstHoldAdditionalTitles = false,
-    tdsDeductionAdditionalTitles = false,
-    allTransactionAdditionalTitles = false,
-    discardAdditionalTitles = false,
-    dashboardAdditionalTitles = false,
-    refundReqAdditionalTitles = false,
-    saleBookingClosePaymentAdditionalTitles = false,
-    invoiceCreatedPaymentAdditionalTitles = false,
-    pendingApprovalRefundAdditionalTitles = false,
-    balancePaymentAdditionalTitles = false,
-    incentivePaymentAdditionalTitles = false,
-    saleBookingVerifyPaymentAdditionalTitles = false,
-    pendingInvoicePaymentAdditionalTitles = false,
-    gstNongstIncentiveReport = false,
     loading = false,
-    pendingpaymentRemainder = 0,
     mainTitleRequired = true,
     Titleheadercomponent,
     TitleHeaderComponentDisplay = "none",
 }) => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [pathnames, setPathnames] = useState([]);
 
+    const { base, previousRoute } = useSelector((state) => state.previousRoute);
+
+    useEffect(() => {
+        // Store the current location as previous when the location changes
+        dispatch(setPreviousRoute(location.pathname));
+    }, [location]);
+    useEffect(() => {
+        setPathnames(previousRoute);
+    }, [previousRoute]);
+
+
+    const handleClick = (path) => {
+        navigate(path);
+    };
 
     return (
-        <div>
+        <div className="pageHeader">
             {mainTitleRequired && (
-                <div className="form-heading">
-                    {/* <img className="img-bg" src={titleimg} alt="" width={160} /> */}
-                    <div
-                        className="form
-          _heading_title "
-                    >
-                        <h2>{mainTitle}</h2>
-                        {/* <div className="pack">
-              <i className="bi bi-house"></i>{" "}
-              {activeLink.slice(1).charAt(0).toUpperCase() +
-                activeLink.slice(2)}
-            </div> */}
-                    </div>
+                <div className="pageTitle">
+
+                    <h2>{mainTitle}</h2>
+                    <Breadcrumbs aria-label="breadcrumb">
+                        <Link color="textPrimary" key={base}>
+                            {base}
+                        </Link>
+
+                        {pathnames.map((value, index) =>
+                            (location.pathname.split("/")[2] === value) ? <Typography key={value}>{value}</Typography> :
+                                <Link to={`/${base}/${value}`} key={value}>{value}</Link>
+                        )}
+
+
+
+
+                    </Breadcrumbs>
+
                     {link && buttonAccess && (
                         <div className="form_heading_action d-flex ">
                             <Link to={link}>
