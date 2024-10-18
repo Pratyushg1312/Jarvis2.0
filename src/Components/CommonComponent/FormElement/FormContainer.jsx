@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Log } from "@phosphor-icons/react";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPreviousRoute } from '../../../Redux/Slices/BreadCrumbSlices/PreviousRoute';
-
+import GetDecodedToken from '../../../Utils/GetDecodedToken';
 
 const FormContainer = ({
     mainTitle,
@@ -27,11 +27,14 @@ const FormContainer = ({
     mainTitleRequired = true,
     Titleheadercomponent,
     TitleHeaderComponentDisplay = "none",
+    LinkButtons = [],
 }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const UserRole = GetDecodedToken().role_id;
     const [pathnames, setPathnames] = useState([]);
+
 
     const { base, previousRoute } = useSelector((state) => state.previousRoute);
 
@@ -49,54 +52,81 @@ const FormContainer = ({
     };
 
     return (
-        <div className="pageHeader">
-            {mainTitleRequired && (
-                <div className="pageTitle">
+        <>
+            <div className="pageHeader">
+                {mainTitleRequired && (
+                    <div className="pageTitle">
 
-                    <h2>{mainTitle}</h2>
-                    <Breadcrumbs aria-label="breadcrumb">
-                        <Link color="textPrimary" key={base}>
-                            {base}
+                        <h2>{mainTitle}</h2>
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Link color="textPrimary" key={base}>
+                                {base}
+                            </Link>
+
+                            {pathnames.map((value, index) =>
+                                (location.pathname.split("/")[2] === value) ? <Typography key={value}>{value}</Typography> :
+                                    <Link to={`/${base}/${value}`} key={value}>{value}</Link>
+                            )}
+
+
+
+
+                        </Breadcrumbs>
+
+
+
+                    </div>
+                )}
+                <div className="pageAction">
+                    <div className="pageMenu">
+                        <ul>
+
+                            {LinkButtons.map((item, index) => {
+                                const hasAccess = item?.access?.indexOf(UserRole);
+                                if (hasAccess !== -1) {
+
+                                    if (item.type === "link") return (<li key={item.name}>
+                                        <Link to={item.link}>{item.name}</Link>
+                                    </li>);
+
+                                    if (item.type === "button")
+                                        return (
+                                            <li key={item.name}>
+                                                <button onClick={() => handleClick(item.value)}>{item.name}</button>
+                                            </li>
+                                        );
+                                }
+                            })}
+                        </ul>
+                    </div>
+                </div>
+                {link && buttonAccess && (
+                    <div className="form_heading_action d-flex ">
+                        <Link to={link}>
+                            <button
+                                title={"Add New " + mainTitle}
+                                className={`btn cmnbtn btn_sm btn-primary ${addNewButtonName && "text_button"
+                                    }`}
+                            >
+                                {/* {addNewButtonName ? addNewButtonName : <FaUserPlus />} */}
+                                {addNewButtonName ? addNewButtonName : "Add"}
+                            </button>
                         </Link>
-
-                        {pathnames.map((value, index) =>
-                            (location.pathname.split("/")[2] === value) ? <Typography key={value}>{value}</Typography> :
-                                <Link to={`/${base}/${value}`} key={value}>{value}</Link>
-                        )}
-
-
-
-
-                    </Breadcrumbs>
-
-                    {link && buttonAccess && (
-                        <div className="form_heading_action d-flex ">
-                            <Link to={link}>
+                        {link && newbutton && (
+                            <Link to={newbuttonRouting}>
                                 <button
-                                    title={"Add New " + mainTitle}
-                                    className={`btn cmnbtn btn_sm btn-primary ${addNewButtonName && "text_button"
+                                    title={"Add " + mainTitle}
+                                    className={`btn cmnbtn btn_sm btn-success ${newbuttonName && "text_button"
                                         }`}
                                 >
-                                    {/* {addNewButtonName ? addNewButtonName : <FaUserPlus />} */}
-                                    {addNewButtonName ? addNewButtonName : "Add"}
+                                    {/* {newbuttonName ? newbuttonName : <FaUserPlus />} */}
+                                    {newbuttonName ? newbuttonName : "Add"}
                                 </button>
                             </Link>
-                            {link && newbutton && (
-                                <Link to={newbuttonRouting}>
-                                    <button
-                                        title={"Add " + mainTitle}
-                                        className={`btn cmnbtn btn_sm btn-success ${newbuttonName && "text_button"
-                                            }`}
-                                    >
-                                        {/* {newbuttonName ? newbuttonName : <FaUserPlus />} */}
-                                        {newbuttonName ? newbuttonName : "Add"}
-                                    </button>
-                                </Link>
-                            )}
-                        </div>
-                    )}
-                </div>
-            )}
+                        )}
+                    </div>
+                )}
+            </div>
             {!link && (
                 <div className="card shadow mb24">
                     <div className="card-header d-flex flex-row align-items-center justify-content-between">
@@ -175,7 +205,7 @@ const FormContainer = ({
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 };
 

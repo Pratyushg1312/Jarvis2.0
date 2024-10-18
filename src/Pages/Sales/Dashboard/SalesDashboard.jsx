@@ -33,6 +33,46 @@ import {
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 
+const LinkButtons = [
+  {
+    name: "View POC",
+    link: "/sales/point-of-contact",
+    type: "link",
+    access: [1],
+  },
+  {
+    name: "Sales Report",
+    link: "/sales/report-overview",
+    type: "link",
+    access: [1],
+
+  },
+  {
+    name: "View Target Competition",
+    link: "/sales/target-competetion-overview",
+    type: "link",
+    access: [1, 4],
+
+
+  },
+  {
+    name: "Add Account",
+    link: "/admin/create-sales-account/0",
+    type: "link",
+    access: [1, 4],
+
+
+  },
+  {
+    name: "Create Sale Booking",
+    link: "/admin/create-sales-booking",
+    type: "link",
+    access: [1, 4],
+
+  },
+];
+
+
 const SalesDashboard = () => {
   const navigate = useNavigate();
   const loginUserId = GetDecodedToken().id;
@@ -243,73 +283,11 @@ const SalesDashboard = () => {
         />
       </Modal>
 
-      <div className="pageHeader">
-        <div className="pageTitle">
-          <h2>Sales Dashboard</h2>
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link>Sales</Link>
-            <Typography>Dashboard</Typography>
-          </Breadcrumbs>
-        </div>
-        <div className="pageAction">
-          <div className="pageMenu">
-            <ul>
-              <li>
-                <Link href="">View POC</Link>
-              </li>
-              <li>
-                <Link href="">Sales Report</Link>
-              </li>
-              <li>
-                <Link href="">View Target Competition</Link>
-              </li>
-              <li>
-                <Link href="">Add Account</Link>
-              </li>
-              <li>
-                <Link href="">Create Sale Booking</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
 
-      <div className="action_heading">
-        <div className="action_title">
-          <FormContainer mainTitle={"Dashboard"} link={true} />
-        </div>
-        <div className="action_btns">
-          {loginUserRole == 1 && (
-            <>
-              <Link to="/admin/Sales-Point-Of-Contact">
-                <button className="btn cmnbtn btn-primary btn_sm">
-                  View POC
-                </button>
-              </Link>
-              <Link to="/admin/sales-user-report">
-                <button className="btn cmnbtn btn-primary btn_sm">
-                  Sales Report
-                </button>
-              </Link>
-            </>
-          )}
-          <Link to={"/admin/view-target-competition"}>
-            <button className="btn cmnbtn btn-primary btn_sm">
-              View target competition
-            </button>
-          </Link>
-          <Link to={"/admin/create-sales-account/0"}>
-            <button className="btn cmnbtn btn-primary btn_sm">
-              Add account
-            </button>
-          </Link>
-          <Link to={"/admin/create-sales-booking"}>
-            <button className="btn cmnbtn btn-primary btn_sm">
-              Create Sale Booking
-            </button>
-          </Link>
-        </div>
-      </div>
+
+
+      <FormContainer mainTitle={"Dashboard"} link={true} LinkButtons={LinkButtons} />
+
 
       <div className="row mt20">
         <MonthlyWeeklyCard

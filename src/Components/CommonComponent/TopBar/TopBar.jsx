@@ -14,7 +14,7 @@ import {
   useGetUserAuthQuery,
   useGetUserDetailsByIdMutation,
 } from "../../../Redux/Slices/UserSlices/UserApi";
-import GetDecodedToken from "../../../Utils/getDecodedToken";
+import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { UserRole } from "../../../Utils/UserRole";
 
 const TopBar = () => {

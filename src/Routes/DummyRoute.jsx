@@ -6,7 +6,7 @@ const DummyRoute = () => {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route path="/" element={<DummyPage name={"Main Dashboard"} />} />
+                <Route path="*" element={<DummyPage name={"Main Dashboard"} />} />
             </Route>
         </Routes>)
 }
