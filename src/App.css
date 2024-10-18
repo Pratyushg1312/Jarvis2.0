@@ -397,23 +397,6 @@ img {
   }
 }
 
-/* .MuiTabs-root.tabSm {
-  min-height: 46px !important;
-
-  .MuiTab-root {
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
-    text-transform: capitalize;
-    padding: 6px 20px;
-    min-height: 42px;
-
-    .MuiTouchRipple-root {
-      display: none;
-    }
-  }
-} */
-
 .card {
   position: relative;
   display: flex;
@@ -2199,19 +2182,11 @@ small,
   }
 }
 
-/*  */
-
 .bodyWrapper {
   width: 100%;
   height: 100%;
-  /* display: flex;
-  justify-content: start;
-  align-items: start;
-  flex-direction: row;
-  min-height: 100vh; */
   position: relative;
   background-color: var(--bodyBg);
-  /* background: linear-gradient(243deg, #eafff1 0%, #ebf0ff 50%, #eff3ff 100%); */
 }
 
 .bodyWrapper::before {
@@ -2222,8 +2197,6 @@ small,
   left: 0;
   width: 100%;
   height: 100%;
-  /* background: linear-gradient(243deg, #dfe9f6 0%, #dce5f2 50%, #e3eaf2 100%); */
-  /* background: linear-gradient(243deg, #d7dfe9 0%, #d4ddea 50%, #dfe6ee 100%); */
   background: linear-gradient(
     243deg,
     rgb(100 169 242 / 10%) 0%,
@@ -2303,40 +2276,6 @@ small,
   }
 }
 
-i.bi {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* .heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0px 0px 20px;
-
-  .MuiTabs-root {
-    min-height: 46px !important;
-    padding: 2px 2px;
-
-    .MuiTab-root {
-      font-size: 15px;
-      line-height: 20px;
-      font-weight: 400;
-      text-transform: capitalize;
-      padding: 6px 20px;
-      min-height: 40px;
-    }
-  }
-} */
-
-input:-internal-autofill-selected {
-  appearance: menulist-button;
-  background-image: none !important;
-  background-color: transparent !important;
-  color: fieldtext !important;
-}
-
 .toggle-sidebar-checkbox {
   display: none;
 }
@@ -2412,12 +2351,6 @@ input:-internal-autofill-selected {
 .toggle-sidebar-checkbox:checked ~ .sideBar {
   width: 300px;
   transition: var(--transition);
-}
-
-.toggle-sidebar-checkbox:checked ~ .pageWrapper {
-  /* margin-left: 300px; */
-  /* width: calc(100% - 300px); */
-  /* transition: var(--transition); */
 }
 
 .brandLogo {
@@ -2524,20 +2457,9 @@ input:-internal-autofill-selected {
         }
 
         h5 {
-          /* font-size: 0px; */
-          /* line-height: 0px; */
-          /* font-weight: 400; */
           width: 0;
           overflow: hidden;
           opacity: 0;
-          /* color: currentColor; */
-          /* position: absolute; */
-          /* left: calc(100% - 10px); */
-          /* width: max-content; */
-          /* background-color: var(--sidebarBg); */
-          /* border: 1px solid var(--sidebarBorder); */
-          /* padding: 0px 0px; */
-          /* border-radius: 0px; */
           transition: var(--transition);
 
           &::after {
@@ -2719,7 +2641,6 @@ input:-internal-autofill-selected {
   min-height: calc(100vh - 100px);
   padding: 30px 30px;
   transition: var(--transition);
-  /* min-height: 100vh; */
 }
 
 .sidebarActive .pageBody {
@@ -2854,9 +2775,6 @@ input:-internal-autofill-selected {
   }
 }
 
-.toggle-sidebar-checkbox:checked ~ .sideBar {
-}
-
 .MuiStack-root {
   padding: 0 !important;
   overflow: visible !important;
@@ -2938,19 +2856,6 @@ input:-internal-autofill-selected {
   border-color: var(--infoLight);
 }
 
-/* .row {
-  margin-right: calc(-0.4 * var(--bs-gutter-x));
-  margin-left: calc(-0.4 * var(--bs-gutter-x));
-}
-
-.row>* {
-  padding-right: calc(var(--bs-gutter-x) * 0.3);
-  padding-left: calc(var(--bs-gutter-x) * 0.3);
-.row > * {
-  padding-right: calc(var(--bs-gutter-x) * 0.4);
-  padding-left: calc(var(--bs-gutter-x) * 0.4);
-} */
-
 .growthBadge {
   cursor: pointer;
   display: flex;
@@ -3011,13 +2916,6 @@ input:-internal-autofill-selected {
 
 .growthBadge.growthDown span::before {
   content: "\F124";
-}
-
-.form-error {
-  color: var(--error) !important;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 14px;
 }
 
 .pageHeader {
@@ -3277,12 +3175,22 @@ input:-internal-autofill-selected {
   font-family: var(--bodyFont) !important;
 }
 
-.card.tableCard {
-  .card-header {
-    padding: 20px 24px 20px;
-  }
+i.bi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .card-body {
-    padding: 0px 0px 0px;
-  }
+input:-internal-autofill-selected {
+  appearance: menulist-button;
+  background-image: none !important;
+  background-color: transparent !important;
+  color: fieldtext !important;
+}
+
+.form-error {
+  color: var(--error) !important;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
 }
