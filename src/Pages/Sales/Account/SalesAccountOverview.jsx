@@ -37,6 +37,38 @@ const SalesAccountOverview = () => {
     const [selectedData, setSelectedData] = useState([]);
     let [modalHandler, setModalHandler] = useState("SalesAccountPOC");
 
+    const LinkButtons = [
+        {
+            name: "Outstanding",
+            link: "/sales/outstanding-overview",
+            type: "link",
+            access: [1],
+
+        },
+        {
+            name: "Incentive Share",
+            type: "button",
+            access: [1],
+            condition: () => selectedData.length === 1,
+            onClick: () => {
+                setModalIsOpen(true)
+                setModalHandler("IncentiveShare")
+            }
+        },
+        {
+            name: "Document Type",
+            link: "/sales/document-type-overview",
+            type: "link",
+            access: [1, 4],
+        },
+        {
+            name: "Sales Booking",
+            link: "/sales/salesbooking-overview",
+            type: "link",
+            access: [1, 4],
+        }
+    ];
+
     const dateFilterArray = [{
         value: "createdAt",
         label: "Created Date"
@@ -496,7 +528,7 @@ const SalesAccountOverview = () => {
 
     return (
 
-        <div>
+        <>
             <Modal
 
                 isOpen={ModalIsOpen}
@@ -520,44 +552,8 @@ const SalesAccountOverview = () => {
 
             </Modal>
 
-            <div className="action_heading">
+            <FormContainer mainTitle={"Account Overview"} link={true} LinkButtons={LinkButtons} />
 
-                <FormContainer mainTitle={"Account Overview"} link={true} />
-
-                <div className="action_btns">
-                    {loginUserRole === 1 && selectedData.length === 1 && <button className="btn cmnbtn btn-primary btn_sm" onClick={() => {
-                        setModalIsOpen(true)
-                        setModalHandler("IncentiveShare")
-                    }
-                    }>
-                        Incentive Share
-                    </button>}
-
-                    <Link to="/admin/view-Outstanding-details">
-                        <button className="btn cmnbtn btn-primary btn_sm">
-                            Outstanding
-                        </button>
-                    </Link>
-
-                    <Link to={"/admin/view-sales-booking"}>
-                        <button className="btn cmnbtn btn-primary btn_sm">
-                            Sale Booking
-                        </button>
-                    </Link>
-                    {loginUserRole === 1 && (
-                        <Link to={"/admin/sales-document-type-overview"}>
-                            <button className="btn cmnbtn btn-primary btn_sm">
-                                Document Type
-                            </button>
-                        </Link>
-                    )}
-                    <Link to={"/admin/create-sales-account/0"}>
-                        <button className="btn cmnbtn btn-primary btn_sm">
-                            Add account
-                        </button>
-                    </Link>
-                </div>
-            </div>
             <div className="card mt24">
                 <div className="card-body row">
                     <CustomSelect
@@ -691,7 +687,7 @@ const SalesAccountOverview = () => {
                 tableName={"SalesAccountOverview"}
                 selectedData={setSelectedData}
             />
-        </div>
+        </>
     );
 };
 

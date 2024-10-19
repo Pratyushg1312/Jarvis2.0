@@ -3,10 +3,11 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPreviousRoute } from '../../../Redux/Slices/BreadCrumbSlices/PreviousRoute';
 import GetDecodedToken from '../../../Utils/GetDecodedToken';
+import { Button } from "@mui/material";
 
 const FormContainer = ({
     mainTitle,
@@ -27,14 +28,22 @@ const FormContainer = ({
     mainTitleRequired = true,
     Titleheadercomponent,
     TitleHeaderComponentDisplay = "none",
-    LinkButtons = [],
+    LinkButtons,
 }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const UserRole = GetDecodedToken().role_id;
     const [pathnames, setPathnames] = useState([]);
+    const [buttons, setButtons] = useState([])
+    const [links, setLinks] = useState([])
 
+
+
+    useEffect(() => {
+        setButtons(LinkButtons?.filter(item => item?.type === "button"));
+        setLinks(LinkButtons?.filter(item => item?.type === "link"));
+    }, [LinkButtons]);
 
     const { base, previousRoute } = useSelector((state) => state.previousRoute);
 
@@ -78,27 +87,35 @@ const FormContainer = ({
                     </div>
                 )}
                 <div className="pageAction">
-                    <div className="pageMenu">
-                        <ul>
+                    {links?.length > 0 &&
+                        <div className="pageMenu">
+                            <ul>
 
-                            {LinkButtons.map((item, index) => {
-                                const hasAccess = item?.access?.indexOf(UserRole);
-                                if (hasAccess !== -1) {
+                                {links?.map((item, index) => {
+                                    const hasAccess = item?.access?.indexOf(UserRole);
+                                    const isShow = item?.condition ? item.condition() : true; if (hasAccess !== -1) {
 
-                                    if (item.type === "link") return (<li key={item.name}>
-                                        <Link to={item.link}>{item.name}</Link>
-                                    </li>);
+                                        if (isShow) return (<li key={item.name}>
+                                            <Link to={item.link}>{item.name}</Link>
+                                        </li>);
+                                    }
+                                })}
+                            </ul>
+                        </div>
 
-                                    if (item.type === "button")
-                                        return (
-                                            <li key={item.name}>
-                                                <button onClick={() => handleClick(item.value)}>{item.name}</button>
-                                            </li>
-                                        );
-                                }
-                            })}
-                        </ul>
-                    </div>
+                    }
+                    {
+                        buttons?.length > 0 && buttons?.map(item => {
+                            const hasAccess = item?.access?.indexOf(UserRole);
+                            const isShow = item?.condition ? item.condition() : true;
+                            if (hasAccess !== -1) {
+                                if (isShow)
+                                    return (
+                                        <Button variant="contained" color="primary" key={item.name} onClick={item?.onClick}>{item.name}</Button>
+                                    );
+                            }
+                        })
+                    }
                 </div>
                 {link && buttonAccess && (
                     <div className="form_heading_action d-flex ">
