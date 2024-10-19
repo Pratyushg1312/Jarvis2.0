@@ -57,10 +57,6 @@ function App() {
     };
   }, []);
 
-  if (!isOnline) {
-    return <OfflinePage />;
-  }
-
   return (
     <div className="app bodyWrapper">
       <input
@@ -70,6 +66,7 @@ function App() {
         className="toggle-sidebar-checkbox"
       />
       <ToastContainer autoClose={1500} />
+      {!isOnline && <OfflinePage />}
       <Router />
     </div>
   );

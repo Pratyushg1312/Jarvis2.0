@@ -1,0 +1,104 @@
+import React, { useEffect, useState } from "react";
+
+import { Link } from "react-router-dom";
+import View from "../../../../Components/CommonComponent/View/View";
+import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
+import { useDeletePaymentModeMutation, useGetAllPaymentModesQuery } from "../../../../Redux/Slices/SalesSlices/PaymentModeApi";
+import GetDecodedToken from "../../../../Utils/GetDecodedToken";
+import DeleteButton from "../../../../Components/CommonComponent/DeleteButton/DeleteButton";
+
+
+const LinkButtons = [
+  {
+    link: "/sales/create-payment-mode",
+    name: "Add Payment Mode",
+    type: "link",
+    access: [1, 4],
+  },
+];
+
+const PaymentModeOverview = () => {
+  const token = GetDecodedToken();
+  let loginUserId;
+  const loginUserRole = token.role_id;
+  if (loginUserRole !== 1) {
+    loginUserId = token.id;
+  }
+  const {
+    refetch: refetchPaymentMode,
+    data: allPaymentModeData,
+    isLoading: paymentModeLoading,
+    isError: paymentModeError,
+  } = useGetAllPaymentModesQuery();
+
+
+  const [
+    deletePaymentMode,
+    { isLoading: deletePaymentModeLoading }
+
+  ] = useDeletePaymentModeMutation();
+
+
+
+
+
+
+
+  const columns = [
+    {
+      key: "s.no",
+      name: "S.No",
+      renderRowCell: (row, index) => index + 1,
+      width: 50,
+    },
+    {
+      key: "payment_mode_name",
+      name: "Mode Name",
+      renderRowCell: (row) => row.payment_mode_name,
+      width: 500,
+    },
+    {
+      key: "action",
+      name: "Actions",
+      renderRowCell: (row) => (
+        <div className="d-flex">
+          <Link to={`/admin/edit-payment-mode/${row._id}`}>
+            <div className="icon-1">
+              <i className="bi bi-pencil" />
+            </div>
+          </Link>
+          <DeleteButton
+            api={deletePaymentMode}
+            id={row._id}
+            getData={refetchPaymentMode}
+          />
+        </div>
+      ),
+      width: 100,
+    },
+  ];
+
+  return (
+    <>
+
+      <FormContainer
+        mainTitle="Payment Mode"
+        link="/sales/create-payment-mode"
+        LinkButtons={LinkButtons}
+      />
+
+
+      <View
+        title={"Payment Mode Overview"}
+        columns={columns}
+        data={allPaymentModeData}
+        pagination
+        isLoading={paymentModeLoading}
+        tableName={"PaymentModeOverview"}
+      />
+
+    </>
+  );
+};
+
+export default PaymentModeOverview;

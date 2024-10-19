@@ -6,6 +6,7 @@ const PaymentModeApi = createApi({
   baseQuery: authBaseQuery,
   endpoints: (builder) => ({
     // Get a list of all payment modes
+
     getAllPaymentModes: builder.query({
       query: () => "sales/payment_mode",
       transformResponse: (response) => response.data,

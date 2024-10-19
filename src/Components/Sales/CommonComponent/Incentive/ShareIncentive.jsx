@@ -238,8 +238,6 @@ const ShareIncentive = ({ closeModal, accountInfo }) => {
             userRole={userRole}
           />
       }
-
-
     </div >
   );
 };
