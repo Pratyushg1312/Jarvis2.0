@@ -54,13 +54,14 @@ const PaymentModeApi = createApi({
       onQueryStarted: async ({ id }, { dispatch, queryFulfilled }) => {
         try {
           const { data: returnedPaymentMode } = await queryFulfilled;
+
           dispatch(
             PaymentModeApi.util.updateQueryData(
               "getAllPaymentModes",
               undefined,
               (draft) => {
                 const paymentModeIndex = draft.findIndex(
-                  (mode) => mode.id === id
+                  (mode) => mode._id === id
                 );
                 if (paymentModeIndex !== -1) {
                   draft[paymentModeIndex] = returnedPaymentMode.data;

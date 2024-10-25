@@ -62,7 +62,7 @@ const PaymentModeOverview = () => {
       name: "Actions",
       renderRowCell: (row) => (
         <div className="d-flex">
-          <Link to={`/admin/edit-payment-mode/${row._id}`}>
+          <Link to={`/sales/create-payment-mode/${row._id}`}>
             <div className="icon-1">
               <i className="bi bi-pencil" />
             </div>

@@ -13,8 +13,10 @@ import {
   UsersThree,
 } from "@phosphor-icons/react";
 import { NavLink } from "react-router-dom";
+import GetDecodedToken from "../../../Utils/GetDecodedToken";
 
 const SideBar = () => {
+  const userRole = GetDecodedToken().role_id;
   return (
     <div className="sideBar">
       <div className="sidebarToggle">
@@ -174,7 +176,7 @@ const SideBar = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item" to="/sales/incentive-overview">
+                    <NavLink className="dropdown-item" to={userRole === 1 ? "/sales/incentive-dashboard" : "/sales/user-incentive"}>
                       <span>
                         <Minus />
                       </span>

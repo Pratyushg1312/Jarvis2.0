@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { useEditDocumentTypeMutation, useGetAllDocumentTypeQuery } from "../../../Redux/Slices/SalesSlices/DocumentTypeApi";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
@@ -9,6 +9,7 @@ import View from "../../../Components/CommonComponent/View/View";
 
 const DocumentTypeOverview = () => {
     const token = GetDecodedToken();
+    const navigate = useNavigate();
     let loginUserId;
     const loginUserRole = token.role_id;
     if (loginUserRole !== 1) {
@@ -107,20 +108,18 @@ const DocumentTypeOverview = () => {
             },
         },
     ];
+    const LinkButtons = [
+        {
+            type: "button",
+            name: "Add Document Type",
+            access: [1],
+            onClick: () => navigate("/sales/create-document-type"),
+        }];
     return (
-        <div>
-            <div className="action_heading">
-                <div className="action_title">
-                    <FormContainer mainTitle={"Document Type"} link={true} />
-                </div>
-                {loginUserRole === 1 && <div className="action_btns">
-                    <Link to={"/admin/sales-document-type-master"}>
-                        <button className="btn cmnbtn btn-primary btn_sm">
-                            Add Document Type
-                        </button>
-                    </Link>
-                </div>}
-            </div>
+        <>
+
+            <FormContainer mainTitle={"Document Type"} link={true} LinkButtons={LinkButtons} />
+
             <View
                 columns={ViewDocumentTypeColumns}
                 data={allDocumentType}
@@ -130,7 +129,7 @@ const DocumentTypeOverview = () => {
                 title={"Document Type overview"}
                 tableName={"DocumentTypeOverview"}
             />
-        </div>
+        </>
     );
 };
 

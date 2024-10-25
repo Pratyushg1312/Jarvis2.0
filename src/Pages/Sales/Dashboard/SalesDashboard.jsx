@@ -180,7 +180,7 @@ const SalesDashboard = () => {
           <div
             style={{ color: "blue", cursor: "pointer" }}
             onClick={() =>
-              navigate("/admin/view-sales-booking", {
+              navigate("/sales/salesbooking-overview", {
                 state: { booking_status: row.booking_status },
               })
             }
@@ -312,7 +312,7 @@ const SalesDashboard = () => {
 
       <div className="row">
         <div className="col">
-          <NavLink to="/admin/sales-incentive-overview">
+          <NavLink to="/sales/incentive-plan-overview">
             <div className="card">
               <div className="flexCenter flex-column rowGap12 p20">
                 <div className="icon primary">
@@ -326,7 +326,7 @@ const SalesDashboard = () => {
           </NavLink>
         </div>
         <div className="col">
-          <NavLink to="/admin/view-invoice-request">
+          <NavLink to="/sales/invoice-request-overview">
             <div className="card">
               <div className="flexCenter flex-column rowGap12 p20">
                 <div className="icon secondary">
@@ -339,7 +339,7 @@ const SalesDashboard = () => {
             </div>
           </NavLink>
         </div>
-        {loginUserRole === 1 && (
+        {/* {loginUserRole === 1 && (
           <div className="col">
             <NavLink to="/admin/sales-incentive-settlement-overview">
               <div className="card">
@@ -354,7 +354,7 @@ const SalesDashboard = () => {
               </div>
             </NavLink>
           </div>
-        )}
+        )} */}
         {loginUserRole !== 4 && (
           <div className="col">
             <NavLink to="https://forms.gle/jz7d66xRpska5fWU9">
@@ -371,7 +371,7 @@ const SalesDashboard = () => {
             </NavLink>
           </div>
         )}
-        {loginUserRole === 1 && (
+        {/* {loginUserRole === 1 && (
           <div className="col">
             <NavLink to="/admin/deleted-sales-booking">
               <div className="card">
@@ -386,7 +386,7 @@ const SalesDashboard = () => {
               </div>
             </NavLink>
           </div>
-        )}
+        )} */}
       </div>
 
       {allTargetCompetitionsData?.map(
@@ -401,7 +401,7 @@ const SalesDashboard = () => {
           )
       )}
 
-      {loginUserRole == 1 && <SalesBadges userBadgeData={userBadgeData} />}
+      {/* {loginUserRole == 1 && <SalesBadges userBadgeData={userBadgeData} />} */}
 
       {loginUserRole == 1 && (
         <>

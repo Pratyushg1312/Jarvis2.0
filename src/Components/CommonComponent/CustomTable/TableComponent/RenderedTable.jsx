@@ -508,16 +508,16 @@ const RenderedTable = ({
                                       >
                                         <CustomSelect
                                           dataArray={Object.values(
-                                            originalData.reduce((acc, item) => {
+                                            originalData?.reduce((acc, item) => {
                                               if (column?.compare) {
                                                 const render =
                                                   column?.renderRowCell;
                                                 item = {
                                                   ...item,
-                                                  [column.key]: render(item),
+                                                  [column?.key]: render(item),
                                                 };
                                               }
-                                              acc[item[column.key]] = item;
+                                              acc[item[column?.key]] = item;
                                               return acc;
                                             }, {})
                                           )}

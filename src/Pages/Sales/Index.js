@@ -10,9 +10,16 @@ import OutstandingOverview from "./Outstanding/OutstandingOverview";
 import DocumentTypeOverview from "./Documents/DocumentTypeOverview";
 import PaymentDetailsOverview from "./Payment/PaymentDetail/PaymentDetailsOverview";
 import PaymentModeOverview from "./Payment/PaymentMode/PaymentModeOverview";
-import ServicesOverview from "./Services/ServicesOverview;";
+import ServicesOverview from "./Services/ServicesOverview";
 import RecordServiceOverview from "./Services/RecordServiceOverview";
 import PaymentUpdateOverview from "./Payment/PaymentUpdate/PaymentUpdateOverview";
+import IncentiveDashboard from "./Incentive/IncentiveDashboard";
+import UserIncentive from "./Incentive/UserIncentive";
+import IncentivePlanOveview from "./Incentive/IncentivePlanOveview";
+import CreateIncentivePlan from "./Incentive/CreateIncentivePlan";
+import InvoiceRequestOverview from "./InvoiceRequests/InvoiceRequestOverview";
+import CreateDocumentType from "./Documents/CreateDocumentType";
+import CreatePaymentMode from "./Payment/PaymentMode/CreatePaymentMode";
 
 export {
   SalesDashboard,
@@ -30,4 +37,11 @@ export {
   ServicesOverview,
   RecordServiceOverview,
   PaymentUpdateOverview,
+  IncentiveDashboard,
+  UserIncentive,
+  IncentivePlanOveview,
+  CreateIncentivePlan,
+  InvoiceRequestOverview,
+  CreateDocumentType,
+  CreatePaymentMode,
 };
