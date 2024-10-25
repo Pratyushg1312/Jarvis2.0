@@ -1,19 +1,32 @@
 :root {
+  --link: #8833ff;
   --primary: #8833ff;
-  --primaryLight: rgb(136 51 255 / 10%);
+  --primaryLight: rgb(136 51 255 / 13%);
   --secondary: #ff6633;
-  --secondaryLight: rgb(255 102 51 / 10%);
+  --secondaryLight: rgb(255 102 51 / 13%);
   --tertiary: #3361ff;
-  --tertiaryLight: rgb(51 97 255 /10%);
-  --border: #eaedf3;
-  --borderLight: #f0f0f2;
+  --tertiaryLight: rgb(51 97 255 /13%);
+  --border: #f0f0f2;
   --borderDark: #dde1e9;
-  --inputBg: #ffffff;
   --bodyBg: #f7f8fa;
   --bodySubBg: #ffffff;
-  --dark: #35373e;
-  --medium: #6b7a99;
-  --light: #abafb1;
+  --sidebarBg: #ffffff;
+  --sidebarSubBg: #ffffff;
+  --sidebarBorder: #f0f0f2;
+  --cardBg: #ffffff;
+  --cardSubBg: #ffffff;
+  --cardBorder: #f0f0f2;
+  --inputBg: #ffffff;
+  --inputSubBg: #ffffff;
+  --inputBorder: #eaedf3;
+  --tableHeadBg: #f1f4fb;
+  --tableSubBg: #f7f8fa;
+  --tableStripBg: #f7f8fb;
+  --dropdownBg: #ffffff;
+  --dropdownSubBg: #ffffff;
+  --dropdownBorder: #f0f0f2;
+  --loaderColor: #69f1f1;
+  --loaderBg: #000000;
   --success: #29cc39;
   --successLight: rgb(41 204 57/ 10%);
   --danger: #e62e2e;
@@ -25,42 +38,49 @@
   --white: #ffffff;
   --whiteText: #ffffff;
   --whiteBg: #ffffff;
-  --sidebarBg: #ffffff;
-  --sidebarBorder: #f5f6f7;
-  --cardBg: #ffffff;
-  --cardBorder: #ffffff;
-  --blurBg: #ffffff;
-  --blurBorder: #f5f6f7;
-  --sidebarSubBg: #ffffff;
-  --loaderColor: #69f1f1;
-  --loaderDark: #000000;
-  --tableHeadBg: #f1f4fb;
+  --dark: #35373e;
+  --medium: #6b7a99;
+  --light: #abafb1;
   --radiusXS: 6px;
-  --radiusS: 10px;
+  --radiusS: 8px;
   --radiusM: 14px;
   --radiusL: 18px;
-  --transition: all 0.3s ease-in-out;
+  --transition: all 0.2s ease-in-out;
   --bodyFont: "Roboto", sans-serif;
-  --shadowOne: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
+  --shadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
   --cardShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
+  --dropdownShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
 }
 
 body[theme="dark"] {
+  --link: #ffffff;
   --primary: #8833ff;
   --primaryLight: rgb(136 51 255 / 10%);
   --secondary: #ff6633;
   --secondaryLight: rgb(255 102 51 / 10%);
   --tertiary: #3361ff;
   --tertiaryLight: rgb(51 97 255 /10%);
-  --border: #eaedf3;
-  --borderLight: #f0f0f2;
-  --borderDark: #dde1e9;
-  --inputBg: #ffffff;
-  --bodyBg: #f7f8fa;
-  --bodySubBg: #f3f3f3;
-  --dark: #35373e;
-  --medium: #6b7a99;
-  --light: #abafb1;
+  --border: #2b2e35;
+  --borderDark: #282a30;
+  --bodyBg: #16171b;
+  --bodySubBg: #1f2125;
+  --sidebarBg: #1f2125;
+  --sidebarSubBg: #1f2125;
+  --sidebarBorder: #242424;
+  --cardBg: #1f2125;
+  --cardSubBg: #1f2125;
+  --cardBorder: #242424;
+  --inputBg: #1a1b1f;
+  --inputSubBg: #1a1b1f;
+  --inputBorder: #222428;
+  --tableHeadBg: #18181a;
+  --tableSubBg: #1a1b1e;
+  --tableStripBg: #1a1b1e;
+  --dropdownBg: #1a1b1e;
+  --dropdownSubBg: #1a1b1e;
+  --dropdownBorder: #27292e;
+  --loaderColor: #69f1f1;
+  --loaderBg: #000000;
   --success: #29cc39;
   --successLight: rgb(41 204 57/ 10%);
   --danger: #e62e2e;
@@ -72,21 +92,12 @@ body[theme="dark"] {
   --white: #ffffff;
   --whiteText: #ffffff;
   --whiteBg: #ffffff;
-  --sidebarBg: #ffffff;
-  --sidebarBorder: #f5f6f7;
-  --cardBg: #ffffff;
-  --cardBorder: #f5f6f7;
-  --blurBg: #ffffff;
-  --blurBorder: #f5f6f7;
-  --sidebarSubBg: #ffffff;
-  --radiusXS: 6px;
-  --radiusS: 10px;
-  --radiusM: 14px;
-  --radiusL: 18px;
-  --transition: all 0.3s ease-in-out;
-  --bodyFont: "Roboto", sans-serif;
-  --shadowOne: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
+  --dark: #e6e6e6;
+  --medium: #8f9297;
+  --light: #748892;
+  --shadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
   --cardShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
+  --dropdownShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
 }
 
 *,
@@ -138,6 +149,13 @@ img {
   max-width: 100%;
 }
 
+hr {
+  border-top: 1px solid var(--borderDark);
+  opacity: 1;
+}
+
+/* BUTTON */
+
 .MuiButton-root,
 .btn {
   box-shadow: none !important;
@@ -152,6 +170,28 @@ img {
   border: 1px solid !important;
   border-radius: var(--radiusS) !important;
   min-height: 46px;
+  gap: 0px 8px;
+
+  .MuiButton-startIcon {
+    margin-right: 0;
+  }
+
+  .MuiButton-endIcon {
+    margin-left: 0;
+  }
+
+  .MuiButton-icon svg {
+    font-size: 18px;
+  }
+
+  .badge {
+    background-color: rgb(255 255 255 / 30%);
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: 500;
+    padding: 4px 7px;
+    border: 1px solid rgb(255 255 255 / 10%);
+  }
 }
 
 .MuiButton-root.sm,
@@ -164,16 +204,37 @@ img {
   min-height: 38px;
 }
 
-.MuiButton-contained.MuiButton-colorPrimary,
-.btn-primary {
-  background-color: var(--primary);
-  border-color: var(--primary) !important;
-  color: var(--whiteText);
+.iconBtn,
+.MuiButton-root.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  min-width: auto !important;
+  border-radius: 100% !important;
+  padding: 0px 0px !important;
+  font-size: 20px !important;
+  color: var(--medium) !important;
+  background-color: var(--bodySubBg) !important;
+  border: 1px solid var(--border) !important;
+  transition: none;
 
   &:hover {
-    background-color: var(--primary);
+    color: var(--dark) !important;
+  }
+}
+
+.MuiButton-contained.MuiButton-colorPrimary,
+.btn-primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--whiteText) !important;
+
+  &:hover {
+    background-color: var(--primary) !important;
     border-color: var(--primary) !important;
-    color: var(--whiteText);
+    color: var(--whiteText) !important;
   }
 }
 
@@ -182,6 +243,12 @@ img {
   background-color: transparent !important;
   border-color: var(--primary) !important;
   color: var(--primary) !important;
+
+  .badge {
+    background-color: var(--primaryLight);
+    color: var(--primary);
+    border-color: var(--primaryLight);
+  }
 
   &:hover {
     background-color: transparent !important;
@@ -209,6 +276,12 @@ img {
   border-color: var(--secondary) !important;
   color: var(--secondary) !important;
 
+  .badge {
+    background-color: var(--secondaryLight);
+    color: var(--secondary);
+    border-color: var(--secondaryLight);
+  }
+
   &:hover {
     background-color: transparent !important;
     border-color: var(--secondary) !important;
@@ -234,6 +307,12 @@ img {
   background-color: transparent !important;
   border-color: var(--success) !important;
   color: var(--success) !important;
+
+  .badge {
+    background-color: var(--successLight);
+    color: var(--success);
+    border-color: var(--successLight);
+  }
 
   &:hover {
     background-color: transparent !important;
@@ -261,6 +340,12 @@ img {
   border-color: var(--danger) !important;
   color: var(--danger) !important;
 
+  .badge {
+    background-color: var(--dangerLight);
+    color: var(--danger);
+    border-color: var(--dangerLight);
+  }
+
   &:hover {
     background-color: transparent !important;
     border-color: var(--danger) !important;
@@ -287,6 +372,12 @@ img {
   border-color: var(--warning) !important;
   color: var(--warning) !important;
 
+  .badge {
+    background-color: var(--warningLight);
+    color: var(--warning);
+    border-color: var(--warningLight);
+  }
+
   &:hover {
     background-color: transparent !important;
     border-color: var(--warning) !important;
@@ -299,6 +390,12 @@ img {
   background-color: var(--info) !important;
   border-color: var(--info) !important;
   color: var(--whiteText) !important;
+
+  &:hover {
+    background-color: var(--info) !important;
+    border-color: var(--info) !important;
+    color: var(--whiteText) !important;
+  }
 }
 
 .MuiButton-outlined.MuiButton-colorInfo,
@@ -306,44 +403,21 @@ img {
   background-color: transparent !important;
   border-color: var(--info) !important;
   color: var(--info) !important;
-}
 
-.iconBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  min-width: 46px;
-  min-height: 46px;
-  border-radius: 100%;
-  padding: 0px 0px;
-  font-size: 20px;
-  color: var(--medium);
-  background-color: var(--cardBg);
-  border: 1px solid var(--cardBorder);
-  box-shadow: var(--shadowOne);
-  transition: var(--transition);
+  .badge {
+    background-color: var(--infoLight);
+    color: var(--info);
+    border-color: var(--infoLight);
+  }
 
   &:hover {
-    color: var(--dark) !important;
+    background-color: transparent !important;
+    border-color: var(--info) !important;
+    color: var(--info) !important;
   }
 }
 
-.MuiButton-root.iconBtn {
-  min-width: auto !important;
-  border-radius: 100% !important;
-  padding: 0px 0px !important;
-  font-size: 20px !important;
-  color: var(--medium) !important;
-  background-color: var(--cardBg) !important;
-  border: 1px solid var(--cardBorder) !important;
-  box-shadow: var(--shadowOne) !important;
-
-  &:hover {
-    color: var(--dark) !important;
-  }
-}
+/* TABS */
 
 .tabContent .MuiBox-root {
   padding: 0px 0px;
@@ -353,8 +427,9 @@ img {
   min-height: 46px !important;
   position: relative;
   background-color: var(--cardBg);
-  box-shadow: var(--cardShadow);
+  box-shadow: none;
   border-radius: var(--radiusS);
+  width: fit-content;
 
   .MuiTabs-scroller {
     position: relative;
@@ -375,17 +450,39 @@ img {
       border: none;
       border-radius: var(--radiusXS);
       background-color: transparent;
-      color: var(--dark);
-      transition: all 300ms ease-in-out;
+      color: var(--medium);
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      gap: 0px 8px;
+
+      &:hover {
+        color: var(--link);
+      }
 
       .MuiTouchRipple-root {
         display: none;
+      }
+
+      .badge {
+        background-color: var(--primaryLight);
+        color: var(--primary);
+        font-size: 12px;
+        line-height: 13px;
+        font-weight: 400;
+        padding: 6px 8px;
       }
     }
 
     .MuiTab-root.Mui-selected {
       background-color: transparent;
       color: var(--whiteText);
+
+      .badge {
+        background-color: rgb(255 255 255 / 30%);
+        color: currentColor;
+        font-weight: 500;
+      }
     }
 
     span.MuiTabs-indicator {
@@ -397,6 +494,227 @@ img {
   }
 }
 
+/* INPUT/TEXTFIELD/AUTOCOMPLETE */
+
+.MuiFormControl-root {
+  width: 100%;
+  position: relative;
+
+  .MuiFormLabel-root {
+    font-family: var(--bodyFont) !important;
+    color: var(--medium);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: 0;
+    -webkit-transform: translate(0px, 0px) scale(1);
+    -moz-transform: translate(0px, 0px) scale(1);
+    -ms-transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1);
+    transition: var(--transition);
+    position: relative;
+    margin-bottom: 6px;
+  }
+
+  .Mui-focused.MuiFormLabel-root {
+    color: var(--dark);
+    -webkit-transform: translate(0px, 0px) scale(1);
+    -moz-transform: translate(0px, 0px) scale(1);
+    -ms-transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  .MuiFormLabel-filled.MuiFormLabel-root {
+    -webkit-transform: translate(0px, 0px) scale(1);
+    -moz-transform: translate(0px, 0px) scale(1);
+    -ms-transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  .MuiInputBase-root {
+    font-family: var(--bodyFont) !important;
+    color: var(--dark);
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+    letter-spacing: 0.02rem;
+    background-color: var(--inputBg);
+    border: 1px solid var(--inputBorder);
+    border-radius: var(--radiusS);
+    outline: none;
+    height: 46px;
+    margin-bottom: 16px;
+
+    &:hover {
+      background-color: var(--inputBg) !important;
+      border-color: var(--inputBorder);
+    }
+
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border-color: var(--border) !important;
+      border-width: 1px !important;
+    }
+
+    .MuiInputBase-input {
+      padding: 8px 14px 8px;
+      color: var(--dark);
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .MuiAutocomplete-input {
+      padding: 7.5px 4px 7.5px 4px !important;
+    }
+
+    .MuiOutlinedInput-notchedOutline {
+      display: none;
+    }
+  }
+
+  .Mui-focused.MuiInputBase-root .MuiOutlinedInput-notchedOutline {
+    border: none;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* DROPDOWN */
+
+.dropdown-menu {
+  min-width: 220px;
+  padding: 8px 8px;
+  margin: 0;
+  background-color: var(--dropdownBg);
+  border: 1px solid var(--dropdownBorder);
+  box-shadow: var(--dropdownShadow);
+  border-radius: var(--radiusS);
+
+  .dropdown-item {
+    color: var(--medium);
+    font-size: 13.8px;
+    line-height: 20px;
+    font-weight: 400;
+    padding: 8px 14px;
+    border-radius: var(--radiusXS);
+    display: flex;
+    align-items: center;
+    gap: 0px 6px;
+    transition: var(--transition);
+
+    span {
+      width: 22px;
+      height: 22px;
+      font-size: 18px;
+    }
+
+    &:hover {
+      background-color: var(--primaryLight);
+      color: var(--link);
+    }
+  }
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+  min-width: 220px;
+  padding: 8px 8px;
+  margin: 0;
+  background-color: var(--dropdownBg);
+  border: 1px solid var(--dropdownBorder);
+  box-shadow: var(--dropdownShadow);
+  border-radius: var(--radiusS);
+
+  .MuiList-root {
+    padding: 0;
+
+    .MuiButtonBase-root.MuiMenuItem-root {
+      color: var(--medium);
+      font-size: 13.8px;
+      line-height: 20px;
+      font-weight: 400;
+      padding: 8px 14px;
+      border-radius: var(--radiusXS);
+      display: flex;
+      align-items: center;
+      gap: 0px 6px;
+      transition: var(--transition);
+
+      &:hover {
+        background-color: var(--primaryLight);
+        color: var(--link);
+      }
+    }
+  }
+}
+
+.MuiDateCalendar-root {
+  width: auto !important;
+  height: auto !important;
+
+  .MuiPickersCalendarHeader-root {
+  }
+}
+
+/* .MuiPopper-root {
+  padding: 8px;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radiusS);
+  background-color: var(--whiteBg);
+  box-shadow: var(--dropdownShadow);
+  font-family: var(--bodyFont) !important;
+  color: var(--dark);
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 400;
+
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+    padding: 0px 0px !important;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    font-family: var(--bodyFont) !important;
+    color: var(--dark);
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+
+    .MuiList-root {
+      padding: 0;
+
+      .MuiButtonBase-root.MuiMenuItem-root {
+        font-family: var(--bodyFont) !important;
+        color: var(--dark);
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 400;
+        padding: 6px 12px;
+        border-radius: var(--radiusS);
+        transition: var(--transition);
+
+        &:hover {
+          background-color: var(--primaryLight);
+          color: var(--link);
+        }
+      }
+    }
+  }
+} */
+
+/* CARD */
+
 .card {
   position: relative;
   display: flex;
@@ -406,7 +724,7 @@ img {
   background-color: var(--cardBg);
   background-clip: border-box;
   border: 1px solid var(--cardBorder);
-  box-shadow: var(--cardShadow);
+  box-shadow: none;
   border-radius: var(--radiusS);
   margin-bottom: 24px;
 
@@ -459,8 +777,8 @@ img {
         min-width: 38px !important;
         min-height: 38px !important;
         box-shadow: none !important;
-        background-color: var(--bodyBg) !important;
-        border: 1px solid var(--borderLight) !important;
+        background-color: var(--bodySubBg) !important;
+        border: 1px solid var(--border) !important;
         border-radius: 100% !important;
       }
 
@@ -472,39 +790,8 @@ img {
 
       .dropdown-menu {
         top: calc(100% - -10px);
-        min-width: 220px;
         right: 0 !important;
         left: auto !important;
-        padding: 12px 12px;
-        margin: 0;
-        background-color: var(--cardBg);
-        border: 1px solid var(--borderLight);
-        box-shadow: var(--cardShadow);
-        border-radius: var(--radiusS);
-
-        .dropdown-item {
-          color: var(--medium);
-          font-size: 14px;
-          line-height: 22px;
-          font-weight: 400;
-          padding: 8px 14px;
-          border-radius: var(--radiusXS);
-          display: flex;
-          align-items: center;
-          gap: 0px 6px;
-          transition: var(--transition);
-
-          span {
-            width: 22px;
-            height: 22px;
-            font-size: 18px;
-          }
-
-          &:hover {
-            background-color: var(--primaryLight);
-            color: var(--primary);
-          }
-        }
       }
 
       .MuiTabs-root {
@@ -526,6 +813,13 @@ img {
             text-transform: capitalize;
             padding: 6px 16px;
             min-height: 38px;
+
+            .badge {
+              font-size: 11px;
+              line-height: 11px;
+              font-weight: 400;
+              padding: 6px 7px;
+            }
 
             .MuiTouchRipple-root {
               display: none;
@@ -626,11 +920,16 @@ img {
 
   .card-footer {
     background-color: transparent;
-    padding: 0px 24px 24px;
+    padding: 8px 24px 24px;
     border-top: 1px solid transparent;
     border-radius: 0 0 var(--radiusS) var(--radiusS);
+    display: flex;
+    align-items: center;
+    gap: 0px 12px;
   }
 }
+
+/* TEXT */
 
 h1,
 h2,
@@ -712,6 +1011,168 @@ small,
 .pointer {
   cursor: pointer;
 }
+
+.fs_1 {
+  font-size: 0.0625rem;
+}
+
+.fs_2 {
+  font-size: 0.125rem;
+}
+
+.fs_3 {
+  font-size: 0.1875rem;
+}
+
+.fs_4 {
+  font-size: 0.25rem;
+}
+
+.fs_5 {
+  font-size: 0.3125rem;
+}
+
+.fs_6 {
+  font-size: 0.375rem;
+}
+
+.fs_7 {
+  font-size: 0.4375rem;
+}
+
+.fs_8 {
+  font-size: 0.5rem;
+}
+
+.fs_9 {
+  font-size: 0.5625rem;
+}
+
+.fs_10 {
+  font-size: 0.625rem;
+}
+
+.fs_11 {
+  font-size: 0.6875rem;
+}
+
+.fs_12 {
+  font-size: 0.75rem;
+}
+
+.fs_13 {
+  font-size: 0.8125rem;
+}
+
+.fs_14 {
+  font-size: 0.875rem;
+}
+
+.fs_15 {
+  font-size: 0.9375rem;
+}
+
+.fs_16 {
+  font-size: 1rem;
+}
+
+.fs_17 {
+  font-size: 1.0625rem;
+}
+
+.fs_18 {
+  font-size: 1.125rem;
+}
+
+.fs_19 {
+  font-size: 1.1875rem;
+}
+
+.fs_20 {
+  font-size: 1.25rem;
+}
+
+.fs_21 {
+  font-size: 1.3125rem;
+}
+
+.fs_22 {
+  font-size: 1.375rem;
+}
+
+.fs_23 {
+  font-size: 1.4375rem;
+}
+
+.fs_24 {
+  font-size: 1.5rem;
+}
+
+.fs_25 {
+  font-size: 1.5625rem;
+}
+
+.fs_26 {
+  font-size: 1.625rem;
+}
+
+.fs_27 {
+  font-size: 1.6875rem;
+}
+
+.fs_28 {
+  font-size: 1.75rem;
+}
+
+.fs_29 {
+  font-size: 1.8125rem;
+}
+
+.fs_30 {
+  font-size: 1.875rem;
+}
+
+.fs_32 {
+  font-size: 2rem;
+}
+
+.fs_34 {
+  font-size: 2.125rem;
+}
+
+.fs_36 {
+  font-size: 2.25rem;
+}
+
+.fs_38 {
+  font-size: 2.375rem;
+}
+
+.fs_40 {
+  font-size: 2.5rem;
+}
+
+.fw_400 {
+  font-weight: 400;
+}
+
+.fw_500 {
+  font-weight: 500;
+}
+
+.fw_600 {
+  font-weight: 600;
+}
+
+.fw_700 {
+  font-weight: 700;
+}
+
+.fw_800 {
+  font-weight: 800;
+}
+
+/* MARGIN */
 
 .m0 {
   margin: 0 !important;
@@ -1133,6 +1594,8 @@ small,
   margin-right: 50px;
 }
 
+/* PADDING */
+
 .p0 {
   padding: 0 !important;
 }
@@ -1553,9 +2016,23 @@ small,
   padding-right: 50px;
 }
 
+/* FLEX/ROW/COLUMN */
+
 .flexCenter {
   display: flex;
   align-items: center;
+}
+
+.flexCenterRow {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.flexCenterCol {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .flexCenterBetween {
@@ -1564,14 +2041,54 @@ small,
   justify-content: space-between;
 }
 
+.flexCenterRowBetween {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flexCenterColBetween {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .flexBetween {
   display: flex;
+  justify-content: space-between;
+}
+
+.flexRowBetween {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flexColBetween {
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
 .flexCenterCenter {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.flexCenterRowCenter {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.flexCenterColCenter {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -1767,165 +2284,7 @@ small,
   column-gap: 40px;
 }
 
-.fs_1 {
-  font-size: 0.0625rem;
-}
-
-.fs_2 {
-  font-size: 0.125rem;
-}
-
-.fs_3 {
-  font-size: 0.1875rem;
-}
-
-.fs_4 {
-  font-size: 0.25rem;
-}
-
-.fs_5 {
-  font-size: 0.3125rem;
-}
-
-.fs_6 {
-  font-size: 0.375rem;
-}
-
-.fs_7 {
-  font-size: 0.4375rem;
-}
-
-.fs_8 {
-  font-size: 0.5rem;
-}
-
-.fs_9 {
-  font-size: 0.5625rem;
-}
-
-.fs_10 {
-  font-size: 0.625rem;
-}
-
-.fs_11 {
-  font-size: 0.6875rem;
-}
-
-.fs_12 {
-  font-size: 0.75rem;
-}
-
-.fs_13 {
-  font-size: 0.8125rem;
-}
-
-.fs_14 {
-  font-size: 0.875rem;
-}
-
-.fs_15 {
-  font-size: 0.9375rem;
-}
-
-.fs_16 {
-  font-size: 1rem;
-}
-
-.fs_17 {
-  font-size: 1.0625rem;
-}
-
-.fs_18 {
-  font-size: 1.125rem;
-}
-
-.fs_19 {
-  font-size: 1.1875rem;
-}
-
-.fs_20 {
-  font-size: 1.25rem;
-}
-
-.fs_21 {
-  font-size: 1.3125rem;
-}
-
-.fs_22 {
-  font-size: 1.375rem;
-}
-
-.fs_23 {
-  font-size: 1.4375rem;
-}
-
-.fs_24 {
-  font-size: 1.5rem;
-}
-
-.fs_25 {
-  font-size: 1.5625rem;
-}
-
-.fs_26 {
-  font-size: 1.625rem;
-}
-
-.fs_27 {
-  font-size: 1.6875rem;
-}
-
-.fs_28 {
-  font-size: 1.75rem;
-}
-
-.fs_29 {
-  font-size: 1.8125rem;
-}
-
-.fs_30 {
-  font-size: 1.875rem;
-}
-
-.fs_32 {
-  font-size: 2rem;
-}
-
-.fs_34 {
-  font-size: 2.125rem;
-}
-
-.fs_36 {
-  font-size: 2.25rem;
-}
-
-.fs_38 {
-  font-size: 2.375rem;
-}
-
-.fs_40 {
-  font-size: 2.5rem;
-}
-
-.fw_400 {
-  font-weight: 400;
-}
-
-.fw_500 {
-  font-weight: 500;
-}
-
-.fw_600 {
-  font-weight: 600;
-}
-
-.fw_700 {
-  font-weight: 700;
-}
-
-.fw_800 {
-  font-weight: 800;
-}
+/* COLOURS */
 
 .colorDark {
   color: var(--dark) !important;
@@ -2004,6 +2363,8 @@ small,
   background-color: var(--bodySubBg);
 }
 
+/* BORDER */
+
 .border {
   border: 1px solid var(--border) !important;
 }
@@ -2026,157 +2387,320 @@ small,
   border-right: 1px solid var(--border) !important;
 }
 
-.MuiFormControl-root {
-  width: 100%;
-  position: relative;
+/* ICONS */
 
-  .MuiFormLabel-root {
-    font-family: var(--bodyFont) !important;
-    color: var(--medium);
-    font-size: 13.5px;
-    line-height: 20px;
-    font-weight: 400;
-    letter-spacing: 0.02rem;
-    -webkit-transform: translate(0px, 0px) scale(1);
-    -moz-transform: translate(0px, 0px) scale(1);
-    -ms-transform: translate(0px, 0px) scale(1);
-    transform: translate(0px, 0px) scale(1);
-    transition: var(--transition);
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  min-height: 46px;
+  border-radius: var(--radiusS);
+  font-size: 24px;
+  color: var(--medium);
+  background-color: var(--bodyBg);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.icon.large {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  border-radius: var(--radiusS);
+  font-size: 30px;
+}
+
+.icon.small {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  border-radius: var(--radiusS);
+  font-size: 20px;
+}
+
+.icon.primary {
+  color: var(--primary);
+  background-color: var(--primaryLight);
+  border-color: var(--primaryLight);
+}
+
+.icon.secondary {
+  color: var(--secondary);
+  background-color: var(--secondaryLight);
+  border-color: var(--secondaryLight);
+}
+
+.icon.tertiary {
+  color: var(--tertiary);
+  background-color: var(--tertiaryLight);
+  border-color: var(--tertiaryLight);
+}
+
+.icon.success {
+  color: var(--success);
+  background-color: var(--successLight);
+  border-color: var(--successLight);
+}
+
+.icon.danger {
+  color: var(--danger);
+  background-color: var(--dangerLight);
+  border-color: var(--dangerLight);
+}
+
+.icon.warning {
+  color: var(--warning);
+  background-color: var(--warningLight);
+  border-color: var(--warningLight);
+}
+
+.icon.info {
+  color: var(--info);
+  background-color: var(--infoLight);
+  border-color: var(--infoLight);
+}
+
+.growthBadge {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0px 3px;
+  color: var(--medium);
+  font-size: 11px;
+  line-height: 10px;
+  font-weight: 500;
+  padding: 5px 7px 5px 5px;
+  border-radius: var(--radiusXS);
+  background-color: var(--cardBg);
+  border: 1px solid var(--border);
+  width: max-content;
+
+  span {
     position: relative;
-    margin-bottom: 4px;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .Mui-focused.MuiFormLabel-root {
-    color: var(--dark);
-    -webkit-transform: translate(0px, 0px) scale(1);
-    -moz-transform: translate(0px, 0px) scale(1);
-    -ms-transform: translate(0px, 0px) scale(1);
-    transform: translate(0px, 0px) scale(1);
-  }
-
-  .MuiFormLabel-filled.MuiFormLabel-root {
-    -webkit-transform: translate(0px, 0px) scale(1);
-    -moz-transform: translate(0px, 0px) scale(1);
-    -ms-transform: translate(0px, 0px) scale(1);
-    transform: translate(0px, 0px) scale(1);
-  }
-
-  .MuiInputBase-root {
-    font-family: var(--bodyFont) !important;
-    color: var(--dark);
-    font-size: 16px;
-    line-height: 22px;
-    font-weight: 400;
-    letter-spacing: 0.02rem;
-    background-color: var(--inputBg);
-    border: 1px solid var(--border);
-    border-radius: var(--radiusS);
-    outline: none;
-    height: 46px;
-    margin-bottom: 20px;
-
-    &:hover {
-      background-color: var(--inputBg) !important;
-      border-color: var(--border);
-    }
-
-    &:hover .MuiOutlinedInput-notchedOutline {
-      border-color: var(--border) !important;
-      border-width: 1px !important;
-    }
-
-    .MuiInputBase-input {
-      padding: 8px 14px 8px;
-      color: var(--dark);
-      font-size: 15px;
-      font-weight: 400;
-    }
-
-    .MuiAutocomplete-input {
-      padding: 7.5px 4px 7.5px 4px !important;
-    }
-
-    .MuiOutlinedInput-notchedOutline {
-      display: none;
-    }
-  }
-
-  .Mui-focused.MuiInputBase-root .MuiOutlinedInput-notchedOutline {
-    border: none;
+  span::before {
+    display: inline-block;
+    font-family: bootstrap-icons !important;
+    color: currentColor;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: -0.125em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-.MuiPopper-root {
-  padding: 8px;
-  margin: 0;
-  border: 1px solid var(--borderLight);
-  border-radius: var(--radiusS);
-  background-color: var(--whiteBg);
-  box-shadow: 0px 4px 32px 0px rgba(61, 70, 112, 0.08);
-  font-family: var(--bodyFont) !important;
-  color: var(--dark);
-  font-size: 15px;
-  line-height: 18px;
-  font-weight: 400;
+.growthBadge.growthUp {
+  color: var(--success);
+  background-color: var(--successLight);
+  border-color: var(--successLight);
+}
 
-  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
-    padding: 0px 0px !important;
-    margin: 0;
-    border: none;
-    background-color: transparent;
-    box-shadow: none;
-    font-family: var(--bodyFont) !important;
-    color: var(--dark);
-    font-size: 15px;
-    line-height: 18px;
-    font-weight: 400;
+.growthBadge.growthDown {
+  color: var(--danger);
+  background-color: var(--dangerLight);
+  border-color: var(--dangerLight);
+}
 
-    .MuiList-root {
-      padding: 0;
+.growthBadge.growthBlank {
+  color: var(--medium);
+  background-color: var(--bodyBg);
+  border-color: var(--border);
+}
 
-      .MuiButtonBase-root.MuiMenuItem-root {
-        font-family: var(--bodyFont) !important;
+.growthBadge.growthUp span::before {
+  content: "\F145";
+}
+
+.growthBadge.growthDown span::before {
+  content: "\F124";
+}
+
+i.bi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* APP CSS */
+
+.authWrapper {
+  min-height: 100vh;
+}
+
+.authWrapperIn {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+
+.authBg {
+  flex: 0 0 auto;
+  width: 50%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #5142bc;
+  position: relative;
+  overflow: hidden;
+
+  .authImg {
+    width: 600px;
+    position: relative;
+    z-index: 3;
+  }
+}
+
+.authBg::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -301px;
+  right: -301px;
+  width: 600px;
+  height: 600px;
+  background-color: #7451eb;
+  transform: rotate(45deg);
+}
+
+.authBg::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -96px;
+  left: -340px;
+  width: 800px;
+  height: 400px;
+  background-color: #7451eb;
+  transform: rotate(45deg);
+}
+
+.authForm {
+  padding: 30px 30px;
+  flex: 0 0 auto;
+  width: 50%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .authFormBox {
+    position: relative;
+    background-color: var(--cardBg);
+    box-shadow: var(--cardShadow);
+    border-radius: var(--radiusS);
+    max-width: 420px;
+    width: 420px;
+    padding: 40px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px 0px;
+
+    .authBrand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        width: 90px;
+        height: 90px;
+        object-fit: scale-down;
+        margin-bottom: 20px;
+      }
+
+      h4 {
         color: var(--dark);
+        font-size: 20px;
+        line-height: 26px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      p {
+        color: var(--medium);
         font-size: 14px;
         line-height: 18px;
         font-weight: 400;
-        padding: 6px 12px;
-        border-radius: var(--radiusS);
-        transition: var(--transition);
-
-        &:hover {
-          background-color: #d4e1e3;
-          color: var(--primary);
-        }
       }
     }
-  }
-}
 
-.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
-  padding: 8px;
-  margin: 0;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background-color: var(--bodySubBg);
-  color: var(--dark);
-  box-shadow: 0px 10px 20px 0px rgb(20 19 19 / 5%);
+    .authInputs {
+      position: relative;
 
-  .MuiList-root {
-    padding: 0;
+      .authFormGroup {
+        display: flex;
+        align-items: center;
+        background-color: #f6f6fb;
+        border-radius: var(--radiusS);
+        margin-bottom: 16px;
 
-    .MuiButtonBase-root.MuiMenuItem-root {
-      color: var(--dark);
-      font-size: 14px;
-      line-height: 18px;
-      font-weight: 400;
-      padding: 8px 12px;
-      border-radius: 10px;
-      transition: var(--transition);
+        .authFormIcon {
+          width: 46px;
+          height: 46px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--medium);
+          font-size: 20px;
+        }
+      }
 
-      &:hover {
-        background-color: var(--primary);
-        color: var(--dark);
+      .MuiFormControl-root {
+        .MuiInputBase-root {
+          background-color: transparent;
+          border: none;
+          margin-bottom: 0;
+
+          .MuiInputAdornment-root {
+            margin-left: 0;
+
+            .MuiButtonBase-root.MuiIconButton-root {
+              background-color: transparent;
+              color: var(--medium);
+
+              &:hover {
+                background-color: transparent;
+              }
+
+              svg {
+                font-size: 20px;
+              }
+            }
+          }
+
+          &:hover {
+            background-color: transparent !important;
+            border-color: transparent;
+          }
+
+          &:hover .MuiOutlinedInput-notchedOutline {
+            border-color: transparent !important;
+            border-width: 1px !important;
+          }
+
+          .MuiInputBase-input {
+            padding: 8px 12px 8px 0px;
+            color: var(--dark);
+            font-size: 14px;
+            font-weight: 400;
+          }
+        }
       }
     }
   }
@@ -2220,7 +2744,7 @@ small,
     .MuiAvatar-root {
       width: 46px;
       height: 46px;
-      border: 1px solid var(--blurBorder);
+      border: 1px solid var(--border);
     }
 
     h4 {
@@ -2240,39 +2764,8 @@ small,
 
   .dropdown-menu {
     top: calc(100% - -10px);
-    min-width: 220px;
     right: 0;
     left: auto;
-    padding: 12px 12px;
-    margin: 0;
-    background-color: var(--cardBg);
-    border: 1px solid var(--borderLight);
-    box-shadow: var(--cardShadow);
-    border-radius: var(--radiusS);
-
-    .dropdown-item {
-      color: var(--medium);
-      font-size: 14px;
-      line-height: 22px;
-      font-weight: 400;
-      padding: 8px 14px;
-      border-radius: var(--radiusXS);
-      display: flex;
-      align-items: center;
-      gap: 0px 6px;
-      transition: var(--transition);
-
-      span {
-        width: 22px;
-        height: 22px;
-        font-size: 18px;
-      }
-
-      &:hover {
-        background-color: var(--primaryLight);
-        color: var(--primary);
-      }
-    }
   }
 }
 
@@ -2294,7 +2787,7 @@ small,
   top: 50%;
   right: 0;
   transform: translate(50%, -50%);
-  transition: var(--transition);
+  transition: transform 0.2s ease-in-out;
 
   .toggle-sidebar-label {
     position: relative;
@@ -2312,7 +2805,7 @@ small,
     transition: var(--transition);
 
     &:hover {
-      color: var(--primary);
+      color: var(--link);
     }
   }
 }
@@ -2324,14 +2817,14 @@ small,
 .sideBar {
   position: fixed;
   z-index: 100;
-  top: 100px;
+  top: 90px;
   left: 0;
   width: 90px;
   height: 100vh;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 90px);
   background-color: transparent;
   border-right: 1px solid var(--borderDark);
-  transition: var(--transition);
+  transition: width 0.2s ease-in-out;
 }
 
 .sidebarActive .sideBar {
@@ -2341,7 +2834,7 @@ small,
 .sideBarIn {
   height: 100%;
   padding: 25px 15px;
-  transition: var(--transition);
+  transition: padding 0.2s ease-in-out;
 }
 
 .sidebarActive .sideBarIn {
@@ -2350,7 +2843,6 @@ small,
 
 .toggle-sidebar-checkbox:checked ~ .sideBar {
   width: 300px;
-  transition: var(--transition);
 }
 
 .brandLogo {
@@ -2358,7 +2850,6 @@ small,
   align-items: center;
   justify-content: center;
   gap: 0px 8px;
-  transition: var(--transition);
 
   img {
     min-width: 46px;
@@ -2376,16 +2867,6 @@ small,
     span {
       font-weight: 400;
     }
-  }
-}
-
-.sidebarActive .sideBarLogo {
-  h3 {
-    width: auto;
-    overflow: visible;
-    opacity: 1;
-    margin-left: 8px;
-    transition: var(--transition);
   }
 }
 
@@ -2419,7 +2900,6 @@ small,
     margin: 0;
     align-items: center;
     gap: 16px 0px;
-    transition: var(--transition);
 
     .nav-item {
       position: inherit;
@@ -2449,18 +2929,16 @@ small,
           min-height: 50px;
           border-radius: 100%;
           font-size: 24px;
-          transition: var(--transition);
           color: var(--medium);
           background-color: var(--sidebarBg);
           border: 1px solid var(--sidebarBorder);
-          box-shadow: var(--shadowOne);
+          box-shadow: none;
         }
 
         h5 {
           width: 0;
           overflow: hidden;
           opacity: 0;
-          transition: var(--transition);
 
           &::after {
             content: "";
@@ -2480,8 +2958,8 @@ small,
 
           i {
             color: var(--primary);
-            background-color: var(--whiteBg);
-            border: 1px solid var(--white);
+            background-color: var(--sidebarBg);
+            border: 1px solid var(--sidebarBorder);
           }
         }
       }
@@ -2508,39 +2986,6 @@ small,
       }
 
       .dropdown-menu {
-        min-width: 239px;
-        padding: 10px 10px;
-        margin: 0;
-        background-color: var(--cardBg);
-        border: 1px solid var(--borderLight);
-        box-shadow: var(--cardShadow);
-        border-radius: var(--radiusS);
-
-        .dropdown-item {
-          color: var(--medium);
-          font-size: 14px;
-          line-height: 22px;
-          font-weight: 400;
-          padding: 8px 12px;
-          border-radius: var(--radiusXS);
-          display: flex;
-          align-items: center;
-          gap: 0px 4px;
-          margin: 0px 0px;
-          transition: var(--transition);
-
-          span {
-            width: 20px;
-            height: 20px;
-            font-size: 14px;
-          }
-
-          &:hover {
-            background-color: var(--primaryLight);
-            color: var(--primary);
-          }
-        }
-
         .dropdown-item.active {
           background-color: var(--primary);
           color: var(--whiteText);
@@ -2554,7 +2999,6 @@ small,
   & .navbar-nav {
     align-items: flex-start;
     gap: 16px 0px;
-    transition: var(--transition);
 
     & .nav-item {
       width: 100%;
@@ -2563,7 +3007,7 @@ small,
         flex-direction: row;
         background-color: var(--sidebarBg);
         border-color: var(--sidebarBorder);
-        box-shadow: var(--shadowOne);
+        box-shadow: none;
 
         i {
           position: relative;
@@ -2590,8 +3034,8 @@ small,
         }
 
         &:hover {
-          background-color: var(--blurBg);
-          border-color: var(--blurBorder);
+          background-color: var(--sidebarBg);
+          border-color: var(--sidebarBg);
 
           i {
             background-color: transparent;
@@ -2623,7 +3067,7 @@ small,
 }
 
 .pageWrapper {
-  padding: 100px 0px 0px 0px;
+  padding: 90px 0px 0px 0px;
   display: flex;
   justify-content: start;
   align-items: start;
@@ -2638,8 +3082,8 @@ small,
 .pageBody {
   margin-left: 90px;
   width: calc(100% - 90px);
-  min-height: calc(100vh - 100px);
-  padding: 30px 30px;
+  min-height: calc(100vh - 90px);
+  padding: 30px 30px 6px;
   transition: var(--transition);
 }
 
@@ -2654,14 +3098,13 @@ small,
   left: 0;
   z-index: 100;
   width: 100%;
-  height: 100px;
-  padding: 25px 30px;
+  height: 90px;
+  padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: var(--bodyBg);
   border-bottom: 1px solid var(--borderDark);
-  transition: var(--transition);
 
   .navbar-collapse {
     display: block;
@@ -2689,7 +3132,6 @@ small,
     align-items: center;
     background-color: var(--cardBg);
     border: 1px solid var(--cardBorder);
-    box-shadow: var(--cardShadow);
     box-shadow: none;
     padding: 0px 6px 0px 16px;
     border-radius: 60px;
@@ -2699,7 +3141,7 @@ small,
     span {
       font-size: 22px;
       line-height: 22px;
-      color: var(--light);
+      color: var(--medium);
     }
 
     input {
@@ -2715,6 +3157,7 @@ small,
 
       &::placeholder {
         color: var(--light);
+        font-weight: 400;
       }
     }
   }
@@ -2773,6 +3216,11 @@ small,
       transform: translate(-50%, -50%);
     }
   }
+
+  .theme-sw.iconBtn {
+    background-color: var(--cardBg) !important;
+    border: 1px solid var(--cardBorder) !important;
+  }
 }
 
 .MuiStack-root {
@@ -2780,149 +3228,11 @@ small,
   overflow: visible !important;
 }
 
-.icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  min-width: 46px;
-  min-height: 46px;
-  border-radius: var(--radiusS);
-  font-size: 24px;
-  color: var(--medium);
-  background-color: var(--bodyBg);
-  border: 1px solid var(--borderLight);
-  transition: var(--transition);
-}
-
-.icon.large {
-  width: 56px;
-  height: 56px;
-  min-width: 56px;
-  min-height: 56px;
-  border-radius: var(--radiusS);
-  font-size: 30px;
-}
-
-.icon.small {
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
-  min-height: 38px;
-  border-radius: var(--radiusXS);
-  font-size: 20px;
-}
-
-.icon.primary {
-  color: var(--primary);
-  background-color: var(--primaryLight);
-  border-color: var(--primaryLight);
-}
-
-.icon.secondary {
-  color: var(--secondary);
-  background-color: var(--secondaryLight);
-  border-color: var(--secondaryLight);
-}
-
-.icon.tertiary {
-  color: var(--tertiary);
-  background-color: var(--tertiaryLight);
-  border-color: var(--tertiaryLight);
-}
-
-.icon.success {
-  color: var(--success);
-  background-color: var(--successLight);
-  border-color: var(--successLight);
-}
-
-.icon.danger {
-  color: var(--danger);
-  background-color: var(--dangerLight);
-  border-color: var(--dangerLight);
-}
-
-.icon.warning {
-  color: var(--warning);
-  background-color: var(--warningLight);
-  border-color: var(--warningLight);
-}
-
-.icon.info {
-  color: var(--info);
-  background-color: var(--infoLight);
-  border-color: var(--infoLight);
-}
-
-.growthBadge {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0px 3px;
-  color: var(--medium);
-  font-size: 11px;
-  line-height: 14px;
-  font-weight: 500;
-  padding: 5px 8px 5px 6px;
-  border-radius: var(--radiusXS);
-  background-color: var(--cardBg);
-  width: max-content;
-
-  span {
-    position: relative;
-    width: 12px;
-    height: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  span::before {
-    display: inline-block;
-    font-family: bootstrap-icons !important;
-    color: currentColor;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: normal !important;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    vertical-align: -0.125em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-}
-
-.growthBadge.growthUp {
-  color: var(--success);
-  background-color: var(--successLight);
-}
-
-.growthBadge.growthDown {
-  color: var(--danger);
-  background-color: var(--dangerLight);
-}
-
-.growthBadge.growthBlank {
-  color: var(--medium);
-  background-color: var(--bodyBg);
-}
-
-.growthBadge.growthUp span::before {
-  content: "\F145";
-}
-
-.growthBadge.growthDown span::before {
-  content: "\F124";
-}
-
 .pageHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 
   .pageTitle {
     display: flex;
@@ -2936,6 +3246,8 @@ small,
     }
 
     .MuiBreadcrumbs-ol {
+      color: var(--medium);
+
       .MuiBreadcrumbs-li {
         list-style: none;
 
@@ -2981,9 +3293,9 @@ small,
       height: 38px !important;
       min-width: 38px !important;
       min-height: 38px !important;
-      box-shadow: var(--shadowOne) !important;
-      background-color: var(--cardBg) !important;
-      border: 1px solid var(--cardBorder) !important;
+      box-shadow: none !important;
+      background-color: var(--bodySubBg) !important;
+      border: 1px solid var(--border) !important;
       border-radius: 100% !important;
     }
 
@@ -2995,39 +3307,8 @@ small,
 
     .dropdown-menu {
       top: calc(100% - -10px);
-      min-width: 220px;
       right: 0 !important;
       left: auto !important;
-      padding: 12px 12px;
-      margin: 0;
-      background-color: var(--cardBg);
-      border: 1px solid var(--borderLight);
-      box-shadow: var(--cardShadow);
-      border-radius: var(--radiusS);
-
-      .dropdown-item {
-        color: var(--medium);
-        font-size: 14px;
-        line-height: 22px;
-        font-weight: 400;
-        padding: 8px 14px;
-        border-radius: var(--radiusXS);
-        display: flex;
-        align-items: center;
-        gap: 0px 6px;
-        transition: var(--transition);
-
-        span {
-          width: 22px;
-          height: 22px;
-          font-size: 18px;
-        }
-
-        &:hover {
-          background-color: var(--primaryLight);
-          color: var(--primary);
-        }
-      }
     }
 
     .MuiTabs-root {
@@ -3158,7 +3439,6 @@ small,
             font-weight: 400;
             text-decoration: none;
             padding: 2px 2px;
-            transition: var(--transition);
 
             &:hover {
               color: var(--primary);
@@ -3173,19 +3453,6 @@ small,
 
 .MuiTypography-root {
   font-family: var(--bodyFont) !important;
-}
-
-i.bi {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-input:-internal-autofill-selected {
-  appearance: menulist-button;
-  background-image: none !important;
-  background-color: transparent !important;
-  color: fieldtext !important;
 }
 
 .form-error {

@@ -1,66 +1,186 @@
-import React, { useEffect, useState } from 'react'
-import { useLoginMutation } from '../../Redux/Slices/LoginSlices/LoginApi';
-import { useNavigate } from 'react-router-dom';
-import { Session } from '../../Utils/Session';
-import { toastAlert, toastError } from '../../Utils/ToastUtil';
+import React, { useEffect, useState } from "react";
+import { useLoginMutation } from "../../Redux/Slices/LoginSlices/LoginApi";
+import { useNavigate } from "react-router-dom";
+import { Session } from "../../Utils/Session";
+import { toastAlert, toastError } from "../../Utils/ToastUtil";
+import TextField from "@mui/material/TextField";
+import { Eye, EyeSlash, Lock, User } from "@phosphor-icons/react";
+import { Button } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
-    const [form, setForm] = useState({
-        user_login_id: "",
-        user_login_password: ""
-    });
-    const navigate = useNavigate();
-    const [
-        login, {
-            data: loginData,
-            error: loginError,
-            isLoading: loginIsLoading,
-            isSuccess: loginIsSuccess
-        }
-    ] = useLoginMutation();
-    useEffect(() => {
-        if (loginIsSuccess) {
-            sessionStorage.setItem("token", loginData?.token);
-            setTimeout(() => {
-                sessionStorage.removeItem("token");
-                navigate("/login");
-            }, Session); // 10 hours
+  const [form, setForm] = useState({
+    user_login_id: "",
+    user_login_password: "",
+  });
+  const navigate = useNavigate();
+  const [
+    login,
+    {
+      data: loginData,
+      error: loginError,
+      isLoading: loginIsLoading,
+      isSuccess: loginIsSuccess,
+    },
+  ] = useLoginMutation();
+  useEffect(() => {
+    if (loginIsSuccess) {
+      sessionStorage.setItem("token", loginData?.token);
+      setTimeout(() => {
+        sessionStorage.removeItem("token");
+        navigate("/login");
+      }, Session); // 10 hours
 
-            navigate("/");
-        }
-    }, [loginIsSuccess]);
-    async function handelSubmit(e) {
-        e.preventDefault();
-        try {
-            await login(form).unwrap();
-            toastAlert("Login Successful");
-        } catch (error) {
-            console.error(error);
-            toastError("Invalid Credentials");
-        }
+      navigate("/");
     }
-    return (
-        <div className="login">
-            <h1>Login</h1>
-            <form onSubmit={handelSubmit}>
-                <input type="text" placeholder="Username" required value={form.user_login_id} onChange={(e) => {
-                    setForm(prev => {
-                        return { ...prev, user_login_id: e.target.value }
-                    })
-                }}
-                    autoComplete="username" />
-                <input type="password" placeholder="Password" required value={form.user_login_password} onChange={(e) => {
-                    setForm(prev => {
-                        return { ...prev, user_login_password: e.target.value }
-                    })
-                }}
+  }, [loginIsSuccess]);
+  async function handelSubmit(e) {
+    e.preventDefault();
+    try {
+      await login(form).unwrap();
+      toastAlert("Login Successful");
+    } catch (error) {
+      console.error(error);
+      toastError("Invalid Credentials");
+    }
+  }
 
-                    autoComplete="password" />
-                {/* {loginError && <p className='form-error'>{loginError.data.error}</p>} */}
-                <button type="submit">Login</button>
-            </form>
+  const [showPassword, setShowPassword] = useState(false);
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleMouseUpPassword = (event) => {
+    event.preventDefault();
+  };
+  return (
+    <>
+      <div className="authWrapper">
+        <div className="authWrapperIn">
+          <div className="authBg">
+            <img src="/assets/images/login/login.gif" className="authImg" />
+          </div>
+          <div className="authForm">
+            <div className="authFormBox">
+              <div className="authBrand">
+                <img
+                  src="/assets/images/logo/monogram.png"
+                  width={90}
+                  height={90}
+                />
+                <h4>Welcome back!</h4>
+                <p>Login to your account</p>
+              </div>
+              <div className="authInputs">
+                <form onSubmit={handelSubmit}>
+                  <div className="authFormGroup">
+                    <span className="authFormIcon">
+                      <User />
+                    </span>
+                    <TextField
+                      placeholder="Username"
+                      variant="outlined"
+                      value={form.user_login_id}
+                      onChange={(e) => {
+                        setForm((prev) => {
+                          return { ...prev, user_login_id: e.target.value };
+                        });
+                      }}
+                      autoComplete="username"
+                    />
+                  </div>
+                  <div className="authFormGroup">
+                    <span className="authFormIcon">
+                      <Lock />
+                    </span>
+                    <FormControl variant="outlined">
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={showPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              onMouseUp={handleMouseUpPassword}
+                              edge="end"
+                            >
+                              {showPassword ? <EyeSlash /> : <Eye />}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        placeholder="Password"
+                        value={form.user_login_password}
+                        onChange={(e) => {
+                          setForm((prev) => {
+                            return {
+                              ...prev,
+                              user_login_password: e.target.value,
+                            };
+                          });
+                        }}
+                      />
+                    </FormControl>
+                  </div>
+                  <div className="text-center">
+                    <Button color="primary" variant="contained" type="submit">
+                      Sign In
+                    </Button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    )
-}
+      </div>
+      <div className="login d-none">
+        <h1>Login</h1>
+        <form onSubmit={handelSubmit}>
+          <input
+            type="text"
+            placeholder="Username"
+            required
+            value={form.user_login_id}
+            onChange={(e) => {
+              setForm((prev) => {
+                return { ...prev, user_login_id: e.target.value };
+              });
+            }}
+            autoComplete="username"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            value={form.user_login_password}
+            onChange={(e) => {
+              setForm((prev) => {
+                return { ...prev, user_login_password: e.target.value };
+              });
+            }}
+            autoComplete="password"
+          />
+          {/* {loginError && <p className='form-error'>{loginError.data.error}</p>} */}
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </>
+  );
+};
 
 export default Login;

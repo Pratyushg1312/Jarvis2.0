@@ -33,6 +33,7 @@ import UserApi from "./Slices/UserSlices/UserApi";
 import notificationReducer from "./Slices/NotificationSlices/NotificationSlice";
 import SalesDashboardApi from "./Slices/SalesSlices/SalesDashboardApi";
 import PreviousRouteReducer from "./Slices/BreadCrumbSlices/PreviousRoute";
+import InvoiceRequestApi from "./Slices/SalesSlices/InvoiceRequestApi";
 
 const store = configureStore({
   reducer: {
@@ -69,6 +70,7 @@ const store = configureStore({
     [LoginApi.reducerPath]: LoginApi.reducer,
     [UserApi.reducerPath]: UserApi.reducer,
     [SalesDashboardApi.reducerPath]: SalesDashboardApi.reducer,
+    [InvoiceRequestApi.reducerPath]: InvoiceRequestApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -102,7 +104,8 @@ const store = configureStore({
       .concat(IncentiveSharingApi.middleware)
       .concat(LoginApi.middleware)
       .concat(UserApi.middleware)
-      .concat(SalesDashboardApi.middleware),
+      .concat(SalesDashboardApi.middleware)
+      .concat(InvoiceRequestApi.middleware),
 });
 setupListeners(store.dispatch);
 

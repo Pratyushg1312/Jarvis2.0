@@ -30,8 +30,7 @@ import {
   useGetTop20AccountsQuery,
   useGetWeeklyMonthlyQuarterlyListQuery,
 } from "../../../Redux/Slices/SalesSlices/SalesDashboardApi";
-import Typography from "@mui/material/Typography";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
+
 
 const LinkButtons = [
   {
@@ -45,33 +44,26 @@ const LinkButtons = [
     link: "/sales/report-overview",
     type: "link",
     access: [1],
-
   },
   {
     name: "View Target Competition",
     link: "/sales/target-competetion-overview",
     type: "link",
     access: [1, 4],
-
-
   },
   {
     name: "Add Account",
     link: "/admin/create-sales-account/0",
     type: "link",
     access: [1, 4],
-
-
   },
   {
     name: "Create Sale Booking",
     link: "/admin/create-sales-booking",
     type: "link",
     access: [1, 4],
-
   },
 ];
-
 
 const SalesDashboard = () => {
   const navigate = useNavigate();
@@ -283,11 +275,11 @@ const SalesDashboard = () => {
         />
       </Modal>
 
-
-
-
-      <FormContainer mainTitle={"Dashboard"} link={true} LinkButtons={LinkButtons} />
-
+      <FormContainer
+        mainTitle={"Dashboard"}
+        link={true}
+        LinkButtons={LinkButtons}
+      />
 
       <div className="row mt20">
         <MonthlyWeeklyCard

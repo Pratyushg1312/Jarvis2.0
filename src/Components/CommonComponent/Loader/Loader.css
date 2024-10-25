@@ -145,7 +145,7 @@
   height: 120px;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  background-color: var(--loaderDark);
+  background-color: var(--loaderBg);
   -webkit-clip-path: polygon(50% 90%, 0 0, 100% 0);
   clip-path: polygon(50% 90%, 0 0, 100% 0);
 }
@@ -176,7 +176,7 @@
   z-index: 1;
   inset: 10px;
   border-radius: 50%;
-  background-color: var(--loaderDark);
+  background-color: var(--loaderBg);
 }
 
 .circle-1 span {
@@ -239,7 +239,7 @@
   transform: translate(-50%, -50%);
   width: calc(100% + 20px);
   height: 10px;
-  background-color: var(--loaderDark);
+  background-color: var(--loaderBg);
 }
 
 .circle-2 span:nth-child(1) {
@@ -464,7 +464,7 @@
   height: 15px;
   border-radius: 50%;
   border: 2px solid;
-  border-color: var(--loaderDark) transparent transparent;
+  border-color: var(--loaderBg) transparent transparent;
 }
 
 .circle-8 span:nth-child(1) {
