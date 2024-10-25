@@ -4,15 +4,15 @@ import "./Loader.css";
 const Loader = () => {
   return (
     <div className="loaderWrapper">
-      <div class="reactor">
-        <div class="triangle d-none"></div>
-        <div class="circle-1">
+      <div className="reactor">
+        <div className="triangle d-none"></div>
+        <div className="circle-1">
           <span></span>
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div class="circle-2">
+        <div className="circle-2">
           <span></span>
           <span></span>
           <span></span>
@@ -22,20 +22,20 @@ const Loader = () => {
           <span></span>
           <span></span>
         </div>
-        <div class="circle-3"></div>
-        <div class="circle-4">
+        <div className="circle-3"></div>
+        <div className="circle-4">
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div class="circle-5">
+        <div className="circle-5">
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div class="circle-6"></div>
-        <div class="circle-7"></div>
-        <div class="circle-8">
+        <div className="circle-6"></div>
+        <div className="circle-7"></div>
+        <div className="circle-8">
           <span></span>
           <span></span>
           <span></span>
