@@ -108,10 +108,12 @@ const FormContainer = ({
                         buttons?.length > 0 && buttons?.map(item => {
                             const hasAccess = item?.access?.indexOf(UserRole);
                             const isShow = item?.condition ? item.condition() : true;
+                            const color = item?.color ? item.color : "primary";
+                            const variant = item?.variant ? item.variant : "contained";
                             if (hasAccess !== -1) {
                                 if (isShow)
                                     return (
-                                        <Button variant="contained" color="primary" key={item.name} onClick={item?.onClick}>{item.name}</Button>
+                                        <Button variant={variant} color={color} title={item?.title && item?.title()} disabled={item?.disabled && item?.disabled()} key={item.name} onClick={() => item?.onClick && item?.onClick()}>{item.name}</Button>
                                     );
                             }
                         })

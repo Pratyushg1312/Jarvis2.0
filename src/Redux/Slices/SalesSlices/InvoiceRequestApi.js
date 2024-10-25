@@ -5,6 +5,12 @@ const InvoiceRequestApi = createApi({
   reducerPath: "invoiceRequestApi",
   baseQuery: authBaseQuery,
   endpoints: (builder) => ({
+    getInvoiceRequestList: builder.query({
+      query: (id) =>
+        `sales/invoice_request${id ? `?userId=${loginUserId}` : ""}`,
+      transformResponse: (response) => response.data,
+      keepUnusedDataFor: 3600,
+    }),
     getInvoice: builder.query({
       query: ({ id }) =>
         `sales/invoice_request${
@@ -25,6 +31,10 @@ const InvoiceRequestApi = createApi({
   }),
 });
 
-export const { useAddInvoiceRequestMutation } = InvoiceRequestApi;
+export const {
+  useGetInvoiceRequestListQuery,
+  useGetInvoiceQuery,
+  useAddInvoiceRequestMutation,
+} = InvoiceRequestApi;
 
 export default InvoiceRequestApi;

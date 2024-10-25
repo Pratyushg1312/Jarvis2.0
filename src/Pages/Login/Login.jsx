@@ -29,6 +29,7 @@ const Login = () => {
       isSuccess: loginIsSuccess,
     },
   ] = useLoginMutation();
+
   useEffect(() => {
     if (loginIsSuccess) {
       sessionStorage.setItem("token", loginData?.token);
@@ -40,6 +41,7 @@ const Login = () => {
       navigate("/");
     }
   }, [loginIsSuccess]);
+
   async function handelSubmit(e) {
     e.preventDefault();
     try {
@@ -52,11 +54,9 @@ const Login = () => {
   }
 
   const [showPassword, setShowPassword] = useState(false);
-  const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+
+
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -93,6 +93,7 @@ const Login = () => {
                     </span>
                     <TextField
                       placeholder="Username"
+                      required
                       variant="outlined"
                       value={form.user_login_id}
                       onChange={(e) => {
@@ -126,6 +127,7 @@ const Login = () => {
                         }
                         placeholder="Password"
                         value={form.user_login_password}
+                        required
                         onChange={(e) => {
                           setForm((prev) => {
                             return {
@@ -148,37 +150,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="login d-none">
-        <h1>Login</h1>
-        <form onSubmit={handelSubmit}>
-          <input
-            type="text"
-            placeholder="Username"
-            required
-            value={form.user_login_id}
-            onChange={(e) => {
-              setForm((prev) => {
-                return { ...prev, user_login_id: e.target.value };
-              });
-            }}
-            autoComplete="username"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            value={form.user_login_password}
-            onChange={(e) => {
-              setForm((prev) => {
-                return { ...prev, user_login_password: e.target.value };
-              });
-            }}
-            autoComplete="password"
-          />
-          {/* {loginError && <p className='form-error'>{loginError.data.error}</p>} */}
-          <button type="submit">Login</button>
-        </form>
-      </div>
+
     </>
   );
 };

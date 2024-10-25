@@ -457,7 +457,7 @@ const SalesAccountOverview = () => {
             name: "Actions",
             renderRowCell: (row) => (
                 <div className="flex-row">
-                    <Link to={`/admin/create-sales-account/${row?._id}`}>
+                    <Link to={`/sales/create-sales-account/${row?._id}`}>
                         <button className="icon-1" title="Edit">
                             <i className="bi bi-pencil"></i>
                         </button>
@@ -466,7 +466,7 @@ const SalesAccountOverview = () => {
                         className="icon-1"
                         title="Create Sales Booking"
                         onClick={() =>
-                            navigate("/admin/create-sales-booking", {
+                            navigate("/sales/create-sales-booking", {
                                 state: {
                                     account_data: row,
                                 },
