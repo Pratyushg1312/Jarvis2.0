@@ -53,13 +53,13 @@ const LinkButtons = [
   },
   {
     name: "Add Account",
-    link: "/admin/create-sales-account/0",
+    link: "/sales/create-sales-account/0",
     type: "link",
     access: [1, 4],
   },
   {
     name: "Create Sale Booking",
-    link: "/admin/create-sales-booking",
+    link: "/sales/create-sales-booking",
     type: "link",
     access: [1, 4],
   },

@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../Components/CommonComponent/Layout/Layout';
-import { CreatePaymentMode, CreateDocumentType, InvoiceRequestOverview, CreateIncentivePlan, IncentivePlanOveview, SalesDashboard, SalesAccountOverview, SalesIncentiveOverview, SalesBookingOverview, PocOverview, SalesReport, TargetCompetetionOverview, CreateTargetCompetition, OutstandingOverview, DocumentTypeOverview, PaymentDetailsOverview, PaymentModeOverview, ServicesOverview, RecordServiceOverview, PaymentUpdateOverview, IncentiveDashboard, UserIncentive } from '../Pages/Sales/Index';
+import { CreateSaleBooking, CreatePaymentUpdate, CreatePaymentMode, CreateDocumentType, InvoiceRequestOverview, CreateIncentivePlan, IncentivePlanOveview, SalesDashboard, SalesAccountOverview, SalesIncentiveOverview, SalesBookingOverview, PocOverview, SalesReport, TargetCompetetionOverview, CreateTargetCompetition, OutstandingOverview, DocumentTypeOverview, PaymentDetailsOverview, PaymentModeOverview, ServicesOverview, RecordServiceOverview, PaymentUpdateOverview, IncentiveDashboard, UserIncentive } from '../Pages/Sales/Index';
+import CreateSalesAccount from '../Pages/Sales/Account/CreateSalesAccount';
 
 const SalesRoute = () => {
     return (
@@ -23,6 +24,7 @@ const SalesRoute = () => {
                 <Route path="payment-mode-overview" element={<PaymentModeOverview />} />
                 <Route path="create-payment-mode" element={<CreatePaymentMode />} />
                 <Route path="create-payment-mode/:id" element={<CreatePaymentMode />} />
+                <Route path="create-payment-update/:id" element={<CreatePaymentUpdate />} />
 
                 <Route path="services-overview" element={<ServicesOverview />} />
                 <Route path="record-servcies-overview" element={<RecordServiceOverview />} />
@@ -32,6 +34,12 @@ const SalesRoute = () => {
                 <Route path="invoice-request-overview" element={<InvoiceRequestOverview />} />
                 <Route path="incentive-plan-overview" element={<IncentivePlanOveview />} />
                 <Route path="incentive-plan/:id" element={<CreateIncentivePlan />} />
+                <Route path="create-sales-booking" element={<CreateSaleBooking />} />
+                <Route path="create-sales-booking/:editId/:un_id" element={<CreateSaleBooking />} />
+                <Route path="create-sales-account/:id" element={<CreateSalesAccount />} />
+
+
+
 
             </Route>
 

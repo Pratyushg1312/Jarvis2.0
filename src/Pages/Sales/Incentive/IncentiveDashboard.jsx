@@ -183,7 +183,7 @@ const IncentiveDashboard = () => {
           <div
             style={{ cursor: "pointer" }}
             onClick={() =>
-              navigate(`/admin/sales-user-incentve`, {
+              navigate(`/sales/user-incentve`, {
                 state: { id: row.user_id, name: "monthwise" },
               })
             }
@@ -202,7 +202,7 @@ const IncentiveDashboard = () => {
           <div
             style={{ cursor: "pointer" }}
             onClick={() =>
-              navigate(`/admin/sales-user-incentve`, {
+              navigate(`/sales/user-incentve`, {
                 state: { id: row.user_id, name: "monthwise" },
               })
             }
@@ -222,7 +222,7 @@ const IncentiveDashboard = () => {
           <div
             style={{ cursor: "pointer" }}
             onClick={() =>
-              navigate(`/admin/sales-user-incentve`, {
+              navigate(`/sales/user-incentve`, {
                 state: { id: row.user_id, name: "monthwise" },
               })
             }
@@ -240,7 +240,7 @@ const IncentiveDashboard = () => {
           <div
             style={{ cursor: "pointer" }}
             onClick={() =>
-              navigate(`/admin/sales-user-incentve`, {
+              navigate(`/sales/sales-user-incentve`, {
                 state: { id: row.user_id, name: "monthwise" },
               })
             }
@@ -370,7 +370,7 @@ const IncentiveDashboard = () => {
       renderRowCell: (row) => (
         <div
           onClick={() =>
-            navigate("/admin/user-incenitve", {
+            navigate("/sales/user-incenitve", {
               state: {
                 id: row.user_id,
                 name: row.user_name,

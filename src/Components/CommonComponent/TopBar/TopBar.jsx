@@ -13,6 +13,7 @@ import {
   useGetAllUsersQuery,
   useGetUserAuthQuery,
   useGetUserDetailsByIdMutation,
+  useLoginUserDataQuery,
 } from "../../../Redux/Slices/UserSlices/UserApi";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { UserRole } from "../../../Utils/UserRole";
@@ -21,6 +22,8 @@ const TopBar = () => {
   const navigate = useNavigate();
   const loginUser = GetDecodedToken().id;
   const userRole = GetDecodedToken().role_id;
+  const { data: loginUserData } = useLoginUserDataQuery(loginUser);
+
   const {
     data: allUserData,
     error: allUserError,
@@ -36,6 +39,7 @@ const TopBar = () => {
       isSuccess: userIsSuccess,
     },
   ] = useGetUserDetailsByIdMutation();
+
   const {
     data: userAuthData,
     error: userAuthError,
