@@ -6,6 +6,14 @@ const UserApi = createApi({
   reducerPath: "UserApi",
   baseQuery: authBaseQuery,
   endpoints: (builder) => ({
+    loginUserData: builder.query({
+      query: (id) => ({
+        url: `get_single_user/${id}`,
+      }),
+      transformResponse: (response) => response?.[0],
+      keepUnusedDataFor: Session / 1000,
+    }),
+
     getAllUsers: builder.query({
       query: () => "get_all_users",
       transformResponse: (response) => response.data,
@@ -32,6 +40,7 @@ const UserApi = createApi({
 });
 
 export const {
+  useLoginUserDataQuery,
   useGetAllUsersQuery,
   useGetUserAuthQuery,
   useGetUserDetailsByIdMutation,

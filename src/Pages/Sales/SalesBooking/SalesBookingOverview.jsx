@@ -740,7 +740,7 @@ const SalesBookingOverview = () => {
                         <div className="flex-row">
                             {row.incentive_earning_status === "un-earned" && <Link
                                 title="Edit sale booking"
-                                to={`/admin/create-sales-booking/${row.sale_booking_id}/${row._id}`}
+                                to={`/sales/create-sales-booking/${row.sale_booking_id}/${row._id}`}
                             >
                                 <div className="icon-1">
                                     <i className="bi bi-pencil" />
@@ -762,7 +762,7 @@ const SalesBookingOverview = () => {
                                     title="Payment Update"
                                     className="icon-1"
                                     onClick={() => {
-                                        navigate(`/admin/create-payment-update/0`, {
+                                        navigate(`/sales/create-payment-update/0`, {
                                             state: {
                                                 sale_id: row.sale_booking_id,
                                                 userdata: row,

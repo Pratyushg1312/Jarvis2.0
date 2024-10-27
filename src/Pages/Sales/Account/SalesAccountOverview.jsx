@@ -66,7 +66,13 @@ const SalesAccountOverview = () => {
             link: "/sales/salesbooking-overview",
             type: "link",
             access: [1, 4],
-        }
+        },
+        {
+            name: "Add Account",
+            link: "/sales/create-sales-account/0",
+            type: "link",
+            access: [1, 4],
+        },
     ];
 
     const dateFilterArray = [{

@@ -5,6 +5,12 @@ const SaleBookingApi = createApi({
   reducerPath: "saleBookingApi",
   baseQuery: authBaseQuery,
   endpoints: (builder) => ({
+    getSingleSaleBooking: builder.query({
+      query: (loginUserId) => `sales/get_single_sales_booking/${loginUserId}`,
+      transformResponse: (response) => response.data,
+      keepUnusedDataFor: 0,
+    }),
+
     getAllSaleBooking: builder.query({
       query: ({ loginUserId, stats }) =>
         `sales/sales_booking${
@@ -143,6 +149,7 @@ const SaleBookingApi = createApi({
 });
 
 export const {
+  useGetSingleSaleBookingQuery,
   useGetAllSaleBookingQuery,
   useGetAllDeletedSaleBookingQuery,
   useGetIndividualSaleBookingQuery,

@@ -20,6 +20,8 @@ import CreateIncentivePlan from "./Incentive/CreateIncentivePlan";
 import InvoiceRequestOverview from "./InvoiceRequests/InvoiceRequestOverview";
 import CreateDocumentType from "./Documents/CreateDocumentType";
 import CreatePaymentMode from "./Payment/PaymentMode/CreatePaymentMode";
+import CreatePaymentUpdate from "./Payment/PaymentUpdate/CreatePaymentUpdate";
+import CreateSaleBooking from "./SalesBooking/CreateSaleBooking";
 
 export {
   SalesDashboard,
@@ -44,4 +46,6 @@ export {
   InvoiceRequestOverview,
   CreateDocumentType,
   CreatePaymentMode,
+  CreatePaymentUpdate,
+  CreateSaleBooking,
 };

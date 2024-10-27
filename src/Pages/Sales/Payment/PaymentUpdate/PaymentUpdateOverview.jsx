@@ -251,7 +251,7 @@ const PaymentUpdateOverview = () => {
         <div className="action_title">
           <FormContainer
             mainTitle="Payment Update"
-            link="/admin/create-payment-update/0"
+            link="/sales/create-payment-update/0"
             buttonAccess={false}
             submitButton={false}
           />

@@ -662,8 +662,7 @@ select:-webkit-autofill:focus {
   width: auto !important;
   height: auto !important;
 
-  .MuiPickersCalendarHeader-root {
-  }
+  .MuiPickersCalendarHeader-root {}
 }
 
 /* .MuiPopper-root {
@@ -2721,11 +2720,9 @@ i.bi {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    243deg,
-    rgb(100 169 242 / 10%) 0%,
-    rgb(109 84 248 / 10%) 100%
-  );
+  background: linear-gradient(243deg,
+      rgb(100 169 242 / 10%) 0%,
+      rgb(109 84 248 / 10%) 100%);
   display: none;
 }
 
@@ -2841,7 +2838,7 @@ i.bi {
   padding: 25px 30px;
 }
 
-.toggle-sidebar-checkbox:checked ~ .sideBar {
+.toggle-sidebar-checkbox:checked~.sideBar {
   width: 300px;
 }
 
@@ -3174,7 +3171,7 @@ i.bi {
     left: 0;
   }
 
-  #theme-toggle + label {
+  #theme-toggle+label {
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -3182,7 +3179,7 @@ i.bi {
     overflow: hidden;
   }
 
-  #theme-toggle + label i {
+  #theme-toggle+label i {
     width: 24px;
     height: 24px;
     display: flex;
@@ -3193,17 +3190,17 @@ i.bi {
     transition: var(--transition);
   }
 
-  #theme-toggle + label i:first-child {
+  #theme-toggle+label i:first-child {
     top: 50%;
     transform: translate(-50%, -50%);
   }
 
-  #theme-toggle + label i:last-child {
+  #theme-toggle+label i:last-child {
     top: 0%;
     transform: translate(-50%, -100%);
   }
 
-  #theme-toggle:checked ~ label {
+  #theme-toggle:checked~label {
     overflow: hidden;
 
     i:first-child {
@@ -3460,4 +3457,37 @@ i.bi {
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;
+}
+
+.ReactModal__Overlay {
+  position: fixed;
+  /* Change to fixed to cover the entire viewport */
+  top: 0;
+  left: 0;
+  background-color: rgb(18 17 17 / 75%) !important;
+  z-index: 10000;
+  height: 100% !important;
+  width: 100% !important;
+  display: flex;
+  /* Use flexbox */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+}
+
+.ReactModal__Content {
+  background-color: var(--bodyBg) !important;
+  position: relative;
+  /* Change to relative */
+  max-width: 90%;
+  /* Optional: to ensure it doesn't overflow */
+  max-height: 90%;
+  /* Optional: to ensure it doesn't overflow */
+  overflow: auto;
+  /* Optional: to handle overflow content */
+}
+
+.ReactModal__Content::-webkit-scrollbar {
+  display: none;
 }
