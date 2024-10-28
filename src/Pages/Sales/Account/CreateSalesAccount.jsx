@@ -34,6 +34,7 @@ import PointOfContact from "../../../Components/Sales/salesAccount/PointOfContac
 import View from "../../../Components/CommonComponent/View/View";
 import { ViewAccountTypeColumns } from "../../../Components/Sales/salesAccount/ViewAccountTypeColumns";
 import { ViewCompanyTypeColumns } from "../../../Components/Sales/salesAccount/ViewCompanyTypeColumns";
+import { Autocomplete, TextField } from "@mui/material";
 
 const socialOptions = [
   { value: "instagram", label: "Instagram" },
@@ -1089,7 +1090,7 @@ const CreateSalesAccount = () => {
 
         <div className="card">
           <div className="card-header">
-            <h5 className="card-title">Account Detail</h5>
+            <h5 className="cardHeading">Account Detail</h5>
           </div>
 
           <div className="card-body">
@@ -1327,7 +1328,7 @@ const CreateSalesAccount = () => {
         </div>
         <div className="card">
           <div className="card-header">
-            <h3 className="card-title">Socials</h3>
+            <h3 className="cardHeading">Socials</h3>
           </div>
           <div className="card-body row">
             <SocialComponent
@@ -1352,7 +1353,7 @@ const CreateSalesAccount = () => {
         </div>
         <div className="card">
           <div className="card-header">
-            <h3 className="card-title">Details</h3>
+            <h3 className="cardHeading">Details</h3>
           </div>
           <div className="card-body row">
             <div className="col-4" ref={accountOwnerRef}>
@@ -1471,7 +1472,7 @@ const CreateSalesAccount = () => {
         <div className="card">
           <div className="card-header ">
             <div className="d-flex justify-content-between w-100">
-              <h3 className="card-title">Connected Address</h3>
+              <h3 className="cardHeading">Connected Address</h3>
               <div>
                 <input
                   type="checkbox"
@@ -1502,39 +1503,40 @@ const CreateSalesAccount = () => {
                 placeholder="Enter pin code"
               />
             </div>
-            <div className="col-md-4 flex-row">
-              <div className="col-12">
-                <CustomSelect
-                  fieldGrid={12}
-                  label="Connected Billing Country"
-                  dataArray={countries}
-                  optionId="country_name"
-                  optionLabel="country_name"
-                  selectedId={connectedBillingCountry}
-                  setSelectedId={setConnectedBillingCountry}
-                />
-              </div>
-            </div>
-            <div className="form-group col-4">
-              <label htmlFor="">Connected Billing State</label>
-              <IndianStatesMui
-                selectedState={connectedBillingState}
-                onChange={(option) =>
-                  setConnectedBillingState(option ? option : null)
-                }
-              />
-            </div>
 
-            <div className="form-group col-4">
-              <label htmlFor="">Connected Billing City</label>
-              <IndianCitiesMui
-                selectedState={connectedBillingState}
-                selectedCity={connectedBillingCity}
-                onChange={(option) =>
-                  setConnectedBillingCity(option ? option : null)
-                }
-              />
-            </div>
+            <CustomSelect
+              fieldGrid={4}
+              label="Connected Billing Country"
+              dataArray={countries}
+              optionId="country_name"
+              optionLabel="country_name"
+              selectedId={connectedBillingCountry}
+              setSelectedId={setConnectedBillingCountry}
+            />
+
+
+
+            <IndianStatesMui
+              selectedState={connectedBillingState}
+              onChange={(option) =>
+                setConnectedBillingState(option ? option : null)
+              }
+              fieldGrid={4}
+              label="Connected Billing State"
+            />
+
+
+            <IndianCitiesMui
+              selectedState={connectedBillingState}
+              selectedCity={connectedBillingCity}
+              onChange={(option) =>
+                setConnectedBillingCity(option ? option : null)
+              }
+              fieldGrid={4}
+              label="Connected Billing City"
+
+            />
+
             <div className="col-4">
               <FieldContainer
                 label="Connected Billing Address"
@@ -1548,14 +1550,14 @@ const CreateSalesAccount = () => {
         </div>
         <div className="card">
           <div className="card-header">
-            <label className="card-title flex-row ml-3">
+            <label className="cardHeading flex-row ml-3">
               <input
                 type="checkbox"
                 className="form-check-input"
                 checked={fillHeadFields}
                 onChange={handleCheckboxChange}
               />
-              <p className="card-title mt-1">
+              <p className="cardHeading mt-1">
                 Head office address same as Connected Office{" "}
               </p>
             </label>
@@ -1657,7 +1659,7 @@ const CreateSalesAccount = () => {
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -58,7 +58,7 @@ const TargetCard = ({ data, totalSaleAmountDateWise, index }) => {
       <div className="col-12">
         <div className="card cardAccordion target-card">
           <div className="card-header">
-            <h5 className="card-title">{data?.competition_name || "N/A"}</h5>
+            <h5 className="cardHeading">{data?.competition_name || "N/A"}</h5>
           </div>
           <Accordion>
             <AccordionSummary aria-controls="panel1-content" id="panel1-header">

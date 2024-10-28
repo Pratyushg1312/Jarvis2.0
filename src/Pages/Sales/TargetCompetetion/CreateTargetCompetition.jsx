@@ -113,7 +113,7 @@ const CreateTargetCompetition = () => {
       />
       <div className="card">
         <div className="card-header">
-          <h3 className="card-title">
+          <h3 className="cardHeading">
             {id ? "Edit Target Competition" : "Create Target Competition"}
           </h3>
         </div>

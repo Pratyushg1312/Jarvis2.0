@@ -108,7 +108,7 @@ const CreateIncentivePlan = () => {
       <FormContainer mainTitle="Incentive Plan" link={true} />
       <div className="card">
         <div className="card-header">
-          <h1 className="card-title">Incentive Plan Creation</h1>
+          <h1 className="cardHeading">Incentive Plan Creation</h1>
         </div>
         <div className="card-body row">
           <div className="form-group col-4">

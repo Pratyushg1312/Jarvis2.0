@@ -243,7 +243,7 @@ const CreatePaymentUpdate = () => {
       <FormContainer mainTitle="Payment Update" link={true} />
       <div className="card">
         <div className="card-header">
-          <h4 className="card-title">Creation</h4>
+          <h4 className="cardHeading">Creation</h4>
         </div>
         <div className="card-body row">
           <div className="form-group col-4">
