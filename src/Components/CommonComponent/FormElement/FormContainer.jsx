@@ -37,12 +37,15 @@ const FormContainer = ({
     const [pathnames, setPathnames] = useState([]);
     const [buttons, setButtons] = useState([])
     const [links, setLinks] = useState([])
+    const [elements, setElements] = useState([])
 
 
 
     useEffect(() => {
         setButtons(LinkButtons?.filter(item => item?.type === "button"));
         setLinks(LinkButtons?.filter(item => item?.type === "link"));
+        setElements(LinkButtons?.filter(item => item?.type === "element"));
+
     }, [LinkButtons]);
 
     const { base, previousRoute } = useSelector((state) => state.previousRoute);
@@ -103,6 +106,21 @@ const FormContainer = ({
                             </ul>
                         </div>
 
+                    }
+                    {
+                        elements?.length > 0 && elements?.map(item => {
+                            const hasAccess = item?.access?.indexOf(UserRole);
+                            const isShow = item?.condition ? item.condition() : true;
+                            if (hasAccess !== -1) {
+                                if (isShow)
+                                    console.log(item, "hgfhgjsk");
+
+                                return (
+                                    item?.element
+                                );
+                            }
+                        }
+                        )
                     }
                     {
                         buttons?.length > 0 && buttons?.map(item => {
