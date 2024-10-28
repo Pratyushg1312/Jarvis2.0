@@ -123,44 +123,61 @@ const SalesReport = () => {
         }
     ];
     console.log(fromDate, toDate);
+    const LinkButtons = [
+        {
+            type: "element",
+            access: [1, 4],
+            element: <>
+                <CustomSelect
+                    fieldGrid={"4"}
+                    label={"Filter By"}
+                    dataArray={options}
+                    optionId={"value"}
+                    optionLabel={"label"}
+                    selectedId={filter}
+                    setSelectedId={setFilter}
+                />
+                {filter === "custom" && (
+                    <>
 
+                        <FieldContainer
+                            type="date"
+                            label="From Date"
+                            fieldGrid={4}
+                            value={fromDate}
+                            onChange={(e) => setFromDate(e.target.value)}
+                        />
+                        <FieldContainer
+                            type="date"
+                            label="To Date"
+                            fieldGrid={4}
+                            value={toDate}
+                            onChange={(e) => setToDate(e.target.value)}
+                        />
+                    </>
+                )}
+            </>
+        },
+        {
+            type: "button",
+            access: [1, 4],
+            name: "Search",
+            onClick: handelSearch,
+            variant: "contained",
+            color: "primary"
+        }
+    ]
     return (
         <div>
             <FormContainer
                 link={true}
                 mainTitle={"Sales Report"}
+                LinkButtons={LinkButtons}
             />
             <div className="card">
                 <div className="card-body row p-3">
 
-                    <CustomSelect
-                        fieldGrid={"4"}
-                        label={"Filter By"}
-                        dataArray={options}
-                        optionId={"value"}
-                        optionLabel={"label"}
-                        selectedId={filter}
-                        setSelectedId={setFilter}
-                    />
-                    {filter === "custom" && (
-                        <>
 
-                            <FieldContainer
-                                type="date"
-                                label="From Date"
-                                fieldGrid={4}
-                                value={fromDate}
-                                onChange={(e) => setFromDate(e.target.value)}
-                            />
-                            <FieldContainer
-                                type="date"
-                                label="To Date"
-                                fieldGrid={4}
-                                value={toDate}
-                                onChange={(e) => setToDate(e.target.value)}
-                            />
-                        </>
-                    )}
                     <div className="col-4 mt-4">
                         <button className="btn cmnbtn btn-primary" onClick={handelSearch}>
                             Search
