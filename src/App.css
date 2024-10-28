@@ -10,9 +10,12 @@
   --borderDark: #dde1e9;
   --bodyBg: #f7f8fa;
   --bodySubBg: #ffffff;
-  --sidebarBg: #ffffff;
+  --sidebarBg: #f7f8fa;
   --sidebarSubBg: #ffffff;
   --sidebarBorder: #f0f0f2;
+  --themebarBg: #ffffff;
+  --themebarSubBg: #f7f8fa;
+  --themebarBorder: #f0f0f2;
   --cardBg: #ffffff;
   --cardSubBg: #ffffff;
   --cardBorder: #f0f0f2;
@@ -64,9 +67,12 @@ body[theme="dark"] {
   --borderDark: #282a30;
   --bodyBg: #16171b;
   --bodySubBg: #1f2125;
-  --sidebarBg: #1f2125;
+  --sidebarBg: #16171b;
   --sidebarSubBg: #1f2125;
   --sidebarBorder: #242424;
+  --themebarBg: #1f2125;
+  --themebarSubBg: #16171b;
+  --themebarBorder: #242424;
   --cardBg: #1f2125;
   --cardSubBg: #1f2125;
   --cardBorder: #242424;
@@ -154,6 +160,54 @@ hr {
   opacity: 1;
 }
 
+/* BADGE */
+
+.badge {
+  background-color: var(--bodyBg);
+  border: 1px solid var(--border);
+  color: var(--medium);
+  font-size: 11px;
+  line-height: 12px;
+  font-weight: 500;
+  padding: 5px 8px;
+}
+
+.badge.primary {
+  color: var(--primary);
+  background-color: var(--primaryLight);
+  border-color: var(--primaryLight);
+}
+
+.badge.secondary {
+  color: var(--secondary);
+  background-color: var(--secondaryLight);
+  border-color: var(--secondaryLight);
+}
+
+.badge.success {
+  color: var(--success);
+  background-color: var(--successLight);
+  border-color: var(--successLight);
+}
+
+.badge.danger {
+  color: var(--danger);
+  background-color: var(--dangerLight);
+  border-color: var(--dangerLight);
+}
+
+.badge.info {
+  color: var(--info);
+  background-color: var(--infoLight);
+  border-color: var(--infoLight);
+}
+
+.badge.warning {
+  color: var(--warning);
+  background-color: var(--warningLight);
+  border-color: var(--warningLight);
+}
+
 /* BUTTON */
 
 .MuiButton-root,
@@ -186,11 +240,8 @@ hr {
 
   .badge {
     background-color: rgb(255 255 255 / 30%);
-    font-size: 11px;
-    line-height: 12px;
-    font-weight: 500;
-    padding: 4px 7px;
     border: 1px solid rgb(255 255 255 / 10%);
+    color: currentColor;
   }
 }
 
@@ -223,6 +274,13 @@ hr {
   &:hover {
     color: var(--dark) !important;
   }
+}
+
+.iconBtn.sm,
+.MuiButton-root.iconBtn.sm {
+  width: 38px;
+  height: 38px;
+  font-size: 16px !important;
 }
 
 .MuiButton-contained.MuiButton-colorPrimary,
@@ -469,7 +527,6 @@ hr {
         color: var(--primary);
         font-size: 12px;
         line-height: 13px;
-        font-weight: 400;
         padding: 6px 8px;
       }
     }
@@ -479,9 +536,10 @@ hr {
       color: var(--whiteText);
 
       .badge {
-        background-color: rgb(255 255 255 / 30%);
-        color: currentColor;
         font-weight: 500;
+        background-color: rgb(255 255 255 / 30%);
+        border: 1px solid rgb(255 255 255 / 10%);
+        color: currentColor;
       }
     }
 
@@ -658,11 +716,30 @@ select:-webkit-autofill:focus {
   }
 }
 
+.card.cardAccordion {
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0px 0px;
+  }
+  .MuiAccordion-root::before {
+    display: none;
+  }
+  .MuiAccordionSummary-root {
+    padding: 0px 0px;
+  }
+  .MuiAccordionSummary-content {
+    margin: 0px 0px;
+  }
+}
+
 .MuiDateCalendar-root {
   width: auto !important;
   height: auto !important;
 
-  .MuiPickersCalendarHeader-root {}
+  .MuiPickersCalendarHeader-root {
+  }
 }
 
 /* .MuiPopper-root {
@@ -2720,13 +2797,55 @@ i.bi {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(243deg,
-      rgb(100 169 242 / 10%) 0%,
-      rgb(109 84 248 / 10%) 100%);
+  background: linear-gradient(
+    243deg,
+    rgb(100 169 242 / 10%) 0%,
+    rgb(109 84 248 / 10%) 100%
+  );
   display: none;
 }
 
 .userDropdown {
+  position: relative;
+
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0px 8px;
+
+    &::after {
+      display: none;
+    }
+
+    .MuiAvatar-root {
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--border);
+    }
+
+    h4 {
+      color: var(--dark);
+      font-size: 15px;
+      line-height: 16px;
+      display: flex;
+      flex-direction: column;
+
+      span {
+        color: var(--medium);
+        font-size: 80%;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    top: calc(100% - -10px);
+    right: 0;
+    left: auto;
+  }
+}
+
+.themeDropdown {
   position: relative;
 
   .dropdown-toggle {
@@ -2778,7 +2897,7 @@ i.bi {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--sidebarBg);
+  background-color: var(--sidebarSubBg);
   border: 1px solid var(--border);
   position: absolute;
   top: 50%;
@@ -2819,7 +2938,7 @@ i.bi {
   width: 90px;
   height: 100vh;
   height: calc(100vh - 90px);
-  background-color: transparent;
+  background-color: var(--sidebarBg);
   border-right: 1px solid var(--borderDark);
   transition: width 0.2s ease-in-out;
 }
@@ -2838,7 +2957,7 @@ i.bi {
   padding: 25px 30px;
 }
 
-.toggle-sidebar-checkbox:checked~.sideBar {
+.toggle-sidebar-checkbox:checked ~ .sideBar {
   width: 300px;
 }
 
@@ -2927,7 +3046,7 @@ i.bi {
           border-radius: 100%;
           font-size: 24px;
           color: var(--medium);
-          background-color: var(--sidebarBg);
+          background-color: var(--sidebarSubBg);
           border: 1px solid var(--sidebarBorder);
           box-shadow: none;
         }
@@ -2955,7 +3074,7 @@ i.bi {
 
           i {
             color: var(--primary);
-            background-color: var(--sidebarBg);
+            background-color: var(--sidebarSubBg);
             border: 1px solid var(--sidebarBorder);
           }
         }
@@ -3002,7 +3121,7 @@ i.bi {
 
       .nav-link {
         flex-direction: row;
-        background-color: var(--sidebarBg);
+        background-color: var(--sidebarSubBg);
         border-color: var(--sidebarBorder);
         box-shadow: none;
 
@@ -3031,8 +3150,8 @@ i.bi {
         }
 
         &:hover {
-          background-color: var(--sidebarBg);
-          border-color: var(--sidebarBg);
+          background-color: var(--sidebarSubBg);
+          border-color: var(--sidebarSubBg);
 
           i {
             background-color: transparent;
@@ -3171,7 +3290,7 @@ i.bi {
     left: 0;
   }
 
-  #theme-toggle+label {
+  #theme-toggle + label {
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -3179,7 +3298,7 @@ i.bi {
     overflow: hidden;
   }
 
-  #theme-toggle+label i {
+  #theme-toggle + label i {
     width: 24px;
     height: 24px;
     display: flex;
@@ -3190,17 +3309,17 @@ i.bi {
     transition: var(--transition);
   }
 
-  #theme-toggle+label i:first-child {
+  #theme-toggle + label i:first-child {
     top: 50%;
     transform: translate(-50%, -50%);
   }
 
-  #theme-toggle+label i:last-child {
+  #theme-toggle + label i:last-child {
     top: 0%;
     transform: translate(-50%, -100%);
   }
 
-  #theme-toggle:checked~label {
+  #theme-toggle:checked ~ label {
     overflow: hidden;
 
     i:first-child {
@@ -3217,6 +3336,57 @@ i.bi {
   .theme-sw.iconBtn {
     background-color: var(--cardBg) !important;
     border: 1px solid var(--cardBorder) !important;
+  }
+}
+
+.themeBar.themebarActive {
+  right: 0;
+}
+
+.themeBar {
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  right: -380px;
+  width: 380px;
+  height: calc(100vh - 0px);
+  background-color: var(--themebarBg);
+  border-left: 1px solid var(--borderDark);
+  transition: width 0.2s ease-in-out;
+  transition: right 0.2s ease-in-out;
+
+  .themeBarHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 20px;
+    height: 90px;
+    border-bottom: 1px solid var(--borderDark);
+
+    .themeBarTitle {
+      display: flex;
+      flex-direction: column;
+      gap: 2px 0px;
+    }
+
+    .themeBarAction {
+      display: flex;
+      align-items: center;
+      gap: 0px 12px;
+
+      .iconBtn {
+        font-size: 18px !important;
+        padding: 0px 0px !important;
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+        box-shadow: none !important;
+        background-color: var(--bodyBg) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 100% !important;
+      }
+    }
   }
 }
 
@@ -3490,4 +3660,55 @@ i.bi {
 
 .ReactModal__Content::-webkit-scrollbar {
   display: none;
+}
+
+.saletargetWrapper {
+  padding: 0px 0px 30px;
+}
+
+.saletargetHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 0px 20px;
+}
+
+.saletargetBar {
+  padding: 40px 0px 0px;
+  position: relative;
+}
+
+.saletargetBar .MuiLinearProgress-root {
+  height: 14px;
+  border-radius: 30px;
+  background: var(--warningLight);
+}
+
+.saletargetBar .MuiLinearProgress-root::before {
+  height: 100%;
+  border-radius: 30px;
+  background-color: var(--warning);
+}
+
+.saletargetBar::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: calc(var(--LinearProgress-percent) * 1% - 50px);
+  width: 60px;
+  height: 60px;
+  background: url(/src/assets/imgs/other/mario.gif) transparent;
+  background-size: 100%;
+}
+
+.targetflag {
+  position: absolute;
+  bottom: 0px;
+  right: -20px;
+  width: 45px;
+  height: 45px;
+}
+
+.targetflag img {
+  width: 100%;
 }
