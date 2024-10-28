@@ -868,7 +868,7 @@ const CreateSaleBooking = () => {
       <>
         <div className="card">
           <div className="card-header">
-            <h5 className="card-title">Create</h5>
+            <h5 className="cardHeading">Create</h5>
           </div>
           <div className="card-body row">
             {/* <FieldContainer
@@ -1028,7 +1028,7 @@ const CreateSaleBooking = () => {
               type="date"
               value={bookingDate}
               max={todayDate}
-              onChange={(e) => setBookingDate(e.target.value)}
+              onChange={(value) => setBookingDate(value)}
             />
             <div className="col-4">
               <FieldContainer
@@ -1202,7 +1202,7 @@ const CreateSaleBooking = () => {
                 fieldGrid={12}
                 value={balancePayDate}
                 onChange={(e) => {
-                  setBalancePayDate(e.target.value);
+                  setBalancePayDate(e);
 
                   setIsValidate((prev) => ({
                     ...prev,

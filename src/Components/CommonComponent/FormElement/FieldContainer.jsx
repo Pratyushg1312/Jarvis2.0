@@ -1,4 +1,9 @@
 import React from 'react';
+import { TextField } from '@mui/material';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import CalendarDots from '@mui/icons-material/CalendarToday'; // Assuming CalendarDots icon is imported as CalendarToday
+import dayjs from 'dayjs'; // Import Day.js for date handling
 
 const FieldContainer = ({
   label,
@@ -25,22 +30,40 @@ const FieldContainer = ({
   astric = false,
   refer,
 }) => {
+  const handleDateChange = (newValue) => {
+    onChange(newValue); // Returns the selected date value
+  };
+
+  const dateValue = value ? dayjs(value) : null; // Ensure value is a Day.js object or null
+
   return (
     <div
       className={
-        Tag == 'textarea'
+        Tag === 'textarea'
           ? 'col-xl-12 col-lg-12 col-md-12 col-sm-12'
           : `col-xl-${fieldGrid} col-lg-${fieldGrid} col-md-${fieldGrid} col-sm-12`
       }
     >
-      <div className="form-group">
-        <label htmlFor={label} className="form-label">
-          {label} {astric === true && <sup style={{ color: 'red' }}>*</sup>}
-        </label>
-        <Tag
+      {type === 'date' ? (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label={label}
+            value={value ? dayjs(value) : null}
+            onChange={onChange}
+            disabled={disabled}
+            slots={{
+              openPickerIcon: CalendarDots, // Custom icon for the DatePicker
+            }}
+            renderInput={(params) => (
+              <TextField {...params} required={required} fullWidth />
+            )}
+          />
+        </LocalizationProvider>
+      ) : (
+        <TextField
           id={label}
           step={step}
-          className={Tag == 'select' ? 'form-select' : 'form-control'}
+          className={Tag === 'select' ? 'form-select' : 'form-control'}
           type={type}
           value={value}
           rows={rows}
@@ -58,16 +81,13 @@ const FieldContainer = ({
           min={min}
           onBlur={onBlur}
           ref={refer}
+          variant="outlined"
+          label={label}
         >
           {children}
-        </Tag>
-        {type === 'date' ? (
-          <div className="custom-btn-2">
-            <i className="bi bi-calendar-week"></i>
-          </div>
-        ) : null}
-        {/* {Tag === "select"? <div className="custom-btn-2"><i className="bi bi-chevron-down"></i></div>: null} */}
-      </div>
+        </TextField>
+      )}
+
     </div>
   );
 };

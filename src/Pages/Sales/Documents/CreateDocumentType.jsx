@@ -52,7 +52,7 @@ const CreateDocumentType = () => {
       <FormContainer mainTitle={"Documents Master"} link={"/"} />
       <div className="card">
         <div className="card-header">
-          <h3 className="card-title">Create Document</h3>
+          <h3 className="cardHeading">Create Document</h3>
         </div>
         <div className="card-body row">
           <div className="col-4">

@@ -3,7 +3,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { City } from "country-state-city";
 
-const IndianCitiesMui = ({ selectedState, selectedCity, onChange }) => {
+const IndianCitiesMui = ({ selectedState, selectedCity, onChange, fieldGrid, label, required = false }) => {
   const [cities, setCities] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
@@ -29,26 +29,29 @@ const IndianCitiesMui = ({ selectedState, selectedCity, onChange }) => {
   };
 
   return (
-    <Autocomplete
-      options={cities}
-      getOptionLabel={(option) => (option ? option.name : "")}
-      value={determineValue()}
-      onChange={(event, newValue) => onChange(newValue ? newValue.name : "")}
-      inputValue={inputValue}
-      onInputChange={handleInputChange}
-      isOptionEqualToValue={(option, value) =>
-        option.name === value.name &&
-        option.countryCode === value.countryCode &&
-        option.stateCode === value.stateCode &&
-        option.latitude === value.latitude &&
-        option.longitude === value.longitude
-      }
-      renderInput={(params) => (
-        <TextField {...params} label="City" variant="outlined" required />
-      )}
-      clearOnEscape
-      disabled={!selectedState}
-    />
+    <div className={`col-md-${fieldGrid}`}>
+
+      <Autocomplete
+        options={cities}
+        getOptionLabel={(option) => (option ? option.name : "")}
+        value={determineValue()}
+        onChange={(event, newValue) => onChange(newValue ? newValue.name : "")}
+        inputValue={inputValue}
+        onInputChange={handleInputChange}
+        isOptionEqualToValue={(option, value) =>
+          option.name === value.name &&
+          option.countryCode === value.countryCode &&
+          option.stateCode === value.stateCode &&
+          option.latitude === value.latitude &&
+          option.longitude === value.longitude
+        }
+        renderInput={(params) => (
+          <TextField {...params} label={label} variant="outlined" require={required} />
+        )}
+        clearOnEscape
+        disabled={!selectedState}
+      />
+    </div>
   );
 };
 

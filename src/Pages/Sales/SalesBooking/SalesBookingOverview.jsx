@@ -931,7 +931,7 @@ const SalesBookingOverview = () => {
                         aria-controls="panel1-content"
                         id="panel1-header">
 
-                        <h5 className="card-title">Pivot</h5>
+                        <h5 className="cardHeading">Pivot</h5>
 
                     </AccordionSummary>
                     <AccordionDetails>
