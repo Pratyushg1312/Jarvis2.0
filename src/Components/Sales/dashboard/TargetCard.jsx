@@ -58,11 +58,13 @@ const TargetCard = ({ data, totalSaleAmountDateWise, index }) => {
       <div className="col-12">
         <div className="card cardAccordion target-card">
           <div className="card-header">
-            <h5 className="cardHeading">{data?.competition_name || "N/A"}</h5>
+            <div className="cardHeading">
+              <h5 className="cardTitle">{data?.competition_name || "N/A"}</h5>
+            </div>
           </div>
           <Accordion>
             <AccordionSummary aria-controls="panel1-content" id="panel1-header">
-              <div className="card-body pl0 pr0">
+              <div className="card-body">
                 <div className="saletargetWrapper">
                   {loginUserRole === 1 && (
                     <div className="saletargetHead" key={"bsdkbckdchj"}>

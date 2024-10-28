@@ -101,7 +101,9 @@ const SideBar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/finance"
+                <NavLink
+                  className="nav-link"
+                  to="/finance"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -112,7 +114,6 @@ const SideBar = () => {
                   <h5>Finance</h5>
                 </NavLink>
                 <ul className="dropdown-menu">
-
                   <li>
                     <NavLink className="dropdown-item" to="/finance/dashboard">
                       <span>
@@ -140,7 +141,9 @@ const SideBar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link dropdown-toggle" to="/sales"
+                <NavLink
+                  className="nav-link dropdown-toggle"
+                  to="/sales"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -160,7 +163,10 @@ const SideBar = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item" to="/sales/account-overview">
+                    <NavLink
+                      className="dropdown-item"
+                      to="/sales/account-overview"
+                    >
                       <span>
                         <Minus />
                       </span>
@@ -168,7 +174,10 @@ const SideBar = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item" to="/sales/salesbooking-overview">
+                    <NavLink
+                      className="dropdown-item"
+                      to="/sales/salesbooking-overview"
+                    >
                       <span>
                         <Minus />
                       </span>

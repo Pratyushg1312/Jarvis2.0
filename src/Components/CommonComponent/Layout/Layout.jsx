@@ -1,7 +1,8 @@
-import React from 'react'
-import TopBar from '../TopBar/TopBar'
-import SideBar from '../SideBar/SideBar'
-import { Outlet } from 'react-router-dom'
+import React from "react";
+import TopBar from "../TopBar/TopBar";
+import SideBar from "../SideBar/SideBar";
+import { Outlet } from "react-router-dom";
+import ThemeBar from "../ThemeBar/ThemeBar";
 
 const Layout = () => {
   return (
@@ -14,8 +15,7 @@ const Layout = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Layout
-
+export default Layout;
