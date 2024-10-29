@@ -26,6 +26,8 @@ import CustomSelect from "../../../Components/CommonComponent/FormElement/Custom
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import View from "../../../Components/CommonComponent/View/View";
 import ShareIncentive from "../../../Components/Sales/CommonComponent/Incentive/ShareIncentive";
+import { Button } from "@mui/material";
+import { Blueprint, X } from "@phosphor-icons/react";
 
 const SalesAccountOverview = () => {
   let loginUserId;
@@ -566,122 +568,134 @@ const SalesAccountOverview = () => {
       />
 
       <div className="card mt24">
-        <div className="card-body row">
-          <CustomSelect
-            label="Seclect Column"
-            fieldGrid={4}
-            dataArray={dateFilterArray}
-            optionId="value"
-            optionLabel="label"
-            selectedId={selectedFilter}
-            setSelectedId={setSelectedFilter}
-          />
-          <CustomSelect
-            label="date"
-            fieldGrid={4}
-            dataArray={dateFilterOptions}
-            optionId="value"
-            optionLabel="label"
-            selectedId={quickFiltring}
-            setSelectedId={setQuickFiltring}
-          />
-          {quickFiltring === "custom" && (
-            <>
-              <FieldContainer
-                type="date"
-                label="From Date"
-                fieldGrid={4}
-                value={fromDate}
-                onChange={(e) => setFromDate(e.target.value)}
-              />
-              <FieldContainer
-                type="date"
-                label="To Date"
-                fieldGrid={4}
-                value={toDate}
-                onChange={(e) => setToDate(e.target.value)}
-              />
-            </>
-          )}
-          <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 flexCenter colGap12 pt8 mb-3">
-            <button
-              className="cmnbtn btn-primary"
-              onClick={() => dataFiltter()}
-            >
-              Search
-            </button>
-            {allAccount?.length !== combinedData?.length && (
-              <button
-                className="iconBtn btn btn-outline-danger"
-                onClick={() => handelRemoveFiltter()}
-              >
-                <i className="bi bi-x-circle"></i>
-              </button>
+        <div className="card-body">
+          <div className="row">
+            <CustomSelect
+              label="Seclect Column"
+              fieldGrid={4}
+              dataArray={dateFilterArray}
+              optionId="value"
+              optionLabel="label"
+              selectedId={selectedFilter}
+              setSelectedId={setSelectedFilter}
+            />
+            <CustomSelect
+              label="date"
+              fieldGrid={4}
+              dataArray={dateFilterOptions}
+              optionId="value"
+              optionLabel="label"
+              selectedId={quickFiltring}
+              setSelectedId={setQuickFiltring}
+            />
+            {quickFiltring === "custom" && (
+              <>
+                <FieldContainer
+                  type="date"
+                  label="From Date"
+                  fieldGrid={4}
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                />
+                <FieldContainer
+                  type="date"
+                  label="To Date"
+                  fieldGrid={4}
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                />
+              </>
             )}
+            <div className="col-md-4 col-12 flexCenter colGap12 pt12">
+              <Button
+                className="w-100"
+                variant="contained"
+                onClick={() => dataFiltter()}
+              >
+                Search
+              </Button>
+              {allAccount?.length !== combinedData?.length && (
+                <Button
+                  onClick={() => handelRemoveFiltter()}
+                  color="error"
+                  className="iconBtn"
+                  variant="outlined"
+                >
+                  <X />
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="card mt24">
-        <div className="card-body">
-          <div className="row">
-            <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-              <div
-                className="card p16 hov-pointer"
-                onClick={() => {
-                  filterEngine(allAccount, "remove", "0");
-                }}
-              >
-                <h6 className="colorMedium ">Total Accounts</h6>
-                <h6 className="mt8 fs_16">{allAccount?.length}</h6>
-              </div>
+      <div className="row">
+        <div className="col-md-4 col-12">
+          <div
+            className="card flexCenterRow colGap12 p20"
+            onClick={() => {
+              filterEngine(allAccount, "remove", "0");
+            }}
+          >
+            <div className="icon primary">
+              <Blueprint />
             </div>
-            <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-              <div
-                className="card p16 hov-pointer"
-                onClick={() => {
-                  filterEngine(
-                    allAccount?.filter(
-                      (account) => account?.totalSaleBookingCounts == 0
-                    ),
-                    "",
-                    "1"
-                  );
-                }}
-              >
-                <h6 className="colorMedium">
-                  Idle Accounts (Without Sale Booking)
-                </h6>
-                <h6 className="mt8 fs_16">
-                  {
-                    allAccount?.filter(
-                      (account) => account?.totalSaleBookingCounts == 0
-                    )?.length
-                  }
-                </h6>
-              </div>
+            <div>
+              <h6>Total Accounts</h6>
+              <h5 className="fw_500 mt4">{allAccount?.length}</h5>
             </div>
-            <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-              <div
-                className="card p16 hov-pointer"
-                onClick={() => {
-                  filterEngine(
-                    allAccount?.filter((account) => account?.paidAmount == 0),
-                    "",
-                    "2"
-                  );
-                }}
-              >
-                <h6 className="colorMedium">
-                  Idle Accounts (Without Payment){" "}
-                </h6>
-                <h6 className="mt8 fs_16">
-                  {
-                    allAccount?.filter((account) => account?.paidAmount == 0)
-                      .length
-                  }
-                </h6>
-              </div>
+          </div>
+        </div>
+        <div className="col-md-4 col-12">
+          <div
+            className="card flexCenterRow colGap12 p20"
+            onClick={() => {
+              filterEngine(
+                allAccount?.filter(
+                  (account) => account?.totalSaleBookingCounts == 0
+                ),
+                "",
+                "1"
+              );
+            }}
+          >
+            <div className="icon secondary">
+              <Blueprint />
+            </div>
+            <div>
+              <h6>Idle Accounts (Without Sale Booking)</h6>
+              <h5 className="fw_500 mt4">
+                {
+                  allAccount?.filter(
+                    (account) => account?.totalSaleBookingCounts == 0
+                  )?.length
+                }
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-4 col-12">
+          <div
+            className="card flexCenterRow colGap12 p20"
+            onClick={() => {
+              filterEngine(
+                allAccount?.filter((account) => account?.paidAmount == 0),
+                "",
+                "2"
+              );
+            }}
+          >
+            <div className="icon info">
+              <Blueprint />
+            </div>
+            <div>
+              <h6>Idle Accounts (Without Payment)</h6>
+              <h5 className="fw_500 mt4">
+                {
+                  allAccount?.filter((account) => account?.paidAmount == 0)
+                    .length
+                }
+              </h5>
             </div>
           </div>
         </div>

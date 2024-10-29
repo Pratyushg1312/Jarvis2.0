@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDeletePaymentDetailsMutation, useGetPaymentDetailListQuery, useUpdatePaymentDetailsMutation } from "../../../../Redux/Slices/SalesSlices/PaymentDetailsApi";
+import {
+  useDeletePaymentDetailsMutation,
+  useGetPaymentDetailListQuery,
+  useUpdatePaymentDetailsMutation,
+} from "../../../../Redux/Slices/SalesSlices/PaymentDetailsApi";
 import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
 import View from "../../../../Components/CommonComponent/View/View";
 
-const LinkButtons = [{
-  link: "/sales/payment-mode-overview",
-  name: "Payment Mode",
-  type: "link",
-  access: [1, 4],
-}, {
-  link: "/sales/create-payment-details",
-  name: "Add Payment Details",
-  type: "link",
-  access: [1, 4],
-},]
+const LinkButtons = [
+  {
+    link: "/sales/payment-mode-overview",
+    name: "Payment Mode",
+    type: "link",
+    access: [1, 4],
+  },
+  {
+    link: "/sales/create-payment-details",
+    name: "Add Payment Details",
+    type: "link",
+    access: [1, 4],
+  },
+];
 
 const PaymentDetailsOverview = () => {
   const {
@@ -125,21 +132,21 @@ const PaymentDetailsOverview = () => {
       renderRowCell: (row, index) => {
         if (!row.is_hide) {
           return (
-            <buton
-              className="btn cmnbtn btn_sm btn-success"
+            <div
+              className="badge success"
               onClick={() => handleUpdateStatus(row)}
             >
               Hide
-            </buton>
+            </div>
           );
         } else {
           return (
-            <buton
-              className="btn cmnbtn btn_sm btn-danger"
+            <div
+              className="badge danger"
               onClick={() => handleUpdateStatus(row)}
             >
               Unhide
-            </buton>
+            </div>
           );
         }
       },
@@ -148,9 +155,9 @@ const PaymentDetailsOverview = () => {
       width: 1000,
       name: "Actions",
       renderRowCell: (row) => (
-        <div className="flex-row gap16">
-          <div
-            className="icon-1"
+        <div className="flexCenter colGap12">
+          <button
+            className="iconBtn sm"
             title="Copy"
             onClick={() => handleCopyDetails(row)}
             disabled={row._id === copiedRowId}
@@ -160,20 +167,20 @@ const PaymentDetailsOverview = () => {
             ) : (
               <i className="bi bi-clipboard" />
             )}
-          </div>
+          </button>
           {row._id === copiedRowId && (
-            <span className="mt-2" style={{ color: "green" }}>
+            <span className="mt-1" style={{ color: "green" }}>
               Copied
             </span>
           )}
 
           <Link to={`/admin/edit-payment-details/${row._id}`}>
-            <div className="icon-1" title="Edit">
+            <button className="iconBtn sm" title="Edit">
               <i className="bi bi-pencil" />
-            </div>
+            </button>
           </Link>
           <button
-            className="icon-1"
+            className="iconBtn sm"
             onClick={() => handleDelete(row._id)}
             title="Delete"
           >
@@ -186,7 +193,6 @@ const PaymentDetailsOverview = () => {
 
   return (
     <>
-
       <FormContainer
         mainTitle="Payment Detail"
         link="/admin/create-payment-details"
@@ -194,8 +200,6 @@ const PaymentDetailsOverview = () => {
         submitButton={false}
         LinkButtons={LinkButtons}
       />
-
-
 
       <View
         title={"Details"}
