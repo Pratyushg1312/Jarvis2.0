@@ -127,38 +127,40 @@ const SalesReport = () => {
     <div>
       <FormContainer link={true} mainTitle={"Sales Report"} />
       <div className="card">
-        <div className="card-body row p-3">
-          <CustomSelect
-            fieldGrid={"4"}
-            label={"Filter By"}
-            dataArray={options}
-            optionId={"value"}
-            optionLabel={"label"}
-            selectedId={filter}
-            setSelectedId={setFilter}
-          />
-          {filter === "custom" && (
-            <>
-              <FieldContainer
-                type="date"
-                label="From Date"
-                fieldGrid={4}
-                value={fromDate}
-                onChange={(e) => setFromDate(e.target.value)}
-              />
-              <FieldContainer
-                type="date"
-                label="To Date"
-                fieldGrid={4}
-                value={toDate}
-                onChange={(e) => setToDate(e.target.value)}
-              />
-            </>
-          )}
-          <div className="col-4 mt-4">
-            <button className="btn cmnbtn btn-primary" onClick={handelSearch}>
-              Search
-            </button>
+        <div className="card-body">
+          <div className="row">
+            <CustomSelect
+              fieldGrid={"4"}
+              label={"Filter By"}
+              dataArray={options}
+              optionId={"value"}
+              optionLabel={"label"}
+              selectedId={filter}
+              setSelectedId={setFilter}
+            />
+            {filter === "custom" && (
+              <>
+                <FieldContainer
+                  type="date"
+                  label="From Date"
+                  fieldGrid={4}
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                />
+                <FieldContainer
+                  type="date"
+                  label="To Date"
+                  fieldGrid={4}
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                />
+              </>
+            )}
+            <div className="col-4 mt-4">
+              <button className="btn cmnbtn btn-primary" onClick={handelSearch}>
+                Search
+              </button>
+            </div>
           </div>
         </div>
       </div>

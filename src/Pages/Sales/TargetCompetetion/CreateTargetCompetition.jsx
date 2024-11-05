@@ -4,11 +4,13 @@ import FormContainer from "../../../Components/CommonComponent/FormElement/FormC
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
-import { useAddTargetCompetitionMutation, useEditTargetCompetitionMutation, useGetSingleTargetCompetitionQuery } from "../../../Redux/Slices/SalesSlices/TargetCompetitionApi";
-
+import {
+  useAddTargetCompetitionMutation,
+  useEditTargetCompetitionMutation,
+  useGetSingleTargetCompetitionQuery,
+} from "../../../Redux/Slices/SalesSlices/TargetCompetitionApi";
 
 const CreateTargetCompetition = () => {
-
   const navigate = useNavigate();
   const { id } = useParams(); // Get the ID from the URL params (used for editing)
   const loginUserId = GetDecodedToken()?.id;
@@ -100,7 +102,7 @@ const CreateTargetCompetition = () => {
     } catch (error) {
       toastError(
         error.data?.message ||
-        `Failed to ${id ? "update" : "create"} target competition`
+          `Failed to ${id ? "update" : "create"} target competition`
       );
     }
   };
@@ -113,92 +115,101 @@ const CreateTargetCompetition = () => {
       />
       <div className="card">
         <div className="card-header">
-          <h3 className="cardHeading">
-            {id ? "Edit Target Competition" : "Create Target Competition"}
-          </h3>
+          <div className="cardHeading">
+            <h5 className="cardTitle">
+              {id ? "Edit Target Competition" : "Create Target Competition"}
+            </h5>
+          </div>
         </div>
-        <div className="card-body row">
-          <div className="col-4">
-            <FieldContainer
-              type="text"
-              label="Competition Name"
-              placeholder="Enter competition name"
-              astric
-              fieldGrid={12}
-              required
-              value={competitionName}
-              onChange={(e) => {
-                setCompetitionName(e.target.value);
-                setIsValidate((prev) => ({ ...prev, competitionName: false }));
-              }}
-            />
-            {isValidate.competitionName && (
-              <div className="form-error">Please Enter Competition Name</div>
-            )}
+        <div className="card-body">
+          <div className="row">
+            <div className="col-md-6">
+              <FieldContainer
+                type="text"
+                label="Competition Name"
+                placeholder="Enter competition name"
+                astric
+                fieldGrid={12}
+                required
+                value={competitionName}
+                onChange={(e) => {
+                  setCompetitionName(e.target.value);
+                  setIsValidate((prev) => ({
+                    ...prev,
+                    competitionName: false,
+                  }));
+                }}
+              />
+              {isValidate.competitionName && (
+                <div className="form-error">Please Enter Competition Name</div>
+              )}
+            </div>
+            <div className="col-md-6">
+              <FieldContainer
+                type="date"
+                label="Start Date"
+                astric
+                fieldGrid={12}
+                required
+                value={startDate}
+                onChange={(e) => {
+                  setStartDate(e.target.value);
+                  setIsValidate((prev) => ({ ...prev, startDate: false }));
+                }}
+              />
+              {isValidate.startDate && (
+                <div className="form-error">Please Enter Start Date</div>
+              )}
+            </div>
+            <div className="col-md-6">
+              <FieldContainer
+                type="date"
+                label="End Date"
+                fieldGrid={12}
+                required
+                astric
+                value={endDate}
+                onChange={(e) => {
+                  setEndDate(e.target.value);
+                  setIsValidate((prev) => ({ ...prev, endDate: false }));
+                }}
+              />
+              {isValidate.endDate && (
+                <div className="form-error">Please Enter End Date</div>
+              )}
+            </div>
+            <div className="col-md-6">
+              <FieldContainer
+                type="number"
+                label="Target Amount"
+                placeholder="Enter target amount"
+                fieldGrid={12}
+                required
+                astric
+                value={targetAmount}
+                onChange={(e) => {
+                  setTargetAmount(e.target.value);
+                  setIsValidate((prev) => ({ ...prev, targetAmount: false }));
+                }}
+              />
+              {isValidate.targetAmount && (
+                <div className="form-error">
+                  Please Enter a Valid Target Amount
+                </div>
+              )}
+            </div>
           </div>
-          <div className="col-4">
-            <FieldContainer
-              type="date"
-              label="Start Date"
-              astric
-              fieldGrid={12}
-              required
-              value={startDate}
-              onChange={(e) => {
-                setStartDate(e.target.value);
-                setIsValidate((prev) => ({ ...prev, startDate: false }));
-              }}
-            />
-            {isValidate.startDate && (
-              <div className="form-error">Please Enter Start Date</div>
-            )}
-          </div>
-          <div className="col-4">
-            <FieldContainer
-              type="date"
-              label="End Date"
-              fieldGrid={12}
-              required
-              astric
-              value={endDate}
-              onChange={(e) => {
-                setEndDate(e.target.value);
-                setIsValidate((prev) => ({ ...prev, endDate: false }));
-              }}
-            />
-            {isValidate.endDate && (
-              <div className="form-error">Please Enter End Date</div>
-            )}
-          </div>
-          <div className="col-4">
-            <FieldContainer
-              type="number"
-              label="Target Amount"
-              placeholder="Enter target amount"
-              fieldGrid={12}
-              required
-              astric
-              value={targetAmount}
-              onChange={(e) => {
-                setTargetAmount(e.target.value);
-                setIsValidate((prev) => ({ ...prev, targetAmount: false }));
-              }}
-            />
-            {isValidate.targetAmount && (
-              <div className="form-error">
-                Please Enter a Valid Target Amount
-              </div>
-            )}
-          </div>
+        </div>
+        <div className="card-footer">
+          <button
+            className="btn btn-primary cmnbtn"
+            onClick={handleSubmit}
+            disabled={adding || editing || fetchingData} // Disable button while loading
+          >
+            {adding || editing ? "Submitting..." : "Submit"}
+          </button>
         </div>
       </div>
-      <button
-        className="btn btn-primary cmnbtn"
-        onClick={handleSubmit}
-        disabled={adding || editing || fetchingData} // Disable button while loading
-      >
-        {adding || editing ? "Submitting..." : "Submit"}
-      </button>
     </div>
   );
 };

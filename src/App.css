@@ -558,6 +558,7 @@ hr {
 .MuiFormControl-root {
   width: 100%;
   position: relative;
+  background-color: transparent;
 
   .MuiFormLabel-root {
     font-family: var(--bodyFont) !important;
@@ -573,6 +574,11 @@ hr {
     transition: var(--transition);
     position: relative;
     margin-bottom: 6px;
+  }
+
+  .MuiFormLabel-root.Mui-disabled {
+    color: var(--medium);
+    opacity: 60%;
   }
 
   .Mui-focused.MuiFormLabel-root {
@@ -627,6 +633,10 @@ hr {
 
     .MuiOutlinedInput-notchedOutline {
       display: none;
+    }
+
+    .MuiIconButton-root {
+      color: var(--light);
     }
   }
 
@@ -2520,7 +2530,7 @@ small,
   min-width: 46px;
   min-height: 46px;
   border-radius: var(--radiusS);
-  font-size: 24px;
+  font-size: 20px;
   color: var(--medium);
   background-color: var(--bodyBg);
   border: 1px solid var(--border);
