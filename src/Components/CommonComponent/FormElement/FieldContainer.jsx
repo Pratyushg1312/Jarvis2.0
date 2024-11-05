@@ -1,15 +1,15 @@
-import React from 'react';
-import { TextField } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import CalendarDots from '@mui/icons-material/CalendarToday'; // Assuming CalendarDots icon is imported as CalendarToday
-import dayjs from 'dayjs'; // Import Day.js for date handling
+import React from "react";
+import { TextField } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { CalendarDots } from "@phosphor-icons/react";
+import dayjs from "dayjs"; // Import Day.js for date handling
 
 const FieldContainer = ({
   label,
-  Tag = 'input',
-  type = 'text',
-  step = 'any',
+  Tag = "input",
+  type = "text",
+  step = "any",
   rows,
   cols,
   value,
@@ -39,12 +39,12 @@ const FieldContainer = ({
   return (
     <div
       className={
-        Tag === 'textarea'
-          ? 'col-xl-12 col-lg-12 col-md-12 col-sm-12'
+        Tag === "textarea"
+          ? "col-xl-12 col-lg-12 col-md-12 col-sm-12"
           : `col-xl-${fieldGrid} col-lg-${fieldGrid} col-md-${fieldGrid} col-sm-12`
       }
     >
-      {type === 'date' ? (
+      {type === "date" ? (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label={label}
@@ -63,7 +63,7 @@ const FieldContainer = ({
         <TextField
           id={label}
           step={step}
-          className={Tag === 'select' ? 'form-select' : 'form-control'}
+          className={Tag === "select" ? "form-select" : "form-control"}
           type={type}
           value={value}
           rows={rows}
@@ -87,7 +87,6 @@ const FieldContainer = ({
           {children}
         </TextField>
       )}
-
     </div>
   );
 };

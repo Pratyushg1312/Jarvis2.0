@@ -5,15 +5,32 @@ import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { useGetAllBrandQuery } from "../../../Redux/Slices/SalesSlices/BrandApi";
 import { useGetAllAccountTypeQuery } from "../../../Redux/Slices/SalesSlices/SalesAccountTypeApi";
 import { useGetAllCompanyTypeQuery } from "../../../Redux/Slices/SalesSlices/CompanyTypeApi";
-import { useEditBrandCategoryTypeMutation, useGetAllBrandCategoryTypeQuery } from "../../../Redux/Slices/SalesSlices/BrandCategoryTypeApi";
+import {
+  useEditBrandCategoryTypeMutation,
+  useGetAllBrandCategoryTypeQuery,
+} from "../../../Redux/Slices/SalesSlices/BrandCategoryTypeApi";
 import { useGetAllDocumentTypeQuery } from "../../../Redux/Slices/SalesSlices/DocumentTypeApi";
-import { useGetDepartmentListQuery, useUpdateDepartmentMutation } from "../../../Redux/Slices/SalesSlices/DepartmentApi";
+import {
+  useGetDepartmentListQuery,
+  useUpdateDepartmentMutation,
+} from "../../../Redux/Slices/SalesSlices/DepartmentApi";
 import { useGetCountryCodeQuery } from "../../../Redux/Slices/CountryCodeSlices/CountryCodeApi";
-import { useAddAccountMutation, useEditAccountMutation, useGetSingleAccountQuery, useGetSingleAccountSalesBookingQuery } from "../../../Redux/Slices/SalesSlices/SalesAccountApi";
-import { useEditPOCMutation, useGetSinglePOCQuery } from "../../../Redux/Slices/SalesSlices/PointOfContactApi";
+import {
+  useAddAccountMutation,
+  useEditAccountMutation,
+  useGetSingleAccountQuery,
+  useGetSingleAccountSalesBookingQuery,
+} from "../../../Redux/Slices/SalesSlices/SalesAccountApi";
+import {
+  useEditPOCMutation,
+  useGetSinglePOCQuery,
+} from "../../../Redux/Slices/SalesSlices/PointOfContactApi";
 import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
 import { useGetAllSalesUsersQuery } from "../../../Redux/Slices/SalesSlices/UserIncentiveDashboardApi";
-import { useEditDocumentMutation, useGetDocumentByIdQuery } from "../../../Redux/Slices/SalesSlices/AccountDocumentApi";
+import {
+  useEditDocumentMutation,
+  useGetDocumentByIdQuery,
+} from "../../../Redux/Slices/SalesSlices/AccountDocumentApi";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 import CreateBrandCategory from "../../../Components/Sales/salesAccount/CreateBrandCategory";
 import CreateAccountType from "../../../Components/Sales/salesAccount/CreateAccountType";
@@ -35,6 +52,7 @@ import View from "../../../Components/CommonComponent/View/View";
 import { ViewAccountTypeColumns } from "../../../Components/Sales/salesAccount/ViewAccountTypeColumns";
 import { ViewCompanyTypeColumns } from "../../../Components/Sales/salesAccount/ViewCompanyTypeColumns";
 import { Autocomplete, TextField } from "@mui/material";
+import { Eye, Plus } from "@phosphor-icons/react";
 
 const socialOptions = [
   { value: "instagram", label: "Instagram" },
@@ -42,8 +60,6 @@ const socialOptions = [
   { value: "twitter", label: "Twitter" },
   { value: "linkedin", label: "LinkedIn" },
 ];
-
-
 
 const CreateSalesAccount = () => {
   const { id } = useParams();
@@ -209,10 +225,11 @@ const CreateSalesAccount = () => {
     });
   const [edit, { isLoading }] = useEditBrandCategoryTypeMutation();
 
-  const {
-    data: singleAccountBillingData,
-
-  } = useGetSingleAccountSalesBookingQuery(Number(singleAccountData?.account_id), { skip: !singleAccountData?.account_id && !id });
+  const { data: singleAccountBillingData } =
+    useGetSingleAccountSalesBookingQuery(
+      Number(singleAccountData?.account_id),
+      { skip: !singleAccountData?.account_id && !id }
+    );
 
   const handelDepEdit = async (row, setEditFlag) => {
     const payload = {
@@ -222,7 +239,7 @@ const CreateSalesAccount = () => {
     try {
       await editDep(payload).unwrap();
       setEditFlag(false);
-    } catch (error) { }
+    } catch (error) {}
   };
   const handleEdit = async (row, setEditFlag) => {
     const payload = {
@@ -232,7 +249,7 @@ const CreateSalesAccount = () => {
     try {
       await edit(payload).unwrap();
       setEditFlag(false);
-    } catch (error) { }
+    } catch (error) {}
   };
   const ViewBrandCategoryColumns = [
     {
@@ -309,14 +326,10 @@ const CreateSalesAccount = () => {
       showCol: true,
     },
   ];
-  const {
-    data: accOwnerNameData,
-    isLoading: accOwnerLoading,
-  } = useGetAllSalesUsersQuery()
+  const { data: accOwnerNameData, isLoading: accOwnerLoading } =
+    useGetAllSalesUsersQuery();
   useEffect(() => {
-    if (accOwnerNameData)
-      setSelectedOwner(loginUserId);
-
+    if (accOwnerNameData) setSelectedOwner(loginUserId);
   }, [accOwnerNameData]);
 
   const transformPlatformData = (data) => {
@@ -330,8 +343,6 @@ const CreateSalesAccount = () => {
       link: item.link,
     }));
   };
-
-
 
   useEffect(() => {
     if (id && singleAccountData) {
@@ -408,9 +419,6 @@ const CreateSalesAccount = () => {
       ) {
         setFillHeadFields(true);
       }
-
-
-
     }
   }, [id, singleAccountData, singleAccountBillingData]);
 
@@ -448,7 +456,6 @@ const CreateSalesAccount = () => {
     ]);
   };
 
-
   const handleAddDocument = () => {
     console.log("documents", documents);
 
@@ -462,15 +469,17 @@ const CreateSalesAccount = () => {
     ]);
   };
 
-  const LinkButtons = useMemo(() => [
-    {
-      type: "button",
-      name: "Add Document",
-      onClick: handleAddDocument,
-      access: [1, 4],
-    }
-  ], [documents]);
-
+  const LinkButtons = useMemo(
+    () => [
+      {
+        type: "button",
+        name: "Add Document",
+        onClick: handleAddDocument,
+        access: [1, 4],
+      },
+    ],
+    [documents]
+  );
 
   const handleAddMore = () => {
     setFields([...fields, { platform: null, link: "" }]);
@@ -1068,7 +1077,6 @@ const CreateSalesAccount = () => {
         {renderModalContent()}
       </Modal>
 
-
       <FormContainer
         mainTitle={id == 0 ? "Add Your 10cr Brand 😉" : "Accounts Master"}
         link={true}
@@ -1090,15 +1098,13 @@ const CreateSalesAccount = () => {
 
         <div className="card">
           <div className="card-header">
-            <h5 className="cardHeading">Account Detail</h5>
+            <div className="cardHeading">
+              <h5 className="cardTitle">Account Details</h5>
+            </div>
           </div>
-
           <div className="card-body">
             <div className="row">
-              <div
-                className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p0"
-                ref={accountNameRef}
-              >
+              <div className="col-md-4 col-12" ref={accountNameRef}>
                 <FieldContainer
                   label="Account Name"
                   fieldGrid={12}
@@ -1115,177 +1121,187 @@ const CreateSalesAccount = () => {
                   <div className="form-error">Please Enter Account Name</div>
                 )}
               </div>
-              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0 flex-row">
-                <div
-                  className={loginUserRole === 1 ? "w-100" : "w-100"}
-                  ref={accountTypeRef}
-                >
-                  <CustomSelect
-                    fieldGrid={12}
-                    label="Account Type"
-                    dataArray={allAccountTypes}
-                    optionId="_id"
-                    optionLabel="account_type_name"
-                    selectedId={selectedAccountType}
-                    setSelectedId={setSelectedAccountType}
-                    required
-                  />
-
-                  {isValid.account_type_id === null && (
-                    <div className="form-error">Please Select Account Type</div>
-                  )}
-                </div>
-                {loginUserRole === 1 && (
-                  <div className="flex-row gap-2 pt28">
-                    <button
-                      type="button"
-                      className="btn iconBtn btn-outline-primary"
-                      onClick={() => openModal("accountType")}
-                    >
-                      +
-                    </button>
-                    <button
-                      type="button"
-                      className="btn iconBtn btn-outline-primary"
-                      onClick={() => openModal("viewAccountType")}
-                    >
-                      <i className="bi bi-eye" />
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p0 flex-row gap-1">
-                <div className="w-100">
-                  <CustomSelect
-                    fieldGrid={12}
-                    label="Brand"
-                    dataArray={allBrands}
-                    optionId="_id"
-                    optionLabel="brand_name"
-                    selectedId={selectedBrand}
-                    setSelectedId={setSelectedBrand}
-                    required
-                    astric
-                  // disabled={
-                  //   allAccountTypes?.find(
-                  //     (data) => data._id === selectedAccountType
-                  //   )?.account_type_name !== "Agency"
-                  //     ? false
-                  //     : true
-                  // }
-                  />
-                  <span className="form-error">
-                    Brand name & Account name can be different eg: Brand Name:
-                    Myfitness, AccountName: Mensa Brands
-                  </span>
-                  {isValid.selectedBrand && (
-                    <div className="form-error">Please select a brand</div>
-                  )}
-                </div>
-                {/* <div className="flex-row gap-1 pt28">
-                  <BrandRegistration
-                    userID={loginUserId}
-                    disabled={
-                      allAccountTypes?.find(
-                        (data) => data._id === selectedAccountType
-                      )?.account_type_name !== "Agency"
-                        ? false
-                        : true
-                    }
-                  />
-                </div> */}
-                <div className="flex-row gap-2 pt28">
-                  <button
-                    type="button"
-                    className="btn iconBtn btn-outline-primary"
-                    onClick={() => openModal("addBrand")}
+              <div className="col-md-4 col-12">
+                <div className="flexCenter colGap8">
+                  <div
+                    className={loginUserRole === 1 ? "w-100" : "w-100"}
+                    ref={accountTypeRef}
                   >
-                    +
-                  </button>
-                </div>
-              </div>
+                    <CustomSelect
+                      fieldGrid={12}
+                      label="Account Type"
+                      dataArray={allAccountTypes}
+                      optionId="_id"
+                      optionLabel="account_type_name"
+                      selectedId={selectedAccountType}
+                      setSelectedId={setSelectedAccountType}
+                      required
+                    />
 
-              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-0 flex-row">
-                <div
-                  className={loginUserRole === 1 ? "w-100" : "w-100"}
-                  ref={companyTypeRef}
-                >
-                  <CustomSelect
-                    fieldGrid={12}
-                    label="Company Type"
-                    dataArray={allCompanyType}
-                    optionId="_id"
-                    optionLabel="company_type_name"
-                    selectedId={selectedCompanyType}
-                    setSelectedId={setSelectedCompanyType}
-                    required
-                  />
-                  {isValid.company_type_id === null && (
-                    <div className="form-error">Please Select Company Type</div>
-                  )}
-                </div>
-                {loginUserRole === 1 && (
-                  <div className="flex-row gap-2 pt28">
-                    <button
-                      type="button"
-                      className="btn iconBtn btn-outline-primary"
-                      onClick={() => openModal("companyType")}
-                    >
-                      +
-                    </button>
-                    <button
-                      type="button"
-                      className="btn iconBtn btn-outline-primary"
-                      onClick={() => openModal("viewCompanyType")}
-                    >
-                      <i className="bi bi-eye" />
-                    </button>
+                    {isValid.account_type_id === null && (
+                      <div className="form-error">
+                        Please Select Account Type
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p0 flex-row">
-                <div className="w-100">
-                  {/* Brand Category renamed to Industry */}
-                  <CustomSelect
-                    fieldGrid={12}
-                    label="Industry Name (Auto Select)"
-                    dataArray={allBrandCatType}
-                    optionId="_id"
-                    optionLabel="brand_category_name"
-                    selectedId={selectedCategory}
-                    setSelectedId={setSelectedCategory}
-                    disabled
-                    required
-                  />
-                  {isValid.category_id === null && (
-                    <div className="form-error">
-                      Please Select Industry Name
+                  {loginUserRole === 1 && (
+                    <div className="flexCenter colGap8 pt8">
+                      <button
+                        type="button"
+                        className="icon"
+                        onClick={() => openModal("accountType")}
+                      >
+                        <Plus />
+                      </button>
+                      <button
+                        type="button"
+                        className="icon"
+                        onClick={() => openModal("viewAccountType")}
+                      >
+                        <Eye />
+                      </button>
                     </div>
                   )}
                 </div>
-                {loginUserRole == 1 && (
-                  <div className="flex-row gap-2 pt28">
+              </div>
+              <div className="col-md-4 col-12">
+                <div className="flexCenter colGap8">
+                  <div className="w-100">
+                    <CustomSelect
+                      fieldGrid={12}
+                      label="Brand"
+                      dataArray={allBrands}
+                      optionId="_id"
+                      optionLabel="brand_name"
+                      selectedId={selectedBrand}
+                      setSelectedId={setSelectedBrand}
+                      required
+                      astric
+                      // disabled={
+                      //   allAccountTypes?.find(
+                      //     (data) => data._id === selectedAccountType
+                      //   )?.account_type_name !== "Agency"
+                      //     ? false
+                      //     : true
+                      // }
+                    />
+                  </div>
+                  {/* <div className="flexCenter colGap8 pt8">
+                    <BrandRegistration
+                      userID={loginUserId}
+                      disabled={
+                        allAccountTypes?.find(
+                          (data) => data._id === selectedAccountType
+                        )?.account_type_name !== "Agency"
+                          ? false
+                          : true
+                      }
+                    />
+                  </div> */}
+                  <div className="flexCenter colGap8 pt8">
                     <button
                       type="button"
-                      className="btn iconBtn btn-outline-primary"
-                      onClick={() => openModal("brandCategory")}
+                      className="icon"
+                      onClick={() => openModal("addBrand")}
                     >
-                      +
-                    </button>
-                    <button
-                      type="button"
-                      className="btn iconBtn btn-outline-primary"
-                      onClick={() => openModal("viewBrandCategory")}
-                    >
-                      <i className="bi bi-eye" />
+                      <Plus />
                     </button>
                   </div>
+                </div>
+                <p className="form-error">
+                  Brand name & Account name can be different eg: Brand Name:
+                  Myfitness, AccountName: Mensa Brands
+                </p>
+                {isValid.selectedBrand && (
+                  <div className="form-error">Please select a brand</div>
                 )}
               </div>
-
-              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p0 flex-row">
+              <div className="col-md-4 col-12">
+                <div className="flexCenter colGap8">
+                  <div
+                    className={loginUserRole === 1 ? "w-100" : "w-100"}
+                    ref={companyTypeRef}
+                  >
+                    <CustomSelect
+                      fieldGrid={12}
+                      label="Company Type"
+                      dataArray={allCompanyType}
+                      optionId="_id"
+                      optionLabel="company_type_name"
+                      selectedId={selectedCompanyType}
+                      setSelectedId={setSelectedCompanyType}
+                      required
+                    />
+                    {isValid.company_type_id === null && (
+                      <div className="form-error">
+                        Please Select Company Type
+                      </div>
+                    )}
+                  </div>
+                  {loginUserRole === 1 && (
+                    <div className="flexCenter colGap8 pt8">
+                      <button
+                        type="button"
+                        className="icon"
+                        onClick={() => openModal("companyType")}
+                      >
+                        <Plus />
+                      </button>
+                      <button
+                        type="button"
+                        className="icon"
+                        onClick={() => openModal("viewCompanyType")}
+                      >
+                        <Eye />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="col-md-4 col-12">
+                <div className="flexCenter colGap8">
+                  <div className="w-100">
+                    {/* Brand Category renamed to Industry */}
+                    <CustomSelect
+                      fieldGrid={12}
+                      label="Industry Name (Auto Select)"
+                      dataArray={allBrandCatType}
+                      optionId="_id"
+                      optionLabel="brand_category_name"
+                      selectedId={selectedCategory}
+                      setSelectedId={setSelectedCategory}
+                      disabled
+                      required
+                    />
+                    {isValid.category_id === null && (
+                      <div className="form-error">
+                        Please Select Industry Name
+                      </div>
+                    )}
+                  </div>
+                  {loginUserRole == 1 && (
+                    <div className="flexCenter colGap8 pt8">
+                      <button
+                        type="button"
+                        className="icon"
+                        onClick={() => openModal("brandCategory")}
+                      >
+                        <Plus />
+                      </button>
+                      <button
+                        type="button"
+                        className="icon"
+                        onClick={() => openModal("viewBrandCategory")}
+                      >
+                        <Eye />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="col-md-4 col-12">
                 <FieldContainer
-                  fieldGrid={8}
+                  fieldGrid={12}
                   label="Upload Brand Image"
                   type="file"
                   accept="image/*"
@@ -1514,8 +1530,6 @@ const CreateSalesAccount = () => {
               setSelectedId={setConnectedBillingCountry}
             />
 
-
-
             <IndianStatesMui
               selectedState={connectedBillingState}
               onChange={(option) =>
@@ -1525,7 +1539,6 @@ const CreateSalesAccount = () => {
               label="Connected Billing State"
             />
 
-
             <IndianCitiesMui
               selectedState={connectedBillingState}
               selectedCity={connectedBillingCity}
@@ -1534,7 +1547,6 @@ const CreateSalesAccount = () => {
               }
               fieldGrid={4}
               label="Connected Billing City"
-
             />
 
             <div className="col-4">
@@ -1648,8 +1660,8 @@ const CreateSalesAccount = () => {
                 ? "Submit"
                 : "Save"
               : id == 0
-                ? "Submitting..."
-                : "Saving..."}
+              ? "Submitting..."
+              : "Saving..."}
           </button>
           <button
             className="btn cmnbtn btn-warning"
@@ -1659,7 +1671,7 @@ const CreateSalesAccount = () => {
           </button>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

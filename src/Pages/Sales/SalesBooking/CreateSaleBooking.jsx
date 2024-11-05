@@ -3,9 +3,19 @@ import Select from "react-select";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
-import { useGetUserDetailsByIdMutation, useLoginUserDataQuery } from "../../../Redux/Slices/UserSlices/UserApi";
-import { useEditMultipleRecordServicesMutation, useGetSingleRecordServiceQuery } from "../../../Redux/Slices/SalesSlices/RecordServicesApi";
-import { useAddSaleBookingMutation, useEditSaleBookingMutation, useGetIndividualSaleBookingQuery } from "../../../Redux/Slices/SalesSlices/SaleBookingApi";
+import {
+  useGetUserDetailsByIdMutation,
+  useLoginUserDataQuery,
+} from "../../../Redux/Slices/UserSlices/UserApi";
+import {
+  useEditMultipleRecordServicesMutation,
+  useGetSingleRecordServiceQuery,
+} from "../../../Redux/Slices/SalesSlices/RecordServicesApi";
+import {
+  useAddSaleBookingMutation,
+  useEditSaleBookingMutation,
+  useGetIndividualSaleBookingQuery,
+} from "../../../Redux/Slices/SalesSlices/SaleBookingApi";
 import { useGetAllBrandQuery } from "../../../Redux/Slices/SalesSlices/BrandApi";
 import { useGetAllAccountQuery } from "../../../Redux/Slices/SalesSlices/SalesAccountApi";
 import { useGetAllSaleServiceQuery } from "../../../Redux/Slices/SalesSlices/SalesServiceApi";
@@ -27,9 +37,6 @@ import FieldContainer from "../../../Components/CommonComponent/FormElement/Fiel
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 
-
-
-
 const todayDate = new Date().toISOString().split("T")[0];
 
 const CreateSaleBooking = () => {
@@ -48,8 +55,8 @@ const CreateSaleBooking = () => {
   }
 
   const navigate = useNavigate();
-  const { data: loginUserData, isLoading: loginUserLoading } = useLoginUserDataQuery(token.id, { skip: !token.id });
-
+  const { data: loginUserData, isLoading: loginUserLoading } =
+    useLoginUserDataQuery(token.id, { skip: !token.id });
 
   const {
     data: recordServiceData,
@@ -61,8 +68,6 @@ const CreateSaleBooking = () => {
 
   const [addsaledata, { isLoading: addsaleLoading, error: addsaleError }] =
     useAddSaleBookingMutation();
-
-
 
   const [
     updateRecordServices,
@@ -160,7 +165,6 @@ const CreateSaleBooking = () => {
 
   const [submitDialog, setSubmitDialog] = useState(false);
   const paymentStatusList = [
-
     {
       value: "sent_for_payment_approval",
       label: "Sent For Payment Approval",
@@ -184,8 +188,10 @@ const CreateSaleBooking = () => {
     refetch: getIncentiveSharingDetails,
     data: getincentiveSharingData,
     isError: getincentiveSharingError,
-    isLoading: getincentiveSharingLoading
-  } = useGetIncentiveSharingDetailsQuery(selectedAccount, { skip: !selectedAccount });
+    isLoading: getincentiveSharingLoading,
+  } = useGetIncentiveSharingDetailsQuery(selectedAccount, {
+    skip: !selectedAccount,
+  });
 
   const {
     data: allCreditApprovals,
@@ -193,11 +199,7 @@ const CreateSaleBooking = () => {
     isLoading: allCreditApprovalsLoading,
   } = useGetAllCreditApprovalsQuery();
 
-  const {
-    data: campaignList,
-  } = useGetExeCampaignsNameWiseDataQuery();
-
-
+  const { data: campaignList } = useGetExeCampaignsNameWiseDataQuery();
 
   useEffect(() => {
     if (gstData) {
@@ -381,10 +383,6 @@ const CreateSaleBooking = () => {
     return errors;
   };
 
-
-
-
-
   useEffect(() => {
     if (
       singleDocumentOverviewData?.data?.length > 0 &&
@@ -421,13 +419,7 @@ const CreateSaleBooking = () => {
     }
   }, [baseAmount, addGst]);
 
-
-
-
-
   const handleSubmit = async (e, draft) => {
-
-
     e.preventDefault();
 
     if (!selectedAccount) {
@@ -540,9 +532,6 @@ const CreateSaleBooking = () => {
         return;
       }
 
-
-
-
       const formData = new FormData();
       formData.append("plan_link", planLink);
       formData.append("account_id", selectedAccount);
@@ -578,7 +567,6 @@ const CreateSaleBooking = () => {
         );
       }
 
-
       formData.append("brand_id", selectedBrand || "");
       formData.append("balance_payment_ondate", balancePayDate);
       formData.append(
@@ -590,16 +578,23 @@ const CreateSaleBooking = () => {
         toastError("Base amount cannot be 0");
         return;
       }
-      (getincentiveSharingData?.services?.length > 0) ? (formData.append("is_incentive_sharing", true), formData.append("account_percentage", getincentiveSharingData?.account_percentage)) : formData.append("is_incentive_sharing", false);
+      getincentiveSharingData?.services?.length > 0
+        ? (formData.append("is_incentive_sharing", true),
+          formData.append(
+            "account_percentage",
+            getincentiveSharingData?.account_percentage
+          ))
+        : formData.append("is_incentive_sharing", false);
       const recServiceData = recServices.map((record) => {
         return {
           ...record,
           service_percentage: getincentiveSharingData?.services?.find(
             (data) => data.service_id === record?.sales_service_master_id
           )?.service_percentage,
-          incentive_sharing_users_array: getincentiveSharingData?.services?.find(
-            (data) => data?.service_id === record?.sales_service_master_id
-          )?.incentive_sharing_users,
+          incentive_sharing_users_array:
+            getincentiveSharingData?.services?.find(
+              (data) => data?.service_id === record?.sales_service_master_id
+            )?.incentive_sharing_users,
         };
       });
 
@@ -626,7 +621,8 @@ const CreateSaleBooking = () => {
           id: editId,
           record_services: recServiceData,
           is_incentive_sharing: getincentiveSharingData?.services?.length > 0,
-          account_percentage: getincentiveSharingData?.account_percentage || 100,
+          account_percentage:
+            getincentiveSharingData?.account_percentage || 100,
 
           old_sales_booking_created_by: salesdata.created_by,
           updated_by: loginUserId,
@@ -638,14 +634,12 @@ const CreateSaleBooking = () => {
       );
       setSubmitDialog(true);
       openModal("SalesSumitDialog");
-
     } catch (error) {
       console.error(error);
       if (error.response && error.response.status === 666) {
         toastError("Sale booking created but email not sent");
         navigate("/sales/salesbooking-overview");
         return;
-
       }
 
       toastError(
@@ -698,7 +692,6 @@ const CreateSaleBooking = () => {
         deliverables_info: "",
         remarks: "",
         created_by: loginUserId,
-
       },
     ]);
   };
@@ -727,9 +720,6 @@ const CreateSaleBooking = () => {
     }
   }, [campaignName]);
 
-
-
-
   useEffect(() => {
     if (
       singleDocumentOverviewLoading ||
@@ -755,16 +745,28 @@ const CreateSaleBooking = () => {
     addsaleLoading,
     updateSalesBookingLoading,
     recordServiceLoading,
-    loginUserLoading
+    loginUserLoading,
   ]);
-
 
   const renderModalContent = () => {
     switch (modalContentType) {
       case "SheetLink":
-        return <FetchSheet closeModal={closeModal} setExcelFile={setExcelFile} excelFile={excelFile} setPlanLink={setPlanLink} />;
+        return (
+          <FetchSheet
+            closeModal={closeModal}
+            setExcelFile={setExcelFile}
+            excelFile={excelFile}
+            setPlanLink={setPlanLink}
+          />
+        );
       case "ShareIncentive":
-        return <ShareIncentive setIncentiveSharing={setIncentiveSharing} incentiveSharing={incentiveSharing} closeModal={closeModal} />;
+        return (
+          <ShareIncentive
+            setIncentiveSharing={setIncentiveSharing}
+            incentiveSharing={incentiveSharing}
+            closeModal={closeModal}
+          />
+        );
       case "SalesSumitDialog":
         return (
           <SalesSubmitDialog
@@ -868,8 +870,16 @@ const CreateSaleBooking = () => {
       <>
         <div className="card">
           <div className="card-header">
-            <h5 className="cardHeading">Create</h5>
+            <div className="cardHeading">
+              <h5 className="cardTitle">Create</h5>
+            </div>
           </div>
+          <div className="card-body">
+            <div className="row"></div>
+          </div>
+        </div>
+
+        <div className="card">
           <div className="card-body row">
             {/* <FieldContainer
               fieldGrid={4}
@@ -917,7 +927,7 @@ const CreateSaleBooking = () => {
                   disabled={
                     (account_info?.state &&
                       account_info?.state?.account_data?.account_type_name !==
-                      "Agency") ||
+                        "Agency") ||
                     allAccounts?.find(
                       (item) => item?.account_id == selectedAccount
                     )?.account_type_name !== "Agency"
@@ -1087,7 +1097,6 @@ const CreateSaleBooking = () => {
             {
               <>
                 <div className="col-4">
-
                   <FieldContainer
                     label="GST Amount"
                     fieldGrid={12}
@@ -1100,7 +1109,6 @@ const CreateSaleBooking = () => {
                   </span>
                 </div>
                 <div className="col-4">
-
                   <FieldContainer
                     label="Net / Campaign Amount"
                     fieldGrid={12}
