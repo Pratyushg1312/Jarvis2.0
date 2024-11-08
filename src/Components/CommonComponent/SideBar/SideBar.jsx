@@ -18,7 +18,7 @@ import GetDecodedToken from "../../../Utils/GetDecodedToken";
 const SideBar = () => {
   const userRole = GetDecodedToken().role_id;
   return (
-    <div className="sideBar">
+    <div className="sideBar semiDark">
       <div className="sidebarToggle">
         <label htmlFor="toggle-sidebar" className="toggle-sidebar-label">
           <CaretRight />
@@ -185,7 +185,14 @@ const SideBar = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item" to={userRole === 1 ? "/sales/incentive-dashboard" : "/sales/user-incentive"}>
+                    <NavLink
+                      className="dropdown-item"
+                      to={
+                        userRole === 1
+                          ? "/sales/incentive-dashboard"
+                          : "/sales/user-incentive"
+                      }
+                    >
                       <span>
                         <Minus />
                       </span>

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useGetIncentivePlanListQuery } from "../../../Redux/Slices/SalesSlices/IncentivePlanApi";
@@ -6,7 +5,6 @@ import { useGetAllSaleServiceQuery } from "../../../Redux/Slices/SalesSlices/Sal
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import View from "../../../Components/CommonComponent/View/View";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
-
 
 const IncentivePlanOveview = () => {
   const navigate = useNavigate();
@@ -31,25 +29,31 @@ const IncentivePlanOveview = () => {
     isLoading: salesLoading,
   } = useGetAllSaleServiceQuery();
 
-
   useEffect(() => {
     if (allIncentiveData) {
       if (loginUserRole === 1) {
         setIncentiveData(allIncentiveData);
       } else {
-        setIncentiveData(allIncentiveData.filter((data) => data?.sales_service_master_Data?.status === 0));
+        setIncentiveData(
+          allIncentiveData.filter(
+            (data) => data?.sales_service_master_Data?.status === 0
+          )
+        );
       }
     }
   }, [allIncentiveData]);
 
-  const LinkButtons = useMemo(() => [
-    {
-      type: "button",
-      name: "Create Incentive Plan",
-      access: [1],
-      onClick: () => navigate("/sales/incentive-plan/create")
-    }
-  ], [navigate]);
+  const LinkButtons = useMemo(
+    () => [
+      {
+        type: "button",
+        name: "Create Incentive Plan",
+        access: [1],
+        onClick: () => navigate("/sales/incentive-plan/create"),
+      },
+    ],
+    [navigate]
+  );
   const columns = [
     {
       name: "S.No",
@@ -60,9 +64,7 @@ const IncentivePlanOveview = () => {
     {
       key: "sales_service_name",
       name: "Service Name",
-      renderRowCell: (row) =>
-        row?.sales_service_master_Data
-          ?.service_name,
+      renderRowCell: (row) => row?.sales_service_master_Data?.service_name,
       width: 200,
     },
 
@@ -102,7 +104,6 @@ const IncentivePlanOveview = () => {
 
   return (
     <>
-
       <FormContainer
         mainTitle={`Incentive Plan`}
         LinkButtons={LinkButtons}
@@ -110,8 +111,9 @@ const IncentivePlanOveview = () => {
       />
 
       <View
-        title={`Incentive Overview (${allIncentiveData?.length
-          }) - ${"There will be no incentive for competitive plan"}`}
+        title={`Incentive Overview (${
+          allIncentiveData?.length
+        }) - ${"There will be no incentive for competitive plan"}`}
         data={incentiveData}
         columns={columns}
         isLoading={incentiveLoading || salesLoading}

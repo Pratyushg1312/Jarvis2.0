@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCreateIncentivePlanMutation, useGetIncentivePlanDetailsQuery, useUpdateIncentivePlanMutation } from "../../../Redux/Slices/SalesSlices/IncentivePlanApi";
+import {
+  useCreateIncentivePlanMutation,
+  useGetIncentivePlanDetailsQuery,
+  useUpdateIncentivePlanMutation,
+} from "../../../Redux/Slices/SalesSlices/IncentivePlanApi";
 import { useGetAllSaleServiceQuery } from "../../../Redux/Slices/SalesSlices/SalesServiceApi";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 import Loader from "../../../Components/CommonComponent/Loader/Loader";
@@ -29,10 +33,10 @@ const CreateIncentivePlan = () => {
     { value: "variable", label: "Variable" },
   ];
 
-  const [updateIncentive, {
-    isLoading: incentiveupdateLoading,
-    error: incentiveupdateError,
-  }] = useUpdateIncentivePlanMutation();
+  const [
+    updateIncentive,
+    { isLoading: incentiveupdateLoading, error: incentiveupdateError },
+  ] = useUpdateIncentivePlanMutation();
 
   const [addIncentive, { isLoading: incentiveLoading, error: incentiveError }] =
     useCreateIncentivePlanMutation();
@@ -43,11 +47,10 @@ const CreateIncentivePlan = () => {
     isError: salesServiceError,
   } = useGetAllSaleServiceQuery();
 
-
   const {
     data: incentiveData,
     isError: incentiveGetError,
-    isLoading: incentiveGetLoading
+    isLoading: incentiveGetLoading,
   } = useGetIncentivePlanDetailsQuery(id, { skip: id === "create" });
 
   useEffect(() => {
@@ -57,7 +60,7 @@ const CreateIncentivePlan = () => {
       setValues(incentiveData.value);
       setIncentiveType(incentiveData.incentive_type);
     }
-  }, [incentiveData])
+  }, [incentiveData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -108,7 +111,9 @@ const CreateIncentivePlan = () => {
       <FormContainer mainTitle="Incentive Plan" link={true} />
       <div className="card">
         <div className="card-header">
-          <h1 className="cardHeading">Incentive Plan Creation</h1>
+          <div className="cardHeading">
+            <h5 className="cardTitle">Incentive Plan Creation</h5>
+          </div>
         </div>
         <div className="card-body row">
           <div className="form-group col-4">

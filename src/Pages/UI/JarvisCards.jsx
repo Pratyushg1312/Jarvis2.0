@@ -250,8 +250,8 @@ const JarvisCards = () => {
               </div>
               <div className="cardAction">
                 <FormGroup>
-                  <TextField variant="outlined" placeholder="username" />
-                  <Button color="primary" variant="contained">
+                  <TextField variant="outlined" placeholder="Search" />
+                  <Button variant="contained">
                     <MagnifyingGlass />
                   </Button>
                 </FormGroup>

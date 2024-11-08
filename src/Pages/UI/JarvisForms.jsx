@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Breadcrumbs, Typography } from "@mui/material";
+import { Breadcrumbs, FormGroup, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -9,7 +9,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { CalendarDots } from "@phosphor-icons/react";
+import {
+  CalendarDots,
+  Eye,
+  MagnifyingGlass,
+  Plus,
+} from "@phosphor-icons/react";
 
 const JarvisForms = () => {
   const navigate = useNavigate();
@@ -26,15 +31,27 @@ const JarvisForms = () => {
       </div>
 
       <div className="card">
-        <div className="card-header">
-          <div className="cardHeading">
-            <h4>Input fields</h4>
+        <div class="card-header">
+          <div class="cardHeading">
+            <h5 class="cardTitle">Input fields</h5>
           </div>
         </div>
         <div className="card-body">
           <div className="row">
             <div className="col-md-4">
               <TextField label="Basic input" variant="outlined" />
+            </div>
+            <div className="col-md-4">
+              <FormGroup>
+                <TextField
+                  variant="outlined"
+                  placeholder="Search"
+                  label="Input group"
+                />
+                <Button>
+                  <MagnifyingGlass />
+                </Button>
+              </FormGroup>
             </div>
             <div className="col-md-4">
               <Autocomplete
@@ -46,6 +63,21 @@ const JarvisForms = () => {
               />
             </div>
             <div className="col-md-4">
+              <FormGroup>
+                <Autocomplete
+                  disablePortal
+                  options={["Hello", "Anmol"]}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Autocomplete" />
+                  )}
+                />
+                <Button>
+                  <Plus />
+                </Button>
+              </FormGroup>
+            </div>
+
+            <div className="col-md-4">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DatePicker"]}>
                   <DatePicker
@@ -56,20 +88,6 @@ const JarvisForms = () => {
                   />
                 </DemoContainer>
               </LocalizationProvider>
-            </div>
-            <div className="col-md-4">
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-              />
-            </div>
-            <div className="col-md-4">
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-              />
             </div>
           </div>
         </div>

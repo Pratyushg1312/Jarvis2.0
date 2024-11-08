@@ -4,6 +4,7 @@ import View from "../../../Components/CommonComponent/View/View";
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import { useLazyGetSalesReportQuery } from "../../../Redux/Slices/SalesSlices/SalesReportApi";
+import { Button } from "@mui/material";
 
 const SalesReport = () => {
   const [filter, setFilter] = useState("");
@@ -129,37 +130,48 @@ const SalesReport = () => {
       <div className="card">
         <div className="card-body">
           <div className="row">
-            <CustomSelect
-              fieldGrid={"4"}
-              label={"Filter By"}
-              dataArray={options}
-              optionId={"value"}
-              optionLabel={"label"}
-              selectedId={filter}
-              setSelectedId={setFilter}
-            />
+            <div className="col">
+              <CustomSelect
+                fieldGrid={"12"}
+                label={"Filter By"}
+                dataArray={options}
+                optionId={"value"}
+                optionLabel={"label"}
+                selectedId={filter}
+                setSelectedId={setFilter}
+              />
+            </div>
             {filter === "custom" && (
               <>
-                <FieldContainer
-                  type="date"
-                  label="From Date"
-                  fieldGrid={4}
-                  value={fromDate}
-                  onChange={(e) => setFromDate(e.target.value)}
-                />
-                <FieldContainer
-                  type="date"
-                  label="To Date"
-                  fieldGrid={4}
-                  value={toDate}
-                  onChange={(e) => setToDate(e.target.value)}
-                />
+                <div className="col">
+                  <FieldContainer
+                    type="date"
+                    label="From Date"
+                    fieldGrid={12}
+                    value={fromDate}
+                    onChange={(e) => setFromDate(e.target.value)}
+                  />
+                </div>
+                <div className="col">
+                  <FieldContainer
+                    type="date"
+                    label="To Date"
+                    fieldGrid={12}
+                    value={toDate}
+                    onChange={(e) => setToDate(e.target.value)}
+                  />
+                </div>
               </>
             )}
-            <div className="col-4 mt-4">
-              <button className="btn cmnbtn btn-primary" onClick={handelSearch}>
+            <div className="col mt24">
+              <Button
+                className="w-100"
+                variant="contained"
+                color="primary"
+                onClick={handelSearch}
+              >
                 Search
-              </button>
+              </Button>
             </div>
           </div>
         </div>
