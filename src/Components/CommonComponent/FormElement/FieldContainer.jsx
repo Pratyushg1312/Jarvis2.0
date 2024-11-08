@@ -18,7 +18,6 @@ const FieldContainer = ({
   onKeyUp,
   required = true,
   disabled = false,
-  children,
   fieldGrid = 6,
   multiple,
   placeholder,
@@ -30,6 +29,7 @@ const FieldContainer = ({
   astric = false,
   refer,
   format = "DD/MM/YYYY", // Default format
+  children,
 
 }) => {
 
@@ -41,11 +41,10 @@ const FieldContainer = ({
   const handleDateChange = (newValue) => {
     onChange(newValue ? arrangeDate(newValue, format) : ''); // Format selected date
   };
+  const Wrapper = children ? FormGroup : React.Fragment;
 
   return (
-    <div
-
-    >
+    <Wrapper>
       {type === "date" ? (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
@@ -86,11 +85,11 @@ const FieldContainer = ({
           ref={refer}
           variant="outlined"
           label={label}
-        >
-          {children}
-        </TextField>
+        />
+
       )}
-    </div>
+      {children}
+    </Wrapper>
   );
 };
 

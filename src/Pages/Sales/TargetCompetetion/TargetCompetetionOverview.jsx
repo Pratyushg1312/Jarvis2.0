@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
@@ -11,15 +11,9 @@ import {
   useEditTargetCompetitionMutation,
   useGetAllTargetCompetitionsQuery,
 } from "../../../Redux/Slices/SalesSlices/TargetCompetitionApi";
-const LinkButtons = [
-  {
-    name: "Add Target Competition",
-    link: "/sales/create-target-competition",
-    type: "link",
-    access: [1, 4],
-  },
-];
+
 const TargetCompetetionOverview = () => {
+  const navigate = useNavigate();
   const {
     data: allTargetCompetitionsData,
     refetch: refetchTargetCompetitions,
@@ -58,6 +52,16 @@ const TargetCompetetionOverview = () => {
     }
   };
 
+  const LinkButtons = [
+    {
+      name: "Add Target Competition",
+
+      type: "button",
+      access: [1, 4],
+      onClick: () => navigate("/sales/create-target-competition"),
+    },
+  ];
+
   const columns = [
     {
       name: "S.No",
@@ -91,7 +95,7 @@ const TargetCompetetionOverview = () => {
       key: "status",
       name: "Status",
       renderRowCell: (row, index) => {
-        console.log(row, "harshal");
+
         if (row.status == 0) {
           return (
             <div
