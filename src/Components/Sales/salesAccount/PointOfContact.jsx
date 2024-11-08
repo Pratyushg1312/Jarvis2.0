@@ -224,13 +224,13 @@ const PointOfContact = ({
                         "department",
                         selectedOption.value
                       );
-                      setIsValidDepartment({
-                        ...isValidDepartment,
-                        [index]: {
-                          ...isValidDepartment[index],
-                          department: e.target.value,
-                        },
-                      });
+                      // setIsValidDepartment({
+                      //   ...isValidDepartment,
+                      //   [index]: {
+                      //     ...isValidDepartment[index],
+                      //     department: e.target.value,
+                      //   },
+                      // });
                     }}
                   // required
                   />

@@ -1,9 +1,10 @@
 import React from "react";
-import { Autocomplete, TextField, Checkbox } from "@mui/material";
+import { Autocomplete, TextField, Checkbox, FormGroup } from "@mui/material";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 const CustomSelect = ({
+  children,
   fieldGrid = 4,
   label,
   dataArray = [],
@@ -14,7 +15,8 @@ const CustomSelect = ({
   required,
   disabled,
   multiple = false,
-  filterOption
+  filterOption,
+
 }) => {
   const findOptionLabelById = (id) =>
     dataArray?.find((option) => option[optionId] === id)?.[optionLabel];
@@ -48,8 +50,9 @@ const CustomSelect = ({
 
   const options = multiple ? [selectAllOption, ...dataArray] : dataArray;
 
+  const Wrapper = children ? FormGroup : React.Fragment;
   return (
-    <div className={`form-group col-${fieldGrid}`}>
+    <Wrapper>
 
       <Autocomplete
         multiple={multiple}
@@ -83,7 +86,8 @@ const CustomSelect = ({
           </li>
         )}
       />
-    </div>
+      {children}
+    </Wrapper>
   );
 };
 

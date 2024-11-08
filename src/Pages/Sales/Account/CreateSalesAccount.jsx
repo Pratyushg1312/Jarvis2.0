@@ -52,6 +52,7 @@ import View from "../../../Components/CommonComponent/View/View";
 import { ViewAccountTypeColumns } from "../../../Components/Sales/salesAccount/ViewAccountTypeColumns";
 import { ViewCompanyTypeColumns } from "../../../Components/Sales/salesAccount/ViewCompanyTypeColumns";
 import { Autocomplete, TextField } from "@mui/material";
+import Button from "@mui/material/Button";
 import { Eye, Plus } from "@phosphor-icons/react";
 
 const socialOptions = [
@@ -239,7 +240,7 @@ const CreateSalesAccount = () => {
     try {
       await editDep(payload).unwrap();
       setEditFlag(false);
-    } catch (error) {}
+    } catch (error) { }
   };
   const handleEdit = async (row, setEditFlag) => {
     const payload = {
@@ -249,7 +250,7 @@ const CreateSalesAccount = () => {
     try {
       await edit(payload).unwrap();
       setEditFlag(false);
-    } catch (error) {}
+    } catch (error) { }
   };
   const ViewBrandCategoryColumns = [
     {
@@ -1136,7 +1137,28 @@ const CreateSalesAccount = () => {
                       selectedId={selectedAccountType}
                       setSelectedId={setSelectedAccountType}
                       required
-                    />
+                    >
+                      {loginUserRole === 1 && (
+                        <>
+
+                          <Button
+                            type="button"
+                            className="icon"
+                            onClick={() => openModal("accountType")}
+                          >
+                            <Plus />
+                          </Button>
+                          <Button
+                            type="button"
+                            className="icon"
+                            onClick={() => openModal("viewAccountType")}
+                          >
+                            <Eye />
+                          </Button>
+                        </>
+
+                      )}
+                    </CustomSelect>
 
                     {isValid.account_type_id === null && (
                       <div className="form-error">
@@ -1144,24 +1166,7 @@ const CreateSalesAccount = () => {
                       </div>
                     )}
                   </div>
-                  {loginUserRole === 1 && (
-                    <div className="flexCenter colGap8 pt8">
-                      <button
-                        type="button"
-                        className="icon"
-                        onClick={() => openModal("accountType")}
-                      >
-                        <Plus />
-                      </button>
-                      <button
-                        type="button"
-                        className="icon"
-                        onClick={() => openModal("viewAccountType")}
-                      >
-                        <Eye />
-                      </button>
-                    </div>
-                  )}
+
                 </div>
               </div>
               <div className="col-md-4 col-12">
@@ -1177,14 +1182,22 @@ const CreateSalesAccount = () => {
                       setSelectedId={setSelectedBrand}
                       required
                       astric
-                      // disabled={
-                      //   allAccountTypes?.find(
-                      //     (data) => data._id === selectedAccountType
-                      //   )?.account_type_name !== "Agency"
-                      //     ? false
-                      //     : true
-                      // }
-                    />
+                    // disabled={
+                    //   allAccountTypes?.find(
+                    //     (data) => data._id === selectedAccountType
+                    //   )?.account_type_name !== "Agency"
+                    //     ? false
+                    //     : true
+                    // }
+                    >
+                      <Button
+                        type="button"
+
+                        onClick={() => openModal("addBrand")}
+                      >
+                        <Plus />
+                      </Button>
+                    </CustomSelect>
                   </div>
                   {/* <div className="flexCenter colGap8 pt8">
                     <BrandRegistration
@@ -1198,15 +1211,7 @@ const CreateSalesAccount = () => {
                       }
                     />
                   </div> */}
-                  <div className="flexCenter colGap8 pt8">
-                    <button
-                      type="button"
-                      className="icon"
-                      onClick={() => openModal("addBrand")}
-                    >
-                      <Plus />
-                    </button>
-                  </div>
+
                 </div>
                 <p className="form-error">
                   Brand name & Account name can be different eg: Brand Name:
@@ -1231,31 +1236,33 @@ const CreateSalesAccount = () => {
                       selectedId={selectedCompanyType}
                       setSelectedId={setSelectedCompanyType}
                       required
-                    />
+                    >
+                      {loginUserRole === 1 && (
+                        <>
+                          <Button
+                            type="button"
+                            className="icon"
+                            onClick={() => openModal("companyType")}
+                          >
+                            <Plus />
+                          </Button>
+                          <Button
+                            type="button"
+                            className="icon"
+                            onClick={() => openModal("viewCompanyType")}
+                          >
+                            <Eye />
+                          </Button>
+                        </>
+                      )}
+                    </CustomSelect>
                     {isValid.company_type_id === null && (
                       <div className="form-error">
                         Please Select Company Type
                       </div>
                     )}
                   </div>
-                  {loginUserRole === 1 && (
-                    <div className="flexCenter colGap8 pt8">
-                      <button
-                        type="button"
-                        className="icon"
-                        onClick={() => openModal("companyType")}
-                      >
-                        <Plus />
-                      </button>
-                      <button
-                        type="button"
-                        className="icon"
-                        onClick={() => openModal("viewCompanyType")}
-                      >
-                        <Eye />
-                      </button>
-                    </div>
-                  )}
+
                 </div>
               </div>
               <div className="col-md-4 col-12">
@@ -1272,31 +1279,33 @@ const CreateSalesAccount = () => {
                       setSelectedId={setSelectedCategory}
                       disabled
                       required
-                    />
+                    >
+                      {loginUserRole == 1 && (
+                        <>
+                          <Button
+                            type="button"
+                            className="icon"
+                            onClick={() => openModal("brandCategory")}
+                          >
+                            <Plus />
+                          </Button>
+                          <Button
+                            type="button"
+                            className="icon"
+                            onClick={() => openModal("viewBrandCategory")}
+                          >
+                            <Eye />
+                          </Button>
+                        </>
+                      )}
+                    </CustomSelect>
                     {isValid.category_id === null && (
                       <div className="form-error">
                         Please Select Industry Name
                       </div>
                     )}
                   </div>
-                  {loginUserRole == 1 && (
-                    <div className="flexCenter colGap8 pt8">
-                      <button
-                        type="button"
-                        className="icon"
-                        onClick={() => openModal("brandCategory")}
-                      >
-                        <Plus />
-                      </button>
-                      <button
-                        type="button"
-                        className="icon"
-                        onClick={() => openModal("viewBrandCategory")}
-                      >
-                        <Eye />
-                      </button>
-                    </div>
-                  )}
+
                 </div>
               </div>
               <div className="col-md-4 col-12">
@@ -1660,8 +1669,8 @@ const CreateSalesAccount = () => {
                 ? "Submit"
                 : "Save"
               : id == 0
-              ? "Submitting..."
-              : "Saving..."}
+                ? "Submitting..."
+                : "Saving..."}
           </button>
           <button
             className="btn cmnbtn btn-warning"
