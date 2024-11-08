@@ -16,10 +16,6 @@ const CustomSelect = ({
   disabled,
   multiple = false,
   filterOption,
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 }) => {
   const findOptionLabelById = (id) =>
     dataArray?.find((option) => option[optionId] === id)?.[optionLabel];
@@ -33,8 +29,8 @@ const CustomSelect = ({
 
   const valueProp = multiple
     ? selectedId?.map((id) =>
-        dataArray?.find((option) => option[optionId] === id)
-      )
+      dataArray?.find((option) => option[optionId] === id)
+    )
     : dataArray?.find((option) => option[optionId] === selectedId) || null;
 
   const handleChange = (event, selectedOptions) => {
@@ -59,9 +55,7 @@ const CustomSelect = ({
 
   const Wrapper = children ? FormGroup : React.Fragment;
   return (
-<<<<<<< Updated upstream
     <Wrapper>
-
       <Autocomplete
         multiple={multiple}
         disableCloseOnSelect={multiple}
@@ -96,46 +90,6 @@ const CustomSelect = ({
       />
       {children}
     </Wrapper>
-=======
-    <Autocomplete
-      multiple={multiple}
-      disableCloseOnSelect={multiple}
-      options={options}
-      value={valueProp}
-      onChange={handleChange}
-      getOptionLabel={(option) => option[optionLabel]}
-      isOptionEqualToValue={(option, value) =>
-        option[optionId] === value[optionId]
-      }
-      disabled={disabled}
-      filterOptions={filterOption ? filterOption : undefined}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label={label}
-          required={required}
-          placeholder={`Search ${label}...`}
-          variant="outlined"
-        />
-      )}
-      renderOption={(props, option, { selected }) => (
-        <li {...props}>
-          {multiple && (
-            <Checkbox
-              icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-              checkedIcon={<CheckBoxIcon fontSize="small" />}
-              checked={
-                selected ||
-                (option[optionId] === selectAllOption[optionId] &&
-                  isAllSelected)
-              }
-            />
-          )}
-          {option[optionLabel]}
-        </li>
-      )}
-    />
->>>>>>> Stashed changes
   );
 };
 

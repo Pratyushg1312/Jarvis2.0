@@ -29,11 +29,7 @@ const FieldContainer = ({
   astric = false,
   refer,
   format = "DD/MM/YYYY", // Default format
-<<<<<<< Updated upstream
   children,
-
-=======
->>>>>>> Stashed changes
 }) => {
   const arrangeDate = (date, formatString = format) => {
     if (!date) return "";
@@ -46,11 +42,7 @@ const FieldContainer = ({
   const Wrapper = children ? FormGroup : React.Fragment;
 
   return (
-<<<<<<< Updated upstream
     <Wrapper>
-=======
-    <>
->>>>>>> Stashed changes
       {type === "date" ? (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
@@ -94,12 +86,8 @@ const FieldContainer = ({
         />
 
       )}
-<<<<<<< Updated upstream
       {children}
     </Wrapper>
-=======
-    </>
->>>>>>> Stashed changes
   );
 };
 
