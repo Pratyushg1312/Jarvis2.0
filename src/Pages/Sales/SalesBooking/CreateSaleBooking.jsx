@@ -1045,7 +1045,7 @@ const CreateSaleBooking = () => {
               type="date"
               value={bookingDate}
               max={todayDate}
-              onChange={(value) => setBookingDate(value)}
+              onChange={(e) => setBookingDate(e)}
             />
             <div className="col-4">
               <FieldContainer
@@ -1140,6 +1140,8 @@ const CreateSaleBooking = () => {
                 onChange={handlePaymentStatusSelect}
                 required
               />
+              {console.log(paymentStatusList, "kbsdhgca")
+              }
               {selectedPaymentStatus?.value == "self_credit_used" &&
                 netAmount > loginUserData?.user_credit_limit && (
                   <div className="d-flex flex-column">
@@ -1217,11 +1219,13 @@ const CreateSaleBooking = () => {
                 fieldGrid={12}
                 value={balancePayDate}
                 onChange={(e) => {
+
+
                   setBalancePayDate(e);
 
                   setIsValidate((prev) => ({
                     ...prev,
-                    balancePayDate: e.target.value === "",
+                    balancePayDate: e === "",
                   }));
                 }}
                 required={selectedPaymentStatus?.value === "self_credit_used"}

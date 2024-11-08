@@ -20,7 +20,7 @@ const PreviousRoute = createSlice({
           (route) => route === pathnames[1]
         );
         if (index === -1) {
-          if (copyPreviousRoute.length === 3) {
+          if (copyPreviousRoute.length === 1) {
             copyPreviousRoute.shift();
           }
           copyPreviousRoute.push(pathnames[1]);
