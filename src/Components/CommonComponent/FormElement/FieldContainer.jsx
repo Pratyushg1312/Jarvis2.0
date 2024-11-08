@@ -44,11 +44,7 @@ const FieldContainer = ({
 
   return (
     <div
-      className={
-        Tag === "textarea"
-          ? "col-xl-12 col-lg-12 col-md-12 col-sm-12"
-          : `col-xl-${fieldGrid} col-lg-${fieldGrid} col-md-${fieldGrid} col-sm-12`
-      }
+
     >
       {type === "date" ? (
         <LocalizationProvider dateAdapter={AdapterDayjs}>

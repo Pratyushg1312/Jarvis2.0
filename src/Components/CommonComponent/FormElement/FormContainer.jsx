@@ -100,17 +100,20 @@ const FormContainer = ({
 
                     }
                     {
-                        elements?.length > 0 && elements?.map(item => {
-                            const hasAccess = item?.access?.indexOf(UserRole);
-                            const isShow = item?.condition ? item.condition() : true;
-                            if (hasAccess !== -1) {
-                                if (isShow)
-                                    return (
-                                        item?.element
-                                    );
+                        elements?.length > 0 && <div className="pageForms">
+
+                            {elements?.map(item => {
+                                const hasAccess = item?.access?.indexOf(UserRole);
+                                const isShow = item?.condition ? item.condition() : true;
+                                if (hasAccess !== -1) {
+                                    if (isShow)
+                                        return (
+                                            item?.element
+                                        );
+                                }
                             }
-                        }
-                        )
+                            )}
+                        </div>
                     }
                     {
                         buttons?.length > 0 && buttons?.map(item => {
