@@ -93,7 +93,7 @@ const TopBar = () => {
         <nav className="navbar navbar-expand-sm">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <div className="navbarRight">
-              <div className="themeToggle d-none">
+              <div className="themeToggle">
                 <button
                   className="iconBtn"
                   onClick={() => {

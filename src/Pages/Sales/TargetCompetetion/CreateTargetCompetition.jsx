@@ -123,7 +123,7 @@ const CreateTargetCompetition = () => {
         </div>
         <div className="card-body">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-3">
               <FieldContainer
                 type="text"
                 label="Competition Name"
@@ -144,7 +144,7 @@ const CreateTargetCompetition = () => {
                 <div className="form-error">Please Enter Competition Name</div>
               )}
             </div>
-            <div className="col-md-6">
+            <div className="col-md-3">
               <FieldContainer
                 type="date"
                 label="Start Date"
@@ -161,7 +161,7 @@ const CreateTargetCompetition = () => {
                 <div className="form-error">Please Enter Start Date</div>
               )}
             </div>
-            <div className="col-md-6">
+            <div className="col-md-3">
               <FieldContainer
                 type="date"
                 label="End Date"
@@ -178,7 +178,7 @@ const CreateTargetCompetition = () => {
                 <div className="form-error">Please Enter End Date</div>
               )}
             </div>
-            <div className="col-md-6">
+            <div className="col-md-3">
               <FieldContainer
                 type="number"
                 label="Target Amount"
@@ -202,7 +202,7 @@ const CreateTargetCompetition = () => {
         </div>
         <div className="card-footer">
           <button
-            className="btn btn-primary cmnbtn"
+            className="btn btn-primary"
             onClick={handleSubmit}
             disabled={adding || editing || fetchingData} // Disable button while loading
           >

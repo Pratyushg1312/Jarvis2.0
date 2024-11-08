@@ -259,7 +259,7 @@ th .table-header {
     margin-right: auto;
 
     select {
-      border-radius: var(--radiusL);
+      border-radius: var(--radiusS);
       color: var(--medium);
       background-color: var(--bodyBg);
       border: 1px solid var(--border);

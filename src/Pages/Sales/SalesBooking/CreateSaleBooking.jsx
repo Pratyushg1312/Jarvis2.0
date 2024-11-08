@@ -875,20 +875,27 @@ const CreateSaleBooking = () => {
             </div>
           </div>
           <div className="card-body">
-            <div className="row"></div>
+            <div className="row">
+              {/* <div className="col-md-4 col-12">
+                <FieldContainer
+                  fieldGrid={4}
+                  astric
+                  label="Campaign Name"
+                  placeholder="Campaign Name"
+                  value={campaignName}
+                  onChange={(e) => setCampaignName(e.target.value)}
+                />
+              </div> */}
+              <div className="col-md-4 col-12"></div>
+              <div className="col-md-4 col-12"></div>
+              <div className="col-md-4 col-12"></div>
+              <div className="col-md-4 col-12"></div>
+            </div>
           </div>
         </div>
 
         <div className="card">
           <div className="card-body row">
-            {/* <FieldContainer
-              fieldGrid={4}
-              astric
-              label="Campaign Name"
-              placeholder="Campaign Name"
-              value={campaignName}
-              onChange={(e) => setCampaignName(e.target.value)}
-            /> */}
             <div className="col-4">
               <CustomSelect
                 fieldGrid={12}

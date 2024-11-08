@@ -4,8 +4,8 @@ import { useGstDetailsMutation } from "../../../Redux/Slices/GstSlices/GetGstDet
 import CustomSelect from "../../CommonComponent/FormElement/CustomSelect";
 import FieldContainer from "../../CommonComponent/FormElement/FieldContainer";
 import { debounce } from "../../../Utils/debounce";
-
-
+import { Button } from "@mui/material";
+import { Trash } from "@phosphor-icons/react";
 
 const DocumentUpload = ({
   documents,
@@ -52,7 +52,7 @@ const DocumentUpload = ({
 
     if (
       updatedDocuments[index].document_master_id ===
-      "665dbc0d1df407940c078fd5" &&
+        "665dbc0d1df407940c078fd5" &&
       key === "document_no" &&
       value.length > 13
     ) {
@@ -99,19 +99,23 @@ const DocumentUpload = ({
     <>
       {documents?.map((document, index) => (
         <div className="card" key={index}>
-          <div className="card-header sb">
-            <h4>Document ({index + 1})</h4>
-            <button
-              className="icon-1"
-              onClick={() => handleDeleteDocument(index)}
-              disabled={documentDeleteLoading}
-            >
-              <i className="bi bi-trash"></i>
-            </button>
+          <div className="card-header">
+            <div className="cardHeading">
+              <h5 className="cardTitle">Document ({index + 1})</h5>
+            </div>
+            <div className="cardAction">
+              <Button
+                className="iconBtn"
+                onClick={() => handleDeleteDocument(index)}
+                disabled={documentDeleteLoading}
+              >
+                <Trash />
+              </Button>
+            </div>
           </div>
           <div className="card-body">
             <div className="row document-container">
-              <div className="col-6">
+              <div className="col-md-4 col-12">
                 <CustomSelect
                   label="Type"
                   fieldGrid={12}
@@ -126,7 +130,7 @@ const DocumentUpload = ({
                 />
               </div>
 
-              <div className="col-6">
+              <div className="col-md-4 col-12">
                 <FieldContainer
                   label={`${getSelectedTypeLabel(
                     document?.document_master_id
@@ -144,12 +148,12 @@ const DocumentUpload = ({
                 />
               </div>
 
-              <div className="col-12 flex-row gap-2">
+              <div className="col-md-4 col-12">
                 <FieldContainer
                   label="Document File"
                   type="file"
                   fieldGrid={
-                    id !== "0" && document?.document_image_upload ? 5 : 6
+                    id !== "0" && document?.document_image_upload ? 12 : 12
                   }
                   onChange={(e) =>
                     handleDocumentChange(index, "file", e.target.files[0])
