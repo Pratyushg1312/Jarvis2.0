@@ -123,13 +123,12 @@ const CreateTargetCompetition = () => {
         </div>
         <div className="card-body">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-3 col-12">
               <FieldContainer
                 type="text"
                 label="Competition Name"
                 placeholder="Enter competition name"
                 astric
-                fieldGrid={12}
                 required
                 value={competitionName}
                 onChange={(e) => {
@@ -144,12 +143,11 @@ const CreateTargetCompetition = () => {
                 <div className="form-error">Please Enter Competition Name</div>
               )}
             </div>
-            <div className="col-md-3">
+            <div className="col-md-3 col-12">
               <FieldContainer
                 type="date"
                 label="Start Date"
                 astric
-                fieldGrid={12}
                 required
                 value={startDate}
                 onChange={(e) => {
@@ -161,11 +159,10 @@ const CreateTargetCompetition = () => {
                 <div className="form-error">Please Enter Start Date</div>
               )}
             </div>
-            <div className="col-md-3">
+            <div className="col-md-3 col-12">
               <FieldContainer
                 type="date"
                 label="End Date"
-                fieldGrid={12}
                 required
                 astric
                 value={endDate}
@@ -178,12 +175,11 @@ const CreateTargetCompetition = () => {
                 <div className="form-error">Please Enter End Date</div>
               )}
             </div>
-            <div className="col-md-3">
+            <div className="col-md-3 col-12">
               <FieldContainer
                 type="number"
                 label="Target Amount"
                 placeholder="Enter target amount"
-                fieldGrid={12}
                 required
                 astric
                 value={targetAmount}

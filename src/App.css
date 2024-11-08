@@ -160,6 +160,16 @@ hr {
   opacity: 1;
 }
 
+.row {
+  margin-right: calc(-0.4 * var(--bs-gutter-x));
+  margin-left: calc(-0.4 * var(--bs-gutter-x));
+}
+
+.row > * {
+  padding-right: calc(var(--bs-gutter-x) * 0.4);
+  padding-left: calc(var(--bs-gutter-x) * 0.4);
+}
+
 /* BADGE */
 
 .badge {
@@ -987,7 +997,7 @@ select:-webkit-autofill:focus {
       }
 
       .MuiFormControl-root {
-        width: 240px;
+        min-width: 240px;
 
         .MuiFormLabel-root {
           font-size: 13px;
@@ -1038,6 +1048,7 @@ select:-webkit-autofill:focus {
           font-size: 18px !important;
           min-width: 38px;
           width: 38px;
+          height: 38px;
           border-top-left-radius: 0 !important;
           border-bottom-left-radius: 0 !important;
         }
@@ -3888,7 +3899,7 @@ i.bi {
     }
 
     .MuiFormControl-root {
-      width: 240px;
+      min-width: 240px;
 
       .MuiFormLabel-root {
         font-size: 13px;
@@ -3946,6 +3957,7 @@ i.bi {
         font-size: 18px !important;
         min-width: 38px;
         width: 38px;
+        height: 38px;
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
       }
@@ -3987,6 +3999,11 @@ i.bi {
           }
         }
       }
+    }
+    .pageForms {
+      display: flex;
+      align-items: center;
+      gap: 0px 12px;
     }
   }
 }
