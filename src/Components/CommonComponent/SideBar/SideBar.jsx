@@ -18,7 +18,7 @@ import GetDecodedToken from "../../../Utils/GetDecodedToken";
 const SideBar = () => {
   const userRole = GetDecodedToken().role_id;
   return (
-    <div className="sideBar semiDark">
+    <div className="sideBar semiDark-disable">
       <div className="sidebarToggle">
         <label htmlFor="toggle-sidebar" className="toggle-sidebar-label">
           <CaretRight />

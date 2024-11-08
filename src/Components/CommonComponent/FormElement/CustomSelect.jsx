@@ -6,7 +6,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 const CustomSelect = ({
   fieldGrid = 4,
   label,
-  dataArray,
+  dataArray = [],
   optionId,
   optionLabel,
   selectedId,

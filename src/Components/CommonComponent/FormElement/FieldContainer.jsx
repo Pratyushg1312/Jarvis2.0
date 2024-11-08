@@ -29,12 +29,18 @@ const FieldContainer = ({
   min,
   astric = false,
   refer,
+  format = "DD/MM/YYYY", // Default format
+
 }) => {
-  const handleDateChange = (newValue) => {
-    onChange(newValue); // Returns the selected date value
+
+  const arrangeDate = (date, formatString = format) => {
+    if (!date) return '';
+    return dayjs(date).format(formatString);
   };
 
-  const dateValue = value ? dayjs(value) : null; // Ensure value is a Day.js object or null
+  const handleDateChange = (newValue) => {
+    onChange(newValue ? arrangeDate(newValue, format) : ''); // Format selected date
+  };
 
   return (
     <div
@@ -48,9 +54,10 @@ const FieldContainer = ({
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label={label}
-            value={value ? dayjs(value) : null}
-            onChange={onChange}
+            value={value ? dayjs(value) : null} // Ensure value is a Day.js object
             disabled={disabled}
+            format={format}
+            onChange={handleDateChange}
             slots={{
               openPickerIcon: CalendarDots, // Custom icon for the DatePicker
             }}
@@ -91,4 +98,4 @@ const FieldContainer = ({
   );
 };
 
-export default React.memo(FieldContainer);
+export default FieldContainer;
