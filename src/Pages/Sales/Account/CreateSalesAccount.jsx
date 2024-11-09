@@ -240,7 +240,7 @@ const CreateSalesAccount = () => {
     try {
       await editDep(payload).unwrap();
       setEditFlag(false);
-    } catch (error) { }
+    } catch (error) {}
   };
   const handleEdit = async (row, setEditFlag) => {
     const payload = {
@@ -250,7 +250,7 @@ const CreateSalesAccount = () => {
     try {
       await edit(payload).unwrap();
       setEditFlag(false);
-    } catch (error) { }
+    } catch (error) {}
   };
   const ViewBrandCategoryColumns = [
     {
@@ -1102,6 +1102,12 @@ const CreateSalesAccount = () => {
             <div className="cardHeading">
               <h5 className="cardTitle">Account Details</h5>
             </div>
+            <div className="cardInfo">
+              <p>
+                Brand name & Account name can be different eg: Brand Name:
+                Myfitness, AccountName: Mensa Brands
+              </p>
+            </div>
           </div>
           <div className="card-body">
             <div className="row">
@@ -1140,7 +1146,6 @@ const CreateSalesAccount = () => {
                     >
                       {loginUserRole === 1 && (
                         <>
-
                           <Button
                             type="button"
                             className="icon"
@@ -1156,7 +1161,6 @@ const CreateSalesAccount = () => {
                             <Eye />
                           </Button>
                         </>
-
                       )}
                     </CustomSelect>
 
@@ -1166,7 +1170,6 @@ const CreateSalesAccount = () => {
                       </div>
                     )}
                   </div>
-
                 </div>
               </div>
               <div className="col-md-4 col-12">
@@ -1182,17 +1185,16 @@ const CreateSalesAccount = () => {
                       setSelectedId={setSelectedBrand}
                       required
                       astric
-                    // disabled={
-                    //   allAccountTypes?.find(
-                    //     (data) => data._id === selectedAccountType
-                    //   )?.account_type_name !== "Agency"
-                    //     ? false
-                    //     : true
-                    // }
+                      // disabled={
+                      //   allAccountTypes?.find(
+                      //     (data) => data._id === selectedAccountType
+                      //   )?.account_type_name !== "Agency"
+                      //     ? false
+                      //     : true
+                      // }
                     >
                       <Button
                         type="button"
-
                         onClick={() => openModal("addBrand")}
                       >
                         <Plus />
@@ -1211,12 +1213,7 @@ const CreateSalesAccount = () => {
                       }
                     />
                   </div> */}
-
                 </div>
-                <p className="form-error">
-                  Brand name & Account name can be different eg: Brand Name:
-                  Myfitness, AccountName: Mensa Brands
-                </p>
                 {isValid.selectedBrand && (
                   <div className="form-error">Please select a brand</div>
                 )}
@@ -1262,7 +1259,6 @@ const CreateSalesAccount = () => {
                       </div>
                     )}
                   </div>
-
                 </div>
               </div>
               <div className="col-md-4 col-12">
@@ -1305,7 +1301,6 @@ const CreateSalesAccount = () => {
                       </div>
                     )}
                   </div>
-
                 </div>
               </div>
               <div className="col-md-4 col-12">
@@ -1669,8 +1664,8 @@ const CreateSalesAccount = () => {
                 ? "Submit"
                 : "Save"
               : id == 0
-                ? "Submitting..."
-                : "Saving..."}
+              ? "Submitting..."
+              : "Saving..."}
           </button>
           <button
             className="btn cmnbtn btn-warning"
