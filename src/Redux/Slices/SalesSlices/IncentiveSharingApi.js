@@ -79,9 +79,10 @@ const IncentiveSharingApi = createApi({
 
     // Delete an incentive sharing record
     deleteIncentiveSharing: builder.mutation({
-      query: (id) => ({
+      query: ({ id, ...services }) => ({
         url: `sales/incentive_sharing/${id}`,
         method: "DELETE",
+        body: services,
       }),
       onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
         try {

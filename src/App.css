@@ -4029,7 +4029,7 @@ i.bi {
   top: 0;
   left: 0;
   background-color: rgb(18 17 17 / 75%) !important;
-  z-index: 10000;
+  z-index: 100;
   height: 100% !important;
   width: 100% !important;
   display: flex;
