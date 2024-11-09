@@ -18,6 +18,7 @@ const ServiceIncentiveSharing = ({
   executiveEditFlag,
   editIndex,
   insetServiceIncentivePercentage,
+  userRole,
 }) => {
   const [selectedExecutive, setSelectedExecutive] = useState();
   const [availableUsers, setAvailableUsers] = useState([]);
@@ -166,10 +167,9 @@ const ServiceIncentiveSharing = ({
     <div className="card">
       <div className="card-header">
         <div className="cardHeading">
-          <h5 className="cardTitle">{`${
-            allSalesService?.find((data) => data?._id === selectedService)
+          <h5 className="cardTitle">{`${allSalesService?.find((data) => data?._id === selectedService)
               ?.service_name
-          } Service Sharing`}</h5>
+            } Service Sharing`}</h5>
         </div>
       </div>
 
@@ -217,7 +217,7 @@ const ServiceIncentiveSharing = ({
                 placeholder="Percentage"
                 value={field.user_percentage}
                 onChange={(e) => handlePercentageChange(index, e.target.value)}
-                // disabled={index === executiveFields.length - 1}
+              // disabled={index === executiveFields.length - 1}
               />
             </div>
             <div className="col-2 mt-4">

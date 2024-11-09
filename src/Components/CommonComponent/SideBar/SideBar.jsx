@@ -19,40 +19,34 @@ const SideBar = () => {
   const userRole = GetDecodedToken().role_id;
   const placeholder = useRef();
   const [listNode, setListNode] = useState();
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [currNodeIndex, setCurrNodeIndex] = useState(null)
-
+  const [position, setPosition] = useState([]);
 
   useEffect(() => {
-    setListNode(placeholder?.current?.childNodes)
-  }, [placeholder])
+    const nodes = placeholder?.current?.childNodes;
+    if (nodes) {
+      const nodeArray = Array.from(nodes);
+      setListNode(nodeArray);
+      const positions = nodeArray.map((node, index) => {
+        const rect = node?.getBoundingClientRect();
+        return { x: rect.right - 100, y: rect.top + 20 };
+      });
+      setPosition(positions);
+    }
+  }, [placeholder]);
 
-
-
-
-
-  const handleScroll = () => {
-
-    const rect = placeholder?.current?.childNodes?.[currNodeIndex]?.getBoundingClientRect();
-    console.log(rect);
-
-    setPosition({ x: rect.right + 30, y: rect.top + 20 });
-
-  }
 
   const handleMouseout = (event, index) => {
-    setPosition({ x: 0 });
+    const positions = position.map((pos, i) => i === index ? { x: pos.x + 10, y: pos.y } : pos);
+    setPosition(positions);
   }
 
 
   useEffect(() => {
     if (listNode) {
       listNode.forEach((node, index) => {
-
-        node.addEventListener('scroll', handleScroll);
         if (node.classList.contains('nav-item') && node.querySelector('h5')) {
-          node.addEventListener('mouseover', (event) => handleMouseOver(event, index, "add"));
-          node.addEventListener('mouseout', (event) => handleMouseout());
+          node.addEventListener('mouseover', (event) => handleMouseOver(index));
+          node.addEventListener('mouseout', (event) => handleMouseout(index));
         }
       });
     }
@@ -62,7 +56,7 @@ const SideBar = () => {
         listNode.forEach((node, index) => {
 
           if (node.classList.contains('nav-item') && node.querySelector('h5')) {
-            node.removeEventListener('mouseover', (event) => handleMouseOver(event, index, "del"));
+            node.removeEventListener('mouseover', (event) => handleMouseOver(index));
             node.removeEventListener('mouseout', (event) => handleMouseout());
           }
         });
@@ -71,15 +65,9 @@ const SideBar = () => {
   }, [listNode]);
 
 
-
-  const handleMouseOver = (event, index, flag) => {
+  const handleMouseOver = (index) => {
     const rect = listNode?.[index]?.getBoundingClientRect();
-
-    if (flag === "add")
-      setCurrNodeIndex(index);
-    else
-      setCurrNodeIndex(null);
-    setPosition({ x: rect.right + 30, y: rect.top + 20 });
+    setPosition(pre => pre.map((pos, i) => i === index ? { x: rect.right + 30, y: rect.top + 20 } : pos));
   };
 
   return (
@@ -280,7 +268,15 @@ const SideBar = () => {
           </div>
         </div>
       </div>
-      <p className="side-bar-tooltip" style={{ position: 'absolute', left: `${position.x}px`, top: `${position.y}px`, }}>{listNode?.[currNodeIndex]?.querySelector('h5').innerText}</p>
+      {
+        listNode?.map((node, index) => {
+
+          return (
+            <p className="side-bar-tooltip" style={{ position: 'absolute', left: `${position[index]?.x}px`, top: `${position[index]?.y}px`, }}>{node.querySelector('h5').innerText}</p>
+          )
+
+        })
+      }
     </>
 
   );
