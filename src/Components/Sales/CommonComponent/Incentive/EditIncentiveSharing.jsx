@@ -23,7 +23,8 @@ const EditIncentiveSharing = ({
     handelSubmit,
     loginUser,
     userContextData,
-    removeServices
+    removeServices,
+    userRole,
 }) => {
     const [check, setCheck] = useState(false);
     const [error, setError] = useState(false);
