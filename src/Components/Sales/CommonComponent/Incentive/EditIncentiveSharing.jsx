@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ServiceIncentiveSharing from './ServiceIncentiveSharing';
 import CustomSelect from '../../../CommonComponent/FormElement/CustomSelect';
 import FieldContainer from '../../../CommonComponent/FormElement/FieldContainer';
+import { Button } from '@mui/material';
+import { Trash } from '@phosphor-icons/react';
 
 
 
@@ -67,6 +69,7 @@ const EditIncentiveSharing = ({
         setCheck((prev) => !prev); // Toggle the checkbox state
     };
 
+
     return (
         <>
             <div className="row">
@@ -92,33 +95,33 @@ const EditIncentiveSharing = ({
                 />
 
                 <div className="flex-row flex-grid gap-2">
-                    {serviceField?.map((field, index) => (
-                        <div
-                            onClick={() => {
-                                setSelectedService(field?.service_id);
-                                setIncentiveSharing(field?.incentive_sharing_users);
-                                insetServiceIncentivePercentage = field?.service_percentage;
-                                setExecutiveEditFlag(true);
-                                setEditIndex(index);
+                    <div className="flex-lg-wrap colGap16 gap-2">
 
-                            }}
-                            key={index}
-                            className="btn p-0 cmnbtn btn_sm btn-primary pl-1 pr-1 gap-2"
-                        >
-                            <div>
+                        {serviceField?.map((field, index) => (
+                            <Button
+
+                                color="primary"
+                                variant="contained"
+                                onClick={() => {
+                                    setSelectedService(field?.service_id);
+                                    setIncentiveSharing(field?.incentive_sharing_users);
+                                    insetServiceIncentivePercentage = field?.service_percentage;
+                                    setExecutiveEditFlag(true);
+                                    setEditIndex(index);
+
+                                }}
+                                endIcon={<Trash title="remove"
+                                    onClick={() => removeServices(index)} />}
+                                key={index}
+                            >
+
                                 {allSalesService?.find((data) => data?._id === field?.service_id)
                                     ?.service_name}
-                            </div>
 
-                            <button
-                                className="btn-primary p-0 btn-tag"
-                                title="remove"
-                                onClick={() => removeServices(index)}
-                            >
-                                <i className="bi bi-trash"></i>
-                            </button>
-                        </div>
-                    ))}
+                            </Button>
+                        ))}
+                    </div>
+
 
                     <div className="form-group col-12 mt-5 mr-2 pl-4">
                         <input
@@ -162,13 +165,15 @@ const EditIncentiveSharing = ({
                     />
                 )}
             </div>
-            <button
+            <Button
+                variant='contained'
+                color='primary'
                 className="btn cmnbtn btn-primary mt-5"
                 disabled={incentiveSharingLoading}
                 onClick={(e) => handelSubmit(e)}
             >
                 Submit
-            </button>
+            </Button>
         </>
     );
 };

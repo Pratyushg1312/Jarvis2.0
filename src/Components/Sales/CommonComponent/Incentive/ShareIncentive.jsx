@@ -106,11 +106,13 @@ const ShareIncentive = ({ closeModal, accountInfo }) => {
 
 
 
+
+
     try {
       await deleteIncentiveSharing(data).unwrap();
       getIncentiveSharingDetails();
     } catch (error) {
-      log.error(error);
+      console.error(error);
     }
   }
 
@@ -194,20 +196,24 @@ const ShareIncentive = ({ closeModal, accountInfo }) => {
     }
   ];
 
+  const LinkButtons = [
+    {
+      type: "button",
+      access: [1],
+      name: allSalesService?.filter(data => data.status === 0)?.length === serviceField?.length ? "Edit" : "Add More",
+      condition: () => editFlag,
+      onClick: () => setEditFlag(false),
 
+    }
+  ];
 
 
 
   return (
     <div className="w-700" >
-      <div className="action_heading">
-        <div className="action_title">
-          <FormContainer link={true} mainTitle={"Share Incentive for" + " " + accountInfo?.[0]?.account_name} />
-        </div>
-        <div className="action_btns">
-          {editFlag && <button className="btn btn-primary btn_sm cmnbtn" onClick={() => setEditFlag(false)}>{allSalesService?.filter(data => data.status === 0)?.length === serviceField?.length ? "Edit" : "Add More"}</button>}
-        </div>
-      </div>
+
+      <FormContainer link={true} mainTitle={"Share Incentive for" + " " + accountInfo?.[0]?.account_name} LinkButtons={LinkButtons} />
+
       {
         editFlag ? <View
           columns={columns}
