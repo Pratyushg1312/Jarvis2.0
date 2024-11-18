@@ -28,7 +28,7 @@ const SideBar = () => {
       setListNode(nodeArray);
       const positions = nodeArray.map((node, index) => {
         const rect = node?.getBoundingClientRect();
-        return { x: rect.right - 100, y: rect.top + 20 };
+        return { x: rect.right - 500, y: rect.top + 20 };
       });
       setPosition(positions);
     }
@@ -57,7 +57,7 @@ const SideBar = () => {
 
           if (node.classList.contains('nav-item') && node.querySelector('h5')) {
             node.removeEventListener('mouseover', (event) => handleMouseOver(index));
-            node.removeEventListener('mouseout', (event) => handleMouseout());
+            node.removeEventListener('mouseout', (event) => handleMouseout(index));
           }
         });
       }
