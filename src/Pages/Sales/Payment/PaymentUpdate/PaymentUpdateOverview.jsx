@@ -1,7 +1,10 @@
 import React, { use, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
-import { useGetAllUsersQuery } from "../../../../Redux/Slices/UserSlices/UserApi";
+import {
+  useGetAllUsersQuery,
+  useGetUserAuthQuery,
+} from "../../../../Redux/Slices/UserSlices/UserApi";
 import GetDecodedToken from "../../../../Utils/GetDecodedToken";
 import { useGetAllAccountQuery } from "../../../../Redux/Slices/SalesSlices/SalesAccountApi";
 import { useGetAllPaymentUpdatesQuery } from "../../../../Redux/Slices/SalesSlices/PaymentUpdateApi";
@@ -10,7 +13,6 @@ import DateISOtoNormal from "../../../../Utils/DateISOtoNormal";
 import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
 import View from "../../../../Components/CommonComponent/View/View";
 import Tab from "../../../../Components/CommonComponent/Tab/Tab";
-
 
 const PaymentUpdateOverview = () => {
   const { data: userContextData } = useGetAllUsersQuery();
@@ -28,7 +30,8 @@ const PaymentUpdateOverview = () => {
   const token = GetDecodedToken();
   let loginUserId;
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
   const {
@@ -106,9 +109,10 @@ const PaymentUpdateOverview = () => {
       name: "Customer Name",
       renderRowCell: (row) => (
         <Link
-          to={`/sales-account-info/${allAccountData?.find((data) => data?.account_id === row.account_id)
-            ?._id
-            }`}
+          to={`/sales/account-info/${
+            allAccountData?.find((data) => data?.account_id === row.account_id)
+              ?._id
+          }`}
         >
           {row.account_name}
         </Link>

@@ -28,13 +28,16 @@ import View from "../../../Components/CommonComponent/View/View";
 import ShareIncentive from "../../../Components/Sales/CommonComponent/Incentive/ShareIncentive";
 import { Button } from "@mui/material";
 import { Blueprint, X } from "@phosphor-icons/react";
+import PieGraph from "../../../Components/Sales/salesAccount/PieGraph";
+import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
 
 const SalesAccountOverview = () => {
   let loginUserId;
   const navigate = useNavigate();
   const token = GetDecodedToken();
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
   const [filteredData, setFilteredData] = useState([]);
@@ -74,8 +77,8 @@ const SalesAccountOverview = () => {
       access: [1, 4],
     },
     {
-      name: "Sales Booking",
-      link: "/sales/salesbooking-overview",
+      name: "Closed Deal",
+      link: "/sales/closed-deal",
       type: "link",
       access: [1, 4],
     },
@@ -254,7 +257,7 @@ const SalesAccountOverview = () => {
       key: "account_name",
       name: "Account Name",
       renderRowCell: (row) => (
-        <Link style={{ color: "blue" }} to={`/sales-account-info/${row?._id}`}>
+        <Link className="colorPrimary" to={`/sales/account-info/${row?._id}`}>
           {formatString(row?.account_name)}
         </Link>
       ),
@@ -319,7 +322,7 @@ const SalesAccountOverview = () => {
       name: "Total POC",
       renderRowCell: (row) => (
         <div
-          style={{ color: "blue", cursor: "pointer" }}
+          className="colorPrimary pointer"
           onClick={() => {
             setModalIsOpen(true);
             setModalData(row?.accountPocData);
@@ -396,7 +399,7 @@ const SalesAccountOverview = () => {
         if (row.website) {
           return (
             <a
-              style={{ hover: "pointer", color: "blue" }}
+              className="colorPrimary"
               href={
                 row?.website?.startsWith("http")
                   ? row.website
@@ -566,138 +569,159 @@ const SalesAccountOverview = () => {
         link={true}
         LinkButtons={LinkButtons}
       />
+      <div className="flexRowBetween">
+        <div className="flexCenterCol">
+          <div className="card w-100">
+            <div className="card-body">
+              <div className="row">
+                <div className="col-md-4">
+                  <CustomSelect
+                    label="Seclect Column"
+                    fieldGrid={4}
+                    dataArray={dateFilterArray}
+                    optionId="value"
+                    optionLabel="label"
+                    selectedId={selectedFilter}
+                    setSelectedId={setSelectedFilter}
+                  />
+                </div>
+                <div className="col-md-4">
+                  <CustomSelect
+                    label="date"
+                    fieldGrid={4}
+                    dataArray={dateFilterOptions}
+                    optionId="value"
+                    optionLabel="label"
+                    selectedId={quickFiltring}
+                    setSelectedId={setQuickFiltring}
+                  />
+                </div>
+                {quickFiltring === "custom" && (
+                  <>
+                    <div className="col-md-4">
+                      <FieldContainer
+                        type="date"
+                        label="From Date"
+                        fieldGrid={4}
+                        value={fromDate}
+                        onChange={(e) => setFromDate(e.target.value)}
+                      />
+                    </div>
 
-      <div className="card mt24">
-        <div className="card-body">
+                    <div className="col-md-4">
+                      <FieldContainer
+                        type="date"
+                        label="To Date"
+                        fieldGrid={4}
+                        value={toDate}
+                        onChange={(e) => setToDate(e.target.value)}
+                      />
+                    </div>
+                  </>
+                )}
+                <div className="col-md-4 col-12 flexCenter colGap12 pt12">
+                  <Button
+                    className="w-100"
+                    variant="contained"
+                    onClick={() => dataFiltter()}
+                  >
+                    Search
+                  </Button>
+                  {allAccount?.length !== combinedData?.length && (
+                    <Button
+                      onClick={() => handelRemoveFiltter()}
+                      color="error"
+                      className="iconBtn"
+                      variant="outlined"
+                    >
+                      <X />
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="row">
-            <CustomSelect
-              label="Seclect Column"
-              fieldGrid={4}
-              dataArray={dateFilterArray}
-              optionId="value"
-              optionLabel="label"
-              selectedId={selectedFilter}
-              setSelectedId={setSelectedFilter}
-            />
-            <CustomSelect
-              label="date"
-              fieldGrid={4}
-              dataArray={dateFilterOptions}
-              optionId="value"
-              optionLabel="label"
-              selectedId={quickFiltring}
-              setSelectedId={setQuickFiltring}
-            />
-            {quickFiltring === "custom" && (
-              <>
-                <FieldContainer
-                  type="date"
-                  label="From Date"
-                  fieldGrid={4}
-                  value={fromDate}
-                  onChange={(e) => setFromDate(e.target.value)}
-                />
-                <FieldContainer
-                  type="date"
-                  label="To Date"
-                  fieldGrid={4}
-                  value={toDate}
-                  onChange={(e) => setToDate(e.target.value)}
-                />
-              </>
-            )}
-            <div className="col-md-4 col-12 flexCenter colGap12 pt12">
-              <Button
-                className="w-100"
-                variant="contained"
-                onClick={() => dataFiltter()}
+            <div className="col-md-4 col-12">
+              <div
+                className="card flexCenterRow colGap12 p20"
+                onClick={() => {
+                  filterEngine(allAccount, "remove", "0");
+                }}
               >
-                Search
-              </Button>
-              {allAccount?.length !== combinedData?.length && (
-                <Button
-                  onClick={() => handelRemoveFiltter()}
-                  color="error"
-                  className="iconBtn"
-                  variant="outlined"
-                >
-                  <X />
-                </Button>
-              )}
+                <div className="icon primary">
+                  <Blueprint />
+                </div>
+                <div>
+                  <h6>Total Accounts</h6>
+                  <h5 className="fw_500 mt4">{allAccount?.length}</h5>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4 col-12">
+              <div
+                className="card flexCenterRow colGap12 p20"
+                onClick={() => {
+                  filterEngine(
+                    allAccount?.filter(
+                      (account) => account?.totalSaleBookingCounts == 0
+                    ),
+                    "",
+                    "1"
+                  );
+                }}
+              >
+                <div className="icon secondary">
+                  <Blueprint />
+                </div>
+                <div>
+                  <h6>Idle Accounts (Without Sale Booking)</h6>
+                  <h5 className="fw_500 mt4">
+                    {
+                      allAccount?.filter(
+                        (account) => account?.totalSaleBookingCounts == 0
+                      )?.length
+                    }
+                  </h5>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4 col-12">
+              <div
+                className="card flexCenterRow colGap12 p20"
+                onClick={() => {
+                  filterEngine(
+                    allAccount?.filter((account) => account?.paidAmount == 0),
+                    "",
+                    "2"
+                  );
+                }}
+              >
+                <div className="icon info">
+                  <Blueprint />
+                </div>
+                <div>
+                  <h6>Idle Accounts (Without Payment)</h6>
+                  <h5 className="fw_500 mt4">
+                    {
+                      allAccount?.filter((account) => account?.paidAmount == 0)
+                        .length
+                    }
+                  </h5>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="row">
-        <div className="col-md-4 col-12">
-          <div
-            className="card flexCenterRow colGap12 p20"
-            onClick={() => {
-              filterEngine(allAccount, "remove", "0");
-            }}
-          >
-            <div className="icon primary">
-              <Blueprint />
-            </div>
-            <div>
-              <h6>Total Accounts</h6>
-              <h5 className="fw_500 mt4">{allAccount?.length}</h5>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4 col-12">
-          <div
-            className="card flexCenterRow colGap12 p20"
-            onClick={() => {
-              filterEngine(
-                allAccount?.filter(
-                  (account) => account?.totalSaleBookingCounts == 0
-                ),
-                "",
-                "1"
-              );
-            }}
-          >
-            <div className="icon secondary">
-              <Blueprint />
-            </div>
-            <div>
-              <h6>Idle Accounts (Without Sale Booking)</h6>
-              <h5 className="fw_500 mt4">
-                {
-                  allAccount?.filter(
-                    (account) => account?.totalSaleBookingCounts == 0
-                  )?.length
-                }
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4 col-12">
-          <div
-            className="card flexCenterRow colGap12 p20"
-            onClick={() => {
-              filterEngine(
-                allAccount?.filter((account) => account?.paidAmount == 0),
-                "",
-                "2"
-              );
-            }}
-          >
-            <div className="icon info">
-              <Blueprint />
-            </div>
-            <div>
-              <h6>Idle Accounts (Without Payment)</h6>
-              <h5 className="fw_500 mt4">
-                {
-                  allAccount?.filter((account) => account?.paidAmount == 0)
-                    .length
-                }
-              </h5>
-            </div>
-          </div>
+        <div className=" flexCenterCenter ml20">
+          {loginUserRole === 1 && allAccount && allAccount?.length > 0 && (
+            <PieGraph
+              allAccount={combinedData}
+              setCombinedFilter={setCombinedFilter}
+            />
+          )}
         </div>
       </div>
 

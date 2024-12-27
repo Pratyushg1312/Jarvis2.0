@@ -95,7 +95,7 @@ const PaymentDetailsOverview = () => {
       renderRowCell: (row) => (
         <Link
           style={{ color: "blue" }}
-          to={`/admin/payment-update-bank-wise/${row._id}`}
+          to={`/sales/payment-update-bank-wise/${row._id}`}
         >
           {row.title}
         </Link>
@@ -174,7 +174,7 @@ const PaymentDetailsOverview = () => {
             </span>
           )}
 
-          <Link to={`/admin/edit-payment-details/${row._id}`}>
+          <Link to={`/sales/edit-payment-details/${row._id}`}>
             <button className="iconBtn sm" title="Edit">
               <i className="bi bi-pencil" />
             </button>
@@ -195,7 +195,7 @@ const PaymentDetailsOverview = () => {
     <>
       <FormContainer
         mainTitle="Payment Detail"
-        link="/admin/create-payment-details"
+        link="/sales/create-payment-details"
         // buttonAccess={true}
         submitButton={false}
         LinkButtons={LinkButtons}

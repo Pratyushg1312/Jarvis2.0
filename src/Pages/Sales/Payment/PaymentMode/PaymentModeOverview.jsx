@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import View from "../../../../Components/CommonComponent/View/View";
 import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
-import { useDeletePaymentModeMutation, useGetAllPaymentModesQuery } from "../../../../Redux/Slices/SalesSlices/PaymentModeApi";
+import {
+  useDeletePaymentModeMutation,
+  useGetAllPaymentModesQuery,
+} from "../../../../Redux/Slices/SalesSlices/PaymentModeApi";
 import GetDecodedToken from "../../../../Utils/GetDecodedToken";
 import DeleteButton from "../../../../Components/CommonComponent/DeleteButton/DeleteButton";
-
+import { useGetUserAuthQuery } from "../../../../Redux/Slices/UserSlices/UserApi";
 
 const LinkButtons = [
   {
@@ -21,7 +24,8 @@ const PaymentModeOverview = () => {
   const token = GetDecodedToken();
   let loginUserId;
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
   const {
@@ -31,18 +35,8 @@ const PaymentModeOverview = () => {
     isError: paymentModeError,
   } = useGetAllPaymentModesQuery();
 
-
-  const [
-    deletePaymentMode,
-    { isLoading: deletePaymentModeLoading }
-
-  ] = useDeletePaymentModeMutation();
-
-
-
-
-
-
+  const [deletePaymentMode, { isLoading: deletePaymentModeLoading }] =
+    useDeletePaymentModeMutation();
 
   const columns = [
     {
@@ -80,13 +74,11 @@ const PaymentModeOverview = () => {
 
   return (
     <>
-
       <FormContainer
         mainTitle="Payment Mode"
         link="/sales/create-payment-mode"
         LinkButtons={LinkButtons}
       />
-
 
       <View
         title={"Payment Mode Overview"}
@@ -96,7 +88,6 @@ const PaymentModeOverview = () => {
         isLoading={paymentModeLoading}
         tableName={"PaymentModeOverview"}
       />
-
     </>
   );
 };

@@ -1,17 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './Table.css';
-import PaginationComp from './TableComponent/PaginationComp';
-import TableToolkit from './TableComponent/TableToolkit';
-import RenderedTable from './TableComponent/RenderedTable';
-import { baseUrl } from '../../../Config';
-import GetDecodedToken from '../../../Utils/GetDecodedToken'
-import axios from 'axios';
-import TotalRow from './TableComponent/TotalRow';
-// note: sync the table pagination and  sorted rows
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import "./Table.css";
+import PaginationComp from "./TableComponent/PaginationComp";
+import TableToolkit from "./TableComponent/TableToolkit";
+import RenderedTable from "./TableComponent/RenderedTable";
+import { baseUrl } from "../../../Config";
+import GetDecodedToken from "../../../Utils/GetDecodedToken";
+import axios from "axios";
+import TotalRow from "./TableComponent/TotalRow";
 
 const CustomTable = ({
   columns,
-  data = [],
+  data,
   fixedHeader = true,
   Pagination = false,
   dataLoading = false,
@@ -21,8 +20,13 @@ const CustomTable = ({
   selectedData = (selecteddata) => {
     return selecteddata;
   },
+  getFilteredData = (filterData) => {
+    return filterData;
+  },
+  exportData = (tool) => {
+    return true;
+  },
 }) => {
-
   const tableref = useRef();
   const headref = useRef();
   const [apiColumns, setApiColumns] = useState([]);
@@ -32,10 +36,10 @@ const CustomTable = ({
   const [itemsPerPage, setItemsPerPage] = useState(
     Pagination && Pagination.length > 0 ? Pagination[0] : 10
   );
-  const [originalData, setOriginalData] = useState(data);
+  const [originalData, setOriginalData] = useState(data || []);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortKey, setSortKey] = useState('');
-  const [sortDirection, setSortDirection] = useState('asc');
+  const [sortKey, setSortKey] = useState("");
+  const [sortDirection, setSortDirection] = useState("asc");
   const [ascFlag, setAscFlag] = useState(columns?.map(() => true));
   const [visibleColumns, setVisibleColumns] = useState(
     columns.map((column) =>
@@ -46,11 +50,11 @@ const CustomTable = ({
   const [selectedRowsData, setSelectedRowsData] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [editablesRows, setEditablesRows] = useState(
-    columns.map((column) =>
+    columns?.map((column) =>
       column.editable === undefined ? false : column.editable
     )
   );
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [sortedData, setSortedData] = useState([]);
   const [unSortedData, setUnSortedData] = useState([]);
   const [invadeFlag, setInvadeFlag] = useState(false);
@@ -59,52 +63,52 @@ const CustomTable = ({
   const [filterCondition, setFilterCondition] = useState(
     columns.map((col) => ({
       colName: col.key,
-      key: 'none',
-      value1: '',
-      value2: '',
+      key: "none",
+      value1: "",
+      value2: "",
     }))
   );
   // Initialize selectedId for each column
   const [selectedId, setSelectedId] = useState(columnsheader.map(() => []));
   const [applyFlag, setApplyFlag] = useState(false);
+  const [oldSortKey, setOldSortKey] = useState("");
+  const pagination = useRef(
+    Pagination?.length > 0 ? Pagination : [100, 50, 10]
+  );
 
-  const token = sessionStorage.getItem('token');
-  const decodedToken = GetDecodedToken(token);
-
-  const loginUserId = decodedToken.id;
-  let pagination = Pagination?.length > 0 ? Pagination : [100, 50, 10];
-
-  useEffect(() => {
-    if (pagination.findIndex((item) => item === data.length) === -1)
-      pagination.push(data.length);
-  }, [data]);
+  const loginUserId = GetDecodedToken().id;
 
   useEffect(() => {
+    if (
+      pagination?.current?.findIndex((item) => item === data?.length) === -1 &&
+      data?.length > 0
+    )
+      pagination.current = [...pagination?.current, data?.length];
+  }, [data, columns, tableName]);
+
+  useEffect(() => {
+    //console.log("selected data");
     selectedData(selectedRowsData);
   }, [selectedRowsData]);
 
   const filteredData = searchQuery
     ? unSortedData?.filter((item) =>
-      columnsheader
-        .map((column) => column.key)
-        .some((key) =>
-          item[key]
-            ?.toString()
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase())
-        )
-    )
+        columnsheader
+          .map((column) => column.key)
+          .some((key) =>
+            item[key]
+              ?.toString()
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase())
+          )
+      )
     : unSortedData;
-
-  // const tabledata = pagination
-  //   ? filteredData?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-  //   : unSortedData;
 
   const filterFunctions = {
     none: () => true,
 
     isExactly: (itemValue, value1) => {
-      if (typeof itemValue === 'string') {
+      if (typeof itemValue === "string") {
         return itemValue?.toLowerCase().trim() === value1?.toLowerCase().trim();
       } else {
         return itemValue?.toString().trim() === value1?.trim();
@@ -112,13 +116,13 @@ const CustomTable = ({
     },
 
     isEmpty: (itemValue) => {
-      return itemValue?.toString() == '';
+      return itemValue?.toString() == "";
     },
 
-    isNotEmpty: (itemValue) => itemValue?.toString() != '',
+    isNotEmpty: (itemValue) => itemValue?.toString() != "",
 
     contains: (itemValue, value1) => {
-      if (typeof itemValue === 'string') {
+      if (typeof itemValue === "string") {
         return itemValue?.toLowerCase().includes(value1?.toLowerCase());
       } else {
         return itemValue
@@ -129,7 +133,7 @@ const CustomTable = ({
     },
 
     doesNotContain: (itemValue, value1) => {
-      if (typeof itemValue === 'string') {
+      if (typeof itemValue === "string") {
         return !itemValue?.toLowerCase().includes(value1?.toLowerCase());
       } else {
         return !itemValue
@@ -140,7 +144,7 @@ const CustomTable = ({
     },
 
     startsWith: (itemValue, value1) => {
-      if (typeof itemValue === 'string') {
+      if (typeof itemValue === "string") {
         return itemValue?.startsWith(value1);
       } else {
         return itemValue?.toString().startsWith(value1);
@@ -148,7 +152,7 @@ const CustomTable = ({
     },
 
     endsWith: (itemValue, value1) => {
-      if (typeof itemValue === 'string') {
+      if (typeof itemValue === "string") {
         return itemValue?.endsWith(value1);
       } else {
         return itemValue?.toString().endsWith(value1);
@@ -165,7 +169,7 @@ const CustomTable = ({
     lessThanOrEqualTo: (itemValue, value1) => itemValue <= parseInt(value1, 10),
 
     equalTo: (itemValue, value1) => {
-      if (typeof itemValue === 'string') {
+      if (typeof itemValue === "string") {
         return itemValue === value1;
       } else {
         return itemValue == parseInt(value1, 10);
@@ -173,7 +177,7 @@ const CustomTable = ({
     },
 
     notEqualTo: (itemValue, value1) => {
-      if (typeof itemValue === 'string') {
+      if (typeof itemValue === "string") {
         return itemValue === value1;
       } else {
         return itemValue == parseInt(value1, 10);
@@ -188,12 +192,13 @@ const CustomTable = ({
   };
 
   useEffect(() => {
+    //console.log("filtering of data");
     const filterData = () => {
       const fd = originalData.filter((item) => {
         // Check filterCondition
         const conditionCheck = filterCondition.every((condition) => {
           const { key, value1, value2, colName } = condition;
-          if (key === 'none') return true; // Skip if no filter is applied or field is not specified
+          if (key === "none") return true; // Skip if no filter is applied or field is not specified
           const filterFunc = filterFunctions[key];
 
           return filterFunc(item[colName], value1, value2);
@@ -218,29 +223,15 @@ const CustomTable = ({
     setUnSortedData(filterData());
   }, [applyFlag]);
 
-  // useEffect(() => {
-  //   const filterData = () => {
-  //     return originalData.filter((item) => {
-  //       return colSearch.every((searchArray, index) => {
-  //         if (searchArray.length === 0) return true;
-  //         return searchArray.some((criteria) => {
-  //           const key = Object.keys(criteria)[0];
-  //           return item[key] === criteria[key];
-  //         });
-  //       });
-  //     });
-  //   };
-
-  //   setUnSortedData(filterData());
-  // }, [colSearch]);
   const toggleColumnVisibility = (index) => {
     setVisibleColumns(
       visibleColumns?.map((visible, i) => (i === index ? !visible : visible))
     );
-
   };
 
   useEffect(() => {
+    //console.log("invade flag");
+
     if (invadeFlag) {
       cloudInvader();
     }
@@ -250,12 +241,12 @@ const CustomTable = ({
     setSortedData(
       pagination
         ? filteredData?.slice(
-          (currentPage - 1) * itemsPerPage,
-          currentPage * itemsPerPage
-        )
+            (currentPage - 1) * itemsPerPage,
+            currentPage * itemsPerPage
+          )
         : unSortedData
     );
-  }, [itemsPerPage, currentPage, searchQuery]);
+  }, [itemsPerPage, currentPage, searchQuery, unSortedData]);
 
   const memoize = (fn) => {
     const cache = new Map();
@@ -289,28 +280,14 @@ const CustomTable = ({
     }
   };
 
-
   useEffect(() => {
-    // const isTableCreated = localStorage.getItem(
-    //   `isTableCreated_${tableName + loginUserId}`
-    // );
-    // if (!isTableCreated) {
     memoize(createTable)();
-    //   localStorage.setItem(`isTableCreated_${tableName + loginUserId}`, "true");
-    // }
   }, [tableName]);
-
-  // useEffect(() => {
-
-  //   if (data.length > 0) {
-  //     createTable();
-  //   }
-  // }, [data]);
 
   async function cloudInvader() {
     const arrayofvisiblecolumns = columnsheader?.map((column, index) => ({
       name: column.name,
-      visibility: true,
+      visibility: visibleColumns[index],
     }));
     try {
       await axios.put(`${baseUrl}edit_dynamic_table_data`, {
@@ -322,29 +299,33 @@ const CustomTable = ({
       console.error(e);
     } finally {
       setInvadeFlag(false);
+      fetchCreatedTable();
     }
   }
 
+  const fetchCreatedTable = async () => {
+    try {
+      const response = await axios.get(
+        `${baseUrl}get_dynamic_table_data?userId=${loginUserId}&tableName=${tableName}`
+      );
+      const responseData = response.data.data[0]?.column_order_Obj || [];
+      const savedFiltersData = response.data.data[0]?.filter_array;
+      setApiColumns(responseData);
+      setApiFilters(savedFiltersData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const fetchCreatedTable = async () => {
-      try {
-        const response = await axios.get(
-          `${baseUrl}get_dynamic_table_data?userId=${loginUserId}&tableName=${tableName}`
-        );
-        const responseData = response.data.data[0]?.column_order_Obj || [];
-        const savedFiltersData = response.data.data[0]?.filter_array;
-        setApiColumns(responseData);
-        setApiFilters(savedFiltersData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    //console.log("use to fetch columns");
     fetchCreatedTable();
   }, [loginUserId, tableName]);
 
   useEffect(() => {
+    //console.log("initializing columns to update ui");
     const getIndex = (colName) =>
-      apiColumns?.findIndex((item) => item?.name === colName);
+      apiColumns?.findIndex((item) => item?.name?.trim() === colName?.trim());
+
     const sortedColumns = [...columns];
     sortedColumns.sort((a, b) => getIndex(a.name) - getIndex(b.name));
 
@@ -354,7 +335,12 @@ const CustomTable = ({
     setVisibleColumns(
       apiColumns?.length === 0
         ? columns?.map(() => true)
-        : apiColumns?.map((column) => column.visibility)
+        : sortedColumns?.map((column, index) =>
+            apiColumns[index]?.visibility === undefined ||
+            apiColumns[index]?.visibility === null
+              ? true
+              : apiColumns[index]?.visibility
+          )
     );
     setAscFlag(sortedColumns?.map(() => true));
     setEditablesRows(
@@ -362,95 +348,152 @@ const CustomTable = ({
         column.editable === undefined ? false : column.editable
       )
     );
-    setUnSortedData(data);
-    setOriginalData(data);
-    setOriginalData((prev) =>
-      prev.map((item) => {
-        const cols = columnsheader.filter((column) => column.compare === true);
-        const additionalProps = cols.reduce((acc, column) => {
-          acc[column.key] = column.renderRowCell(item);
-          return acc;
-        }, {});
-        return {
-          ...item,
-          ...additionalProps,
-        };
-      })
-    );
-  }, [dataLoading, columns, apiColumns]);
+
+    // setTriggerSort(prev => !prev);
+  }, [columns, apiColumns]);
 
   useEffect(() => {
-    setSortedData(
-      pagination
-        ? filteredData?.slice(
-          (currentPage - 1) * itemsPerPage,
-          currentPage * itemsPerPage
-        )
-        : unSortedData
-    );
-  }, [unSortedData]);
+    //console.log("initializing data to update ui");
 
-  function renderSort() {
-    let unSortData;
-    if (unSortedData.length < originalData.length) {
-      unSortData = [...unSortedData];
-    } else unSortData = [...originalData];
-    let dataType;
+    if (data) {
+      setUnSortedData(data);
+      setUnSortedData((prev) =>
+        prev.map((item) => {
+          const cols = columnsheader.filter(
+            (column) => column.compare === true
+          );
+          // const additionalProps = cols.reduce((acc, column) => {
+          //   acc[column.key] = column.renderRowCell(item);
+          //   return acc;
+          // }, {});
+          const getTextContent = (element) => {
+            if (React.isValidElement(element)) {
+              if (React.isValidElement(element.props.children))
+                return getTextContent(element.props.children);
+              else {
+                return element.props.children &&
+                  !Array.isArray(element.props.children)
+                  ? element.props.children
+                  : "";
+              }
+            }
+            return element;
+          };
 
-    const colm = columnsheader?.find((column) => column.key === sortKey);
-
-    // Determine the data type for sorting
-    const determineDataType = (data, key, renderFunc) => {
-      const keyData = data.map((item) =>
-        renderFunc ? renderFunc(item) : item?.[key]
+          const additionalProps = cols.reduce((acc, column) => {
+            acc[column.key] = getTextContent(column.renderRowCell(item));
+            return acc;
+          }, {});
+          return {
+            ...item,
+            ...additionalProps,
+          };
+        })
       );
-      const firstNonNullType = keyData.find(
-        (item) => item !== undefined && item !== null
+      setOriginalData(data);
+      setOriginalData((prev) =>
+        prev.map((item) => {
+          const cols = columnsheader.filter(
+            (column) => column.compare === true
+          );
+          // const additionalProps = cols.reduce((acc, column) => {
+          //   acc[column.key] = column.renderRowCell(item);
+          //   return acc;
+          // }, {});
+          const getTextContent = (element) => {
+            // console.log("element", element);
+
+            if (React.isValidElement(element)) {
+              if (React.isValidElement(element.props.children))
+                return getTextContent(element.props.children);
+              else {
+                return element.props.children &&
+                  !Array.isArray(element.props.children)
+                  ? element.props.children
+                  : "";
+              }
+            }
+
+            return element;
+          };
+
+          const additionalProps = cols.reduce((acc, column) => {
+            // if (column.name === "Proforma Invoice")
+            //   console.log(
+            //     React.isValidElement(getTextContent(column.renderRowCell(item)))
+            //   );
+
+            acc[column.key] = getTextContent(column.renderRowCell(item));
+            return acc;
+          }, {});
+          return {
+            ...item,
+            ...additionalProps,
+          };
+        })
       );
-      return firstNonNullType !== undefined
-        ? typeof firstNonNullType
-        : undefined;
-    };
+    }
+  }, [data]);
 
-    dataType = colm?.compare
-      ? determineDataType(unSortData, sortKey, colm?.renderRowCell)
-      : determineDataType(unSortData, sortKey);
+  const renderSort_v2 = useMemo(() => {
+    // console.log("sortKey", sortKey, oldSortKey);
 
-    // Sorting logic
-    unSortData.sort((a, b) => {
-      let compareValue = 0;
-
-      const getValue = (item) =>
-        colm?.compare && colm?.renderRowCell
-          ? colm.renderRowCell(item)
-          : item[sortKey];
-
-      const val1 = getValue(a);
-      const val2 = getValue(b);
-
-      if (dataType === 'string') {
-        compareValue = val1?.trim()?.localeCompare(val2?.trim());
-      } else if (dataType === 'number') {
-        compareValue = val1 - val2;
+    if (!sortKey) return unSortedData;
+    let sorted = [...unSortedData];
+    if (sortKey != oldSortKey) {
+      let datatType = null;
+      for (let i = 0; i < unSortedData.length; i++) {
+        if (
+          unSortedData[i][sortKey] != undefined &&
+          unSortedData[i][sortKey] != null
+        ) {
+          datatType = typeof unSortedData[i][sortKey];
+          break;
+        }
       }
 
-      return compareValue;
-    });
+      // console.log("datatType", datatType, unSortedData[0]);
+      if (datatType === "number") {
+        // console.log("number");
+        // const start = performance.now();
 
-    if (sortDirection !== 'asc') {
-      unSortData.reverse();
-    }
-    setSortedData(unSortData);
-    setUnSortedData(unSortData);
-  }
+        sorted = [...unSortedData].sort((a, b) => {
+          const val1 = a[sortKey] || -Infinity;
+          const val2 = b[sortKey] || -Infinity;
+          return val1 - val2;
+        });
+
+        // const end = performance.now();
+        // console.log("Time taken to sort number", end - start);
+      } else if (datatType === "string") {
+        // console.log("string");
+        // const start = performance.now();
+
+        sorted = [...unSortedData].sort((a, b) => {
+          const val1 = a[sortKey] || "";
+          const val2 = b[sortKey] || "";
+
+          return val1?.localeCompare(val2);
+        });
+        // const end = performance.now();
+        // console.log("Time taken to sort number", end, start, end - start);
+      } else return sorted;
+    } else sorted.reverse();
+
+    setSortedData(sorted);
+    setUnSortedData(sorted);
+    // return sorted;
+  }, [sortKey, sortDirection, originalData]);
 
   useEffect(() => {
-    renderSort();
-  }, [sortKey, sortDirection]);
+    getFilteredData(unSortedData);
+  }, [unSortedData]);
 
   return (
     <div className="table-pagination-container">
       <TableToolkit
+        exportData={exportData}
+        showTotal={showTotal}
         setApiFilters={setApiFilters}
         apiFilters={apiFilters}
         tableName={tableName}
@@ -482,7 +525,8 @@ const CustomTable = ({
         setColumns={setColumns}
         setApplyFlag={setApplyFlag}
         originalData1={originalData}
-
+        sortedData={sortedData}
+        fetchCreatedTable={fetchCreatedTable}
       />
       {showTotal && (
         <TotalRow
@@ -497,6 +541,10 @@ const CustomTable = ({
       )}
       <div className="table-container" ref={tableref}>
         <RenderedTable
+          setVisibleColumns={setVisibleColumns}
+          sortKey={sortKey}
+          oldSortKey={oldSortKey}
+          setOldSortKey={setOldSortKey}
           headref={headref}
           setUnSortedData={setUnSortedData}
           applyFlag={applyFlag}
@@ -505,7 +553,7 @@ const CustomTable = ({
           setFilterCondition={setFilterCondition}
           selectedId={selectedId}
           setSelectedId={setSelectedId}
-          originalData={data}
+          originalData={originalData}
           setColSearch={setColSearch}
           colSearch={colSearch}
           tableref={tableref}
@@ -537,13 +585,13 @@ const CustomTable = ({
           baseUrl={baseUrl}
           tableName={tableName}
           loginUserId={loginUserId}
+          fetchCreatedTable={fetchCreatedTable}
         />
       </div>
 
-
       <PaginationComp
         data={unSortedData}
-        Pagination={pagination}
+        Pagination={pagination?.current}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         itemsPerPage={itemsPerPage}

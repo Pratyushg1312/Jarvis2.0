@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Buildings,
   CaretRight,
+  Code,
   HandCoins,
   Laptop,
   List,
@@ -14,6 +15,7 @@ import {
 } from "@phosphor-icons/react";
 import { NavLink } from "react-router-dom";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
+import { baseUrl } from "../../../Config";
 
 const SideBar = () => {
   const userRole = GetDecodedToken().role_id;
@@ -28,25 +30,25 @@ const SideBar = () => {
       setListNode(nodeArray);
       const positions = nodeArray.map((node, index) => {
         const rect = node?.getBoundingClientRect();
-        return { x: rect.right - 100, y: rect.top + 20 };
+        return { x: rect.right - 500, y: rect.top + 20 };
       });
       setPosition(positions);
     }
   }, [placeholder]);
 
-
   const handleMouseout = (event, index) => {
-    const positions = position.map((pos, i) => i === index ? { x: pos.x + 10, y: pos.y } : pos);
+    const positions = position.map((pos, i) =>
+      i === index ? { x: pos.x + 10, y: pos.y } : pos
+    );
     setPosition(positions);
-  }
-
+  };
 
   useEffect(() => {
     if (listNode) {
       listNode.forEach((node, index) => {
-        if (node.classList.contains('nav-item') && node.querySelector('h5')) {
-          node.addEventListener('mouseover', (event) => handleMouseOver(index));
-          node.addEventListener('mouseout', (event) => handleMouseout(index));
+        if (node.classList.contains("nav-item") && node.querySelector("h5")) {
+          node.addEventListener("mouseover", (event) => handleMouseOver(index));
+          node.addEventListener("mouseout", (event) => handleMouseout(index));
         }
       });
     }
@@ -54,20 +56,24 @@ const SideBar = () => {
     return () => {
       if (listNode) {
         listNode.forEach((node, index) => {
-
-          if (node.classList.contains('nav-item') && node.querySelector('h5')) {
-            node.removeEventListener('mouseover', (event) => handleMouseOver(index));
-            node.removeEventListener('mouseout', (event) => handleMouseout());
+          if (node.classList.contains("nav-item") && node.querySelector("h5")) {
+            node.removeEventListener("mouseover", (event) =>
+              handleMouseOver(index)
+            );
+            node.removeEventListener("mouseout", (event) => handleMouseout());
           }
         });
       }
     };
   }, [listNode]);
 
-
   const handleMouseOver = (index) => {
     const rect = listNode?.[index]?.getBoundingClientRect();
-    setPosition(pre => pre.map((pos, i) => i === index ? { x: rect.right + 30, y: rect.top + 20 } : pos));
+    setPosition((pre) =>
+      pre.map((pos, i) =>
+        i === index ? { x: rect.right + 30, y: rect.top + 20 } : pos
+      )
+    );
   };
 
   return (
@@ -169,7 +175,10 @@ const SideBar = () => {
                   </NavLink>
                   <ul className="dropdown-menu">
                     <li>
-                      <NavLink className="dropdown-item" to="/finance/dashboard">
+                      <NavLink
+                        className="dropdown-item"
+                        to="/finance/dashboard"
+                      >
                         <span>
                           <Minus />
                         </span>
@@ -177,7 +186,10 @@ const SideBar = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink className="dropdown-item" to="/finance/incentive">
+                      <NavLink
+                        className="dropdown-item"
+                        to="/finance/incentive"
+                      >
                         <span>
                           <Minus />
                         </span>
@@ -230,12 +242,12 @@ const SideBar = () => {
                     <li>
                       <NavLink
                         className="dropdown-item"
-                        to="/sales/salesbooking-overview"
+                        to="/sales/closed-deal"
                       >
                         <span>
                           <Minus />
                         </span>
-                        Sales Booking
+                        Closed Deal
                       </NavLink>
                     </li>
                     <li>
@@ -263,22 +275,88 @@ const SideBar = () => {
                     <h5>Community</h5>
                   </a>
                 </li>
+                {baseUrl && !baseUrl.includes("jarvis.work") && (
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link"
+                      to="/ui"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i>
+                        <Code weight="duotone" />
+                      </i>
+                      <h5>UI</h5>
+                    </NavLink>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <NavLink
+                          className="dropdown-item"
+                          to="/ui/jarvis-cards"
+                        >
+                          <span>
+                            <Minus />
+                          </span>
+                          Cards
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          className="dropdown-item"
+                          to="/ui/jarvis-buttons"
+                        >
+                          <span>
+                            <Minus />
+                          </span>
+                          Buttons
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          className="dropdown-item"
+                          to="/ui/jarvis-forms"
+                        >
+                          <span>
+                            <Minus />
+                          </span>
+                          Forms
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          className="dropdown-item"
+                          to={"/ui/jarvis-headers"}
+                        >
+                          <span>
+                            <Minus />
+                          </span>
+                          Headers
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
         </div>
       </div>
-      {
-        listNode?.map((node, index) => {
-
-          return (
-            <p className="side-bar-tooltip" style={{ position: 'absolute', left: `${position[index]?.x}px`, top: `${position[index]?.y}px`, }}>{node.querySelector('h5').innerText}</p>
-          )
-
-        })
-      }
+      {listNode?.map((node, index) => {
+        return (
+          <p
+            className="side-bar-tooltip"
+            style={{
+              position: "fixed",
+              left: `${position[index]?.x}px`,
+              top: `${position[index]?.y}px`,
+            }}
+          >
+            {node.querySelector("h5").innerText}
+          </p>
+        );
+      })}
     </>
-
   );
 };
 

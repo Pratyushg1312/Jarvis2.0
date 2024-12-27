@@ -30,7 +30,9 @@ import {
   useGetTop20AccountsQuery,
   useGetWeeklyMonthlyQuarterlyListQuery,
 } from "../../../Redux/Slices/SalesSlices/SalesDashboardApi";
-
+import { useGetSalesCategoryListQuery } from "../../../Redux/Slices/SalesSlices/salesCategoryApi";
+import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
+import OutstandingComp from "../../../Components/CommonComponent/Outstanding/OutstandingComp";
 
 const LinkButtons = [
   {
@@ -47,7 +49,7 @@ const LinkButtons = [
   },
   {
     name: "View Target Competition",
-    link: "/sales/target-competetion-overview",
+    link: "/sales/target-competition-overview",
     type: "link",
     access: [1, 4],
   },
@@ -74,6 +76,11 @@ const SalesDashboard = () => {
   const [selectedRow, setSelectedRow] = useState("");
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const [Cat_id, setCat_id] = useState(loginUserRole === 1 ? 1 : null);
+  const [laststartDate, setLastStartDate] = useState();
+  const [lastendDate, setLastEndDate] = useState();
+  const [startdate, setStartdate] = useState();
+  const [enddate, setEnddate] = useState();
 
   const {
     data: top20AccountsData,
@@ -91,6 +98,11 @@ const SalesDashboard = () => {
   } = useGetWeeklyMonthlyQuarterlyListQuery({
     userId: loginUserId,
     isAdmin: loginUserRole == 1,
+    Cat_id,
+    startdate,
+    enddate,
+    laststartDate,
+    lastendDate,
   });
   const {
     data: userBadgeData,
@@ -115,6 +127,12 @@ const SalesDashboard = () => {
     isLoading: targetCompetitionsLoading,
   } = useGetAllTargetCompetitionsQuery();
 
+  const {
+    data: categoryDetails,
+    error: categoryDetailsError,
+    isLoading: categoryDetailsLoading,
+  } = useGetSalesCategoryListQuery({ skip: loginUserRole !== 1 });
+
   useEffect(() => {
     if (!targetCompetitionsLoading && allTargetCompetitionsData) {
       const activeCompetitions = allTargetCompetitionsData?.filter(
@@ -137,6 +155,16 @@ const SalesDashboard = () => {
       { startDate, endDate },
       { skip: !startDate || !endDate }
     );
+
+  const getData = (startDate, endDate, laststartDate, lastendDate) => {
+    // if (startDate && endDate && laststartDate && lastendDate) {
+    setStartdate(startDate);
+    setEnddate(endDate);
+
+    setLastStartDate(laststartDate);
+    setLastEndDate(lastendDate);
+    // }
+  };
 
   const booking = [
     {
@@ -180,7 +208,7 @@ const SalesDashboard = () => {
           <div
             style={{ color: "blue", cursor: "pointer" }}
             onClick={() =>
-              navigate("/sales/salesbooking-overview", {
+              navigate("/sales/closed-deal", {
                 state: { booking_status: row.booking_status },
               })
             }
@@ -206,7 +234,7 @@ const SalesDashboard = () => {
       renderRowCell: (row) => (
         <Link
           style={{ color: "blue" }}
-          to={`/sales-account-info/${row?.account_obj_id}`}
+          to={`/sales/account-info/${row?.account_obj_id}`}
         >
           {formatString(row?.account_name)}
         </Link>
@@ -281,34 +309,83 @@ const SalesDashboard = () => {
         LinkButtons={LinkButtons}
       />
 
-      <div className="row mt20">
-        <MonthlyWeeklyCard
-          data={weekMonthCard?.weeklyData}
-          previousData={weekMonthCard?.lastWeekData}
-          title="Weekly"
-          cardclassName="primary"
-          titleclassName="colorPrimary"
-          colorclassName="primary"
-        />
+      {loginUserRole === 1 && categoryDetails && (
+        <div className="card">
+          <div className="card-header">
+            <h5 className="card-title">Filter By Category</h5>
+          </div>
+          <div className="row pl-3">
+            <CustomSelect
+              fieldGrid={4}
+              dataArray={[...categoryDetails]?.reverse()}
+              optionId="sales_category_id"
+              optionLabel="sales_category_name"
+              selectedId={Cat_id}
+              setSelectedId={setCat_id}
+            />
+          </div>
+        </div>
+      )}
+      {!weekMonthCardLoading && (
+        <>
+          <div className="row mt20">
+            <MonthlyWeeklyCard
+              data={weekMonthCard?.weeklyData}
+              previousData={weekMonthCard?.lastWeekData}
+              title="Weekly"
+              cardclassName="primary"
+              titleclassName="colorPrimary"
+              colorclassName="primary"
+            />
 
-        <MonthlyWeeklyCard
-          data={weekMonthCard?.monthlyData}
-          previousData={weekMonthCard?.lastMonthData}
-          title="Monthly"
-          cardclassName="secondary"
-          titleclassName="colorSecondary"
-          colorclassName="secondary"
-        />
+            <MonthlyWeeklyCard
+              data={weekMonthCard?.monthlyData}
+              previousData={weekMonthCard?.lastMonthData}
+              title="Monthly"
+              cardclassName="secondary"
+              titleclassName="colorSecondary"
+              colorclassName="secondary"
+              getData={getData}
+              loading={weekMonthCardLoading}
+            />
 
-        <MonthlyWeeklyCard
-          data={weekMonthCard?.quarterlyData}
-          previousData={weekMonthCard?.lastQuarterData}
-          title="Quarterly"
-          cardclassName="tertiary"
-          titleclassName="colorTertiary"
-          colorclassName="tertiary"
-        />
-      </div>
+            <MonthlyWeeklyCard
+              data={weekMonthCard?.quarterlyData}
+              previousData={weekMonthCard?.lastQuarterData}
+              title="Quarterly"
+              cardclassName="tertiary"
+              titleclassName="colorTertiary"
+              colorclassName="tertiary"
+            />
+          </div>
+          <div className="row mt20">
+            <MonthlyWeeklyCard
+              data={weekMonthCard?.halfYearlyData}
+              previousData={weekMonthCard?.lastHalfYearData}
+              title="Half Yearly"
+              cardclassName="bgTertiary"
+              titleclassName="colorTertiary"
+              colorclassName="bgTertiary"
+            />
+            <MonthlyWeeklyCard
+              data={weekMonthCard?.yearlyData}
+              previousData={weekMonthCard?.lastYearData}
+              title="Yearly"
+              cardclassName="bgTertiary"
+              titleclassName="colorTertiary"
+              colorclassName="bgTertiary"
+            />
+            <MonthlyWeeklyCard
+              data={weekMonthCard?.totalData}
+              previousData={weekMonthCard?.Last}
+              title="Total"
+              cardclassName="bgTertiary"
+              titleclassName="colorTertiary"
+              colorclassName="bgTertiary"
+            />
+          </div>
+        </>
+      )}
 
       <div className="row">
         <div className="col">
@@ -339,9 +416,9 @@ const SalesDashboard = () => {
             </div>
           </NavLink>
         </div>
-        {/* {loginUserRole === 1 && (
+        {loginUserRole === 1 && (
           <div className="col">
-            <NavLink to="/admin/sales-incentive-settlement-overview">
+            <NavLink to="/sales/incentive-settlement-overview">
               <div className="card">
                 <div className="flexCenter flex-column rowGap12 p20">
                   <div className="icon tertiary">
@@ -354,7 +431,7 @@ const SalesDashboard = () => {
               </div>
             </NavLink>
           </div>
-        )} */}
+        )}
         {loginUserRole !== 4 && (
           <div className="col">
             <NavLink to="https://forms.gle/jz7d66xRpska5fWU9">
@@ -371,9 +448,9 @@ const SalesDashboard = () => {
             </NavLink>
           </div>
         )}
-        {/* {loginUserRole === 1 && (
+        {loginUserRole === 1 && (
           <div className="col">
-            <NavLink to="/admin/deleted-sales-booking">
+            <NavLink to="/sales/deleted-sales-booking">
               <div className="card">
                 <div className="flexCenter flex-column rowGap12 p20">
                   <div className="icon danger">
@@ -386,7 +463,7 @@ const SalesDashboard = () => {
               </div>
             </NavLink>
           </div>
-        )} */}
+        )}
       </div>
 
       {allTargetCompetitionsData?.map(
@@ -405,6 +482,7 @@ const SalesDashboard = () => {
 
       {loginUserRole == 1 && (
         <>
+          <OutstandingComp />
           <View
             title={"Sales Booking Status Grid"}
             data={salesBookingGridStat}

@@ -12,7 +12,7 @@ import {
   useGetAllTargetCompetitionsQuery,
 } from "../../../Redux/Slices/SalesSlices/TargetCompetitionApi";
 
-const TargetCompetetionOverview = () => {
+const TargetCompetitionOverview = () => {
   const navigate = useNavigate();
   const {
     data: allTargetCompetitionsData,
@@ -95,7 +95,6 @@ const TargetCompetetionOverview = () => {
       key: "status",
       name: "Status",
       renderRowCell: (row, index) => {
-
         if (row.status == 0) {
           return (
             <div
@@ -161,4 +160,4 @@ const TargetCompetetionOverview = () => {
   );
 };
 
-export default TargetCompetetionOverview;
+export default TargetCompetitionOverview;

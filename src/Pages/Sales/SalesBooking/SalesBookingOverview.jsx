@@ -18,7 +18,10 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
-import { useGetAllUsersQuery } from "../../../Redux/Slices/UserSlices/UserApi";
+import {
+  useGetAllUsersQuery,
+  useGetUserAuthQuery,
+} from "../../../Redux/Slices/UserSlices/UserApi";
 import { useGetExeCampaignsNameWiseDataQuery } from "../../../Redux/Slices/SalesSlices/ExecutionCampaignApi";
 import {
   useGetAllSaleBookingQuery,
@@ -37,6 +40,9 @@ import ExecutionData from "../../../Components/Sales/SalesBooking/ExecutionData"
 import InvoiceDownload from "../../../Components/Sales/SalesBooking/InvoiceDownload";
 import InvoiceRequest from "../../../Components/Sales/SalesBooking/InvoiceRequest";
 import { X } from "@phosphor-icons/react";
+import { useGetSalesCategoryListQuery } from "../../../Redux/Slices/SalesSlices/salesCategoryApi";
+import { useGetAllCreditApprovalsQuery } from "../../../Redux/Slices/SalesSlices/CreditApprovalApi";
+import DeleteButton from "../../../Components/CommonComponent/DeleteButton/DeleteButton";
 
 const LinkButtons = [
   {
@@ -52,7 +58,7 @@ const LinkButtons = [
     access: [1],
   },
   {
-    link: "/sales/record-servcies-overview",
+    link: "/sales/record-services-overview",
     name: "record Services",
     type: "link",
     access: [1, 4],
@@ -81,9 +87,11 @@ const SalesBookingOverview = () => {
   const token = GetDecodedToken();
   let loginUserId;
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
+
   const filterDate = useLocation().state;
   const [stats, setStats] = useState("");
 
@@ -95,12 +103,13 @@ const SalesBookingOverview = () => {
     error: allExeCampaignListError,
     isLoading: allExeCampaignListLoading,
   } = useGetExeCampaignsNameWiseDataQuery(loginUserId);
+
   const {
-    data: allSaleBooking,
-    refetch: refetchSaleBooking,
-    error: allSalebBookingError,
-    isLoading: allSaleBookingLoading,
-  } = useGetAllSaleBookingQuery({ loginUserId, stats });
+    data: allCreditApprovals,
+    error: allCreditApprovalsError,
+    isLoading: allCreditApprovalsLoading,
+  } = useGetAllCreditApprovalsQuery();
+
   const {
     data: allAccount,
     error: allAccountError,
@@ -110,11 +119,7 @@ const SalesBookingOverview = () => {
   const [deleteSaleBooking, { isLoading }] = useDeleteSaleBookingMutation();
   const [executionModal, setExecutionModal] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState();
-  const [filteredData, setFilteredData] = useState(
-    loginUserRole === 1
-      ? allSaleBooking?.filter((item) => !item?.is_dummy_sale_booking)
-      : allSaleBooking
-  );
+
   const [campaignList, setCampaignList] = useState([]);
   const [filterByCampaignName, setFilterByCampaignName] = useState("");
   const [filterByAccountName, setFilterByAccountName] = useState("");
@@ -127,6 +132,24 @@ const SalesBookingOverview = () => {
   const [toDate, setToDate] = useState("");
   const [filterByIncentive, setFilterByIncentive] = useState("");
   const [quickFiltring, setQuickFiltring] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const {
+    data: allSaleBooking,
+    refetch: refetchSaleBooking,
+    error: allSalebBookingError,
+    isLoading: allSaleBookingLoading,
+  } = useGetAllSaleBookingQuery({ loginUserId, stats, selectedCategory });
+  const [filteredData, setFilteredData] = useState(
+    loginUserRole === 1
+      ? allSaleBooking?.filter((item) => !item?.is_dummy_sale_booking)
+      : allSaleBooking
+  );
+  const {
+    data: categoryDetails,
+    error: categoryDetailsError,
+    isLoading: categoryDetailsLoading,
+  } = useGetSalesCategoryListQuery({ skip: loginUserRole !== 1 });
 
   const handleDelete = async (rowId) => {
     try {
@@ -400,6 +423,15 @@ const SalesBookingOverview = () => {
     if (allSaleBookingLoading === false) pivotDataFunction();
   }, [allSaleBookingLoading]);
 
+  function calculateAging(date1, date2) {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const firstDate = new Date(date1).setHours(0, 0, 0, 0);
+    const secondDate = new Date(date2).setHours(0, 0, 0, 0);
+    const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+
+    return diffDays;
+  }
+
   const pivotColumn = [
     {
       key: "sno",
@@ -450,7 +482,10 @@ const SalesBookingOverview = () => {
           (account) => account.account_id === row.account_id
         );
         return (
-          <Link to={`/sales-account-info/${info?._id}`}>
+          <Link
+            to={`/sales/account-info/${info?._id}`}
+            className="colorPrimary"
+          >
             {formatString(row?.account_name)}
           </Link>
         );
@@ -469,7 +504,6 @@ const SalesBookingOverview = () => {
       key: "sale_booking_date",
       name: "Booking Date",
       renderRowCell: (row) => DateISOtoNormal(row.sale_booking_date),
-
       showCol: true,
       width: 100,
     },
@@ -487,7 +521,8 @@ const SalesBookingOverview = () => {
       renderRowCell: (row) => {
         if (row.record_service_counts)
           return (
-            <a
+            <div
+              className="pointer colorSecondary"
               onClick={() => {
                 setModalName("testModal");
                 setExecutionModal(row?.is_execution_token_show);
@@ -495,7 +530,7 @@ const SalesBookingOverview = () => {
               }}
             >
               {row?.record_service_counts}
-            </a>
+            </div>
           );
         else return 0;
       },
@@ -538,6 +573,13 @@ const SalesBookingOverview = () => {
       width: 100,
     },
     {
+      key: "Aging",
+      name: "Aging in Days",
+      renderRowCell: (row) => calculateAging(row.sale_booking_date, new Date()),
+      width: 100,
+      compare: true,
+    },
+    {
       key: "gst_amount",
       name: "GST Amount",
       renderRowCell: (row) => row.gst_amount,
@@ -567,6 +609,16 @@ const SalesBookingOverview = () => {
         </div>
       ),
       width: 100,
+    },
+    {
+      key: "payment_terms",
+      name: "Payment Terms",
+      renderRowCell: (row) =>
+        allCreditApprovals?.find(
+          (item) => item._id == row.reason_credit_approval
+        )?.reason || "NA",
+      width: 100,
+      compare: true,
     },
     {
       key: "requested_amount",
@@ -604,6 +656,16 @@ const SalesBookingOverview = () => {
       name: "Incentive Amount",
       showCol: true,
       width: 100,
+      getTotal: true,
+    },
+    {
+      key: "incentive_percent",
+      name: "Incentive Percent",
+      renderRowCell: (row) =>
+        ((row.incentive_amount / row?.base_amount) * 100).toFixed(0),
+      showCol: true,
+      width: 100,
+      compare: true,
     },
     {
       key: "earned_incentive_amount",
@@ -612,15 +674,7 @@ const SalesBookingOverview = () => {
       compare: true,
       showCol: true,
       width: 100,
-    },
-
-    {
-      key: "createdAt",
-      name: "Booking Date Created",
-      compare: true,
-      renderRowCell: (row) => DateISOtoNormal(row.createdAt),
-      showCol: true,
-      width: 100,
+      getTotal: true,
     },
     {
       key: "record_service_amount",
@@ -630,7 +684,7 @@ const SalesBookingOverview = () => {
       width: 100,
     },
     {
-      key: "booking_status",
+      key: "booking_status1",
       name: "Booking Status",
       renderRowCell: (row) =>
         row.booking_status === "Request for Execution" ? (
@@ -645,6 +699,7 @@ const SalesBookingOverview = () => {
         ),
       width: 200,
       showCol: true,
+      compare: true,
     },
     {
       key: "multiSharing",
@@ -686,9 +741,10 @@ const SalesBookingOverview = () => {
       showCol: true,
     },
     {
-      key: "salesInvoiceRequestData",
+      key: "salesInvoiceRequestData_1",
       name: "Proforma Invoice",
       width: 100,
+      compare: true,
       renderRowCell: (row) => {
         const save = row?.salesInvoiceRequestData?.find(
           (obj) => obj?.invoice_type_id == "proforma"
@@ -732,11 +788,11 @@ const SalesBookingOverview = () => {
         } else if (save?.length == 1) {
           return (
             <a
-              className="icon-1"
+              className="pointer colorPrimary"
               target="__blank"
               href={row?.url + "/" + save[0]?.invoice_file}
             >
-              <i className="bi bi-eye" />
+              {save[0]?.invoice_number}
             </a>
           );
         } else {
@@ -755,7 +811,32 @@ const SalesBookingOverview = () => {
         }
       },
     },
-
+    {
+      key: "credit_note",
+      name: "Credit Note",
+      renderRowCell: (row) => {
+        const data = row?.salesInvoiceRequestData?.filter(
+          (item) => item.invoice_type_id == "credit_note"
+        );
+        if (data?.length == 0) {
+          return "N/A";
+        } else if (data?.length == 1) {
+          return (
+            <>
+              <a
+                className="icon-1"
+                target="__blank"
+                href={row?.url + "/" + data[0]?.credit_note_file}
+              >
+                <i className="bi bi-eye" />
+              </a>
+            </>
+          );
+        }
+      },
+      compare: true,
+      width: 100,
+    },
     {
       key: "actions",
       name: "Actions",
@@ -764,25 +845,23 @@ const SalesBookingOverview = () => {
         <>
           {!row?.is_dummy_sale_booking && (
             <div className="flex-row">
-              {row.incentive_earning_status === "un-earned" && (
-                <Link
-                  title="Edit sale booking"
-                  to={`/sales/create-sales-booking/${row.sale_booking_id}/${row._id}`}
-                >
-                  <div className="icon-1">
-                    <i className="bi bi-pencil" />
-                  </div>
-                </Link>
-              )}
+              {/* {row.incentive_earning_status === "un-earned" &&  */}
+              <Link
+                title="Edit sale booking"
+                to={`/sales/create-sales-booking/${row.sale_booking_id}/${row._id}`}
+              >
+                <div className="icon-1">
+                  <i className="bi bi-pencil" />
+                </div>
+              </Link>
+              {/* } */}
 
               {loginUserRole == 1 && (
-                <button
-                  title="Delete sale booking"
-                  className="icon-1"
-                  onClick={() => row._id}
-                >
-                  <i className="bi bi-trash" />
-                </button>
+                <DeleteButton
+                  endpoint={"sales/sales_booking"}
+                  id={row._id}
+                  getData={refetchSaleBooking}
+                />
               )}
 
               {row?.campaign_amount >= row?.approved_amount && (
@@ -981,6 +1060,7 @@ const SalesBookingOverview = () => {
           </AccordionDetails>
         </Accordion>
       </div>
+
       <View
         columns={columns}
         data={filteredData}
@@ -990,7 +1070,21 @@ const SalesBookingOverview = () => {
         pagination={[100, 200]}
         tableName={"SaleBookingView"}
         showTotal={true}
-        // rowSelectable={true}
+        addHtml={
+          loginUserRole === 1 && (
+            <CustomSelect
+              fieldGrid={12}
+              dataArray={[
+                { sales_category_id: null, sales_category_name: "None" },
+                ...(categoryDetails || []),
+              ]}
+              optionId="sales_category_id"
+              optionLabel="sales_category_name"
+              selectedId={selectedCategory}
+              setSelectedId={setSelectedCategory}
+            />
+          )
+        }
       />
     </div>
   );

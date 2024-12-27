@@ -5,13 +5,14 @@ import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import View from "../../../Components/CommonComponent/View/View";
 import formatString from "../../../Utils/formatString";
-
+import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
 
 const RecordServiceOverview = () => {
   const token = GetDecodedToken();
   let loginUserId;
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
   const {
@@ -19,7 +20,7 @@ const RecordServiceOverview = () => {
     isLoading: recordServiceDataLoading,
     error: recordServiceDataError,
     isError: recordServiceDataIsError,
-  } = useGetAllRecordServicesQuery(loginUserId)
+  } = useGetAllRecordServicesQuery(loginUserId);
 
   const columns = [
     {
@@ -43,7 +44,6 @@ const RecordServiceOverview = () => {
       key: "sales_service_master_name",
       name: "Service Name",
       width: 150,
-
     },
     {
       key: "campaign_name",
@@ -55,17 +55,18 @@ const RecordServiceOverview = () => {
       key: "campaign_amount",
       name: "Campaign Amount",
       width: 150,
-
     },
     {
       key: "amount",
       width: 150,
-      name: "Record Service Amount"
-    }, {
+      name: "Record Service Amount",
+    },
+    {
       key: "brand_name",
       name: "Brand Name",
       width: 150,
-    }, {
+    },
+    {
       key: "day",
       name: "Day",
       width: 150,
@@ -95,7 +96,7 @@ const RecordServiceOverview = () => {
     {
       key: "individual_amount",
       name: "Individual Amount",
-      width: 150
+      width: 150,
     },
     {
       key: "no_of_creators",
@@ -106,7 +107,8 @@ const RecordServiceOverview = () => {
       key: "no_of_hours",
       name: "No of hours",
       width: 150,
-    }, {
+    },
+    {
       key: "per_month_amount",
       name: "Per month amount",
       width: 150,
@@ -127,17 +129,11 @@ const RecordServiceOverview = () => {
       renderRowCell: (row) => DateISOtoNormal(row?.start_date),
       compare: true,
       width: 150,
-
     },
-
   ];
   return (
     <>
-
-      <FormContainer
-        mainTitle="Record Services"
-        link={true}
-      />
+      <FormContainer mainTitle="Record Services" link={true} />
 
       <View
         data={recordServicedata}
@@ -145,7 +141,6 @@ const RecordServiceOverview = () => {
         pagination
         tableName={"Record Services Overview salebooking table navigation"}
         title={"Record Service Overview"}
-
       />
     </>
   );

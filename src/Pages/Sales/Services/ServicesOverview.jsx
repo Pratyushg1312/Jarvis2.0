@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { useEditSaleServiceMutation, useGetAllSaleServiceQuery } from "../../../Redux/Slices/SalesSlices/SalesServiceApi";
+import {
+  useEditSaleServiceMutation,
+  useGetAllSaleServiceQuery,
+} from "../../../Redux/Slices/SalesSlices/SalesServiceApi";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 import DeleteButton from "../../../Components/CommonComponent/DeleteButton/DeleteButton";
 import Loader from "../../../Components/CommonComponent/Loader/Loader";
@@ -8,14 +11,6 @@ import FormContainer from "../../../Components/CommonComponent/FormElement/FormC
 import Tab from "../../../Components/CommonComponent/Tab/Tab";
 import View from "../../../Components/CommonComponent/View/View";
 
-const LinkButtons = [
-  {
-    link: "/sales/create-sales-services",
-    name: "Add Service",
-    type: "link",
-    access: [1],
-  },
-];
 const tabName = ["Active", "Inactive"];
 
 const ServicesOverview = () => {
@@ -130,6 +125,28 @@ const ServicesOverview = () => {
       ),
     },
   ];
+  const LinkButtons = useMemo(
+    () => [
+      {
+        link: "/sales/create-sales-services",
+        name: "Add Service",
+        type: "link",
+        access: [1],
+      },
+      {
+        type: "element",
+        element: (
+          <Tab
+            tabName={tabName}
+            activeTabindex={activeTab}
+            onTabClick={onTabClick}
+          />
+        ),
+        access: [1, 2, 3, 4],
+      },
+    ],
+    [activeTab]
+  );
   return (
     <>
       {updatingSalesService && <Loader />}
@@ -139,13 +156,6 @@ const ServicesOverview = () => {
         link="/sales/create-sales-services"
         LinkButtons={LinkButtons}
       />
-
-      <Tab
-        tabName={tabName}
-        activeTabindex={activeTab}
-        onTabClick={onTabClick}
-      />
-
 
       <View
         columns={columns}

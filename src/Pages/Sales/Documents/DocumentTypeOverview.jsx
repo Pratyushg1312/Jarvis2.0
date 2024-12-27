@@ -9,13 +9,15 @@ import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import View from "../../../Components/CommonComponent/View/View";
 import { FloppyDisk, PencilSimple, X } from "@phosphor-icons/react";
+import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
 
 const DocumentTypeOverview = () => {
   const token = GetDecodedToken();
   const navigate = useNavigate();
   let loginUserId;
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
   const {

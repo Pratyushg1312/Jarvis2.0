@@ -32,7 +32,7 @@ const SalesSubmitDialog = ({
 
           <button
             className="btn cmnbtn btn-success"
-            onClick={() => navigate("/sales/salesbooking-overview")}
+            onClick={() => navigate("/sales/closed-deal")}
           >
             Sale Booking
           </button>

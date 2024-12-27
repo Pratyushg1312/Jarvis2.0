@@ -638,7 +638,7 @@ const CreateSaleBooking = () => {
       console.error(error);
       if (error.response && error.response.status === 666) {
         toastError("Sale booking created but email not sent");
-        navigate("/sales/salesbooking-overview");
+        navigate("/sales/closed-deal");
         return;
       }
 
@@ -1140,8 +1140,7 @@ const CreateSaleBooking = () => {
                 onChange={handlePaymentStatusSelect}
                 required
               />
-              {console.log(paymentStatusList, "kbsdhgca")
-              }
+              {console.log(paymentStatusList, "kbsdhgca")}
               {selectedPaymentStatus?.value == "self_credit_used" &&
                 netAmount > loginUserData?.user_credit_limit && (
                   <div className="d-flex flex-column">
@@ -1219,8 +1218,6 @@ const CreateSaleBooking = () => {
                 fieldGrid={12}
                 value={balancePayDate}
                 onChange={(e) => {
-
-
                   setBalancePayDate(e);
 
                   setIsValidate((prev) => ({

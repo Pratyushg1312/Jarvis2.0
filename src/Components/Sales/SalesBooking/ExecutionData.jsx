@@ -4,13 +4,14 @@ import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 import FormContainer from "../../CommonComponent/FormElement/FormContainer";
 import View from "../../CommonComponent/View/View";
 import { useGetAllRecordServicesQuery } from "../../../Redux/Slices/SalesSlices/RecordServicesApi";
-
+import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
 
 const ExecutionData = ({ selectedRowData }) => {
   const token = GetDecodedToken();
   let loginUserId;
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
   const {
