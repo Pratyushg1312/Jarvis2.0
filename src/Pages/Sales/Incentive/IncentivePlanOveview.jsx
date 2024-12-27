@@ -5,8 +5,9 @@ import { useGetAllSaleServiceQuery } from "../../../Redux/Slices/SalesSlices/Sal
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import View from "../../../Components/CommonComponent/View/View";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
+import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
 
-const IncentivePlanOveview = () => {
+const IncentivePlanOverview = () => {
   const navigate = useNavigate();
   const [incentiveData, setIncentiveData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
@@ -15,7 +16,8 @@ const IncentivePlanOveview = () => {
 
   let loginUserId;
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
   const {
@@ -125,4 +127,4 @@ const IncentivePlanOveview = () => {
   );
 };
 
-export default IncentivePlanOveview;
+export default IncentivePlanOverview;

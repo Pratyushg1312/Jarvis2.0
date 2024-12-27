@@ -4,14 +4,22 @@ import Select from "react-select";
 import GetDecodedToken from "../../../../Utils/GetDecodedToken";
 import { useGetAllPaymentModesQuery } from "../../../../Redux/Slices/SalesSlices/PaymentModeApi";
 import { useGetPaymentDetailListQuery } from "../../../../Redux/Slices/SalesSlices/PaymentDetailsApi";
-import { useGetAllSaleBookingQuery, useGetSingleSaleBookingQuery } from "../../../../Redux/Slices/SalesSlices/SaleBookingApi";
+import {
+  useGetAllSaleBookingQuery,
+  useGetSingleSaleBookingQuery,
+} from "../../../../Redux/Slices/SalesSlices/SaleBookingApi";
 import { useGetAllAccountQuery } from "../../../../Redux/Slices/SalesSlices/SalesAccountApi";
-import { useAddPaymentUpdateMutation, useGetSinglePaymentUpdateQuery, useUpdatePaymentUpdateMutation } from "../../../../Redux/Slices/SalesSlices/PaymentUpdateApi";
+import {
+  useAddPaymentUpdateMutation,
+  useGetSinglePaymentUpdateQuery,
+  useUpdatePaymentUpdateMutation,
+} from "../../../../Redux/Slices/SalesSlices/PaymentUpdateApi";
 import FieldContainer from "../../../../Components/CommonComponent/FormElement/FieldContainer";
 import { toastAlert, toastError } from "../../../../Utils/ToastUtil";
 import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
 import Loader from "../../../../Components/CommonComponent/Loader/Loader";
 import DateISOtoNormal from "../../../../Utils/DateISOtoNormal";
+import { useGetUserAuthQuery } from "../../../../Redux/Slices/UserSlices/UserApi";
 
 const CreatePaymentUpdate = () => {
   const location = useLocation();
@@ -26,7 +34,8 @@ const CreatePaymentUpdate = () => {
   const token = GetDecodedToken();
   let loginUserId;
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
   const { data: paymentDetailDatalist, isLoading: getPaymentDatilLoading } =
@@ -87,10 +96,10 @@ const CreatePaymentUpdate = () => {
       skip: !id,
     });
 
-  const {
-    data: selectedBookingData,
-    isLoading: getSingleSaleBookingLoading,
-  } = useGetSingleSaleBookingQuery(selectedSaleBooking?.salebookID, { skip: !selectedSaleBooking?.salebookID });
+  const { data: selectedBookingData, isLoading: getSingleSaleBookingLoading } =
+    useGetSingleSaleBookingQuery(selectedSaleBooking?.salebookID, {
+      skip: !selectedSaleBooking?.salebookID,
+    });
 
   const isLoading =
     getPaymentDatilLoading ||
@@ -150,8 +159,6 @@ const CreatePaymentUpdate = () => {
       setPaymentScreenshot(updatepaymentData.payment_screenshot);
     }
   }, [id, updatepaymentData]);
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -214,7 +221,7 @@ const CreatePaymentUpdate = () => {
 
       refetchSaleBooking();
       toastAlert("Successfull", "Payment updated successfully");
-      navigate("/sales/salesbooking-overview");
+      navigate("/sales/closed-deal");
     } catch (error) {
       toastError(error.message || "Error updating payment");
     }
@@ -231,7 +238,8 @@ const CreatePaymentUpdate = () => {
       )?.campaign_amount - userdata?.requested_amount;
     if (campaignAmount > paymentAmount) {
       toastError(
-        `Payment amount should be less than or equal to ${campaignAmount - userdata?.approved_amount
+        `Payment amount should be less than or equal to ${
+          campaignAmount - userdata?.approved_amount
         } amount`
       );
     }
@@ -254,11 +262,13 @@ const CreatePaymentUpdate = () => {
                   salebookID: option?.sale_booking_id,
                   accountID: option?.account_id,
                 },
-                label: `${allAccountData?.find(
-                  (data) => data.account_id === option.account_id
-                )?.account_name
-                  } | ${DateISOtoNormal(option?.sale_booking_date)} | ${option?.campaign_amount
-                  }`,
+                label: `${
+                  allAccountData?.find(
+                    (data) => data.account_id === option.account_id
+                  )?.account_name
+                } | ${DateISOtoNormal(option?.sale_booking_date)} | ${
+                  option?.campaign_amount
+                }`,
               }))}
               value={{
                 value: selectedSaleBooking,
@@ -266,22 +276,24 @@ const CreatePaymentUpdate = () => {
                   (item) =>
                     item?.sale_booking_id === selectedSaleBooking?.salebookID
                 )
-                  ? `${accountData?.find(
-                    (item) =>
-                      item.account_id === selectedSaleBooking?.accountID
-                  )?.account_name
-                  } | ${DateISOtoNormal(
-                    saleBookingData.find(
-                      (item) =>
-                        item.sale_booking_id ===
-                        selectedSaleBooking?.salebookID
-                    )?.sale_booking_date
-                  )} | ${saleBookingData.find(
-                    (item) =>
-                      item.sale_booking_id ===
-                      selectedSaleBooking?.salebookID
-                  )?.campaign_amount
-                  }`
+                  ? `${
+                      accountData?.find(
+                        (item) =>
+                          item.account_id === selectedSaleBooking?.accountID
+                      )?.account_name
+                    } | ${DateISOtoNormal(
+                      saleBookingData.find(
+                        (item) =>
+                          item.sale_booking_id ===
+                          selectedSaleBooking?.salebookID
+                      )?.sale_booking_date
+                    )} | ${
+                      saleBookingData.find(
+                        (item) =>
+                          item.sale_booking_id ===
+                          selectedSaleBooking?.salebookID
+                      )?.campaign_amount
+                    }`
                   : "",
               }}
               onChange={(e) => {
@@ -336,11 +348,11 @@ const CreatePaymentUpdate = () => {
                       (item) =>
                         item.sale_booking_id === selectedSaleBooking?.salebookID
                     )?.campaign_amount -
-                    saleBookingData.find(
-                      (item) =>
-                        item.sale_booking_id ===
-                        selectedSaleBooking?.salebookID
-                    )?.requested_amount
+                      saleBookingData.find(
+                        (item) =>
+                          item.sale_booking_id ===
+                          selectedSaleBooking?.salebookID
+                      )?.requested_amount
                   );
                 }
               }}

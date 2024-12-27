@@ -104,7 +104,7 @@
     padding: 6px 16px;
 
     a {
-      color: var(--medium) !important;
+      color: var(--medium);
       transition: var(--transition);
 
       &:hover {
@@ -331,6 +331,8 @@ th .table-header {
   padding: 12px 16px;
 
   .dropdown {
+    background-color: var(--cardBg);
+
     .dropdown-btn {
       border: 1px solid var(--border);
       background-color: transparent;
@@ -353,6 +355,9 @@ th .table-header {
           fill: var(--dark);
         }
       }
+    }
+    .css-2xrgrn-MuiPopper-root-MuiAutocomplete-popper {
+      z-index: -1;
     }
   }
 
@@ -419,7 +424,7 @@ th .table-header {
 
 .dropdown-content {
   position: absolute;
-  background-color: var(--body-sub-bg);
+  background-color: var(--cardBg);
   border: 1px solid var(--border);
   border-radius: var(--radiusM);
   display: block;

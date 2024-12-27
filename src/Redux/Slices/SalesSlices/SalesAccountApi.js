@@ -17,10 +17,7 @@ const SalesAccountApi = createApi({
       keepUnusedDataFor: 0,
     }),
     getSingleAccountSalesBooking: builder.query({
-      query: (id) =>
-        `accounts/get_single_account_billing/${
-          typeof id === "number" ? `${id}?_id=false` : id
-        }`,
+      query: (id) => `accounts/get_single_account_billing/${id}`,
       transformResponse: (response, args) => response.data,
       keepUnusedDataFor: 0,
     }),
@@ -83,6 +80,14 @@ const SalesAccountApi = createApi({
       },
     }),
 
+    updateImage: builder.mutation({
+      query: (data) => ({
+        url: `accounts/update_account_image/${data.get("account_id")}`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+
     deleteAccount: builder.mutation({
       query: (id) => ({
         url: `accounts/delete_account/${id}`,
@@ -98,6 +103,7 @@ export const {
   useGetSingleAccountSalesBookingQuery,
   useAddAccountMutation,
   useEditAccountMutation,
+  useUpdateImageMutation,
   useDeleteAccountMutation,
 } = SalesAccountApi;
 

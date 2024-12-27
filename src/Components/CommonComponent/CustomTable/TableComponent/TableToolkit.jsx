@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import Dropdown from "./Dropdown";
 import "../Table.css";
-import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 import Modal from "react-modal";
 import { baseUrl } from "../../../../Config";
 import axios from "axios";
+// import { motion } from "framer-motion"
 
 const TableToolkit = ({
+  exportData,
   tableref,
   rowSelectable,
   setSearchQuery,
@@ -38,6 +40,9 @@ const TableToolkit = ({
   setApiFilters,
   setColumns,
   originalData1,
+  sortedData,
+  fetchCreatedTable,
+  showTotal,
 }) => {
   const containerRef = useRef(null);
   const [ModalOpen, setModalOpen] = useState(false);
@@ -82,7 +87,16 @@ const TableToolkit = ({
   }, [filterList]);
 
   useEffect(() => {
-    const selectedRowData = selectedRowsIndex?.map((index) => data[index]);
+    let selectedRowData = [];
+    let sortedIndex = selectedRowsIndex.sort((a, b) => a - b);
+    if (data.length === selectedRowsIndex.length) {
+      selectedRowData = data;
+    } else if (sortedIndex[sortedIndex.length - 1] > sortedData.length - 1) {
+      selectedRowData = selectedRowsIndex?.map((index) => unSortedData[index]);
+    } else {
+      selectedRowData = selectedRowsIndex?.map((index) => sortedData[index]);
+    }
+
     if (JSON.stringify(selectedRowData) !== JSON.stringify(selectedRowsData)) {
       setSelectedRowsData(selectedRowData);
     }
@@ -140,23 +154,24 @@ const TableToolkit = ({
     setColumns(newColumns);
   };
 
-  async function handleSave() {
+  async function handleSave(setIsOpen) {
     const arrayOfColumnsName = columnsheader.map((column, index) => ({
       name: column.name,
       visibility: visibleColumns[index],
     }));
-    await axios
-      .put(`${baseUrl}` + "edit_dynamic_table_data", {
+    try {
+      await axios.put(`${baseUrl}` + "edit_dynamic_table_data", {
         user_id: loginUserId,
         table_name: tableName,
         column_order_Obj: arrayOfColumnsName,
-      })
-      .then(() => {
-        setDragFlag(false);
-      })
-      .catch((error) => {
-        console.error("Error editing dynamic table data:", error);
       });
+      setDragFlag(false);
+      fetchCreatedTable();
+    } catch (error) {
+      console.error("Error editing dynamic table data:", error);
+    } finally {
+      setIsOpen((prev) => !prev);
+    }
   }
 
   const cloudInvader = async (tag, index) => {
@@ -190,35 +205,49 @@ const TableToolkit = ({
       setFilterList(Payload);
       setApiFilters(Payload);
       setFilterName("");
+      fetchCreatedTable();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleExport = () => {
-    const ax = !rowSelectable ? data : selectedRowsData;
-    const elxdata = ax?.map((item) => {
-      const cols = columnsheader.filter((column) => column.compare === true);
-      const additionalProps = cols.reduce((acc, column) => {
-        acc[column.key] = column.renderRowCell(item);
+  function calculateTotalAmount(func, rowData) {
+    let amounts;
+    if (typeof func !== "function") {
+      amounts = rowData?.map((data) => data?.[func]);
+    } else {
+      amounts = rowData?.map((data) => func(data));
+    }
 
-        return acc;
-      }, {});
+    let total = 0;
 
-      return {
-        ...item,
-        ...additionalProps,
-      };
+    amounts?.forEach((amount) => {
+      if (typeof amount === "number") {
+        // If it's already a number, add it directly
+        total += amount;
+      } else if (typeof amount === "string") {
+        // Remove the currency symbol and convert the string to a number
+        let number = parseFloat(amount.replace(/[^0-9.-]+/g, ""));
+        if (!isNaN(number)) {
+          total += number;
+        }
+      }
     });
 
+    return total.toFixed(2);
+  }
+
+  const handleExport = async () => {
+    const elxdata = !rowSelectable ? data : selectedRowsData;
     if (elxdata?.length === 0) return alert("No data to export");
+
     const formattedData = elxdata?.map((row, index) => {
       let formattedRow = {
         "Serial No": index + 1,
       };
       let obj = {};
-      columnsheader.forEach((header, index) => {
-        if (visibleColumns[index]) {
+      columnsheader.forEach((header, ind) => {
+        if (visibleColumns[ind]) {
           obj[header.name] = row[header.key];
         }
       });
@@ -229,30 +258,201 @@ const TableToolkit = ({
       };
     });
 
-    const fileName = "data.xlsx";
-    const worksheet = XLSX.utils.json_to_sheet(formattedData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
-    const range = XLSX.utils.decode_range(worksheet["!ref"]);
-    const headerRow = range.s.r;
-    for (let C = range.s.c; C <= range.e.c; ++C) {
-      const address = XLSX.utils.encode_cell({ c: C, r: headerRow });
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Data");
+    const logoUrl = "https://i.ibb.co/jZ3pgnS/logo.webp";
+    const response = await fetch(logoUrl);
+    const arrayBuffer = await response.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
 
-      // if (!worksheet[address]) continue;
-      worksheet[address].s = {
-        font: { bold: true, color: { rgb: "#fff" } },
-        alignment: { horizontal: "center", vertical: "center" },
-        fill: { fgColor: { rgb: "#000" } },
-        border: {
-          top: { style: "thin" },
-          bottom: { style: "thin" },
-          left: { style: "thin" },
-          right: { style: "thin" },
-        },
-      };
+    const imageId = workbook.addImage({
+      buffer: uint8Array,
+      extension: "png",
+    });
+
+    // worksheet.addBackgroundImage(imageId);
+    // Add headers
+    const headers = [
+      "Serial No",
+      ...columnsheader
+        .filter((_, index) => visibleColumns[index])
+        .map((header) => header.name),
+    ];
+    worksheet.mergeCells(1, 1, 1, headers.length);
+    const titleCell = worksheet.getCell("A1");
+    titleCell.value = "Overview";
+    titleCell.font = { bold: true, size: 24, color: { argb: "#101010" } };
+    titleCell.alignment = { horizontal: "center", vertical: "middle" };
+    titleCell.fill = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: "#fafafa" },
+    };
+    worksheet.getRow(1).height = 80;
+    const imageWidth = 70;
+    const imageHeight = 70;
+    const cellWidth = worksheet.getColumn(1).width * 7.5; // Approximate width in pixels
+    const cellHeight = worksheet.getRow(1).height * 1.33; // Approximate height in pixels
+    const imageLeftOffset = (cellWidth - imageWidth) / 2;
+    const imageTopOffset = (cellHeight - imageHeight) / 2 - 30; // 30px spacing
+
+    worksheet.addImage(imageId, {
+      tl: { col: headers.length / 2 - 1, row: 0.2 },
+      ext: { width: imageWidth, height: imageHeight },
+    });
+
+    worksheet.addRow(headers);
+
+    // Add data rows
+    formattedData.forEach((row) => {
+      worksheet.addRow(Object.values(row));
+    });
+    if (showTotal) {
+      let calcTotal = [
+        "Total",
+        ...columnsheader
+          .filter((_, index) => visibleColumns[index])
+          .map((column, index) => {
+            if (column?.getTotal) {
+              return calculateTotalAmount(
+                column?.renderRowCell || column.key,
+                elxdata
+              );
+            } else {
+              return "";
+            }
+          }),
+      ];
+      worksheet.addRow(calcTotal);
     }
 
-    XLSX.writeFile(workbook, fileName);
+    // const titleRow=worksheet.getRow(1);
+    // titleRow.eachCell((cell) => {
+    //   cell.font = { bold: true, color: { argb: "FFFFFFFF" } };
+    //   cell.fill = {
+    //     type: "pattern",
+    //     pattern: "solid",
+    //     fgColor: { argb: "FF000000" },
+    //   };
+    //   cell.alignment = { horizontal: "center", vertical: "center" };
+    //   cell.border = {
+    //     top: { style: "thin" },
+    //     bottom: { style: "thin" },
+    //     left: { style: "thin" },
+    //     right: { style: "thin" },
+    //   };
+    // });
+    // Merge cells for the title
+
+    // Style header row
+    for (let index = 0; index <= elxdata.length; index++) {
+      const element = worksheet.getRow(index + 2);
+      element.getCell(1).border = {
+        top: { style: "none" },
+        bottom: { style: "none" },
+        left: { style: "thin" },
+        right: { style: "none" },
+      };
+      element.getCell(headers.length).border = {
+        top: { style: "none" },
+        bottom: { style: "none" },
+        left: { style: "none" },
+        right: { style: "thin" },
+      };
+    }
+    const headerRow = worksheet.getRow(2);
+    headerRow.eachCell((cell) => {
+      cell.font = { bold: true, color: { argb: "#100f0f" } };
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "#d9cabd" },
+      };
+      cell.alignment = { horizontal: "center", vertical: "center" };
+      cell.border = {
+        top: { style: "thin" },
+        bottom: { style: "thin" },
+        left: { style: "thin" },
+        right: { style: "thin" },
+      };
+    });
+    if (showTotal) {
+      const totalRow = worksheet.getRow(worksheet.rowCount);
+      totalRow.eachCell((cell) => {
+        cell.font = { bold: true, color: { argb: "#100f0f" } };
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "#d9cabd" },
+        };
+        cell.alignment = { horizontal: "center", vertical: "center" };
+        cell.border = {
+          top: { style: "none" },
+          bottom: { style: "none" },
+          left: { style: "none" },
+          right: { style: "none" },
+        };
+      });
+    }
+    //style border for the table view
+
+    const firstrow = worksheet.getRow(1);
+    firstrow.eachCell((cell) => {
+      cell.border = {
+        top: { style: "thin" },
+      };
+    });
+    firstrow.getCell(1).border = {
+      top: { style: "thin" },
+      bottom: { style: "none" },
+      left: { style: "thin" },
+      right: { style: "none" },
+    };
+    firstrow.getCell(headers.length).border = {
+      top: { style: "thin" },
+      bottom: { style: "none" },
+      left: { style: "none" },
+      right: { style: "thin" },
+    };
+
+    const lastRow = worksheet.getRow(worksheet.rowCount);
+    lastRow.eachCell((cell) => {
+      cell.border = {
+        top: { style: "none" },
+        bottom: { style: "thin" },
+        left: { style: "none" },
+        right: { style: "none" },
+      };
+    });
+    lastRow.getCell(1).border = {
+      top: { style: "none" },
+      bottom: { style: "thin" },
+      left: { style: "thin" },
+      right: { style: "none" },
+    };
+    lastRow.getCell(headers.length).border = {
+      top: { style: "none" },
+      bottom: { style: "thin" },
+      left: { style: "none" },
+      right: { style: "thin" },
+    };
+
+    // Adjust column widths
+    worksheet.columns.forEach((column) => {
+      column.width = column.values.reduce(
+        (maxWidth, value) => Math.max(maxWidth, value?.toString().length || 0),
+        10
+      );
+    });
+
+    const fileName = "data.xlsx";
+    const buffer = await workbook.xlsx.writeBuffer();
+
+    const blob = new Blob([buffer], { type: "application/octet-stream" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
   };
 
   return (
@@ -331,97 +531,25 @@ const TableToolkit = ({
           tableref={tableref}
           btnHtml={<button className="dropdown-btn">Column</button>}
         >
-          <div className="tableDropdownHead">
-            <h6>Edit column</h6>
-            <div className="flexCenter colGap8">
-              {dragFlag && (
-                <button
-                  className="btn sm btn-success"
-                  onClick={() => {
-                    handleSave();
-                  }}
-                >
-                  save
-                </button>
-              )}
-              <button
-                className={`btn sm ${dragFlag ? "btn-danger" : "btn-primary"}`}
-                onClick={() => setDragFlag(!dragFlag)}
-              >
-                {dragFlag ? "Cancel" : "Edit"}
-              </button>
-            </div>
-          </div>
-          <div className="tableDropdownContent"></div>
-          <div className={`form-check dt-toggle ${dragFlag ? "editui" : ""}`}>
-            {dragFlag && (
-              <>
-                <span>
-                  <p>:</p>
-                  <p>:</p>
-                  <p>:</p>
-                  <p>:</p>
-                </span>
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="flexSwitchCheckDefault"
-                  checked={visibleColumns?.some((column) => column)}
-                  onChange={(e) => {
-                    setVisibleColumns(
-                      visibleColumns?.map(() => e.target.checked)
-                    );
-                  }}
-                />
-              </>
-            )}
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckDefault"
-            >
-              Show/Hide All
-            </label>
-          </div>
-          <div className="container_drag" ref={containerRef}>
-            {columnsheader?.map((column, index) => (
-              <div
-                className={`form-check dt-toggle ${dragFlag ? "editui" : ""}`}
-                key={index}
-                draggable={dragFlag}
-                onDragStart={(e) => onDragStart(e, index)}
-                onDragOver={onDragOver}
-                onDrop={(e) => onDrop(e, index)}
-              >
-                {dragFlag && (
-                  <>
-                    <span>
-                      <p>:</p>
-                      <p>:</p>
-                      <p>:</p>
-                      <p>:</p>
-                    </span>
-                    <input
-                      className="form-check-input"
-                      id={`flexSwitchCheckDefault${index}`}
-                      type="checkbox"
-                      checked={visibleColumns?.[index]}
-                      onChange={() => toggleColumnVisibility(index)}
-                    />
-                  </>
-                )}
-                <label
-                  className="form-check-label"
-                  htmlFor={"flexSwitchCheckDefault" + index}
-                >
-                  {column.name}
-                </label>
-              </div>
-            ))}
-          </div>
+          <DropdownElement
+            handleSave={handleSave}
+            dragFlag={dragFlag}
+            visibleColumns={visibleColumns}
+            setVisibleColumns={setVisibleColumns}
+            onDragStart={onDragStart}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            toggleColumnVisibility={toggleColumnVisibility}
+            columnsheader={columnsheader}
+            containerRef={containerRef}
+            setDragFlag={setDragFlag}
+          />
         </Dropdown>
-        <button className="tool-btn" onClick={() => handleExport()}>
-          Export
-        </button>
+        {exportData() && (
+          <button className="tool-btn" onClick={() => handleExport()}>
+            Export
+          </button>
+        )}
         <Dropdown
           tableref={tableref}
           btnHtml={<button className="dropdown-btn">Saved Filter</button>}
@@ -493,5 +621,106 @@ const TableToolkit = ({
     </div>
   );
 };
+
+function DropdownElement({
+  setIsOpen,
+  handleSave,
+  dragFlag,
+  visibleColumns,
+  setVisibleColumns,
+  onDragStart,
+  onDrop,
+  onDragOver,
+  toggleColumnVisibility,
+  columnsheader,
+  containerRef,
+  setDragFlag,
+}) {
+  return (
+    <>
+      <div className="w-100 sb">
+        <div></div>
+        <div className="flex-row gap-2">
+          {dragFlag && (
+            <button
+              className="btn cmnbtn btn_sm btn-success"
+              onClick={() => handleSave(setIsOpen)}
+            >
+              save
+            </button>
+          )}
+          <button
+            className={`btn cmnbtn btn_sm ${
+              dragFlag ? "btn-danger" : "btn-primary"
+            }`}
+            onClick={() => setDragFlag(!dragFlag)}
+          >
+            {dragFlag ? "Cancel" : "Edit"}
+          </button>
+        </div>
+      </div>
+      <div className={`form-check dt-toggle ${dragFlag ? "editui" : ""}`}>
+        {dragFlag && (
+          <>
+            <span>
+              <p>:</p>
+              <p>:</p>
+              <p>:</p>
+              <p>:</p>
+            </span>
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="flexSwitchCheckDefault"
+              checked={visibleColumns?.some((column) => column)}
+              onChange={(e) => {
+                setVisibleColumns(visibleColumns?.map(() => e.target.checked));
+              }}
+            />
+          </>
+        )}
+        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+          Show/Hide All
+        </label>
+      </div>
+      <div className="container_drag" ref={containerRef}>
+        {columnsheader?.map((column, index) => (
+          <div
+            className={`form-check dt-toggle ${dragFlag ? "editui" : ""}`}
+            key={index}
+            draggable={dragFlag}
+            onDragStart={(e) => onDragStart(e, index)}
+            onDragOver={onDragOver}
+            onDrop={(e) => onDrop(e, index)}
+          >
+            {dragFlag && (
+              <>
+                <span>
+                  <p>:</p>
+                  <p>:</p>
+                  <p>:</p>
+                  <p>:</p>
+                </span>
+                <input
+                  className="form-check-input"
+                  id={`flexSwitchCheckDefault${index}`}
+                  type="checkbox"
+                  checked={visibleColumns?.[index]}
+                  onChange={() => toggleColumnVisibility(index)}
+                />
+              </>
+            )}
+            <label
+              className="form-check-label"
+              htmlFor={"flexSwitchCheckDefault" + index}
+            >
+              {column.name}
+            </label>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
 
 export default TableToolkit;

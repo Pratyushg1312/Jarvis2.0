@@ -10,6 +10,7 @@ import {
 } from "../../../Redux/Slices/SalesSlices/SalesStatusApi";
 import { useGetAllAccountQuery } from "../../../Redux/Slices/SalesSlices/SalesAccountApi";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
+import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
 
 const OutstandingOverview = () => {
   const [activeData, setActiveData] = useState([]);
@@ -17,7 +18,8 @@ const OutstandingOverview = () => {
   const token = GetDecodedToken();
   let loginUserId;
   const loginUserRole = token.role_id;
-  if (loginUserRole !== 1) {
+  const { data: userAuthData } = useGetUserAuthQuery(token.id);
+  if (userAuthData?.find((data) => data?._id == 64)?.view_value !== 1) {
     loginUserId = token.id;
   }
   const tabName = ["Account Outstanding", "Sales Executive Outstanding"];
@@ -41,29 +43,35 @@ const OutstandingOverview = () => {
     isError: userWiseStatusError,
   } = useGetUserWiseStatusQuery(loginUserId, { skip: loginUserRole !== 1 });
 
-
   useEffect(() => {
     if (accountWiseStatus) {
-      setActiveData(accountWiseStatus?.filter(data => (data?.total_purchase_amount - data?.approved_amount !== 0)));
+      setActiveData(
+        accountWiseStatus?.filter(
+          (data) => data?.total_purchase_amount - data?.approved_amount !== 0
+        )
+      );
     }
   }, [accountWiseStatusLoading]);
-
-
 
   const onTabClick = (index) => {
     setActiveTab(index);
   };
 
-
-
   useEffect(() => {
     if (activeTab === 0) {
-      setActiveData(accountWiseStatus?.filter(data => (data?.total_purchase_amount - data?.approved_amount !== 0)));
+      setActiveData(
+        accountWiseStatus?.filter(
+          (data) => data?.total_purchase_amount - data?.approved_amount !== 0
+        )
+      );
     } else {
-      setActiveData(userWiseStatus?.filter(data => (data?.total_purchase_amount - data?.approved_amount !== 0)));
+      setActiveData(
+        userWiseStatus?.filter(
+          (data) => data?.total_purchase_amount - data?.approved_amount !== 0
+        )
+      );
     }
   }, [activeTab]);
-
 
   const accountColumns = [
     {
@@ -77,9 +85,10 @@ const OutstandingOverview = () => {
       name: "Account Name",
       renderRowCell: (row) => (
         <Link
-          to={`/sales-account-info/${allAccountData?.find((data) => data?.account_id === row?.account_id)
-            ?._id
-            }`}
+          to={`/sales/account-info/${
+            allAccountData?.find((data) => data?.account_id === row?.account_id)
+              ?._id
+          }`}
         >
           {row.account_name}
         </Link>
@@ -169,14 +178,22 @@ const OutstandingOverview = () => {
       getTotal: true,
     },
   ];
+  const LinkButtons = [
+    {
+      type: "element",
+      access: [1],
+      element: (
+        <Tab
+          tabName={tabName}
+          activeTabindex={activeTab}
+          onTabClick={onTabClick}
+        />
+      ),
+    },
+  ];
   return (
     <div>
-      <FormContainer mainTitle={"Outstanding"} link={"true"} />
-      {loginUserRole === 1 && <Tab
-        tabName={tabName}
-        activeTabindex={activeTab}
-        onTabClick={onTabClick}
-      />}
+      <FormContainer mainTitle={"Outstanding"} LinkButtons={LinkButtons} />
       <View
         title={"Outstanding View"}
         columns={accountColumns}

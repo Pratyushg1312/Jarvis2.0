@@ -12,9 +12,11 @@ const SaleBookingApi = createApi({
     }),
 
     getAllSaleBooking: builder.query({
-      query: ({ loginUserId, stats }) =>
+      query: ({ loginUserId, stats, selectedCategory }) =>
         `sales/sales_booking${
-          loginUserId
+          selectedCategory != null
+            ? `?salesCategoryId=${selectedCategory}`
+            : loginUserId
             ? `?userId=${loginUserId}`
             : stats
             ? `?booking_status=${stats}`

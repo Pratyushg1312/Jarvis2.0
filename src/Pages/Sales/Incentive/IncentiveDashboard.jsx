@@ -9,14 +9,17 @@ import {
   Money,
 } from "@phosphor-icons/react";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
-import { useGetAllSalesUsersQuery, useGetIncentiveCalculationwiseQuery, useIncentiveCalculationDashboardMutation } from "../../../Redux/Slices/SalesSlices/UserIncentiveDashboardApi";
+import {
+  useGetAllSalesUsersQuery,
+  useGetIncentiveCalculationwiseQuery,
+  useIncentiveCalculationDashboardMutation,
+} from "../../../Redux/Slices/SalesSlices/UserIncentiveDashboardApi";
 import IncentiveRelease from "../../../Components/Sales/CommonComponent/Incentive/IncentiveRelease";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import { formatNumber } from "../../../Utils/formatNumber";
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 import View from "../../../Components/CommonComponent/View/View";
 import { toastError } from "../../../Utils/ToastUtil";
-
 
 const IncentiveDashboard = () => {
   const loginUserId = GetDecodedToken().id;
@@ -43,15 +46,15 @@ const IncentiveDashboard = () => {
     getcalulation,
     {
       data: IncentiveDashboardData,
-      error: incentiveCalculationDashboardError
-      , isLoading: incentiveCalculationDashboardLoading },
+      error: incentiveCalculationDashboardError,
+      isLoading: incentiveCalculationDashboardLoading,
+    },
   ] = useIncentiveCalculationDashboardMutation();
 
   const {
     data: incentiveCalculationData,
     isSuccess: incentiveCalculationSuccess,
-    isError: incentiveCalculationError
-
+    isError: incentiveCalculationError,
   } = useGetIncentiveCalculationwiseQuery();
   async function getData(bodyData) {
     if (!bodyData) {
@@ -79,8 +82,6 @@ const IncentiveDashboard = () => {
       setIsLoading(false); // Stop loading regardless of success or error
     }
   }
-
-
 
   async function getStatusWiseData() {
     setStatusWiseIsLoading(true); // Start loading
@@ -142,7 +143,6 @@ const IncentiveDashboard = () => {
   );
 
   const handleRelease = async (e, row) => {
-
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -181,9 +181,9 @@ const IncentiveDashboard = () => {
       renderRowCell: (row) => (
         <>
           <div
-            style={{ cursor: "pointer" }}
+            className="pointer colorPrimary"
             onClick={() =>
-              navigate(`/sales/user-incentve`, {
+              navigate(`/sales/user-incentive`, {
                 state: { id: row.user_id, name: "monthwise" },
               })
             }
@@ -200,9 +200,9 @@ const IncentiveDashboard = () => {
       renderRowCell: (row) => (
         <>
           <div
-            style={{ cursor: "pointer" }}
+            className="pointer colorPrimary"
             onClick={() =>
-              navigate(`/sales/user-incentve`, {
+              navigate(`/sales/user-incentive`, {
                 state: { id: row.user_id, name: "monthwise" },
               })
             }
@@ -220,9 +220,9 @@ const IncentiveDashboard = () => {
       renderRowCell: (row) => (
         <>
           <div
-            style={{ cursor: "pointer" }}
+            className="pointer colorPrimary"
             onClick={() =>
-              navigate(`/sales/user-incentve`, {
+              navigate(`/sales/user-incentive`, {
                 state: { id: row.user_id, name: "monthwise" },
               })
             }
@@ -238,9 +238,9 @@ const IncentiveDashboard = () => {
       renderRowCell: (row) => (
         <>
           <div
-            style={{ cursor: "pointer" }}
+            className="pointer colorPrimary"
             onClick={() =>
-              navigate(`/sales/sales-user-incentve`, {
+              navigate(`/sales/user-incentive`, {
                 state: { id: row.user_id, name: "monthwise" },
               })
             }
@@ -257,9 +257,9 @@ const IncentiveDashboard = () => {
       renderRowCell: (row) => (
         <>
           <div
-            style={{ cursor: "pointer" }}
+            className="pointer colorPrimary"
             onClick={() =>
-              navigate("/admin/incentive-status/earned", {
+              navigate("/sales/incentive-status/earned", {
                 state: {
                   name: "Earned",
                   id: row.user_id,
@@ -281,9 +281,9 @@ const IncentiveDashboard = () => {
       renderRowCell: (row) => (
         <>
           <div
-            style={{ cursor: "pointer" }}
+            className="pointer colorPrimary"
             onClick={() =>
-              navigate("/admin/incentive-status/earned", {
+              navigate("/sales/incentive-status/earned", {
                 state: {
                   name: "Unearned",
                   id: row.user_id,
@@ -309,8 +309,9 @@ const IncentiveDashboard = () => {
       name: "Incentive Requested Amount",
       renderRowCell: (row) => (
         <div
+          className="pointer colorPrimary"
           onClick={() =>
-            navigate("/admin/user-incenitve", {
+            navigate("/sales/user-incenitve", {
               state: {
                 id: row.user_id,
                 name: row.user_name,
@@ -429,7 +430,6 @@ const IncentiveDashboard = () => {
       </Modal>
 
       <FormContainer mainTitle={"Incentive Dashboard"} link={true} />
-
 
       <div className="row">
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">

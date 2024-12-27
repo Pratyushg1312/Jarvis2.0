@@ -11,7 +11,13 @@ import {
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import View from "../../../Components/CommonComponent/View/View";
-import { useGetIncentiveMonthWiseQuery, useGetReleaseButtonStatusQuery, useIncentiveCalculationDashboardMutation, useIncentiveReleaseMutation } from "../../../Redux/Slices/SalesSlices/UserIncentiveDashboardApi";
+import {
+  useGetAdjustmentQuery,
+  useGetIncentiveMonthWiseQuery,
+  useGetReleaseButtonStatusQuery,
+  useIncentiveCalculationDashboardMutation,
+  useIncentiveReleaseMutation,
+} from "../../../Redux/Slices/SalesSlices/UserIncentiveDashboardApi";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 
 const UserIncentive = () => {
@@ -37,16 +43,22 @@ const UserIncentive = () => {
   const [buttonView, setButtonView] = useState();
   const [disabledstate, setDisabledState] = useState(false);
 
+  const { data: monthWiseData, isLoading: isMonthWiseDataLoading } =
+    useGetIncentiveMonthWiseQuery(userData.id, {
+      skip: userData.name !== "monthwise",
+    });
 
-  const { data: monthWiseData, isLoading: isMonthWiseDataLoading } = useGetIncentiveMonthWiseQuery(userData.id, {
+  const { data: adjustmentData, isLoading: isAdjustmentDataLoading } =
+    useGetAdjustmentQuery(userData.id);
+
+  const [incentiveCalculationDashboard] =
+    useIncentiveCalculationDashboardMutation();
+  const {
+    data: releaseButtonConditionData,
+    isLoading: releaseButtonConditionLoading,
+  } = useGetReleaseButtonStatusQuery(userData.id, {
     skip: userData.name !== "monthwise",
   });
-
-  const [incentiveCalculationDashboard] = useIncentiveCalculationDashboardMutation();
-  const { data: releaseButtonConditionData, isLoading: releaseButtonConditionLoading } = useGetReleaseButtonStatusQuery(userData.id, {
-    skip: userData.name !== "monthwise",
-  });
-
 
   const [incentiveRelease] = useIncentiveReleaseMutation();
 
@@ -54,11 +66,11 @@ const UserIncentive = () => {
     const fetchData = async () => {
       if (userData.name === "monthwise") {
         try {
-          const incentiveCalcResponse = await incentiveCalculationDashboard({ userId: userData.id }).unwrap();
-
+          const incentiveCalcResponse = await incentiveCalculationDashboard({
+            userId: userData.id,
+          }).unwrap();
 
           setUserIncentiveData(incentiveCalcResponse.data[0]);
-
         } catch (error) {
           console.error("Error fetching incentive data:", error);
         }
@@ -94,16 +106,12 @@ const UserIncentive = () => {
     }
   }, [buttonView, userIncentiveData]);
 
-
-
   useEffect(() => {
-
     if (releaseButtonConditionData) {
       const count = Object.keys(releaseButtonConditionData)?.length;
       setButtonView(count);
     }
   }, [releaseButtonConditionData]);
-
 
   const handleRelease = async (e) => {
     e.preventDefault();
@@ -111,7 +119,8 @@ const UserIncentive = () => {
       await incentiveRelease({
         sales_executive_id: userData.id,
         created_by: loginUserId,
-        user_requested_amount: userIncentiveData?.totalIncentiveRequestPendingAmount || 0,
+        user_requested_amount:
+          userIncentiveData?.totalIncentiveRequestPendingAmount || 0,
       }).unwrap();
       toastAlert("Released Successfully");
     } catch (error) {
@@ -120,22 +129,26 @@ const UserIncentive = () => {
     }
   };
 
-  const LinkButtons = useMemo(() => [{
-    type: "button",
-    name: "Release",
-    onClick: () => handleRelease,
-    access: [1, 4],
-    title: () => {
-      return disabledstate &&
-        releaseButtonConditionData?.finance_status === "pending"
-        ? "Pending from finance side"
-        : ""
-    },
-    disabled: () => disabledstate,
-    color: "primary",
-    variant: "contained",
-  }], [releaseButtonConditionData, disabledstate]);
-
+  const LinkButtons = useMemo(
+    () => [
+      {
+        type: "button",
+        name: "Release",
+        onClick: () => handleRelease,
+        access: [1, 4],
+        title: () => {
+          return disabledstate &&
+            releaseButtonConditionData?.finance_status === "pending"
+            ? "Pending from finance side"
+            : "";
+        },
+        disabled: () => disabledstate,
+        color: "primary",
+        variant: "contained",
+      },
+    ],
+    [releaseButtonConditionData, disabledstate]
+  );
 
   const columns = [
     {
@@ -172,20 +185,20 @@ const UserIncentive = () => {
         width: 100,
         renderRowCell: (row) => (
           <div
-            className="hov-pointer"
+            className="pointer colorPrimary"
             onClick={() =>
-              Navigate("/admin/incentive-status/earned", {
+              Navigate("/sales/incentive-status/earned", {
                 state: {
                   name: "Earned",
                   id: userData.id,
-                  month: row.monthYear,
+                  month: row?.monthYear,
                   status: "earned",
                   flag: 0,
                 },
               })
             }
           >
-            {row.earnedIncentiveAmount.toFixed(2)}{" "}
+            {row?.earnedIncentiveAmount?.toFixed(2)}{" "}
           </div>
         ),
       },
@@ -193,19 +206,19 @@ const UserIncentive = () => {
         key: "incentiveAmount",
         name: "Incentive Amount",
         width: "100",
-        renderRowCell: (row) => row.incentiveAmount.toFixed(2),
+        renderRowCell: (row) => row?.incentiveAmount.toFixed(2),
       },
       {
         key: "paidAmount",
         name: "Paid Amount",
         width: "100",
-        renderRowCell: (row) => row.paidAmount.toFixed(2),
+        renderRowCell: (row) => row?.paidAmount.toFixed(2),
       },
       {
         key: "recordServiceAmount",
         name: "Record Service Amount",
         width: "100",
-        renderRowCell: (row) => row.recordServiceAmount,
+        renderRowCell: (row) => row?.recordServiceAmount,
       },
       {
         key: "totalDocuments",
@@ -219,13 +232,13 @@ const UserIncentive = () => {
         width: "100",
         renderRowCell: (row) => (
           <div
-            className="hov-pointer"
+            className="pointer colorPrimary"
             onClick={() =>
-              Navigate("/admin/incentive-status/un-earned", {
+              Navigate("/sales/incentive-status/un-earned", {
                 state: {
                   name: "Un-Earned",
                   id: userData.id,
-                  month: row.monthYear,
+                  month: row?.monthYear,
                   status: "un-earned",
                   flag: 0,
                 },
@@ -241,13 +254,14 @@ const UserIncentive = () => {
   }
   return (
     <>
-
-
-      <FormContainer mainTitle={"User Incentive"} link={true} LinkButtons={LinkButtons} />
-
+      <FormContainer
+        mainTitle={"User Incentive"}
+        link={true}
+        LinkButtons={LinkButtons}
+      />
 
       <div className="row mt24">
-        {loginUserRole === 1 &&
+        {loginUserRole === 1 && (
           <>
             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
               <div className="card">
@@ -282,7 +296,9 @@ const UserIncentive = () => {
                   </div>
                 </div>
               </div>
-            </div></>}
+            </div>
+          </>
+        )}
         <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
             <div className="card-body pb20 flexCenter colGap14">
@@ -300,25 +316,27 @@ const UserIncentive = () => {
             </div>
           </div>
         </div>
-        {loginUserRole === 1 && <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge bgSuccessLight m-0">
-                <span>
-                  <Scroll weight="duotone" />
-                </span>
-              </div>
-              <div>
-                <h6 className="colorMedium">Total Release Request</h6>
-                <h6 className="mt8 fs_16">
-                  {userIncentiveData?.totalIncentiveRequestedAmount.toFixed(
-                    2
-                  )}
-                </h6>
+        {loginUserRole === 1 && (
+          <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div className="card">
+              <div className="card-body pb20 flexCenter colGap14">
+                <div className="iconBadge bgSuccessLight m-0">
+                  <span>
+                    <Scroll weight="duotone" />
+                  </span>
+                </div>
+                <div>
+                  <h6 className="colorMedium">Total Release Request</h6>
+                  <h6 className="mt8 fs_16">
+                    {userIncentiveData?.totalIncentiveRequestedAmount.toFixed(
+                      2
+                    ) - (adjustmentData?.adjustment_incentive_amount || 0)}
+                  </h6>
+                </div>
               </div>
             </div>
           </div>
-        </div>}
+        )}
         <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
             <div className="card-body pb20 flexCenter colGap14">
@@ -338,23 +356,25 @@ const UserIncentive = () => {
             </div>
           </div>
         </div>
-        {loginUserRole === 1 && <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge bgWarningLight m-0">
-                <span>
-                  <CheckSquare weight="duotone" />
-                </span>
-              </div>
-              <div>
-                <h6 className="colorMedium">Total Release Completed</h6>
-                <h6 className="mt8 fs_16">
-                  {userIncentiveData?.totalIncentiveReleasedAmount.toFixed(2)}
-                </h6>
+        {loginUserRole === 1 && (
+          <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div className="card">
+              <div className="card-body pb20 flexCenter colGap14">
+                <div className="iconBadge bgWarningLight m-0">
+                  <span>
+                    <CheckSquare weight="duotone" />
+                  </span>
+                </div>
+                <div>
+                  <h6 className="colorMedium">Total Release Completed</h6>
+                  <h6 className="mt8 fs_16">
+                    {userIncentiveData?.totalIncentiveReleasedAmount.toFixed(2)}
+                  </h6>
+                </div>
               </div>
             </div>
           </div>
-        </div>}
+        )}
       </div>
 
       <View
@@ -365,10 +385,8 @@ const UserIncentive = () => {
         pagination
         isLoading={isMonthWiseDataLoading}
       />
-
     </>
   );
 };
-
 
 export default UserIncentive;

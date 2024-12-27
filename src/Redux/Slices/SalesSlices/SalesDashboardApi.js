@@ -11,10 +11,37 @@ const SalesDashboardApi = createApi({
       transformResponse: (response) => response.data,
     }),
 
+    getIncentiveSettelment: builder.query({
+      query: (loginUserId) =>
+        `sales/incentive_settlement_dashboard${
+          loginUserId ? `?userId=${loginUserId}` : ""
+        }`,
+      transformResponse: (response) => response.data.data,
+    }),
+
     getWeeklyMonthlyQuarterlyList: builder.query({
-      query: ({ userId, isAdmin }) =>
+      query: ({
+        userId,
+        isAdmin,
+        Cat_id,
+        startdate,
+        enddate,
+        laststartDate,
+        lastendDate,
+      }) =>
         `sales/weekly_monthly_quarterly_list?userId=${userId}&isAdmin=${
           isAdmin ? "true" : "false"
+        }${isAdmin && Cat_id ? `&sales_category_id=${Cat_id}` : ""}${
+          startdate
+            ? "&startOfMonth=" +
+              startdate +
+              "&endOfMonth=" +
+              enddate +
+              "&lastMonthStart=" +
+              laststartDate +
+              "&lastMonthEnd=" +
+              lastendDate
+            : ""
         }`,
       transformResponse: (response) => response.data,
     }),
@@ -38,6 +65,7 @@ const SalesDashboardApi = createApi({
 
 export const {
   useGetTop20AccountsQuery,
+  useGetIncentiveSettelmentQuery,
   useGetWeeklyMonthlyQuarterlyListQuery,
   useGetBadgesSalesBookingDataQuery,
   useGetSaleBookingGridStatusCountQuery,

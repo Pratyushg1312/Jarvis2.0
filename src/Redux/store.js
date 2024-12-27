@@ -36,6 +36,8 @@ import PreviousRouteReducer from "./Slices/BreadCrumbSlices/PreviousRoute";
 import InvoiceRequestApi from "./Slices/SalesSlices/InvoiceRequestApi";
 import UserIncentiveDashboardApi from "./Slices/SalesSlices/UserIncentiveDashboardApi";
 import CountryCodeApi from "./Slices/CountryCodeSlices/CountryCodeApi";
+import SalesCategoryApi from "./Slices/SalesSlices/salesCategoryApi";
+import OutstandingApi from "./Slices/FinanceSlices/OutstandingApi";
 
 const store = configureStore({
   reducer: {
@@ -75,6 +77,8 @@ const store = configureStore({
     [InvoiceRequestApi.reducerPath]: InvoiceRequestApi.reducer,
     [UserIncentiveDashboardApi.reducerPath]: UserIncentiveDashboardApi.reducer,
     [CountryCodeApi.reducerPath]: CountryCodeApi.reducer,
+    [SalesCategoryApi.reducerPath]: SalesCategoryApi.reducer,
+    [OutstandingApi.reducerPath]: OutstandingApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -111,7 +115,9 @@ const store = configureStore({
       .concat(SalesDashboardApi.middleware)
       .concat(InvoiceRequestApi.middleware)
       .concat(UserIncentiveDashboardApi.middleware)
-      .concat(CountryCodeApi.middleware),
+      .concat(CountryCodeApi.middleware)
+      .concat(SalesCategoryApi.middleware)
+      .concat(OutstandingApi.middleware),
 });
 setupListeners(store.dispatch);
 

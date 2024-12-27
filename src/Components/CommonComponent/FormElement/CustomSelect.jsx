@@ -4,7 +4,6 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 const CustomSelect = ({
-  children,
   fieldGrid = 4,
   label,
   dataArray = [],
@@ -16,6 +15,7 @@ const CustomSelect = ({
   disabled,
   multiple = false,
   filterOption,
+  children,
 }) => {
   const findOptionLabelById = (id) =>
     dataArray?.find((option) => option[optionId] === id)?.[optionLabel];
@@ -29,8 +29,8 @@ const CustomSelect = ({
 
   const valueProp = multiple
     ? selectedId?.map((id) =>
-      dataArray?.find((option) => option[optionId] === id)
-    )
+        dataArray?.find((option) => option[optionId] === id)
+      )
     : dataArray?.find((option) => option[optionId] === selectedId) || null;
 
   const handleChange = (event, selectedOptions) => {
@@ -53,17 +53,25 @@ const CustomSelect = ({
 
   const options = multiple ? [selectAllOption, ...dataArray] : dataArray;
 
-  const Wrapper = children ? FormGroup : React.Fragment;
+  const Wrapper = children ? "div" : React.Fragment;
+
   return (
-    <Wrapper>
+    <Wrapper className={children ? `form-group col-${fieldGrid}` : ""}>
+      {label && (
+        <label className="form-label">
+          {label} {required && <sup className="form-error">*</sup>}
+        </label>
+      )}
       <Autocomplete
         multiple={multiple}
         disableCloseOnSelect={multiple}
         options={options}
         value={valueProp}
         onChange={handleChange}
-        getOptionLabel={(option) => option[optionLabel]}
-        isOptionEqualToValue={(option, value) => option[optionId] === value[optionId]}
+        getOptionLabel={(option) => option[optionLabel] || ""}
+        isOptionEqualToValue={(option, value) =>
+          option[optionId] === value[optionId]
+        }
         disabled={disabled}
         filterOptions={filterOption ? filterOption : undefined}
         renderInput={(params) => (
@@ -71,7 +79,7 @@ const CustomSelect = ({
             {...params}
             label={label}
             required={required}
-            placeholder={`Search ${label}...`}
+            placeholder={`${label}...`}
             variant="outlined"
           />
         )}
@@ -81,7 +89,11 @@ const CustomSelect = ({
               <Checkbox
                 icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
                 checkedIcon={<CheckBoxIcon fontSize="small" />}
-                checked={selected || (option[optionId] === selectAllOption[optionId] && isAllSelected)}
+                checked={
+                  selected ||
+                  (option[optionId] === selectAllOption[optionId] &&
+                    isAllSelected)
+                }
               />
             )}
             {option[optionLabel]}
