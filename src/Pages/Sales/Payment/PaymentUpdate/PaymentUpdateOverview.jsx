@@ -109,10 +109,9 @@ const PaymentUpdateOverview = () => {
       name: "Customer Name",
       renderRowCell: (row) => (
         <Link
-          to={`/sales/account-info/${
-            allAccountData?.find((data) => data?.account_id === row.account_id)
+          to={`/sales/account-info/${allAccountData?.find((data) => data?.account_id === row.account_id)
               ?._id
-          }`}
+            }`}
         >
           {row.account_name}
         </Link>
@@ -230,6 +229,17 @@ const PaymentUpdateOverview = () => {
       width: 100,
     },
   ];
+  const LinkButtons = [
+    {
+      type: "element",
+      element: <Tab
+        tabName={tabName}
+        activeTabindex={activeTab}
+        onTabClick={onTabClick}
+      />,
+      access: [1, 2, 3, 4]
+    }
+  ];
 
   return (
     <div>
@@ -255,17 +265,12 @@ const PaymentUpdateOverview = () => {
         <div className="action_title">
           <FormContainer
             mainTitle="Payment Update"
-            link="/sales/create-payment-update/0"
-            buttonAccess={false}
-            submitButton={false}
+            LinkButtons={LinkButtons}
+
           />
         </div>
       </div>
-      <Tab
-        tabName={tabName}
-        activeTabindex={activeTab}
-        onTabClick={onTabClick}
-      />
+
       <View
         title={"Payment Update Overview"}
         columns={columns}

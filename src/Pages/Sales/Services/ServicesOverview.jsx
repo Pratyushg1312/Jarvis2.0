@@ -10,6 +10,7 @@ import Loader from "../../../Components/CommonComponent/Loader/Loader";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import Tab from "../../../Components/CommonComponent/Tab/Tab";
 import View from "../../../Components/CommonComponent/View/View";
+import { Button } from "@mui/material";
 
 const tabName = ["Active", "Inactive"];
 
@@ -97,24 +98,16 @@ const ServicesOverview = () => {
       renderRowCell: (row) => (
         <>
           <div className="flex-row gap-2">
-            <button
-              type="button"
-              className=" icon-1 "
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i className="fa-solid fa-ellipsis"></i>
-            </button>
-            <div className="dropdown-menu dropdown-menu-right">
-              <Link to={`/sales/create-sales-services/${row._id}/${"put"}`}>
-                <button className="dropdown-item ">Edit</button>
-              </Link>
 
-              <Link to={`/sales/create-sales-services/${row._id}/${post}`}>
-                <button className="dropdown-item ">Clone</button>
-              </Link>
-            </div>
+
+            <Link to={`/sales/create-sales-services/${row._id}/${"put"}`}>
+              <Button variant="contained" color="primary" className="dropdown-item ">Edit</Button>
+            </Link>
+
+            <Link to={`/sales/create-sales-services/${row._id}/${post}`}>
+              <Button variant="contained" color="primary" className="dropdown-item ">Clone</Button>
+            </Link>
+
             <DeleteButton
               endpoint="sales/delete_sale_service_master"
               id={row._id}

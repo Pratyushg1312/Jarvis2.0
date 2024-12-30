@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../Pages/Login/Login"; // Assuming the login page doesn't need lazy loading
 import ProtectedRoute from "./ProtectedRoute";
 import Loader from "../Components/CommonComponent/Loader/Loader";
+import PageNotFound from "../Components/CommonComponent/PageNotFound/PageNotFound";
 
 // Lazy-loaded route components
 const DummyRoute = lazy(() => import("./DummyRoute"));
@@ -17,6 +18,7 @@ const ExecutionRoute = lazy(() => import("./ExecutionRoute"));
 const CommunityRoute = lazy(() => import("./CommunityRoute"));
 
 const Router = () => {
+
   return (
     <BrowserRouter>
       <Suspense fallback={<Loader />}>
@@ -24,13 +26,14 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
 
           <Route
-            path="/*"
+            path="/"
             element={
               <ProtectedRoute>
                 <DummyRoute />
               </ProtectedRoute>
             }
           />
+          {/* UI Routes */}
           <Route
             path="ui/*"
             element={
@@ -39,6 +42,7 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
+          {/* Sales Routes */}
           <Route
             path="sales/*"
             element={
@@ -47,6 +51,7 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
+          {/* Finance Routes */}
           <Route
             path="finance/*"
             element={
@@ -55,6 +60,7 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
+          {/* User Routes */}
           <Route
             path="user/*"
             element={
@@ -63,6 +69,7 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
+          {/* Sarcasm Routes */}
           <Route
             path="sarcasm/*"
             element={
@@ -71,6 +78,7 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
+          {/* Operation Routes */}
           <Route
             path="operation/*"
             element={
@@ -79,6 +87,7 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
+          {/* Inventory Routes */}
           <Route
             path="inventory/*"
             element={
@@ -87,6 +96,7 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
+          {/* Execution Routes */}
           <Route
             path="execution/*"
             element={
@@ -95,6 +105,7 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
+          {/* Community Routes */}
           <Route
             path="community/*"
             element={
@@ -103,6 +114,10 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
+
+          {/* Page Not Found */}
+          <Route path="*" element={<PageNotFound />} />
+
         </Routes>
       </Suspense>
     </BrowserRouter>

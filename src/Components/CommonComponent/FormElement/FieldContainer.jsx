@@ -16,7 +16,7 @@ const FieldContainer = ({
   onChange,
   onBlur,
   onKeyUp,
-  required = true,
+  required = false,
   disabled = false,
   fieldGrid = 6,
   multiple,

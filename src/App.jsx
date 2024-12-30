@@ -5,20 +5,20 @@ import { useSelector } from "react-redux";
 
 import "./App.css";
 import Router from "./Routes/Router.jsx";
-import DummyPage from "./Pages/Dummy/DummyPage.jsx";
-import { Log } from "@phosphor-icons/react";
-import OfflinePage from "./Components/Sales/CommonComponent/OfflinePage/OfflinePage.jsx";
 
+import OfflinePage from "./Components/CommonComponent/OfflinePage/OfflinePage.jsx";
 function App() {
+
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+
   const {
     message = "",
     type = "success",
     show = false,
-  } = useSelector((state) => state.notification || {});
+  } = useSelector((state) => state.notification || {}); // Get notification state from Redux
   const checkbox = useRef(null);
 
-  useEffect(() => {
+  useEffect(() => { // Show toast notification
     if (show) {
       if (type === "success") {
         toast.success(message);
@@ -28,7 +28,7 @@ function App() {
     }
   }, [show, message, type]);
 
-  useEffect(() => {
+  useEffect(() => { // Event listener for online/offline status
     const handleOnline = () => {
       setIsOnline(true);
     };
@@ -44,6 +44,7 @@ function App() {
       }
     };
 
+
     const checkboxElement = checkbox?.current;
     checkboxElement?.addEventListener("change", handleCheckboxChange);
     window.addEventListener("online", handleOnline);
@@ -56,6 +57,8 @@ function App() {
       window.removeEventListener("offline", handleOffline);
     };
   }, []);
+
+
 
   return (
     <div className="app bodyWrapper">

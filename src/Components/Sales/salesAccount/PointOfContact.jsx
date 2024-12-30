@@ -1,6 +1,9 @@
 import React from "react";
 import Select from "react-select";
 import FieldContainer from "../../CommonComponent/FormElement/FieldContainer";
+import DynamicSelect from "../../CommonComponent/FormElement/DynamicSelect";
+import CustomSelect from "../../CommonComponent/FormElement/CustomSelect";
+import { Button } from "@mui/material";
 
 const PointOfContact = ({
   pocs,
@@ -200,62 +203,49 @@ const PointOfContact = ({
                 )}
               </div>
 
-              <div className="col-xl-4 col-lg-4 col-md-3 col-sm-3 flex-row gap-1 ">
-                <div className="col-9">
-                  <label className="mb-1">
-                    Department Name <sup style={{ color: "red" }}>*</sup>
-                  </label>
-                  <Select
-                    className=""
-                    placeholder="Select department"
-                    options={departments?.map((option) => ({
-                      value: option._id,
-                      label: option.department_name,
-                    }))}
-                    value={{
-                      value: poc.department,
-                      label:
-                        departments?.find((dept) => dept._id === poc.department)
-                          ?.department_name || "",
-                    }}
-                    onChange={(selectedOption) => {
-                      handlePocChange(
-                        index,
-                        "department",
-                        selectedOption.value
-                      );
-                      // setIsValidDepartment({
-                      //   ...isValidDepartment,
-                      //   [index]: {
-                      //     ...isValidDepartment[index],
-                      //     department: e.target.value,
-                      //   },
-                      // });
-                    }}
-                  // required
-                  />
-                  {isValidPoc[index]?.department === "" && (
-                    <div className="form-error">Please Enter Department</div>
-                  )}
-                </div>
-                {
-                  <div className="mt-1 flex-row gap-1">
-                    <button
+              <div className="col-xl-4 col-lg-4 col-md-3 col-sm-3">
+
+
+                <CustomSelect
+                  fieldGrid={12}
+                  required={true}
+                  label={"Select Department"}
+                  dataArray={departments}
+                  optionId={"_id"}
+                  optionLabel={"department_name"}
+                  selectedId={poc["department"]}
+                  setSelectedId={(value) => {
+                    handlePocChange(index, "department", value)
+                  }}
+
+                >
+                  <>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+
                       type="button"
                       className="btn cmnbtn btn_sm btn-primary mt-4"
                       onClick={() => openModal("addDepartment")}
                     >
                       +
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+
                       type="button"
                       className="btn cmnbtn btn_sm btn-primary mt-4"
                       onClick={() => openModal("viewDepartment")}
                     >
                       <i className="bi bi-eye" />
-                    </button>
-                  </div>
-                }
+                    </Button>
+                  </>
+                </CustomSelect>
+                {isValidPoc[index]?.department === "" && (
+                  <div className="form-error">Please Enter Department</div>
+                )}
+
               </div>
               <div className="col-4">
                 <FieldContainer
@@ -274,8 +264,23 @@ const PointOfContact = ({
                 {poc.social_platforms?.map((socialLink, linkIndex) => (
                   <div className="flex-row gap-1" key={linkIndex}>
                     <div className="col-4">
-                      <label className="mb-2">Platform</label>
-                      <Select
+                      <CustomSelect
+                        fieldGrid={12}
+                        label={"Select Platform"}
+                        dataArray={socialOptions}
+                        optionId={"value"}
+                        optionLabel={"label"}
+                        selectedId={socialLink.platform}
+                        setSelectedId={(value) => {
+                          handleSocialLinkChange(
+                            index,
+                            linkIndex,
+                            "platform",
+                            value
+                          );
+                        }}
+                      />
+                      {/* <Select
                         placeholder="Select platform"
                         options={getAvailableOptions(index, linkIndex)}
                         value={socialOptions.find(
@@ -289,7 +294,7 @@ const PointOfContact = ({
                             selectedOption.value
                           )
                         }
-                      />
+                      /> */}
                     </div>
                     <div className="col-4 mt-1">
                       <FieldContainer

@@ -11,6 +11,7 @@ import JarvisHeaders from "../Pages/UI/JarvisHeaders";
 const UIRoutes = () => {
   return (
     <Routes>
+      {/* Routes with Layout */}
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<UIPage />} />
         <Route path="jarvis-cards" element={<JarvisCards />} />
