@@ -281,12 +281,12 @@ const TableToolkit = ({
     worksheet.mergeCells(1, 1, 1, headers.length);
     const titleCell = worksheet.getCell("A1");
     titleCell.value = "Overview";
-    titleCell.font = { bold: true, size: 24, color: { argb: "#101010" } };
+    titleCell.font = { bold: true, size: 24, color: { argb: "101010" } };
     titleCell.alignment = { horizontal: "center", vertical: "middle" };
     titleCell.fill = {
       type: "pattern",
       pattern: "solid",
-      fgColor: { argb: "#fafafa" },
+      fgColor: { argb: "FAFAFA" },
     };
     worksheet.getRow(1).height = 80;
     const imageWidth = 70;
@@ -362,11 +362,11 @@ const TableToolkit = ({
     }
     const headerRow = worksheet.getRow(2);
     headerRow.eachCell((cell) => {
-      cell.font = { bold: true, color: { argb: "#100f0f" } };
+      cell.font = { bold: true, color: { argb: "100F0F" } };
       cell.fill = {
         type: "pattern",
         pattern: "solid",
-        fgColor: { argb: "#d9cabd" },
+        fgColor: { argb: "D9CABD" },
       };
       cell.alignment = { horizontal: "center", vertical: "center" };
       cell.border = {
@@ -379,11 +379,11 @@ const TableToolkit = ({
     if (showTotal) {
       const totalRow = worksheet.getRow(worksheet.rowCount);
       totalRow.eachCell((cell) => {
-        cell.font = { bold: true, color: { argb: "#100f0f" } };
+        cell.font = { bold: true, color: { argb: "100F0F" } };
         cell.fill = {
           type: "pattern",
           pattern: "solid",
-          fgColor: { argb: "#d9cabd" },
+          fgColor: { argb: "#D9CABD" },
         };
         cell.alignment = { horizontal: "center", vertical: "center" };
         cell.border = {
@@ -512,6 +512,7 @@ const TableToolkit = ({
                   }))
                 );
               }}
+              title="No"
             >
               No
             </button>
@@ -520,6 +521,7 @@ const TableToolkit = ({
               onClick={() => {
                 cloudInvader("");
               }}
+              title="Save"
             >
               Save
             </button>
@@ -529,7 +531,11 @@ const TableToolkit = ({
       <div className="button-wrapper">
         <Dropdown
           tableref={tableref}
-          btnHtml={<button className="dropdown-btn">Column</button>}
+          btnHtml={
+            <button className="dropdown-btn" title="column">
+              Column
+            </button>
+          }
         >
           <DropdownElement
             handleSave={handleSave}
@@ -546,13 +552,21 @@ const TableToolkit = ({
           />
         </Dropdown>
         {exportData() && (
-          <button className="tool-btn" onClick={() => handleExport()}>
+          <button
+            className="tool-btn"
+            onClick={() => handleExport()}
+            title="Export"
+          >
             Export
           </button>
         )}
         <Dropdown
           tableref={tableref}
-          btnHtml={<button className="dropdown-btn">Saved Filter</button>}
+          btnHtml={
+            <button className="dropdown-btn" title="Saved Filter">
+              Saved Filter
+            </button>
+          }
         >
           {filterList?.length === 0 && (
             <p>
@@ -582,6 +596,7 @@ const TableToolkit = ({
                   onClick={() => {
                     cloudInvader("delete", index);
                   }}
+                  title="Delete"
                 >
                   <i className="bi bi-trash"></i>
                 </button>
@@ -597,6 +612,7 @@ const TableToolkit = ({
               onClick={() => {
                 setModalOpen(true);
               }}
+              title="clear or Save Filter"
             >
               Clear/Save Filter
             </button>

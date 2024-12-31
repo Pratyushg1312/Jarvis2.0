@@ -84,7 +84,12 @@ const TopBar = () => {
       <div className="topBar">
         <div className="topBarLeft">
           <div className="brandLogo">
-            <img src="/assets/images/logo/logo.png" width={40} height={40} />
+            <img
+              src="/assets/images/logo/logo.png"
+              width={40}
+              height={40}
+              title="logo"
+            />
             <h3>
               Creative<span>fuel</span>
             </h3>
@@ -95,6 +100,7 @@ const TopBar = () => {
             <div className="navbarRight">
               <div className="themeToggle">
                 <button
+                  title="Theme"
                   className="iconBtn"
                   onClick={() => {
                     setToggleClass((prev) => {
@@ -133,8 +139,8 @@ const TopBar = () => {
 
               <div className="dropdown themeDropdown d-none">
                 <a
+                  title="Theme"
                   className="dropdown-toggle iconBtn"
-                  href="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"

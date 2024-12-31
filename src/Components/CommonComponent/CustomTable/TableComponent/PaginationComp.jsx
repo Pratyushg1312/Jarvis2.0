@@ -29,6 +29,7 @@ const PaginationComp = ({
                           </button>
                       ))} */}
             <button
+              title="previous"
               className="prev-button"
               onClick={() =>
                 setCurrentPage(currentPage > 1 ? currentPage - 1 : currentPage)
@@ -54,6 +55,7 @@ const PaginationComp = ({
             </button>
 
             <button
+              title="next"
               className="next-button"
               onClick={() =>
                 setCurrentPage(
