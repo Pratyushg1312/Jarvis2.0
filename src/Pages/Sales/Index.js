@@ -27,6 +27,7 @@ import IncentiveSettlement from "./Incentive/IncentiveSettlement";
 import DeletedSaleBooking from "./SalesBooking/DeletedSaleBooking";
 import EarnedAndUnearned from "./Incentive/EarnedAndUnearned";
 import AccountInfo from "./Account/AccountProfile/AccountInfo";
+import CreateSalesServices from "./Services/CreateSalesServices";
 
 export {
   SalesDashboard,
@@ -58,4 +59,5 @@ export {
   DeletedSaleBooking,
   EarnedAndUnearned,
   AccountInfo,
+  CreateSalesServices,
 };

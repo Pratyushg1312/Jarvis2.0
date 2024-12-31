@@ -11,11 +11,11 @@ const CustomSelect = ({
   optionLabel,
   selectedId,
   setSelectedId,
-  required,
   disabled,
   multiple = false,
   filterOption,
   children,
+  required = false,
 }) => {
   const findOptionLabelById = (id) =>
     dataArray?.find((option) => option[optionId] === id)?.[optionLabel];
@@ -29,8 +29,8 @@ const CustomSelect = ({
 
   const valueProp = multiple
     ? selectedId?.map((id) =>
-        dataArray?.find((option) => option[optionId] === id)
-      )
+      dataArray?.find((option) => option[optionId] === id)
+    )
     : dataArray?.find((option) => option[optionId] === selectedId) || null;
 
   const handleChange = (event, selectedOptions) => {
@@ -53,15 +53,10 @@ const CustomSelect = ({
 
   const options = multiple ? [selectAllOption, ...dataArray] : dataArray;
 
-  const Wrapper = children ? "div" : React.Fragment;
+  const Wrapper = children ? FormGroup : "div";
 
   return (
     <Wrapper className={children ? `form-group col-${fieldGrid}` : ""}>
-      {label && (
-        <label className="form-label">
-          {label} {required && <sup className="form-error">*</sup>}
-        </label>
-      )}
       <Autocomplete
         multiple={multiple}
         disableCloseOnSelect={multiple}

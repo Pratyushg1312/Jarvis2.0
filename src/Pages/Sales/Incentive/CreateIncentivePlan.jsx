@@ -12,6 +12,8 @@ import FormContainer from "../../../Components/CommonComponent/FormElement/FormC
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import Select from "react-select";
+import DynamicSelect from "../../../Components/CommonComponent/FormElement/DynamicSelect";
+import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 
 const CreateIncentivePlan = () => {
   const { id } = useParams();
@@ -117,47 +119,39 @@ const CreateIncentivePlan = () => {
         </div>
         <div className="card-body row">
           <div className="form-group col-4">
-            <label className="form-label">
-              Service Name <sup style={{ color: "red" }}>*</sup>
-            </label>
-            <Select
-              options={allSalesServiceData?.map((opt) => ({
-                value: opt._id,
-                label: opt.service_name,
-              }))}
-              value={{
-                value: servicename,
-                label:
-                  allSalesServiceData?.find((user) => user._id === servicename)
-                    ?.service_name || "",
-              }}
-              onChange={(e) => {
-                setServiceName(e.value);
+
+            <CustomSelect
+              label={"Service Name"}
+              dataArray={allSalesServiceData}
+              optionId={"_id"}
+              optionLabel={"service_name"}
+              selectedId={servicename}
+              setSelectedId={(value) => {
+                setServiceName(value);
                 setIsValid({ ...isValid, sales_service_master_id: false });
               }}
-              required
+              required={true}
+
             />
+
+
             {isValid.sales_service_master_id && (
               <span className="form-error">Service Name is Required</span>
             )}
           </div>
           <div className="form-group col-4">
-            <label className="form-label">
-              Incentive Type <sup style={{ color: "red" }}>*</sup>
-            </label>
-            <Select
-              options={IncentiveTypeData}
-              value={IncentiveTypeData.find(
-                (opt) => opt.value === incentiveType
-              )}
-              onChange={(e) => {
-                setIncentiveType(e.value);
-                setIsValid({
-                  ...isValid,
-                  incentive_type: false,
-                });
+
+            <CustomSelect
+              required={true}
+              label={"Incentive Type"}
+              dataArray={IncentiveTypeData}
+              optionId={"value"}
+              optionLabel={"label"}
+              selectedId={incentiveType}
+              setSelectedId={(value) => {
+                setIncentiveType(value);
+                setIsValid({ ...isValid, incentive_type: false });
               }}
-              required
             />
             {isValid.incentive_type && (
               <span className="form-error">Incentive Type is Required</span>

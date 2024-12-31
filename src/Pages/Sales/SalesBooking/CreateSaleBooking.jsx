@@ -36,6 +36,8 @@ import convertNumberToIndianString from "../../../Utils/convertNumberToIndianStr
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import { Button } from "@mui/material";
+import DynamicSelect from "../../../Components/CommonComponent/FormElement/DynamicSelect";
 
 const todayDate = new Date().toISOString().split("T")[0];
 
@@ -649,14 +651,16 @@ const CreateSaleBooking = () => {
   };
 
   const handlePaymentStatusSelect = (selectedOption) => {
-    setSelectedPaymentStatus(selectedOption);
+
+
+    setSelectedPaymentStatus(paymentStatusList.find(item => item.label == selectedOption));
     setIsValidate((prev) => ({ ...prev, selectedPaymentStatus: false }));
   };
 
   const handleReasonCreditApp = (selectedOption) => {
-    setSelectedCreditApp(selectedOption.value);
-    setSelectedReasonDays(selectedOption.days);
-    setSelectedReasonType(selectedOption.reasonType);
+    setSelectedCreditApp(selectedOption._id);
+    setSelectedReasonDays(selectedOption.day_count);
+    setSelectedReasonType(selectedOption.reason_type);
     setReasonCreditApproval("");
     setIsValidate((prev) => ({ ...prev, selectedCreditApp: false }));
     setIsValidate((prev) => ({ ...prev, balancePayDate: false }));
@@ -874,27 +878,7 @@ const CreateSaleBooking = () => {
               <h5 className="cardTitle">Create</h5>
             </div>
           </div>
-          <div className="card-body">
-            <div className="row">
-              {/* <div className="col-md-4 col-12">
-                <FieldContainer
-                  fieldGrid={4}
-                  astric
-                  label="Campaign Name"
-                  placeholder="Campaign Name"
-                  value={campaignName}
-                  onChange={(e) => setCampaignName(e.target.value)}
-                />
-              </div> */}
-              <div className="col-md-4 col-12"></div>
-              <div className="col-md-4 col-12"></div>
-              <div className="col-md-4 col-12"></div>
-              <div className="col-md-4 col-12"></div>
-            </div>
-          </div>
-        </div>
 
-        <div className="card">
           <div className="card-body row">
             <div className="col-4">
               <CustomSelect
@@ -934,12 +918,21 @@ const CreateSaleBooking = () => {
                   disabled={
                     (account_info?.state &&
                       account_info?.state?.account_data?.account_type_name !==
-                        "Agency") ||
+                      "Agency") ||
                     allAccounts?.find(
                       (item) => item?.account_id == selectedAccount
                     )?.account_type_name !== "Agency"
                   }
-                />
+                > <Button
+                  variant="outlined"
+                  color="primary"
+                  type="button"
+                  disabled={!selectedAccount}
+                  onClick={() => openModal("addBrand")}
+                >
+                    +
+                  </Button>
+                </CustomSelect>
 
                 {isValidate.selectedBrand && (
                   <div className="form-error">Please select a brand</div>
@@ -969,23 +962,26 @@ const CreateSaleBooking = () => {
                   setSelectedId={setCampaignName}
                   disabled={editId ? true : false}
                   required
-                />
+                >
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    title="edit"
+                    type="button"
+                    onClick={() =>
+                      openModal(editId ? "EditCampaign" : "CampaignModal")
+                    }
+                  >
+                    {editId ? <i className="bi bi-pencil" /> : "+"}
+                  </Button>
+                </CustomSelect>
                 {isValidate.campaignName && (
                   <div className="form-error">Please enter a campaign name</div>
                 )}
               </div>
               {
                 <div className="col-md-4 mt-2 flex-row gap-2">
-                  <button
-                    title="edit"
-                    type="button"
-                    className="btn cmn btn_sm btn btn-primary mt-4 "
-                    onClick={() =>
-                      openModal(editId ? "EditCampaign" : "CampaignModal")
-                    }
-                  >
-                    {editId ? <i className="bi bi-pencil" /> : "+"}
-                  </button>
+
                 </div>
               }
             </div>
@@ -1041,7 +1037,7 @@ const CreateSaleBooking = () => {
             <FieldContainer
               label="Sale Booking Date"
               fieldGrid={4}
-              astric={true}
+              required={true}
               type="date"
               value={bookingDate}
               max={todayDate}
@@ -1052,7 +1048,7 @@ const CreateSaleBooking = () => {
                 label="Base Amount"
                 fieldGrid={12}
                 placeholder="Enter amount here"
-                astric={true}
+                required={true}
                 type="number"
                 value={baseAmount}
                 onChange={(e) => {
@@ -1134,13 +1130,20 @@ const CreateSaleBooking = () => {
               <label className="form-label">
                 Payment Status <sup style={{ color: "red" }}>*</sup>
               </label>
-              <Select
+              <DynamicSelect
+                required={true}
+                data={paymentStatusList.map((item) => item.label)}
+
+                label={"Payment Status"}
+                onChange={(e) => handlePaymentStatusSelect(e)}
+                value={selectedPaymentStatus?.label}
+              />
+              {/* <Select
                 options={paymentStatusList}
                 value={selectedPaymentStatus}
                 onChange={handlePaymentStatusSelect}
                 required
-              />
-              {console.log(paymentStatusList, "kbsdhgca")}
+              /> */}
               {selectedPaymentStatus?.value == "self_credit_used" &&
                 netAmount > loginUserData?.user_credit_limit && (
                   <div className="d-flex flex-column">
@@ -1163,31 +1166,25 @@ const CreateSaleBooking = () => {
             {selectedPaymentStatus?.value === "self_credit_used" && (
               <>
                 <div className="form-group col-4">
-                  <label className="form-label">
-                    Payment Terms<sup style={{ color: "red" }}>*</sup>
-                  </label>
-                  <Select
-                    options={creditApprovalList?.map((option) => ({
-                      days: option.day_count,
-                      value: option._id,
-                      label: option.reason,
-                      reasonType: option.reason_type,
-                    }))}
-                    value={{
-                      value: selectedCreditApp,
-                      label:
-                        creditApprovalList?.find(
-                          (item) => item?._id == selectedCreditApp
-                        )?.reason || "",
-                    }}
-                    onChange={handleReasonCreditApp}
-                    required
+
+                  <DynamicSelect
+                    required={true}
+                    label={"Payment Terms"}
+                    data={creditApprovalList.map((item) => item.reason)}
+                    onChange={(value) => { handleReasonCreditApp(creditApprovalList.find((item) => item.reason == value)) }}
+                    value={creditApprovalList?.find(
+                      (item) => item._id == selectedCreditApp
+                    )?.reason}
+
                   />
+
+
                   {isValidate.selectedCreditApp && (
                     <div className="form-error">Please select a reason</div>
                   )}
                 </div>
-                {selectedReasonType === "own_reason" && (
+
+                {creditApprovalList?.find((opt) => opt._id == selectedCreditApp)?.reason_type == "own_reason" && (
                   <div className="col-4">
                     <FieldContainer
                       label="Reason Credit Approval"
@@ -1202,7 +1199,6 @@ const CreateSaleBooking = () => {
                         });
                       }}
                       required={selectedReasonType === "own_reason"}
-                      astric={selectedReasonType === "own_reason"}
                     />
                     {isValidate.reasonCreditApproval && (
                       <div className="form-error">Please enter a reason</div>
@@ -1226,7 +1222,6 @@ const CreateSaleBooking = () => {
                   }));
                 }}
                 required={selectedPaymentStatus?.value === "self_credit_used"}
-                astric={selectedPaymentStatus?.value === "self_credit_used"}
               />
               {isValidate.balancePayDate && (
                 <div className="form-error">
@@ -1250,7 +1245,6 @@ const CreateSaleBooking = () => {
                       });
                   }}
                   required={true}
-                  astric
                 />
                 {isValidate.excelFile && (
                   <div className="form-error">Please upload an excel file</div>

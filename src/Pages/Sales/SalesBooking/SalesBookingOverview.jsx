@@ -551,7 +551,7 @@ const SalesBookingOverview = () => {
       renderRowCell: (row) =>
         row.gst_amount > 0 ? (
           row?.campaign_amount == row?.invoice_requested_amount &&
-          "uploaded" == row?.invoice_request_status ? (
+            "uploaded" == row?.invoice_request_status ? (
             "Total Invoice Requested Amount Equals to Campaign Amount"
           ) : row.invoice_request_status !== "requested" ? (
             <>
@@ -1091,3 +1091,4 @@ const SalesBookingOverview = () => {
 };
 
 export default SalesBookingOverview;
+

@@ -5,6 +5,7 @@ import DummyPage from "../Pages/Dummy/DummyPage";
 const DummyRoute = () => {
   return (
     <Routes>
+      {/* Routes with Layout */}
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<DummyPage name={"Main Dashboard"} />} />
       </Route>

@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select";
 import FieldContainer from "../../CommonComponent/FormElement/FieldContainer";
+import DynamicSelect from "../../CommonComponent/FormElement/DynamicSelect";
 
 const SocialComponent = ({
   fields,
@@ -14,15 +15,24 @@ const SocialComponent = ({
       {fields.map((field, index) => (
         <div key={index} className="d-flex">
           <div className="col-4">
-            <label className="form-label"> Select Social</label>
-            <Select
+            <DynamicSelect
+              label={"Select Social"}
+              data={getAvailableOptions(index).map((option) => (option.label))}
+              value={field.platform?.label}
+              onChange={(selectedOption) =>
+                handlePlatformChange(index, getAvailableOptions(index).find((option) => option?.label === selectedOption))
+              }
+              placeholder="Select a platform"
+
+            />
+            {/* <Select
               value={field.platform}
               onChange={(selectedOption) =>
                 handlePlatformChange(index, selectedOption)
               }
               options={getAvailableOptions(index)}
               placeholder="Select a platform"
-            />
+            /> */}
           </div>
           <div className="col-4">
             <FieldContainer

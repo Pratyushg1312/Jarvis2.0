@@ -238,12 +238,52 @@ const CreatePaymentUpdate = () => {
       )?.campaign_amount - userdata?.requested_amount;
     if (campaignAmount > paymentAmount) {
       toastError(
-        `Payment amount should be less than or equal to ${
-          campaignAmount - userdata?.approved_amount
+        `Payment amount should be less than or equal to ${campaignAmount - userdata?.approved_amount
         } amount`
       );
     }
   }, [paymentAmount]);
+
+  const getSaleBookingOptions = () => {
+    return allSaleBookingData?.map((option) => ({
+      value: {
+        salebookID: option?.sale_booking_id,
+        accountID: option?.account_id,
+      },
+      label: `${allAccountData?.find(
+        (data) => data.account_id === option.account_id
+      )?.account_name
+        } | ${DateISOtoNormal(option?.sale_booking_date)} | ${option?.campaign_amount
+        }`,
+    }));
+  };
+
+  const getSaleBookingValue = () => {
+    return {
+      value: selectedSaleBooking,
+      label: saleBookingData?.find(
+        (item) =>
+          item?.sale_booking_id === selectedSaleBooking?.salebookID
+      )
+        ? `${accountData?.find(
+          (item) =>
+            item.account_id === selectedSaleBooking?.accountID
+        )?.account_name
+        } | ${DateISOtoNormal(
+          saleBookingData.find(
+            (item) =>
+              item.sale_booking_id ===
+              selectedSaleBooking?.salebookID
+          )?.sale_booking_date
+        )} | ${saleBookingData.find(
+          (item) =>
+            item.sale_booking_id ===
+            selectedSaleBooking?.salebookID
+        )?.campaign_amount
+        }`
+        : "",
+    };
+  };
 
   return (
     <div>
@@ -256,46 +296,11 @@ const CreatePaymentUpdate = () => {
         <div className="card-body row">
           <div className="form-group col-4">
             <label className="form-label">Sale Booking</label>
+            {console.log("selectedSaleBooking", selectedSaleBooking)
+            }
             <Select
-              options={allSaleBookingData?.map((option) => ({
-                value: {
-                  salebookID: option?.sale_booking_id,
-                  accountID: option?.account_id,
-                },
-                label: `${
-                  allAccountData?.find(
-                    (data) => data.account_id === option.account_id
-                  )?.account_name
-                } | ${DateISOtoNormal(option?.sale_booking_date)} | ${
-                  option?.campaign_amount
-                }`,
-              }))}
-              value={{
-                value: selectedSaleBooking,
-                label: saleBookingData?.find(
-                  (item) =>
-                    item?.sale_booking_id === selectedSaleBooking?.salebookID
-                )
-                  ? `${
-                      accountData?.find(
-                        (item) =>
-                          item.account_id === selectedSaleBooking?.accountID
-                      )?.account_name
-                    } | ${DateISOtoNormal(
-                      saleBookingData.find(
-                        (item) =>
-                          item.sale_booking_id ===
-                          selectedSaleBooking?.salebookID
-                      )?.sale_booking_date
-                    )} | ${
-                      saleBookingData.find(
-                        (item) =>
-                          item.sale_booking_id ===
-                          selectedSaleBooking?.salebookID
-                      )?.campaign_amount
-                    }`
-                  : "",
-              }}
+              options={getSaleBookingOptions()}
+              value={getSaleBookingValue()}
               onChange={(e) => {
                 setSelectedSaleBooking(e.value);
                 setIsValidated({ ...isValidates, salebookID: false });
@@ -348,11 +353,11 @@ const CreatePaymentUpdate = () => {
                       (item) =>
                         item.sale_booking_id === selectedSaleBooking?.salebookID
                     )?.campaign_amount -
-                      saleBookingData.find(
-                        (item) =>
-                          item.sale_booking_id ===
-                          selectedSaleBooking?.salebookID
-                      )?.requested_amount
+                    saleBookingData.find(
+                      (item) =>
+                        item.sale_booking_id ===
+                        selectedSaleBooking?.salebookID
+                    )?.requested_amount
                   );
                 }
               }}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { baseUrl } from "../Config";
 
 const isAuthenticated = () => {
   const token = sessionStorage.getItem("token");
@@ -20,8 +21,19 @@ const isAuthenticated = () => {
     }
   }
 };
+const isLiveServer = () => {
+
+  return baseUrl === baseUrl.includes("jarvis.work");
+
+};
+
+
+
 
 const ProtectedRoute = ({ children }) => {
+  console.log(children);
+
+
   return isAuthenticated() ? children : <Navigate to="/login" />;
 };
 
