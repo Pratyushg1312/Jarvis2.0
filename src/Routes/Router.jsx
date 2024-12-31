@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../Pages/Login/Login"; // Assuming the login page doesn't need lazy loading
 import ProtectedRoute from "./ProtectedRoute";
 import Loader from "../Components/CommonComponent/Loader/Loader";
@@ -18,13 +18,14 @@ const ExecutionRoute = lazy(() => import("./ExecutionRoute"));
 const CommunityRoute = lazy(() => import("./CommunityRoute"));
 
 const Router = () => {
-
   return (
     <BrowserRouter>
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/login" element={<Login />} />
-
+          <Route index element={<Navigate to="sales" replace={true} />} /> // It
+          redirects index to desired routing like dashboard or landing page of
+          modules . Use only if index is not in use.
           <Route
             path="/"
             element={
@@ -114,10 +115,8 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
-
           {/* Page Not Found */}
           <Route path="*" element={<PageNotFound />} />
-
         </Routes>
       </Suspense>
     </BrowserRouter>
