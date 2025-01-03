@@ -251,7 +251,7 @@ const JarvisCards = () => {
               <div className="cardAction">
                 <FormGroup>
                   <TextField variant="outlined" placeholder="Search" />
-                  <Button variant="contained">
+                  <Button variant="outlined">
                     <MagnifyingGlass />
                   </Button>
                 </FormGroup>

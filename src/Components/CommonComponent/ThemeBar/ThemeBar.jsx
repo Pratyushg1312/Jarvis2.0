@@ -75,7 +75,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
                   <input type="radio" name="theme-color" id="themePurple" />
                   <label htmlFor="themePurple" className="border-0">
                     <div className="themeBoxIn">
-                      <span className="themeColorPalette purple">
+                      <span className="themeColorPalette thm_blue">
                         <Check className="colorCheck" />
                       </span>
                     </div>
@@ -87,7 +87,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
                   <input type="radio" name="theme-color" id="themeBlue" />
                   <label htmlFor="themeBlue" className="border-0">
                     <div className="themeBoxIn">
-                      <span className="themeColorPalette blue">
+                      <span className="themeColorPalette thm_purple">
                         <Check className="colorCheck" />
                       </span>
                     </div>
@@ -99,7 +99,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
                   <input type="radio" name="theme-color" id="themeViolet" />
                   <label htmlFor="themeViolet" className="border-0">
                     <div className="themeBoxIn">
-                      <span className="themeColorPalette violet">
+                      <span className="themeColorPalette thm_navyblue">
                         <Check className="colorCheck" />
                       </span>
                     </div>
@@ -111,7 +111,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
                   <input type="radio" name="theme-color" id="themeGreen" />
                   <label htmlFor="themeGreen" className="border-0">
                     <div className="themeBoxIn">
-                      <span className="themeColorPalette green">
+                      <span className="themeColorPalette thm_green">
                         <Check className="colorCheck" />
                       </span>
                     </div>
@@ -123,7 +123,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
                   <input type="radio" name="theme-color" id="themeOrange" />
                   <label htmlFor="themeOrange" className="border-0">
                     <div className="themeBoxIn">
-                      <span className="themeColorPalette orange">
+                      <span className="themeColorPalette thm_orange">
                         <Check className="colorCheck" />
                       </span>
                     </div>

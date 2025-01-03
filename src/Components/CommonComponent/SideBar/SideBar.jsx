@@ -106,8 +106,8 @@ const SideBar = () => {
             className="side-bar-tooltip"
             style={{
               position: "fixed",
-              left: `${position[index]?.x}px`,
-              top: `${position[index]?.y}px`,
+              left: `${position[index]?.x-5}px`,
+              top: `${position[index]?.y-15}px`,
             }}
           >
             {node.querySelector("h5").innerText}
