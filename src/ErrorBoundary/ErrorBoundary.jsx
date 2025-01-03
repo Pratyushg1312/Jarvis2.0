@@ -27,6 +27,10 @@ const ErrorBoundary = ({ children }) => {
   }, []); // Empty dependency array means this effect runs only once (on mount)
 
   if (hasError) {
+    if (!sessionStorage.getItem("token")) {
+      window.location.href = "/login";
+      return <h1>Redirecting to login</h1>;
+    }
     return <h1>Something went wrong.</h1>;
   }
 

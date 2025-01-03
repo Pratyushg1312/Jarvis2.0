@@ -1,16 +1,16 @@
 .nav-item {
-    position: relative;
+  position: relative;
 }
 
 .hover-text {
-    display: none;
-    position: absolute;
-    right: -50px;
-    /* Adjust as needed */
-    top: 50%;
-    transform: translateY(-50%);
+  display: none;
+  position: absolute;
+  right: -50px;
+  /* Adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .nav-item:hover .hover-text {
-    display: block;
+  display: block;
 }

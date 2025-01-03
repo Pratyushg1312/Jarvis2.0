@@ -8,9 +8,33 @@ import Router from "./Routes/Router.jsx";
 
 import OfflinePage from "./Components/CommonComponent/OfflinePage/OfflinePage.jsx";
 function App() {
-
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
+  useEffect(() => {
+    // this code may cause vulnerability so please  inform pratyush  to reserch on it and i am adding this comment for my self
+
+    const handleGlobalClick = (event) => {
+      // Check if the user pressed Ctrl (Windows/Linux) or Meta (macOS) while clicking
+      if (event.ctrlKey || event.metaKey) {
+        localStorage.setItem("token", sessionStorage.getItem("token"));
+        setTimeout(() => {
+          localStorage.removeItem("token");
+        }, 10000);
+      }
+    };
+
+    // Add a global click event listener
+    document.addEventListener("click", handleGlobalClick);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("click", handleGlobalClick);
+    };
+  }, []);
+
+  if (localStorage.getItem("token")) {
+    sessionStorage.setItem("token", localStorage.getItem("token"));
+  }
   const {
     message = "",
     type = "success",
@@ -18,7 +42,8 @@ function App() {
   } = useSelector((state) => state.notification || {}); // Get notification state from Redux
   const checkbox = useRef(null);
 
-  useEffect(() => { // Show toast notification
+  useEffect(() => {
+    // Show toast notification
     if (show) {
       if (type === "success") {
         toast.success(message);
@@ -28,7 +53,8 @@ function App() {
     }
   }, [show, message, type]);
 
-  useEffect(() => { // Event listener for online/offline status
+  useEffect(() => {
+    // Event listener for online/offline status
     const handleOnline = () => {
       setIsOnline(true);
     };
@@ -44,7 +70,6 @@ function App() {
       }
     };
 
-
     const checkboxElement = checkbox?.current;
     checkboxElement?.addEventListener("change", handleCheckboxChange);
     window.addEventListener("online", handleOnline);
@@ -57,8 +82,6 @@ function App() {
       window.removeEventListener("offline", handleOffline);
     };
   }, []);
-
-
 
   return (
     <div className="app bodyWrapper">

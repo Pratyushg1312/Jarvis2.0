@@ -15,8 +15,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
-
-
+  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     user_login_id: "",
     user_login_password: "",
@@ -57,11 +56,6 @@ const Login = () => {
     }
   }
 
-  const [showPassword, setShowPassword] = useState(false);
-
-
-
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -96,6 +90,7 @@ const Login = () => {
                       <User />
                     </span>
                     <TextField
+                      type="text"
                       placeholder="Username"
                       required
                       variant="outlined"
@@ -154,7 +149,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-
     </>
   );
 };
