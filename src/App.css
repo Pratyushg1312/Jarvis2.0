@@ -49,7 +49,7 @@
   --whiteBg: #ffffff;
   --menuText: #454e66;
   --dark: #1f2d54;
-  --medium: #828aa3;
+  --medium: #707689;
   --light: #abafb1;
   --radiusXS: 3px;
   --radiusS: 6px;
@@ -60,6 +60,9 @@
   --cardShadow: 0 2px 7px 0 #9292a017;
   --dropdownShadow: 0 2px 7px 0 #9292a017;
   --iconBtnShadow: 0 2px 4px 0 #14142b0a;
+  --thm-blue: #3d73ff;
+  --thm-blue2: #384bf6;
+  --thm-blueLight: rgb(61 115 255 /20%);
   --thm-purple: #a523f6;
   --thm-purple2: #870bd4;
   --thm-purpleLight: rgb(165 35 246 /20%);
@@ -176,25 +179,31 @@ hr {
 }
 
 .row {
-  /* margin-right: calc(-0.4 * var(--bs-gutter-x)); */
-  /* margin-left: calc(-0.4 * var(--bs-gutter-x)); */
+  margin-right: calc(-0.4 * var(--bs-gutter-x));
+  margin-left: calc(-0.4 * var(--bs-gutter-x));
 }
 
 .row>* {
-  /* padding-right: calc(var(--bs-gutter-x) * 0.4); */
-  /* padding-left: calc(var(--bs-gutter-x) * 0.4); */
+  padding-right: calc(var(--bs-gutter-x) * 0.4);
+  padding-left: calc(var(--bs-gutter-x) * 0.4);
 }
 
 /* BADGE */
 
 .badge {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0px 3px;
+  color: var(--medium);
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 500;
+  padding: 6px 8px;
+  border-radius: var(--radiusL);
   background-color: var(--bodyBg);
   border: none;
-  color: var(--medium);
-  font-size: 10px;
-  line-height: 12px;
-  font-weight: 600;
-  padding: 4px 7px;
+  width: max-content;
 }
 
 .badge.primary {
@@ -300,7 +309,7 @@ hr {
   width: 38px;
   height: 38px;
   min-width: 38px !important;
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 .MuiButton-contained.MuiButton-colorPrimary,
@@ -608,7 +617,7 @@ hr {
 
   .MuiFormLabel-root {
     font-family: var(--bodyFont) !important;
-    color: var(--dark);
+    color: var(--medium);
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
@@ -742,6 +751,27 @@ select:-webkit-autofill:focus {
   .btn:nth-last-child(2) {
     border-radius: 0 !important;
   }
+}
+
+.MuiInputBase-input[type=file] {
+  position: relative;
+  padding: 0px 14px 0px 0px !important;
+  color: var(--medium) !important;
+  font-size: 14px !important;
+  height: 38px;
+}
+
+.MuiInputBase-input[type="file"]::file-selector-button {
+  background-color: transparent;
+  border: none;
+  border-right: 1px solid var(--inputBorder);
+  border-top: 1px solid var(--inputBorder);
+  border-radius: var(--radiusS) 0px 0px var(--radiusS);
+  color: var(--medium);
+  font-size: 14px;
+  line-height: 20px;
+  padding: 8px 14px;
+  margin-right: 10px;
 }
 
 /* DROPDOWN */
@@ -927,12 +957,12 @@ select:-webkit-autofill:focus {
     justify-content: space-between;
     height: max-content;
     background-color: transparent;
-    border-radius: var(--radiusS) var(--radiusS) 0 0;
+    border-radius: var(--radiusM) var(--radiusM) 0 0;
     border-bottom: none;
     width: 100%;
-    padding: 20px 20px 0px;
+    padding: 16px 20px 0px;
     gap: 8px;
-    min-height: 56px;
+    min-height: 52px;
 
     .cardHeading {
       width: 100%;
@@ -1102,7 +1132,7 @@ select:-webkit-autofill:focus {
   }
 
   .card-header:first-child {
-    border-radius: var(--radiusS) var(--radiusS) 0 0;
+    border-radius: var(--radiusM) var(--radiusM) 0 0;
   }
 
   .card-body {
@@ -1119,9 +1149,9 @@ select:-webkit-autofill:focus {
 
   .card-footer {
     background-color: transparent;
-    padding: 4px 20px 20px;
+    padding: 0px 20px 20px;
     border-top: 1px solid transparent;
-    border-radius: 0 0 var(--radiusS) var(--radiusS);
+    border-radius: 0 0 var(--radiusM) var(--radiusM);
     display: flex;
     align-items: center;
     gap: 0px 12px;
@@ -1138,13 +1168,13 @@ select:-webkit-autofill:focus {
 }
 
 .cardAccordion .MuiAccordion-rounded:last-of-type {
-  border-bottom-left-radius: var(--radiusS) !important;
-  border-bottom-right-radius: var(--radiusS) !important;
+  border-bottom-left-radius: var(--radiusM) !important;
+  border-bottom-right-radius: var(--radiusM) !important;
 }
 
 .cardAccordion .MuiAccordion-rounded:first-of-type {
-  border-bottom-left-radius: var(--radiusS) !important;
-  border-bottom-right-radius: var(--radiusS) !important;
+  border-bottom-left-radius: var(--radiusM) !important;
+  border-bottom-right-radius: var(--radiusM) !important;
 }
 
 .cardAccordion .MuiAccordionSummary-root {
@@ -3451,7 +3481,7 @@ i.bi {
   position: fixed;
   top: 0;
   left: 0;
-  /* z-index: 100; */
+  z-index: 100;
   width: 100%;
   height: 68px;
   padding: 15px 20px;
