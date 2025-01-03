@@ -208,7 +208,7 @@ const JarvisHeaders = () => {
         <div className="pageAction">
           <FormGroup>
             <TextField variant="outlined" placeholder="username" />
-            <Button color="primary" variant="contained">
+            <Button variant="outlined">
               <MagnifyingGlass />
             </Button>
           </FormGroup>

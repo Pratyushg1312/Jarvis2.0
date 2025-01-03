@@ -358,7 +358,7 @@ const SalesDashboard = () => {
               colorclassName="tertiary"
             />
           </div>
-          <div className="row mt20">
+          <div className="row">
             <MonthlyWeeklyCard
               data={weekMonthCard?.halfYearlyData}
               previousData={weekMonthCard?.lastHalfYearData}
@@ -421,7 +421,7 @@ const SalesDashboard = () => {
             <NavLink to="/sales/incentive-settlement-overview">
               <div className="card">
                 <div className="flexCenter flex-column rowGap12 p20">
-                  <div className="icon tertiary">
+                  <div className="icon info">
                     <Scroll />
                   </div>
                   <div>

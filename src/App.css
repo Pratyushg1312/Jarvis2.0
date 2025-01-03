@@ -1,68 +1,84 @@
 :root {
-  --link: #8833ff;
-  --primary: #8833ff;
-  --primaryLight: rgb(136 51 255 / 13%);
+  --primary: #3d73ff;
+  --primary2: #384bf6;
+  --primaryLight: rgb(61 115 255 /20%);
   --secondary: #ff6633;
-  --secondaryLight: rgb(255 102 51 / 13%);
-  --tertiary: #3361ff;
-  --tertiaryLight: rgb(51 97 255 /13%);
-  --border: #f0f0f2;
-  --borderDark: #dde1e9;
-  --bodyBg: #f7f8fa;
+  --secondary2: #f15b29;
+  --secondaryLight: rgb(255 102 51 /20%);
+  --bodyBg: #f7f8fc;
   --bodySubBg: #ffffff;
-  --sidebarBg: #f7f8fa;
+  --topbarBg: #ffffff;
+  --topbarSubBg: #ffffff;
+  --topbarShadow: 1px 0 3px 0 #14142b17;
+  --border: #e6e9f1;
+  --borderDark: #dce0e9;
+  --sidebarBg: #f7f8fc;
   --sidebarSubBg: #ffffff;
-  --sidebarBorder: #f0f0f2;
+  --sidebarBorder: #e6e9f1;
   --themebarBg: #ffffff;
-  --themebarSubBg: #f7f8fa;
-  --themebarBorder: #f0f0f2;
+  --themebarSubBg: #f7f8fc;
+  --themebarBorder: #e6e9f1;
   --cardBg: #ffffff;
   --cardSubBg: #ffffff;
-  --cardBorder: #f0f0f2;
+  --cardBorder: #e6e9f1;
   --inputBg: #ffffff;
   --inputSubBg: #ffffff;
-  --inputBorder: #eaedf3;
+  --inputBorder: #e6e9f1;
   --tableHeadBg: #f1f4fb;
   --tableSubBg: #f7f8fa;
   --tableStripBg: #f7f8fb;
   --dropdownBg: #ffffff;
   --dropdownSubBg: #ffffff;
-  --dropdownBorder: #f0f0f2;
+  --dropdownBorder: #e6e9f1;
   --loaderColor: #69f1f1;
   --loaderBg: #000000;
-  --success: #29cc39;
-  --successLight: rgb(41 204 57/ 10%);
-  --danger: #e62e2e;
-  --dangerLight: rgb(230 46 46 / 10%);
-  --warning: #ffbb33;
-  --warningLight: rgb(255 187 51 / 10%);
-  --info: #33bfff;
-  --infoLight: rgb(51 191 255 / 10%);
+  --success: #1bd82e;
+  --success2: #06c419;
+  --successLight: rgb(6 196 25 /20%);
+  --danger: #fc4b4b;
+  --danger2: #f42d2d;
+  --dangerLight: rgb(244 45 45 /20%);
+  --warning: #ffb933;
+  --warning2: #ffa73d;
+  --warningLight: rgb(255 167 61 /20%);
+  --info: #4ac6ff;
+  --info2: #379aff;
+  --infoLight: rgb(55 154 255 /20%);
   --white: #ffffff;
   --whiteText: #ffffff;
   --whiteBg: #ffffff;
-  --dark: #35373e;
-  --medium: #6b7a99;
+  --menuText: #454e66;
+  --dark: #1f2d54;
+  --medium: #828aa3;
   --light: #abafb1;
-  --radiusXS: 6px;
-  --radiusS: 8px;
-  --radiusM: 14px;
+  --radiusXS: 3px;
+  --radiusS: 6px;
+  --radiusM: 12px;
   --radiusL: 18px;
   --transition: all 0.2s ease-in-out;
-  --bodyFont: "Roboto", sans-serif;
-  --shadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
-  --cardShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
-  --dropdownShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
+  --bodyFont: "Inter", sans-serif;
+  --cardShadow: 0 2px 7px 0 #9292a017;
+  --dropdownShadow: 0 2px 7px 0 #9292a017;
+  --iconBtnShadow: 0 2px 4px 0 #14142b0a;
+  --thm-purple: #a523f6;
+  --thm-purple2: #870bd4;
+  --thm-purpleLight: rgb(165 35 246 /20%);
+  --thm-navyblue: #3b479d;
+  --thm-navyblue2: #293274;
+  --thm-navyblueLight: rgb(59 71 157 /20%);
+  --thm-green: #19d219;
+  --thm-green2: #0caf0c;
+  --thm-greenLight: rgb(25 210 25 /20%);
+  --thm-orange: #f4a734;
+  --thm-orange2: #f0831c;
+  --thm-orangeLight: rgb(244 167 52 /20%);
 }
 
 body[theme="dark"] {
-  --link: #ffffff;
   --primary: #8833ff;
   --primaryLight: rgb(136 51 255 / 10%);
   --secondary: #ff6633;
   --secondaryLight: rgb(255 102 51 / 10%);
-  --tertiary: #3361ff;
-  --tertiaryLight: rgb(51 97 255 /10%);
   --border: #2b2e35;
   --borderDark: #282a30;
   --bodyBg: #16171b;
@@ -101,7 +117,6 @@ body[theme="dark"] {
   --dark: #e6e6e6;
   --medium: #8f9297;
   --light: #748892;
-  --shadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
   --cardShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
   --dropdownShadow: 0px 2px 5px 0px rgba(38, 51, 77, 0.03);
 }
@@ -161,61 +176,55 @@ hr {
 }
 
 .row {
-  margin-right: calc(-0.4 * var(--bs-gutter-x));
-  margin-left: calc(-0.4 * var(--bs-gutter-x));
+  /* margin-right: calc(-0.4 * var(--bs-gutter-x)); */
+  /* margin-left: calc(-0.4 * var(--bs-gutter-x)); */
 }
 
-.row > * {
-  padding-right: calc(var(--bs-gutter-x) * 0.4);
-  padding-left: calc(var(--bs-gutter-x) * 0.4);
+.row>* {
+  /* padding-right: calc(var(--bs-gutter-x) * 0.4); */
+  /* padding-left: calc(var(--bs-gutter-x) * 0.4); */
 }
 
 /* BADGE */
 
 .badge {
   background-color: var(--bodyBg);
-  border: 1px solid var(--border);
+  border: none;
   color: var(--medium);
-  font-size: 11px;
+  font-size: 10px;
   line-height: 12px;
-  font-weight: 500;
-  padding: 5px 8px;
+  font-weight: 600;
+  padding: 4px 7px;
 }
 
 .badge.primary {
   color: var(--primary);
   background-color: var(--primaryLight);
-  border-color: var(--primaryLight);
 }
 
 .badge.secondary {
   color: var(--secondary);
   background-color: var(--secondaryLight);
-  border-color: var(--secondaryLight);
 }
 
 .badge.success {
   color: var(--success);
   background-color: var(--successLight);
-  border-color: var(--successLight);
 }
 
 .badge.danger {
   color: var(--danger);
   background-color: var(--dangerLight);
-  border-color: var(--dangerLight);
 }
 
 .badge.info {
   color: var(--info);
   background-color: var(--infoLight);
-  border-color: var(--infoLight);
 }
 
 .badge.warning {
   color: var(--warning);
   background-color: var(--warningLight);
-  border-color: var(--warningLight);
 }
 
 /* BUTTON */
@@ -230,11 +239,11 @@ hr {
   letter-spacing: 0.02rem !important;
   font-weight: 400 !important;
   text-transform: capitalize !important;
-  padding: 8px 26px !important;
+  padding: 6px 18px !important;
   border: 1px solid !important;
   border-radius: var(--radiusS) !important;
-  min-height: 46px;
-  gap: 0px 8px;
+  min-height: 38px;
+  gap: 0px 6px;
 
   .MuiButton-startIcon {
     margin-right: 0;
@@ -249,8 +258,7 @@ hr {
   }
 
   .badge {
-    background-color: rgb(255 255 255 / 30%);
-    border: 1px solid rgb(255 255 255 / 10%);
+    background-color: rgb(255 255 255 / 25%);
     color: currentColor;
   }
 }
@@ -270,15 +278,16 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
-  min-width: 46px !important;
+  width: 38px;
+  height: 38px;
+  min-width: 38px !important;
   border-radius: 100% !important;
   padding: 0px 0px !important;
-  font-size: 20px !important;
-  color: var(--medium) !important;
-  background-color: var(--bodySubBg) !important;
+  font-size: 18px !important;
+  color: var(--dark) !important;
+  background-color: var(--whiteBg) !important;
   border: 1px solid var(--border) !important;
+  box-shadow: none !important;
   transition: none;
 
   &:hover {
@@ -291,18 +300,18 @@ hr {
   width: 38px;
   height: 38px;
   min-width: 38px !important;
-  font-size: 16px !important;
+  font-size: 18px !important;
 }
 
 .MuiButton-contained.MuiButton-colorPrimary,
 .btn-primary {
-  background-color: var(--primary) !important;
-  border-color: var(--primary) !important;
+  background-image: linear-gradient(var(--primary), var(--primary2)) !important;
+  border-color: var(--primary2) !important;
   color: var(--whiteText) !important;
 
   &:hover {
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
+    background-image: linear-gradient(var(--primary), var(--primary2)) !important;
+    border-color: var(--primary2) !important;
     color: var(--whiteText) !important;
   }
 }
@@ -310,31 +319,30 @@ hr {
 .MuiButton-outlined.MuiButton-colorPrimary,
 .btn-outline-primary {
   background-color: transparent !important;
-  border-color: var(--primary) !important;
-  color: var(--primary) !important;
+  border-color: var(--primary2) !important;
+  color: var(--primary2) !important;
 
   .badge {
     background-color: var(--primaryLight);
-    color: var(--primary);
-    border-color: var(--primaryLight);
+    color: var(--primary2);
   }
 
   &:hover {
     background-color: transparent !important;
-    border-color: var(--primary) !important;
-    color: var(--primary) !important;
+    border-color: var(--primary2) !important;
+    color: var(--primary2) !important;
   }
 }
 
 .MuiButton-contained.MuiButton-colorSecondary,
 .btn-secondary {
-  background-color: var(--secondary) !important;
-  border-color: var(--secondary) !important;
+  background-image: linear-gradient(var(--secondary), var(--secondary2)) !important;
+  border-color: var(--secondary2) !important;
   color: var(--whiteText) !important;
 
   &:hover {
-    background-color: var(--secondary) !important;
-    border-color: var(--secondary) !important;
+    background-image: linear-gradient(var(--secondary), var(--secondary2)) !important;
+    border-color: var(--secondary2) !important;
     color: var(--whiteText) !important;
   }
 }
@@ -342,31 +350,31 @@ hr {
 .MuiButton-outlined.MuiButton-colorSecondary,
 .btn-outline-secondary {
   background-color: transparent !important;
-  border-color: var(--secondary) !important;
-  color: var(--secondary) !important;
+  border-color: var(--secondary2) !important;
+  color: var(--secondary2) !important;
 
   .badge {
     background-color: var(--secondaryLight);
-    color: var(--secondary);
-    border-color: var(--secondaryLight);
+    color: var(--secondary2);
   }
 
   &:hover {
     background-color: transparent !important;
-    border-color: var(--secondary) !important;
-    color: var(--secondary) !important;
+    border-color: var(--secondary2) !important;
+    color: var(--secondary2) !important;
   }
 }
 
+
 .MuiButton-contained.MuiButton-colorSuccess,
 .btn-success {
-  background-color: var(--success) !important;
-  border-color: var(--success) !important;
+  background-image: linear-gradient(var(--success), var(--success2)) !important;
+  border-color: var(--success2) !important;
   color: var(--whiteText) !important;
 
   &:hover {
-    background-color: var(--success) !important;
-    border-color: var(--success) !important;
+    background-image: linear-gradient(var(--success), var(--success2)) !important;
+    border-color: var(--success2) !important;
     color: var(--whiteText) !important;
   }
 }
@@ -374,31 +382,31 @@ hr {
 .MuiButton-outlined.MuiButton-colorSuccess,
 .btn-outline-success {
   background-color: transparent !important;
-  border-color: var(--success) !important;
-  color: var(--success) !important;
+  border-color: var(--success2) !important;
+  color: var(--success2) !important;
 
   .badge {
     background-color: var(--successLight);
-    color: var(--success);
-    border-color: var(--successLight);
+    color: var(--success2);
   }
 
   &:hover {
     background-color: transparent !important;
-    border-color: var(--success) !important;
-    color: var(--success) !important;
+    border-color: var(--success2) !important;
+    color: var(--success2) !important;
   }
 }
 
+
 .MuiButton-contained.MuiButton-colorError,
 .btn-danger {
-  background-color: var(--danger) !important;
-  border-color: var(--danger) !important;
+  background-image: linear-gradient(var(--danger), var(--danger2)) !important;
+  border-color: var(--danger2) !important;
   color: var(--whiteText) !important;
 
   &:hover {
-    background-color: var(--danger) !important;
-    border-color: var(--danger) !important;
+    background-image: linear-gradient(var(--danger), var(--danger2)) !important;
+    border-color: var(--danger2) !important;
     color: var(--whiteText) !important;
   }
 }
@@ -406,31 +414,30 @@ hr {
 .MuiButton-outlined.MuiButton-colorError,
 .btn-outline-danger {
   background-color: transparent !important;
-  border-color: var(--danger) !important;
-  color: var(--danger) !important;
+  border-color: var(--danger2) !important;
+  color: var(--danger2) !important;
 
   .badge {
     background-color: var(--dangerLight);
-    color: var(--danger);
-    border-color: var(--dangerLight);
+    color: var(--danger2);
   }
 
   &:hover {
     background-color: transparent !important;
-    border-color: var(--danger) !important;
-    color: var(--danger) !important;
+    border-color: var(--danger2) !important;
+    color: var(--danger2) !important;
   }
 }
 
 .MuiButton-contained.MuiButton-colorWarning,
 .btn-warning {
-  background-color: var(--warning) !important;
-  border-color: var(--warning) !important;
+  background-image: linear-gradient(var(--warning), var(--warning2)) !important;
+  border-color: var(--warning2) !important;
   color: var(--whiteText) !important;
 
   &:hover {
-    background-color: var(--warning) !important;
-    border-color: var(--warning) !important;
+    background-image: linear-gradient(var(--warning), var(--warning2)) !important;
+    border-color: var(--warning2) !important;
     color: var(--whiteText) !important;
   }
 }
@@ -438,31 +445,30 @@ hr {
 .MuiButton-outlined.MuiButton-colorWarning,
 .btn-outline-warning {
   background-color: transparent !important;
-  border-color: var(--warning) !important;
-  color: var(--warning) !important;
+  border-color: var(--warning2) !important;
+  color: var(--warning2) !important;
 
   .badge {
     background-color: var(--warningLight);
-    color: var(--warning);
-    border-color: var(--warningLight);
+    color: var(--warning2);
   }
 
   &:hover {
     background-color: transparent !important;
-    border-color: var(--warning) !important;
-    color: var(--warning) !important;
+    border-color: var(--warning2) !important;
+    color: var(--warning2) !important;
   }
 }
 
 .MuiButton-contained.MuiButton-colorInfo,
 .btn-info {
-  background-color: var(--info) !important;
-  border-color: var(--info) !important;
+  background-image: linear-gradient(var(--info), var(--info2)) !important;
+  border-color: var(--info2) !important;
   color: var(--whiteText) !important;
 
   &:hover {
-    background-color: var(--info) !important;
-    border-color: var(--info) !important;
+    background-image: linear-gradient(var(--info), var(--info2)) !important;
+    border-color: var(--info2) !important;
     color: var(--whiteText) !important;
   }
 }
@@ -470,19 +476,45 @@ hr {
 .MuiButton-outlined.MuiButton-colorInfo,
 .btn-outline-info {
   background-color: transparent !important;
-  border-color: var(--info) !important;
-  color: var(--info) !important;
+  border-color: var(--info2) !important;
+  color: var(--info2) !important;
 
   .badge {
     background-color: var(--infoLight);
-    color: var(--info);
-    border-color: var(--infoLight);
+    color: var(--info2);
   }
 
   &:hover {
     background-color: transparent !important;
-    border-color: var(--info) !important;
-    color: var(--info) !important;
+    border-color: var(--info2) !important;
+    color: var(--info2) !important;
+  }
+}
+
+
+.MuiButton-contained.MuiButton-colorWhite,
+.btn-white {
+  background-color: var(--whiteBg) !important;
+  border-color: var(--border) !important;
+  color: var(--dark) !important;
+
+  &:hover {
+    background-color: var(--whiteBg) !important;
+    border-color: var(--border) !important;
+    color: var(--dark) !important;
+  }
+}
+
+.MuiButton-outlined.MuiButton-colorWhite,
+.btn-outline-white {
+  background-color: transparent !important;
+  border-color: var(--whiteBg) !important;
+  color: var(--whiteText) !important;
+
+  &:hover {
+    background-color: transparent !important;
+    border-color: var(--whiteBg) !important;
+    color: var(--whiteText) !important;
   }
 }
 
@@ -493,7 +525,7 @@ hr {
 }
 
 .MuiTabs-root {
-  min-height: 46px !important;
+  min-height: 38px !important;
   position: relative;
   background-color: var(--cardBg);
   box-shadow: none;
@@ -513,20 +545,20 @@ hr {
       letter-spacing: 0;
       font-weight: 400;
       text-transform: capitalize;
-      padding: 8px 26px;
-      min-height: 46px;
+      padding: 6px 18px;
+      min-height: 38px;
       min-width: auto;
       border: none;
-      border-radius: var(--radiusXS);
+      border-radius: var(--radiusS);
       background-color: transparent;
       color: var(--medium);
       display: flex;
       align-items: center;
       flex-direction: row;
-      gap: 0px 8px;
+      gap: 0px 6px;
 
       &:hover {
-        color: var(--link);
+        color: var(--primary);
       }
 
       .MuiTouchRipple-root {
@@ -548,8 +580,7 @@ hr {
 
       .badge {
         font-weight: 500;
-        background-color: rgb(255 255 255 / 30%);
-        border: 1px solid rgb(255 255 255 / 10%);
+        background-color: rgb(255 255 255 / 25%);
         color: currentColor;
       }
     }
@@ -557,8 +588,9 @@ hr {
     span.MuiTabs-indicator {
       height: 100%;
       z-index: -1;
-      background-color: var(--primary);
       border-radius: var(--radiusS);
+      background-image: linear-gradient(var(--primary), var(--primary2)) !important;
+
     }
   }
 }
@@ -576,7 +608,7 @@ hr {
 
   .MuiFormLabel-root {
     font-family: var(--bodyFont) !important;
-    color: var(--medium);
+    color: var(--dark);
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
@@ -621,7 +653,7 @@ hr {
     border: 1px solid var(--inputBorder);
     border-radius: var(--radiusS);
     outline: none;
-    height: 46px;
+    height: 38px;
     margin-bottom: 16px;
 
     &:hover {
@@ -688,9 +720,9 @@ select:-webkit-autofill:focus {
   .btn {
     padding: 0px 0px !important;
     font-size: 18px !important;
-    min-width: 46px;
-    width: 46px;
-    height: 46px;
+    min-width: 38px;
+    width: 38px;
+    height: 38px;
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     background-color: var(--inputBg) !important;
@@ -721,15 +753,17 @@ select:-webkit-autofill:focus {
   background-color: var(--dropdownBg);
   border: 1px solid var(--dropdownBorder);
   box-shadow: var(--dropdownShadow);
-  border-radius: var(--radiusS);
+  border-radius: var(--radiusM);
+
 
   .dropdown-item {
+    font-family: var(--bodyFont) !important;
     color: var(--medium);
-    font-size: 13.8px;
+    font-size: 13.5px;
     line-height: 20px;
     font-weight: 400;
     padding: 8px 14px;
-    border-radius: var(--radiusXS);
+    border-radius: var(--radiusS);
     display: flex;
     align-items: center;
     gap: 0px 6px;
@@ -743,7 +777,7 @@ select:-webkit-autofill:focus {
 
     &:hover {
       background-color: var(--primaryLight);
-      color: var(--link);
+      color: var(--primary);
     }
   }
 }
@@ -755,18 +789,19 @@ select:-webkit-autofill:focus {
   background-color: var(--dropdownBg);
   border: 1px solid var(--dropdownBorder);
   box-shadow: var(--dropdownShadow);
-  border-radius: var(--radiusS);
+  border-radius: var(--radiusM);
 
   .MuiList-root {
     padding: 0;
 
     .MuiButtonBase-root.MuiMenuItem-root {
+      font-family: var(--bodyFont) !important;
       color: var(--medium);
-      font-size: 13.8px;
+      font-size: 13.5px;
       line-height: 20px;
       font-weight: 400;
       padding: 8px 14px;
-      border-radius: var(--radiusXS);
+      border-radius: var(--radiusS);
       display: flex;
       align-items: center;
       gap: 0px 6px;
@@ -774,7 +809,7 @@ select:-webkit-autofill:focus {
 
       &:hover {
         background-color: var(--primaryLight);
-        color: var(--link);
+        color: var(--primary);
       }
     }
   }
@@ -801,8 +836,7 @@ select:-webkit-autofill:focus {
   width: auto !important;
   height: auto !important;
 
-  .MuiPickersCalendarHeader-root {
-  }
+  .MuiPickersCalendarHeader-root {}
 
   .MuiPickersDay-root.Mui-selected {
     color: var(--whiteText);
@@ -865,7 +899,7 @@ select:-webkit-autofill:focus {
 
         &:hover {
           background-color: var(--primaryLight);
-          color: var(--link);
+          color: var(--primary);
         }
       }
     }
@@ -883,8 +917,8 @@ select:-webkit-autofill:focus {
   background-color: var(--cardBg);
   background-clip: border-box;
   border: 1px solid var(--cardBorder);
-  box-shadow: none;
-  border-radius: var(--radiusS);
+  box-shadow: var(--cardShadow);
+  border-radius: var(--radiusM);
   margin-bottom: 24px;
 
   .card-header {
@@ -896,9 +930,9 @@ select:-webkit-autofill:focus {
     border-radius: var(--radiusS) var(--radiusS) 0 0;
     border-bottom: none;
     width: 100%;
-    padding: 12px 20px 0px;
+    padding: 20px 20px 0px;
     gap: 8px;
-    min-height: 50px;
+    min-height: 56px;
 
     .cardHeading {
       width: 100%;
@@ -939,25 +973,18 @@ select:-webkit-autofill:focus {
 
       .MuiButton-root,
       .btn {
-        border-radius: var(--radiusXS) !important;
         font-size: 13px !important;
         line-height: 20px !important;
         letter-spacing: 0rem !important;
-        padding: 6px 16px !important;
-        min-height: 38px;
+        min-height: 36px;
       }
 
       .iconBtn {
-        font-size: 18px !important;
+        font-size: 16px !important;
         padding: 0px 0px !important;
-        width: 38px !important;
-        height: 38px !important;
-        min-width: 38px !important;
-        min-height: 38px !important;
-        box-shadow: none !important;
-        background-color: var(--bodySubBg) !important;
-        border: 1px solid var(--border) !important;
-        border-radius: 100% !important;
+        width: 36px;
+        height: 36px;
+        min-width: 36px !important;
       }
 
       .dropdown-toggle {
@@ -973,9 +1000,8 @@ select:-webkit-autofill:focus {
       }
 
       .MuiTabs-root {
-        min-height: 38px !important;
+        min-height: 36px !important;
         position: relative;
-        background-color: transparent;
         box-shadow: none;
         border-radius: var(--radiusXS);
 
@@ -990,7 +1016,7 @@ select:-webkit-autofill:focus {
             font-weight: 400;
             text-transform: capitalize;
             padding: 6px 16px;
-            min-height: 38px;
+            min-height: 36px;
 
             .badge {
               font-size: 11px;
@@ -1010,7 +1036,7 @@ select:-webkit-autofill:focus {
           }
 
           span.MuiTabs-indicator {
-            border-radius: var(--radiusXS);
+            border-radius: var(--radiusS);
           }
         }
       }
@@ -1048,9 +1074,8 @@ select:-webkit-autofill:focus {
         }
 
         & .MuiInputBase-root {
-          height: 38px;
+          height: 36px;
           margin: 0;
-          border-radius: var(--radiusXS);
 
           .MuiInputBase-input {
             padding: 6px 12px;
@@ -1061,13 +1086,14 @@ select:-webkit-autofill:focus {
       }
 
       .MuiFormGroup-root {
+
         .MuiButton-root,
         .btn {
           padding: 0px 0px !important;
           font-size: 18px !important;
-          min-width: 38px;
-          width: 38px;
-          height: 38px;
+          min-width: 36px;
+          width: 36px;
+          height: 36px;
           border-top-left-radius: 0 !important;
           border-bottom-left-radius: 0 !important;
         }
@@ -1082,7 +1108,7 @@ select:-webkit-autofill:focus {
   .card-body {
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 16px 20px 4px;
+    padding: 20px 20px 4px;
     width: 100%;
 
     .card {
@@ -1156,14 +1182,12 @@ h5,
 h6 {
   margin: 0;
   padding: 0;
-  font-weight: 400;
   color: var(--dark);
 }
 
 p {
   margin: 0;
   padding: 0;
-  font-weight: 400;
   color: var(--medium);
 }
 
@@ -1179,42 +1203,43 @@ a,
 a:hover,
 a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
+  color: inherit;
   text-decoration: none;
 }
 
 h1,
 .h1 {
-  font-size: 1.5rem;
+  font-size: 22px;
 }
 
 h2,
 .h2 {
-  font-size: 1.375rem;
+  font-size: 20px;
 }
 
 h3,
 .h3 {
-  font-size: 1.25rem;
+  font-size: 18px;
 }
 
 h4,
 .h4 {
-  font-size: 1.1rem;
+  font-size: 16px;
 }
 
 h5,
 .h5 {
-  font-size: 1rem;
+  font-size: 15px;
 }
 
 h6,
 .h6 {
-  font-size: 0.885rem;
+  font-size: 14px;
 }
 
 p,
 .p {
-  font-size: 0.855rem;
+  font-size: 14px;
   line-height: 1.3;
 }
 
@@ -2522,10 +2547,6 @@ small,
   color: var(--secondary) !important;
 }
 
-.colorTertiary {
-  color: var(--tertiary) !important;
-}
-
 .colorSuccess {
   color: var(--success) !important;
 }
@@ -2567,10 +2588,6 @@ small,
   background-color: var(--secondary);
 }
 
-.bgTertiary {
-  background-color: var(--tertiary);
-}
-
 .bgBody {
   background-color: var(--bodyBg);
 }
@@ -2609,25 +2626,24 @@ small,
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
-  min-width: 46px;
-  min-height: 46px;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
   border-radius: var(--radiusS);
   font-size: 20px;
   color: var(--medium);
   background-color: var(--bodyBg);
-  border: 1px solid var(--border);
   transition: var(--transition);
 }
 
 .icon.large {
-  width: 56px;
-  height: 56px;
-  min-width: 56px;
-  min-height: 56px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   border-radius: var(--radiusS);
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .icon.small {
@@ -2642,43 +2658,31 @@ small,
 .icon.primary {
   color: var(--primary);
   background-color: var(--primaryLight);
-  border-color: var(--primaryLight);
 }
 
 .icon.secondary {
   color: var(--secondary);
   background-color: var(--secondaryLight);
-  border-color: var(--secondaryLight);
-}
-
-.icon.tertiary {
-  color: var(--tertiary);
-  background-color: var(--tertiaryLight);
-  border-color: var(--tertiaryLight);
 }
 
 .icon.success {
   color: var(--success);
   background-color: var(--successLight);
-  border-color: var(--successLight);
 }
 
 .icon.danger {
   color: var(--danger);
   background-color: var(--dangerLight);
-  border-color: var(--dangerLight);
 }
 
 .icon.warning {
   color: var(--warning);
   background-color: var(--warningLight);
-  border-color: var(--warningLight);
 }
 
 .icon.info {
   color: var(--info);
   background-color: var(--infoLight);
-  border-color: var(--infoLight);
 }
 
 .growthBadge {
@@ -2687,13 +2691,13 @@ small,
   align-items: center;
   gap: 0px 3px;
   color: var(--medium);
-  font-size: 11px;
-  line-height: 10px;
+  font-size: 12px;
+  line-height: 12px;
   font-weight: 500;
-  padding: 5px 7px 5px 5px;
-  border-radius: var(--radiusXS);
-  background-color: var(--cardBg);
-  border: 1px solid var(--border);
+  padding: 6px 8px;
+  border-radius: var(--radiusS);
+  background-color: var(--bodyBg);
+  border: none;
   width: max-content;
 
   span {
@@ -2709,7 +2713,7 @@ small,
     display: inline-block;
     font-family: bootstrap-icons !important;
     color: currentColor;
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: normal !important;
     font-variant: normal;
@@ -2819,8 +2823,9 @@ i.bi {
   .authFormBox {
     position: relative;
     background-color: var(--cardBg);
+    border: 1px solid var(--cardBorder);
     box-shadow: var(--cardShadow);
-    border-radius: var(--radiusS);
+    border-radius: var(--radiusM);
     max-width: 420px;
     width: 420px;
     padding: 40px 40px;
@@ -2867,8 +2872,8 @@ i.bi {
         margin-bottom: 16px;
 
         .authFormIcon {
-          width: 46px;
-          height: 46px;
+          width: 38px;
+          height: 38px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -2937,11 +2942,9 @@ i.bi {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    243deg,
-    rgb(100 169 242 / 10%) 0%,
-    rgb(109 84 248 / 10%) 100%
-  );
+  background: linear-gradient(243deg,
+      rgb(100 169 242 / 10%) 0%,
+      rgb(109 84 248 / 10%) 100%);
   display: none;
 }
 
@@ -2951,28 +2954,29 @@ i.bi {
   .dropdown-toggle {
     display: flex;
     align-items: center;
-    gap: 0px 8px;
+    gap: 0px 4px;
 
     &::after {
       display: none;
     }
 
     .MuiAvatar-root {
-      width: 46px;
-      height: 46px;
+      width: 38px;
+      height: 38px;
       border: 1px solid var(--border);
     }
 
     h4 {
       color: var(--dark);
-      font-size: 15px;
+      font-size: 13px;
       line-height: 16px;
       display: flex;
       flex-direction: column;
 
       span {
         color: var(--medium);
-        font-size: 80%;
+        font-size: 11px;
+        line-height: 16px;
         font-weight: 400;
       }
     }
@@ -2998,8 +3002,8 @@ i.bi {
     }
 
     .MuiAvatar-root {
-      width: 46px;
-      height: 46px;
+      width: 38px;
+      height: 38px;
       border: 1px solid var(--border);
     }
 
@@ -3031,8 +3035,8 @@ i.bi {
 
 .sidebarToggle {
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -3044,26 +3048,32 @@ i.bi {
   right: 0;
   transform: translate(50%, -50%);
   transition: transform 0.2s ease-in-out;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 
   .toggle-sidebar-label {
     position: relative;
     cursor: pointer;
-    min-width: 24px;
-    min-height: 24px;
-    width: 24px;
-    height: 24px;
+    min-width: 22px;
+    min-height: 22px;
+    width: 22px;
+    height: 22px;
     border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--dark);
-    font-size: 14px;
+    font-size: 13px;
     transition: var(--transition);
 
     &:hover {
-      color: var(--link);
+      color: var(--primary);
     }
   }
+}
+
+.sideBar:hover .sidebarToggle {
+  opacity: 1;
 }
 
 .sidebarActive .sidebarToggle {
@@ -3073,32 +3083,32 @@ i.bi {
 .sideBar {
   position: fixed;
   z-index: 100;
-  top: 90px;
+  top: 68px;
   left: 0;
-  width: 90px;
+  width: 70px;
   height: 100vh;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 68px);
   background-color: var(--sidebarBg);
   border-right: 1px solid var(--borderDark);
   transition: width 0.2s ease-in-out;
 }
 
 .sidebarActive .sideBar {
-  width: 300px;
+  width: 260px;
 }
 
 .sideBarIn {
   height: 100%;
-  padding: 25px 15px;
+  padding: 20px 10px;
   transition: padding 0.2s ease-in-out;
 }
 
 .sidebarActive .sideBarIn {
-  padding: 25px 30px;
+  padding: 20px 20px;
 }
 
-.toggle-sidebar-checkbox:checked ~ .sideBar {
-  width: 300px;
+.toggle-sidebar-checkbox:checked~.sideBar {
+  width: 260px;
 }
 
 .brandLogo {
@@ -3108,17 +3118,18 @@ i.bi {
   gap: 0px 8px;
 
   img {
-    min-width: 46px;
-    min-height: 46px;
-    width: 46px;
-    height: 46px;
+    min-width: 38px;
+    min-height: 38px;
+    width: 38px;
+    height: 38px;
     object-fit: scale-down;
   }
 
   h3 {
     color: var(--dark);
     font-weight: 500;
-    font-size: 24px;
+    font-size: 22px;
+    line-height: 28px;
 
     span {
       font-weight: 400;
@@ -3155,7 +3166,7 @@ i.bi {
     padding: 0;
     margin: 0;
     align-items: center;
-    gap: 16px 0px;
+    gap: 14px 0px;
 
     .nav-item {
       position: inherit;
@@ -3168,7 +3179,7 @@ i.bi {
         align-items: center;
         text-align: center;
         gap: 0px;
-        padding: 4px 4px;
+        padding: 2px 2px;
         margin: 0;
         color: var(--medium);
         background-color: transparent;
@@ -3179,12 +3190,12 @@ i.bi {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 50px;
-          height: 50px;
-          min-width: 50px;
-          min-height: 50px;
+          width: 40px;
+          height: 40px;
+          min-width: 40px;
+          min-height: 40px;
           border-radius: 100%;
-          font-size: 24px;
+          font-size: 22px;
           color: var(--medium);
           background-color: var(--sidebarSubBg);
           border: 1px solid var(--sidebarBorder);
@@ -3254,13 +3265,14 @@ i.bi {
 .sidebarActive .sidebarMenu {
   & .navbar-nav {
     align-items: flex-start;
-    gap: 16px 0px;
+    gap: 14px 0px;
 
     & .nav-item {
       width: 100%;
 
       .nav-link {
         flex-direction: row;
+        padding: 2px 6px;
         background-color: var(--sidebarSubBg);
         border-color: transparent;
         box-shadow: none;
@@ -3291,7 +3303,7 @@ i.bi {
 
         &:hover {
           background-color: var(--sidebarSubBg);
-          border-color: var(--sidebarSubBg);
+          border-color: var(--sidebarBorder);
 
           i {
             background-color: transparent;
@@ -3410,7 +3422,7 @@ i.bi {
 }
 
 .pageWrapper {
-  padding: 90px 0px 0px 0px;
+  padding: 68px 0px 0px 0px;
   display: flex;
   justify-content: start;
   align-items: start;
@@ -3419,35 +3431,39 @@ i.bi {
   min-height: 100vh;
   transition: all 0.3s ease-in-out;
   position: relative;
-  /* z-index: 90; */
+  z-index: 90;
 }
 
 .pageBody {
-  margin-left: 90px;
-  width: calc(100% - 90px);
-  min-height: calc(100vh - 90px);
-  padding: 30px 30px 6px;
+  margin-left: 70px;
+  width: calc(100% - 70px);
+  min-height: calc(100vh - 0px);
+  padding: 22px 25px 0px;
   transition: var(--transition);
 }
 
 .sidebarActive .pageBody {
-  margin-left: 300px;
-  width: calc(100% - 300px);
+  margin-left: 260px;
+  width: calc(100% - 260px);
 }
 
 .topBar {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
+  /* z-index: 100; */
   width: 100%;
-  height: 90px;
-  padding: 20px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--bodyBg);
-  border-bottom: 1px solid var(--borderDark);
+  height: 68px;
+  padding: 15px 20px;
+  background-color: var(--topbarBg);
+  /* box-shadow: var(--topbarShadow); */
+  border-bottom: 1px solid var(--border);
+
+  .topBarIn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   .navbar-collapse {
     display: block;
@@ -3467,23 +3483,27 @@ i.bi {
   .navbarRight {
     display: flex;
     align-items: center;
-    gap: 0px 14px;
+    gap: 0px 12px;
+
+    .iconBtn {
+      /* box-shadow: var(--whiteShadowOne); */
+    }
   }
 
   .navSearch {
     display: flex;
     align-items: center;
     background-color: var(--cardBg);
-    border: 1px solid var(--cardBorder);
-    box-shadow: none;
-    padding: 0px 6px 0px 16px;
+    border: 1px solid var(--border);
+    box-shadow: var(--whiteShadowOne);
+    padding: 0px 0px 0px 12px;
     border-radius: 60px;
-    height: 46px;
-    min-width: 300px;
+    height: 38px;
+    width: 240px;
 
     span {
-      font-size: 22px;
-      line-height: 22px;
+      font-size: 18px;
+      line-height: 18px;
       color: var(--medium);
     }
 
@@ -3492,11 +3512,11 @@ i.bi {
       outline: none;
       background: transparent;
       border: none;
-      color: var(--medium);
-      font-size: 14px;
-      line-height: 18px;
+      color: var(--dark);
+      font-size: 13px;
+      line-height: 16px;
       font-weight: 400;
-      padding: 6px 8px;
+      padding: 0px 6px;
 
       &::placeholder {
         color: var(--light);
@@ -3508,7 +3528,7 @@ i.bi {
 
 .theme-switch {
   position: relative;
-  height: 46px;
+  height: 38px;
 
   #theme-toggle {
     visibility: hidden;
@@ -3517,7 +3537,7 @@ i.bi {
     left: 0;
   }
 
-  #theme-toggle + label {
+  #theme-toggle+label {
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -3525,7 +3545,7 @@ i.bi {
     overflow: hidden;
   }
 
-  #theme-toggle + label i {
+  #theme-toggle+label i {
     width: 24px;
     height: 24px;
     display: flex;
@@ -3536,17 +3556,17 @@ i.bi {
     transition: var(--transition);
   }
 
-  #theme-toggle + label i:first-child {
+  #theme-toggle+label i:first-child {
     top: 50%;
     transform: translate(-50%, -50%);
   }
 
-  #theme-toggle + label i:last-child {
+  #theme-toggle+label i:last-child {
     top: 0%;
     transform: translate(-50%, -100%);
   }
 
-  #theme-toggle:checked ~ label {
+  #theme-toggle:checked~label {
     overflow: hidden;
 
     i:first-child {
@@ -3558,11 +3578,6 @@ i.bi {
       top: 50%;
       transform: translate(-50%, -50%);
     }
-  }
-
-  .theme-sw.iconBtn {
-    background-color: var(--cardBg) !important;
-    border: 1px solid var(--cardBorder) !important;
   }
 }
 
@@ -3578,7 +3593,7 @@ i.bi {
   width: 380px;
   height: calc(100vh - 0px);
   background-color: var(--themebarBg);
-  border-left: 1px solid var(--borderDark);
+  border-left: 1px solid var(--themebarBorder);
   transition: width 0.2s ease-in-out;
   transition: right 0.2s ease-in-out;
 
@@ -3586,9 +3601,9 @@ i.bi {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 25px 20px;
-    height: 90px;
-    border-bottom: 1px solid var(--borderDark);
+    padding: 10px 20px;
+    height: 68px;
+    border-bottom: 1px solid var(--themebarBorder);
 
     .themeBarTitle {
       display: flex;
@@ -3602,16 +3617,7 @@ i.bi {
       gap: 0px 12px;
 
       .iconBtn {
-        font-size: 18px !important;
-        padding: 0px 0px !important;
-        width: 38px !important;
-        height: 38px !important;
-        min-width: 38px !important;
-        min-height: 38px !important;
-        box-shadow: none !important;
-        background-color: var(--bodyBg) !important;
-        border: 1px solid var(--border) !important;
-        border-radius: 100% !important;
+        background-color: var(--themebarSubBg) !important;
       }
     }
   }
@@ -3631,7 +3637,7 @@ i.bi {
       ul {
         display: flex;
         align-items: center;
-        gap: 0px 20px;
+        gap: 0px 16px;
 
         li {
           .themeBox {
@@ -3647,12 +3653,15 @@ i.bi {
 
             label {
               box-shadow: 0px 0px 0px 1px var(--border);
-              border-radius: 4px;
+              border-radius: var(--radiusS);
               cursor: pointer;
             }
 
-            input[type="radio"]:checked ~ label {
-              box-shadow: 0px 0px 0px 1px var(--primary);
+            label.border-0 {
+              box-shadow: none;
+            }
+
+            input[type="radio"]:checked~label {
 
               .colorCheck {
                 opacity: 1;
@@ -3660,8 +3669,8 @@ i.bi {
             }
 
             .themeBoxIn {
-              min-width: 50px;
-              min-height: 50px;
+              min-width: 40px;
+              min-height: 40px;
               display: flex;
               align-items: center;
               justify-content: center;
@@ -3670,16 +3679,18 @@ i.bi {
 
               i {
                 min-width: 100px;
+                min-height: 50px;
+                line-height: 50px;
                 text-align: center;
               }
 
               .themeColorPalette {
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border-radius: 4px;
+                border-radius: var(--radiusS);
                 color: var(--whiteText);
 
                 .colorCheck {
@@ -3687,24 +3698,24 @@ i.bi {
                 }
               }
 
-              .themeColorPalette.purple {
-                background-color: var(--primary);
+              .themeColorPalette.thm_blue {
+                background-image: linear-gradient(var(--primary), var(--primary2)) !important;
               }
 
-              .themeColorPalette.blue {
-                background-color: #2986ce;
+              .themeColorPalette.thm_purple {
+                background-image: linear-gradient(var(--thm-purple), var(--thm-purple2)) !important;
               }
 
-              .themeColorPalette.violet {
-                background-color: #b64f79;
+              .themeColorPalette.thm_navyblue {
+                background-image: linear-gradient(var(--thm-navyblue), var(--thm-navyblue2)) !important;
               }
 
-              .themeColorPalette.green {
-                background-color: #5ca177;
+              .themeColorPalette.thm_green {
+                background-image: linear-gradient(var(--thm-green), var(--thm-green2)) !important;
               }
 
-              .themeColorPalette.orange {
-                background-color: #e1983d;
+              .themeColorPalette.thm_orange {
+                background-image: linear-gradient(var(--thm-orange), var(--thm-orange2)) !important;
               }
 
               img {
@@ -3717,6 +3728,7 @@ i.bi {
 
           p {
             padding: 4px 0px 0px;
+            font-size: 13px;
           }
         }
       }
@@ -3732,7 +3744,7 @@ i.bi {
 
 .theme-switch {
   position: relative;
-  height: 46px;
+  height: 38px;
 
   #theme-toggle {
     visibility: hidden;
@@ -3741,7 +3753,7 @@ i.bi {
     left: 0;
   }
 
-  #theme-toggle + label {
+  #theme-toggle+label {
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -3749,7 +3761,7 @@ i.bi {
     overflow: hidden;
   }
 
-  #theme-toggle + label i {
+  #theme-toggle+label i {
     width: 24px;
     height: 24px;
     display: flex;
@@ -3760,17 +3772,17 @@ i.bi {
     transition: var(--transition);
   }
 
-  #theme-toggle + label i:first-child {
+  #theme-toggle+label i:first-child {
     top: 50%;
     transform: translate(-50%, -50%);
   }
 
-  #theme-toggle + label i:last-child {
+  #theme-toggle+label i:last-child {
     top: 0%;
     transform: translate(-50%, -100%);
   }
 
-  #theme-toggle:checked ~ label {
+  #theme-toggle:checked~label {
     overflow: hidden;
 
     i:first-child {
@@ -3782,11 +3794,6 @@ i.bi {
       top: 50%;
       transform: translate(-50%, -50%);
     }
-  }
-
-  .theme-sw.iconBtn {
-    background-color: var(--cardBg) !important;
-    border: 1px solid var(--cardBorder) !important;
   }
 }
 
@@ -3806,11 +3813,12 @@ i.bi {
   .pageTitle {
     display: flex;
     flex-direction: column;
+    gap: 2px 0px;
 
     h2 {
       color: var(--dark);
-      font-size: 17px;
-      line-height: 22px;
+      font-size: 16px;
+      line-height: 24px;
       font-weight: 500;
     }
 
@@ -3829,6 +3837,7 @@ i.bi {
           font-weight: 400;
           list-style: none;
           text-decoration: none;
+          text-transform: capitalize;
           padding: 0;
           margin: 0;
         }
@@ -3847,25 +3856,18 @@ i.bi {
 
     .MuiButton-root,
     .btn {
-      border-radius: var(--radiusXS) !important;
       font-size: 13px !important;
       line-height: 20px !important;
       letter-spacing: 0rem !important;
-      padding: 6px 16px !important;
-      min-height: 38px;
+      min-height: 36px;
     }
 
     .iconBtn {
-      font-size: 18px !important;
+      font-size: 16px !important;
       padding: 0px 0px !important;
-      width: 38px !important;
-      height: 38px !important;
-      min-width: 38px !important;
-      min-height: 38px !important;
-      box-shadow: none !important;
-      background-color: var(--bodySubBg) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 100% !important;
+      width: 36px;
+      height: 36px;
+      min-width: 36px !important;
     }
 
     .dropdown-toggle {
@@ -3881,11 +3883,9 @@ i.bi {
     }
 
     .MuiTabs-root {
-      min-height: 38px !important;
+      min-height: 36px !important;
       position: relative;
-      background-color: transparent;
       box-shadow: none;
-      border-radius: var(--radiusXS);
 
       .MuiTabs-scroller {
         position: relative;
@@ -3898,7 +3898,7 @@ i.bi {
           font-weight: 400;
           text-transform: capitalize;
           padding: 6px 16px;
-          min-height: 38px;
+          min-height: 36px;
 
           .MuiTouchRipple-root {
             display: none;
@@ -3911,7 +3911,7 @@ i.bi {
         }
 
         span.MuiTabs-indicator {
-          border-radius: var(--radiusXS);
+          border-radius: var(--radiusS);
         }
       }
     }
@@ -3949,9 +3949,8 @@ i.bi {
       }
 
       & .MuiInputBase-root {
-        height: 38px;
+        height: 36px;
         margin: 0;
-        border-radius: var(--radiusXS);
 
         .MuiInputBase-input {
           padding: 6px 12px;
@@ -3973,9 +3972,9 @@ i.bi {
       .btn {
         padding: 0px 0px !important;
         font-size: 18px !important;
-        min-width: 38px;
-        width: 38px;
-        height: 38px;
+        min-width: 36px;
+        width: 36px;
+        height: 36px;
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
       }
@@ -4137,6 +4136,29 @@ i.bi {
 .side-bar-tooltip {
   z-index: 2;
   transition: all ease-in-out 300ms;
+  background: var(--bodySubBg);
+  padding: 7px 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--cardShadow);
+  border-radius: var(--radiusL);
+  color: var(--dark);
+  font-size: 14px;
+  line-height: 20px;
+  min-height: 36px;
+}
+
+.side-bar-tooltip::before {
+  content: "";
+  background: var(--bodySubBg);
+  width: 11px;
+  height: 11px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 1%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-left: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .sidebarActive .side-bar-tooltip {
@@ -4613,6 +4635,7 @@ i.bi {
   background-color: var(--body-bg);
   padding: 20px;
   align-items: center;
+
   .form-container {
     width: 100%;
     height: 100%;
@@ -4621,6 +4644,7 @@ i.bi {
     justify-content: center;
     align-items: center;
   }
+
   .upload-files-container {
     background-color: #f7fff7;
     width: 420px;
@@ -4633,6 +4657,7 @@ i.bi {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 10px 20px,
       rgba(0, 0, 0, 0.28) 0px 6px 6px;
   }
+
   .drag-file-area {
     border: 2px dashed #7b2cbf;
     border-radius: 40px;
@@ -4641,28 +4666,35 @@ i.bi {
     width: 350px;
     text-align: center;
   }
+
   .drag-file-area .upload-icon {
     font-size: 50px;
   }
+
   .drag-file-area h3 {
     font-size: 26px;
     margin: 15px 0;
   }
+
   .drag-file-area label {
     font-size: 19px;
   }
+
   .drag-file-area label .browse-files-text {
     color: #7b2cbf;
     font-weight: bolder;
     cursor: pointer;
   }
+
   .browse-files span {
     position: relative;
     top: -25px;
   }
+
   .default-file-input {
     opacity: 0;
   }
+
   .cannot-upload-message {
     background-color: #ffc6c4;
     font-size: 17px;
@@ -4674,22 +4706,27 @@ i.bi {
     color: #bb0000;
     display: none;
   }
+
   @keyframes fadeIn {
     0% {
       opacity: 0;
     }
+
     100% {
       opacity: 1;
     }
   }
+
   .cannot-upload-message span,
   .upload-button-icon {
     padding-right: 10px;
   }
+
   .cannot-upload-message span:last-child {
     padding-left: 20px;
     cursor: pointer;
   }
+
   .file-block {
     color: #f7fff7;
     background-color: #7b2cbf;
@@ -4705,21 +4742,26 @@ i.bi {
     border-radius: 25px;
     cursor: pointer;
   }
+
   .file-info {
     display: flex;
     align-items: center;
     font-size: 15px;
   }
+
   .file-icon {
     margin-right: 10px;
   }
+
   .file-name,
   .file-size {
     padding: 0 3px;
   }
+
   .remove-file-icon {
     cursor: pointer;
   }
+
   .progress-bar {
     display: flex;
     position: absolute;
@@ -4730,6 +4772,7 @@ i.bi {
     border-radius: 25px;
     background-color: #4bb543;
   }
+
   .upload-button {
     font-family: "Montserrat";
     background-color: #7b2cbf;
@@ -4744,6 +4787,7 @@ i.bi {
     cursor: pointer;
   }
 }
+
 .crop-container {
   width: 300px;
   height: 300px;
