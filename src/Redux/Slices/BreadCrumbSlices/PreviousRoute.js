@@ -21,6 +21,7 @@ const PreviousRoute = createSlice({
         );
         if (index === -1) {
           if (copyPreviousRoute.length === 1) {
+            // If the length of the previous route is 1, then remove the first element and also you can change the number to increase the length of the previous route
             copyPreviousRoute.shift();
           }
           copyPreviousRoute.push(pathnames[1]);
