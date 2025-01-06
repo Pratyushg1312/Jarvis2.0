@@ -13,9 +13,10 @@
 
 
 # Table of Contents
+- [Folder Structure](#FolderStructure)
 - [Documentation](#Documentation)
 - [Usage](#usage)
-- [Contributing](#Api)
+- [API](#Api)
 
 ## **Documentation**
 
