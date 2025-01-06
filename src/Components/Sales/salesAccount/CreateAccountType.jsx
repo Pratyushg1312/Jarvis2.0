@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useAddAccountTypeMutation } from "../../../Redux/Slices/SalesSlices/SalesAccountTypeApi";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
-import Loader from "../../CommonComponent/Loader/Loader";
-
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 
 const CreateAccountType = ({ loginUserId, closeModal }) => {
   const [accountTypeName, setAccountTypeName] = useState("");
@@ -32,9 +30,12 @@ const CreateAccountType = ({ loginUserId, closeModal }) => {
     }
   };
 
+  useCallback(() => {
+    setLoader(isLoading);
+  }, [isLoading]);
+
   return (
     <div>
-      {isLoading && <Loader />}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="accountTypeName">Account Type Name</label>

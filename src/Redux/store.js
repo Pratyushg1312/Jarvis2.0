@@ -40,9 +40,11 @@ import SalesCategoryApi from "./Slices/SalesSlices/salesCategoryApi";
 import OutstandingApi from "./Slices/FinanceSlices/OutstandingApi";
 import semiThemeReducer from "./Slices/ThemeSlices/SemiThemeSlice";
 import themeCollapseReducer from "./Slices/ThemeSlices/ThemeCollapseSlice";
-
+import LoaderReducer from "./Slices/LoaderSlices/LoaderSlice";
+import ThemeApi from "./Slices/ThemeSlices/ThemeApi";
 const store = configureStore({
   reducer: {
+    loader: LoaderReducer,
     themeCollapse: themeCollapseReducer,
     semiTheme: semiThemeReducer,
     notification: notificationReducer,
@@ -83,6 +85,7 @@ const store = configureStore({
     [CountryCodeApi.reducerPath]: CountryCodeApi.reducer,
     [SalesCategoryApi.reducerPath]: SalesCategoryApi.reducer,
     [OutstandingApi.reducerPath]: OutstandingApi.reducer,
+    [ThemeApi.reducerPath]: ThemeApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -121,7 +124,8 @@ const store = configureStore({
       .concat(UserIncentiveDashboardApi.middleware)
       .concat(CountryCodeApi.middleware)
       .concat(SalesCategoryApi.middleware)
-      .concat(OutstandingApi.middleware),
+      .concat(OutstandingApi.middleware)
+      .concat(ThemeApi.middleware),
 });
 setupListeners(store.dispatch);
 

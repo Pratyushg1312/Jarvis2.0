@@ -27,7 +27,7 @@ const AuthSideBar = () => {
       <FinanceSidebarLinks />
       {/* <OrganizationSidebrLinks /> */}
       <InventorySidebarLinks />
-      <SalesSidebarLinks />
+      {auth.isSales && <SalesSidebarLinks />}
       <ComunitySidebarLinks />
       <UiSideBarLinks />
     </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import GetDecodedToken from "../../../../Utils/GetDecodedToken";
@@ -15,7 +15,7 @@ import {
   useUpdatePaymentUpdateMutation,
 } from "../../../../Redux/Slices/SalesSlices/PaymentUpdateApi";
 import FieldContainer from "../../../../Components/CommonComponent/FormElement/FieldContainer";
-import { toastAlert, toastError } from "../../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../../Utils/ToastUtil";
 import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
 import Loader from "../../../../Components/CommonComponent/Loader/Loader";
 import DateISOtoNormal from "../../../../Utils/DateISOtoNormal";
@@ -238,7 +238,8 @@ const CreatePaymentUpdate = () => {
       )?.campaign_amount - userdata?.requested_amount;
     if (campaignAmount > paymentAmount) {
       toastError(
-        `Payment amount should be less than or equal to ${campaignAmount - userdata?.approved_amount
+        `Payment amount should be less than or equal to ${
+          campaignAmount - userdata?.approved_amount
         } amount`
       );
     }
@@ -250,11 +251,12 @@ const CreatePaymentUpdate = () => {
         salebookID: option?.sale_booking_id,
         accountID: option?.account_id,
       },
-      label: `${allAccountData?.find(
-        (data) => data.account_id === option.account_id
-      )?.account_name
-        } | ${DateISOtoNormal(option?.sale_booking_date)} | ${option?.campaign_amount
-        }`,
+      label: `${
+        allAccountData?.find((data) => data.account_id === option.account_id)
+          ?.account_name
+      } | ${DateISOtoNormal(option?.sale_booking_date)} | ${
+        option?.campaign_amount
+      }`,
     }));
   };
 
@@ -262,32 +264,29 @@ const CreatePaymentUpdate = () => {
     return {
       value: selectedSaleBooking,
       label: saleBookingData?.find(
-        (item) =>
-          item?.sale_booking_id === selectedSaleBooking?.salebookID
+        (item) => item?.sale_booking_id === selectedSaleBooking?.salebookID
       )
-        ? `${accountData?.find(
-          (item) =>
-            item.account_id === selectedSaleBooking?.accountID
-        )?.account_name
-        } | ${DateISOtoNormal(
-          saleBookingData.find(
-            (item) =>
-              item.sale_booking_id ===
-              selectedSaleBooking?.salebookID
-          )?.sale_booking_date
-        )} | ${saleBookingData.find(
-          (item) =>
-            item.sale_booking_id ===
-            selectedSaleBooking?.salebookID
-        )?.campaign_amount
-        }`
+        ? `${
+            accountData?.find(
+              (item) => item.account_id === selectedSaleBooking?.accountID
+            )?.account_name
+          } | ${DateISOtoNormal(
+            saleBookingData.find(
+              (item) => item.sale_booking_id === selectedSaleBooking?.salebookID
+            )?.sale_booking_date
+          )} | ${
+            saleBookingData.find(
+              (item) => item.sale_booking_id === selectedSaleBooking?.salebookID
+            )?.campaign_amount
+          }`
         : "",
     };
   };
-
+  useCallback(() => {
+    setLoader(isLoading);
+  }, [isLoading]);
   return (
     <div>
-      {isLoading && <Loader />}
       <FormContainer mainTitle="Payment Update" link={true} />
       <div className="card">
         <div className="card-header">
@@ -296,8 +295,7 @@ const CreatePaymentUpdate = () => {
         <div className="card-body row">
           <div className="form-group col-4">
             <label className="form-label">Sale Booking</label>
-            {console.log("selectedSaleBooking", selectedSaleBooking)
-            }
+            {console.log("selectedSaleBooking", selectedSaleBooking)}
             <Select
               options={getSaleBookingOptions()}
               value={getSaleBookingValue()}
@@ -353,11 +351,11 @@ const CreatePaymentUpdate = () => {
                       (item) =>
                         item.sale_booking_id === selectedSaleBooking?.salebookID
                     )?.campaign_amount -
-                    saleBookingData.find(
-                      (item) =>
-                        item.sale_booking_id ===
-                        selectedSaleBooking?.salebookID
-                    )?.requested_amount
+                      saleBookingData.find(
+                        (item) =>
+                          item.sale_booking_id ===
+                          selectedSaleBooking?.salebookID
+                      )?.requested_amount
                   );
                 }
               }}

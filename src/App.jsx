@@ -11,6 +11,7 @@ import { setthemeCollapse } from "./Redux/Slices/ThemeSlices/ThemeCollapseSlice.
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.loader.loading);
 
   useEffect(() => {
     // this code may cause vulnerability so please  inform pratyush  to reserch on it and i am adding this comment for my self
@@ -94,6 +95,7 @@ function App() {
         id="toggle-sidebar"
         className="toggle-sidebar-checkbox"
       />
+      {isLoading && <Loader />}
       <ToastContainer autoClose={1500} />
       {!isOnline && <OfflinePage />}
       <Router />

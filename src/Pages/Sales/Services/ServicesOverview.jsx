@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   useEditSaleServiceMutation,
   useGetAllSaleServiceQuery,
 } from "../../../Redux/Slices/SalesSlices/SalesServiceApi";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import DeleteButton from "../../../Components/CommonComponent/DeleteButton/DeleteButton";
 import Loader from "../../../Components/CommonComponent/Loader/Loader";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
@@ -98,14 +98,24 @@ const ServicesOverview = () => {
       renderRowCell: (row) => (
         <>
           <div className="flex-row gap-2">
-
-
             <Link to={`/sales/create-sales-services/${row._id}/${"put"}`}>
-              <Button variant="contained" color="primary" className="dropdown-item ">Edit</Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className="dropdown-item "
+              >
+                Edit
+              </Button>
             </Link>
 
             <Link to={`/sales/create-sales-services/${row._id}/${post}`}>
-              <Button variant="contained" color="primary" className="dropdown-item ">Clone</Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className="dropdown-item "
+              >
+                Clone
+              </Button>
             </Link>
 
             <DeleteButton
@@ -140,10 +150,11 @@ const ServicesOverview = () => {
     ],
     [activeTab]
   );
+  useCallback(() => {
+    setLoader(updatingSalesService);
+  }, [updatingSalesService]);
   return (
     <>
-      {updatingSalesService && <Loader />}
-
       <FormContainer
         mainTitle="Services"
         link="/sales/create-sales-services"

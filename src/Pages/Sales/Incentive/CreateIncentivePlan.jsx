@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useCreateIncentivePlanMutation,
@@ -6,7 +6,7 @@ import {
   useUpdateIncentivePlanMutation,
 } from "../../../Redux/Slices/SalesSlices/IncentivePlanApi";
 import { useGetAllSaleServiceQuery } from "../../../Redux/Slices/SalesSlices/SalesServiceApi";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import Loader from "../../../Components/CommonComponent/Loader/Loader";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
@@ -106,10 +106,12 @@ const CreateIncentivePlan = () => {
   if (isFormSubmitted) {
     navigate("/sales/incentive-plan-overview");
   }
+  useCallback(() => {
+    setLoader(salesServiceLoading);
+  }, [salesServiceLoading]);
 
   return (
     <div>
-      {salesServiceLoading && <Loader />}
       <FormContainer mainTitle="Incentive Plan" link={true} />
       <div className="card">
         <div className="card-header">
@@ -119,7 +121,6 @@ const CreateIncentivePlan = () => {
         </div>
         <div className="card-body row">
           <div className="form-group col-4">
-
             <CustomSelect
               label={"Service Name"}
               dataArray={allSalesServiceData}
@@ -131,16 +132,13 @@ const CreateIncentivePlan = () => {
                 setIsValid({ ...isValid, sales_service_master_id: false });
               }}
               required={true}
-
             />
-
 
             {isValid.sales_service_master_id && (
               <span className="form-error">Service Name is Required</span>
             )}
           </div>
           <div className="form-group col-4">
-
             <CustomSelect
               required={true}
               label={"Incentive Type"}
