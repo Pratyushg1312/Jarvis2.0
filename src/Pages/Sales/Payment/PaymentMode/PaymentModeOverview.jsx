@@ -10,6 +10,7 @@ import {
 import GetDecodedToken from "../../../../Utils/GetDecodedToken";
 import DeleteButton from "../../../../Components/CommonComponent/DeleteButton/DeleteButton";
 import { useGetUserAuthQuery } from "../../../../Redux/Slices/UserSlices/UserApi";
+import { Pencil } from "@phosphor-icons/react";
 
 const LinkButtons = [
   {
@@ -55,17 +56,19 @@ const PaymentModeOverview = () => {
       key: "action",
       name: "Actions",
       renderRowCell: (row) => (
-        <div className="d-flex">
+        <div className="flexCenter colGap8">
           <Link to={`/sales/create-payment-mode/${row._id}`}>
-            <div className="icon-1">
-              <i className="bi bi-pencil" />
-            </div>
+            <button className="iconBtn sm" title="Edit">
+              <Pencil />
+            </button>
           </Link>
-          <DeleteButton
-            api={deletePaymentMode}
-            id={row._id}
-            getData={refetchPaymentMode}
-          />
+          <button className="iconBtn sm">
+            <DeleteButton
+              api={deletePaymentMode}
+              id={row._id}
+              getData={refetchPaymentMode}
+            />
+          </button>
         </div>
       ),
       width: 100,

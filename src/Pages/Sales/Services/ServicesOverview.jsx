@@ -11,6 +11,7 @@ import FormContainer from "../../../Components/CommonComponent/FormElement/FormC
 import Tab from "../../../Components/CommonComponent/Tab/Tab";
 import View from "../../../Components/CommonComponent/View/View";
 import { Button } from "@mui/material";
+import { Copy, Pencil, Trash } from "@phosphor-icons/react";
 
 const tabName = ["Active", "Inactive"];
 
@@ -72,21 +73,15 @@ const ServicesOverview = () => {
       renderRowCell: (row, index) => {
         if (row.status == 0) {
           return (
-            <buton
-              className="btn cmnbtn btn_sm btn-success"
-              onClick={() => handleUpdateStatus(row)}
-            >
+            <div class="badge success" onClick={() => handleUpdateStatus(row)}>
               Active
-            </buton>
+            </div>
           );
         } else {
           return (
-            <buton
-              className="btn cmnbtn btn_sm btn-danger"
-              onClick={() => handleUpdateStatus(row)}
-            >
+            <div class="badge danger" onClick={() => handleUpdateStatus(row)}>
               Inactive
-            </buton>
+            </div>
           );
         }
       },
@@ -97,32 +92,26 @@ const ServicesOverview = () => {
       name: "Action",
       renderRowCell: (row) => (
         <>
-          <div className="flex-row gap-2">
+          <div className="flexCenter colGap8">
             <Link to={`/sales/create-sales-services/${row._id}/${"put"}`}>
-              <Button
-                variant="contained"
-                color="primary"
-                className="dropdown-item "
-              >
-                Edit
-              </Button>
+              <button className="iconBtn sm" title="Edit">
+                <Pencil />
+              </button>
             </Link>
 
             <Link to={`/sales/create-sales-services/${row._id}/${post}`}>
-              <Button
-                variant="contained"
-                color="primary"
-                className="dropdown-item "
-              >
-                Clone
-              </Button>
+              <button className="iconBtn sm" title="Clone">
+                <Copy />
+              </button>
             </Link>
 
-            <DeleteButton
-              endpoint="sales/delete_sale_service_master"
-              id={row._id}
-              getData={allSalesService}
-            />
+            <button className="iconBtn sm">
+              <DeleteButton
+                endpoint="sales/delete_sale_service_master"
+                id={row._id}
+                getData={allSalesService}
+              />
+            </button>
           </div>
         </>
       ),
