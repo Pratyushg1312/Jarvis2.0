@@ -369,16 +369,17 @@ th .table-header {
   .dropdown-content {
     position: absolute;
     min-width: max-content;
-    padding: 0px 0px;
     overflow-y: scroll;
-    top: 46px;
+    top: 40px;
     left: 0;
     z-index: 999;
     max-height: 400px;
-    background-color: var(--cardBg);
-    border: 1px solid var(--borderLight);
-    box-shadow: var(--cardShadow);
-    border-radius: var(--radiusS);
+    padding: 8px 8px;
+    margin: 0;
+    background-color: var(--dropdownBg);
+    border: 1px solid var(--dropdownBorder);
+    box-shadow: var(--dropdownShadow);
+    border-radius: var(--radiusM);
 
     ul {
       display: flex;
@@ -429,16 +430,19 @@ th .table-header {
 
 .dropdown-content {
   position: absolute;
-  background-color: var(--cardBg);
-  border: 1px solid var(--border);
-  border-radius: var(--radiusM);
   display: block;
   width: 400px;
   max-width: 400px;
-  top: 40px;
+  top: 42px;
   left: 0;
-  padding: 0px 0px;
   overflow-y: scroll;
+  padding: 8px 8px;
+  margin: 0;
+  background-color: var(--dropdownBg);
+  border: 1px solid var(--dropdownBorder);
+  box-shadow: var(--dropdownShadow);
+  border-radius: var(--radiusM);
+
 
   .dragging {
     pointer-events: none;

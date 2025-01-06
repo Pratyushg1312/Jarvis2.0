@@ -947,96 +947,103 @@ const SalesBookingOverview = () => {
       <div className="card">
         <div className="card-body">
           <div className="row">
-            <CustomSelect
-              label="Campaign Name"
-              fieldGrid={4}
-              dataArray={campaignList}
-              optionId="exe_campaign_name"
-              optionLabel="exe_campaign_name"
-              selectedId={filterByCampaignName}
-              setSelectedId={setFilterByCampaignName}
-            />
-            <CustomSelect
-              label="Account Name"
-              fieldGrid={4}
-              dataArray={allAccount}
-              optionId="account_id"
-              optionLabel="account_name"
-              selectedId={filterByAccountName}
-              setSelectedId={setFilterByAccountName}
-            />
-            {loginUserRole === 1 && (
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
               <CustomSelect
-                label="Sales Executive Name"
-                fieldGrid={4}
-                dataArray={userContextData?.filter(
-                  (item) => item.dept_id == 36
-                )}
-                optionId="user_id"
-                optionLabel="user_name"
-                selectedId={filterBySalesExecutiveName}
-                setSelectedId={setFilterBySalesExecutiveName}
+                label="Campaign Name"
+                dataArray={campaignList}
+                optionId="exe_campaign_name"
+                optionLabel="exe_campaign_name"
+                selectedId={filterByCampaignName}
+                setSelectedId={setFilterByCampaignName}
               />
-            )}
-
-            <CustomSelect
-              label="Incentive Status"
-              fieldGrid={4}
-              dataArray={incentiveFilterOption}
-              optionId="value"
-              optionLabel="label"
-              selectedId={filterByIncentive}
-              setSelectedId={setFilterByIncentive}
-            />
-            <CustomSelect
-              label="date"
-              fieldGrid={4}
-              dataArray={dateFilterOptions}
-              optionId="value"
-              optionLabel="label"
-              selectedId={quickFiltring}
-              setSelectedId={setQuickFiltring}
-            />
-            {quickFiltring === "custom" && (
-              <>
-                <FieldContainer
-                  type="date"
-                  label="From Date"
-                  fieldGrid={4}
-                  value={fromDate}
-                  onChange={(e) => setFromDate(e.target.value)}
-                />
-                <FieldContainer
-                  type="date"
-                  label="To Date"
-                  fieldGrid={4}
-                  value={toDate}
-                  onChange={(e) => setToDate(e.target.value)}
-                />
-              </>
-            )}
-            <div className="col-md-4 col-12 flexCenter colGap12 pt12">
-              <Button
-                className="w-100"
-                variant="contained"
-                onClick={() => dataFiltter()}
-                title="Search"
-              >
-                Search
-              </Button>
-              {allSaleBooking?.length !== filteredData?.length && (
-                <Button
-                  title="Remove Filter"
-                  onClick={() => handelRemoveFiltter()}
-                  color="error"
-                  className="iconBtn"
-                  variant="outlined"
-                >
-                  <X />
-                </Button>
-              )}
             </div>
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <CustomSelect
+                label="Account Name"
+                dataArray={allAccount}
+                optionId="account_id"
+                optionLabel="account_name"
+                selectedId={filterByAccountName}
+                setSelectedId={setFilterByAccountName}
+              />
+            </div>
+            {loginUserRole === 1 && (
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <CustomSelect
+                  label="Sales Executive Name"
+                  dataArray={userContextData?.filter(
+                    (item) => item.dept_id == 36
+                  )}
+                  optionId="user_id"
+                  optionLabel="user_name"
+                  selectedId={filterBySalesExecutiveName}
+                  setSelectedId={setFilterBySalesExecutiveName}
+                />
+              </div>
+            )}
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <CustomSelect
+                label="Incentive Status"
+                dataArray={incentiveFilterOption}
+                optionId="value"
+                optionLabel="label"
+                selectedId={filterByIncentive}
+                setSelectedId={setFilterByIncentive}
+              />
+            </div>
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <CustomSelect
+                label="Date"
+                dataArray={dateFilterOptions}
+                optionId="value"
+                optionLabel="label"
+                selectedId={quickFiltring}
+                setSelectedId={setQuickFiltring}
+              />
+            </div>
+            {quickFiltring === "custom" && (
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <div className="row">
+                  <div className="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <FieldContainer
+                      type="date"
+                      label="From Date"
+                      value={fromDate}
+                      onChange={(e) => setFromDate(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <FieldContainer
+                      type="date"
+                      label="To Date"
+                      value={toDate}
+                      onChange={(e) => setToDate(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
+        </div>
+        <div className="card-footer">
+          <Button
+            variant="contained"
+            onClick={() => dataFiltter()}
+            title="Search"
+          >
+            Search
+          </Button>
+          {allSaleBooking?.length !== filteredData?.length && (
+            <Button
+              title="Remove Filter"
+              onClick={() => handelRemoveFiltter()}
+              color="error"
+              className="iconBtn"
+              variant="outlined"
+            >
+              <X />
+            </Button>
+          )}
         </div>
       </div>
       <div className="card cardAccordion">

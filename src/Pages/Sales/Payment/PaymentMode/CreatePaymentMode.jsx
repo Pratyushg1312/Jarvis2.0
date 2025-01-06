@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAddPaymentModeMutation, useGetAllPaymentModesQuery, useGetSinglePaymentModeQuery, useUpdatePaymentModeMutation } from "../../../../Redux/Slices/SalesSlices/PaymentModeApi";
+import {
+  useAddPaymentModeMutation,
+  useGetAllPaymentModesQuery,
+  useGetSinglePaymentModeQuery,
+  useUpdatePaymentModeMutation,
+} from "../../../../Redux/Slices/SalesSlices/PaymentModeApi";
 import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
 import FieldContainer from "../../../../Components/CommonComponent/FormElement/FieldContainer";
 import { toastAlert, toastError } from "../../../../Utils/ToastUtil";
 import GetDecodedToken from "../../../../Utils/GetDecodedToken";
 import { Button } from "@mui/material";
-
 
 const CreatePaymentMode = () => {
   const { id } = useParams();
@@ -16,23 +20,23 @@ const CreatePaymentMode = () => {
   const token = GetDecodedToken();
   const loginUserId = token.id;
 
-  const [addMode, { isLoading: addModeLoading, isError: addModeError }] = useAddPaymentModeMutation();
+  const [addMode, { isLoading: addModeLoading, isError: addModeError }] =
+    useAddPaymentModeMutation();
   const { refetch } = useGetAllPaymentModesQuery();
   const {
     data: paymentModeData,
     isLoading: paymentModeLoading,
-    isError: paymentModeError
-  } = useGetSinglePaymentModeQuery(id, { skip: !id })
+    isError: paymentModeError,
+  } = useGetSinglePaymentModeQuery(id, { skip: !id });
 
-  const [updateMode, {
-    isLoading: updateModeLoading,
-    isError: updateModeError,
-  }] = useUpdatePaymentModeMutation()
+  const [
+    updateMode,
+    { isLoading: updateModeLoading, isError: updateModeError },
+  ] = useUpdatePaymentModeMutation();
 
   useEffect(() => {
     if (paymentModeData) {
       setTitle(paymentModeData.payment_mode_name);
-
     }
   }, [paymentModeData]);
 
@@ -46,7 +50,6 @@ const CreatePaymentMode = () => {
     formData.append("created_by", loginUserId);
     try {
       if (!id) {
-
         await addMode(formData).unwrap();
         toastAlert("Payment Mode Created");
       } else {
@@ -63,15 +66,13 @@ const CreatePaymentMode = () => {
   };
   return (
     <>
-      <FormContainer
-        mainTitle="Payment Mode"
-        link={"true"}
-      />
-
+      <FormContainer mainTitle="Payment Mode" link={"true"} />
 
       <div className="card">
         <div className="card-header">
-          <h3 className="cardHeading">Create Payment Mode</h3>
+          <div className="cardHeading">
+            <h5 className="cardTitle">Create Payment Mode</h5>
+          </div>
         </div>
         <div className="card-body row ">
           <FieldContainer
@@ -86,7 +87,14 @@ const CreatePaymentMode = () => {
         </div>
       </div>
 
-      <Button variant="contained" color="primary" onClick={handleSubmit} disabled={addModeLoading || updateModeLoading}>Submit</Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSubmit}
+        disabled={addModeLoading || updateModeLoading}
+      >
+        Submit
+      </Button>
     </>
   );
 };
