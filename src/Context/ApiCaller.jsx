@@ -6,6 +6,7 @@ import {
   useGetUserDetailsByIdQuery,
   useLoginUserDataQuery,
 } from "../Redux/Slices/UserSlices/UserApi";
+import { useGetThemeQuery } from "../Redux/Slices/ThemeSlices/ThemeApi";
 export const ApiCaller = createContext();
 
 export const AuthEngine = ({ children }) => {
@@ -17,6 +18,12 @@ export const AuthEngine = ({ children }) => {
     isLoading: userAuthIsLoading,
     isSuccess: userAuthIsSuccess,
   } = useGetUserAuthQuery(loginUser, { skip: !loginUser });
+
+  const {
+    data: themeData,
+    error: themeError,
+    isLoading: themeIsLoading,
+  } = useGetThemeQuery(loginUser, { skip: !loginUser });
 
   const { data: loginUserData } = useLoginUserDataQuery(loginUser);
 
@@ -92,6 +99,7 @@ export const AuthEngine = ({ children }) => {
   return (
     <ApiCaller.Provider
       value={{
+        themeData,
         dept_id: loginUserData?.dept_id,
         isUserManagementVisible,
         isWFHVisible,

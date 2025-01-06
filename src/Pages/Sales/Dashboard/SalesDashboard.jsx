@@ -7,9 +7,9 @@ import {
 } from "@phosphor-icons/react";
 import Modal from "react-modal";
 import View from "../../../Components/CommonComponent/View/View";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import IncentiveRelease from "../../../Components/Sales/CommonComponent/Incentive/IncentiveRelease";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
@@ -283,10 +283,11 @@ const SalesDashboard = () => {
       ),
       access: [1],
     });
-
+  useCallback(() => {
+    setLoader(isLoading);
+  }, [isLoading]);
   return (
     <div>
-      {isLoading && <Loader />}
       <Modal
         className="salesModal"
         isOpen={releaseModal}

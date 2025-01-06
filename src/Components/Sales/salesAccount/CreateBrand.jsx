@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useAddBrandMutation } from "../../../Redux/Slices/SalesSlices/BrandApi";
 import Loader from "../../CommonComponent/Loader/Loader";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import CustomSelect from "../../CommonComponent/FormElement/CustomSelect";
-
 
 const CreateBrand = ({
   loginUserId,
@@ -15,7 +14,6 @@ const CreateBrand = ({
   // openModal,
   setSelectedCategoryParent,
 }) => {
-
   const [selectedCategory, setSelectedCategory] = useState();
   const [brandName, setBrandName] = useState("");
   const [useAccountName, setUseAccountName] = useState(false);
@@ -52,10 +50,12 @@ const CreateBrand = ({
       toastError("Failed to add brand");
     }
   };
+  useCallback(() => {
+    setLoader(isLoading);
+  }, [isLoading]);
 
   return (
     <div>
-      {isLoading && <Loader />}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="brandName">Add Brand</label>

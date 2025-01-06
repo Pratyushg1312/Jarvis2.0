@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import { formatIndianNumber } from "../../../Utils/formatIndianNumber";
@@ -136,11 +136,11 @@ const TargetCompetitionOverview = () => {
       ),
     },
   ];
-
+  useCallback(() => {
+    setLoader(paymentUpdating);
+  }, [paymentUpdating]);
   return (
     <>
-      {paymentUpdating && <Loader />}
-
       <FormContainer
         mainTitle="Target Competition"
         link="/sales"

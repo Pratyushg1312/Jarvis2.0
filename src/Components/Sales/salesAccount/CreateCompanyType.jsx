@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useAddCompanyTypeMutation } from "../../../Redux/Slices/SalesSlices/CompanyTypeApi";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import Loader from "../../CommonComponent/Loader/Loader";
-
 
 const CreateCompanyType = ({ loginUserId, closeModal }) => {
   const [companyTypeName, setCompanyTypeName] = useState("");
@@ -32,10 +31,12 @@ const CreateCompanyType = ({ loginUserId, closeModal }) => {
       toastError("Failed to add company type");
     }
   };
+  useCallback(() => {
+    setLoader(isLoading);
+  }, [isLoading]);
 
   return (
     <div>
-      {isLoading && <Loader />}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="companyTypeName">Company Type</label>

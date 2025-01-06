@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useAddBrandCategoryTypeMutation } from "../../../Redux/Slices/SalesSlices/BrandCategoryTypeApi";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import Loader from "../../CommonComponent/Loader/Loader";
-
 
 const CreateBrandCategory = ({ loginUserId, closeModal }) => {
   const [brandName, setBrandName] = useState("");
@@ -24,10 +23,11 @@ const CreateBrandCategory = ({ loginUserId, closeModal }) => {
       toastError("Failed to add industry category");
     }
   };
-
+  useCallback(() => {
+    setLoader(isLoading);
+  }, [isLoading]);
   return (
     <div>
-      {isLoading && <Loader />}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="brandName">Add Industry</label>

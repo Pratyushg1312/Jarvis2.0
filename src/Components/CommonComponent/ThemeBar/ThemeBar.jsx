@@ -7,11 +7,23 @@ import {
   Sun,
   X,
 } from "@phosphor-icons/react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setthemeCollapse } from "../../../Redux/Slices/ThemeSlices/ThemeCollapseSlice";
 import { setSemiTheme } from "../../../Redux/Slices/ThemeSlices/SemiThemeSlice";
 import { use } from "react";
+import { useAuth } from "../../../Context/ApiCaller";
+import { useEditThemeMutation } from "../../../Redux/Slices/ThemeSlices/ThemeApi";
+import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { set } from "date-fns";
+import GetDecodedToken from "../../../Utils/GetDecodedToken";
+
+function DefaultTheme(theme) {
+  if (theme?.color == "default") {
+    return "themeBlue";
+  }
+  return theme?.color;
+}
 
 function updateBlueTheme() {
   document.documentElement.style.setProperty("--primary", "#3d73ff");
@@ -65,13 +77,54 @@ const themes = [
   { theme: "themeGreen", updateTheme: updateGreenTheme, class: "thm_green" },
   { theme: "themeOrange", updateTheme: updateOrangeTheme, class: "thm_orange" },
 ];
+
 const ThemeBar = ({ toggleClass, setToggleClass }) => {
   const dispatch = useDispatch();
-  const [colorTheme, setColorTheme] = useState("themePurple");
+  const { themeData } = useAuth();
+  const [colorTheme, setColorTheme] = useState("themeBlue");
+  const [semiTheme, setSemTheme] = useState(false);
+  const [themeCollapse, setThemeCollapse] = useState(true);
+  const [isLight, setIsLight] = useState(true);
+
+  async function uploadTheme() {
+    try {
+      await editTheme({
+        id: GetDecodedToken().id,
+        color: colorTheme,
+        is_semiDark: semiTheme,
+        is_collapse: themeCollapse,
+        is_light_theme: isLight,
+      });
+      toastAlert("Theme Updated");
+    } catch {
+      toastError("Theme Update Failed");
+    }
+  }
 
   useEffect(() => {
-    themes.find((theme) => theme.theme === colorTheme).updateTheme();
+    themes.find((theme) => theme?.theme === colorTheme).updateTheme();
   }, [colorTheme]);
+
+  const [editTheme, { isLoading: editThemeLoading }] = useEditThemeMutation();
+
+  useEffect(() => {
+    setColorTheme(DefaultTheme(themeData) || "themeBlue");
+    dispatch(setSemiTheme(themeData?.is_semiDark));
+    dispatch(setthemeCollapse(themeData?.is_collapse));
+    let light = document.getElementById("themeLight");
+    let dark = document.getElementById("themeDark");
+
+    light.checked = themeData?.is_light_theme;
+    dark.checked = !themeData?.is_light_theme;
+    if (themeData?.is_light_theme) {
+      document.body.setAttribute("theme", "light");
+    } else {
+      document.body.setAttribute("theme", "dark");
+    }
+    setIsLight(themeData?.is_light_theme);
+    setSemTheme(themeData?.is_semiDark);
+    setThemeCollapse(themeData?.is_collapse);
+  }, [themeData]);
 
   useEffect(() => {
     let light = document.getElementById("themeLight");
@@ -80,11 +133,13 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
     light.addEventListener("click", (e) => {
       const checked = e.target.checked;
       dark.checked = !checked;
+      setIsLight(true);
       document.body.setAttribute("theme", checked ? "light" : "dark");
     });
     dark.addEventListener("click", (e) => {
       const checked = e.target.checked;
       light.checked = !checked;
+      setIsLight(false);
       document.body.setAttribute("theme", checked ? "dark" : "light");
     });
 
@@ -184,7 +239,10 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
               <li>
                 <div
                   className="themeBox"
-                  onClick={() => dispatch(setSemiTheme(false))}
+                  onClick={() => {
+                    dispatch(setSemiTheme(false));
+                    setSemTheme(false);
+                  }}
                 >
                   <input type="radio" name="theme-type" id="themeDefault" />
                   <label htmlFor="themeDefault">
@@ -198,7 +256,10 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
               <li>
                 <div
                   className="themeBox"
-                  onClick={() => dispatch(setSemiTheme(true))}
+                  onClick={() => {
+                    dispatch(setSemiTheme(true));
+                    setSemTheme(true);
+                  }}
                 >
                   <input type="radio" name="theme-type" id="themeSemiDark" />
                   <label htmlFor="themeSemiDark">
@@ -217,7 +278,10 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
               <li>
                 <div
                   className="themeBox"
-                  onClick={() => dispatch(setthemeCollapse(false))}
+                  onClick={() => {
+                    dispatch(setthemeCollapse(false));
+                    setThemeCollapse(false);
+                  }}
                 >
                   <input type="radio" name="theme-menu" id="themeCollapsed" />
                   <label htmlFor="themeCollapsed">
@@ -231,7 +295,10 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
               <li>
                 <div
                   className="themeBox"
-                  onClick={() => dispatch(setthemeCollapse(true))}
+                  onClick={() => {
+                    dispatch(setthemeCollapse(true));
+                    setThemeCollapse(true);
+                  }}
                 >
                   <input type="radio" name="theme-menu" id="themeExpanded" />
                   <label htmlFor="themeExpanded">
@@ -246,7 +313,12 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
           </div>
         </div>
         <div className="themeBarFooter">
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => uploadTheme()}
+            disabled={editThemeLoading}
+          >
             Save
           </Button>
         </div>

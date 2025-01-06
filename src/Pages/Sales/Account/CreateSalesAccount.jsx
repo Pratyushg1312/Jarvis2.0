@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
@@ -31,7 +37,7 @@ import {
   useEditDocumentMutation,
   useGetDocumentByIdQuery,
 } from "../../../Redux/Slices/SalesSlices/AccountDocumentApi";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import CreateBrandCategory from "../../../Components/Sales/salesAccount/CreateBrandCategory";
 import CreateAccountType from "../../../Components/Sales/salesAccount/CreateAccountType";
 import CreateBrand from "../../../Components/Sales/salesAccount/CreateBrand";
@@ -1036,9 +1042,12 @@ const CreateSalesAccount = () => {
       },
     },
   ];
+
+  useCallback(() => {
+    setLoader(isLoading);
+  }, [isLoading]);
   return (
     <div>
-      {loaderview && <Loader />}
       <Modal
         className="salesModal"
         isOpen={modalContentType}

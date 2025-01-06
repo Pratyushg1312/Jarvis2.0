@@ -28,6 +28,7 @@ const isLiveServer = () => {
 };
 
 const DeptMap = {
+  // department is mapped to the route to redirect logged in user to their respective module
   36: "sales",
   40: "finance",
   62: "community",
@@ -36,8 +37,7 @@ const DeptMap = {
 };
 
 const RouteDirectory = (children, module, auth) => {
-  console.log(auth.isSalesAdmin);
-
+  // protected route
   switch (module) {
     case "index":
       return <Navigate to={DeptMap[auth?.dept_id]} replace />;
@@ -47,6 +47,9 @@ const RouteDirectory = (children, module, auth) => {
       else return <PageNotFound />;
     case "sales":
       if (auth.isSales || auth.isSalesAdmin) return children;
+      else return <PageNotFound />;
+    case "finance":
+      if (auth.isPHPFinance) return children;
       else return <PageNotFound />;
     default:
       return <PageNotFound />;

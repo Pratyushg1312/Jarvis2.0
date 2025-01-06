@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useCreateDepartmentMutation } from "../../../Redux/Slices/SalesSlices/DepartmentApi";
-import { toastAlert, toastError } from "../../../Utils/ToastUtil";
+import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import Loader from "../../CommonComponent/Loader/Loader";
-
 
 const CreateDepartment = ({ loginUserId, closeModal }) => {
   const [department, setDepartment] = useState("");
@@ -24,10 +23,12 @@ const CreateDepartment = ({ loginUserId, closeModal }) => {
       toastError("Failed to add department");
     }
   };
+  useCallback(() => {
+    setLoader(isLoading);
+  }, [isLoading]);
 
   return (
     <div>
-      {isLoading && <Loader />}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="department">Add Department</label>
