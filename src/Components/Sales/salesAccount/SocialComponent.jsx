@@ -2,6 +2,8 @@ import React from "react";
 import Select from "react-select";
 import FieldContainer from "../../CommonComponent/FormElement/FieldContainer";
 import DynamicSelect from "../../CommonComponent/FormElement/DynamicSelect";
+import { Button } from "@mui/material";
+import { Plus, Trash } from "@phosphor-icons/react";
 
 const SocialComponent = ({
   fields,
@@ -13,8 +15,8 @@ const SocialComponent = ({
   return (
     <>
       {fields.map((field, index) => (
-        <div key={index} className="d-flex">
-          <div className="col-4">
+        <div key={index} className="row">
+          <div className="col">
             <DynamicSelect
               label={"Select Social"}
               data={getAvailableOptions(index).map((option) => (option.label))}
@@ -34,7 +36,7 @@ const SocialComponent = ({
               placeholder="Select a platform"
             /> */}
           </div>
-          <div className="col-4">
+          <div className="col">
             <FieldContainer
               label="Link"
               fieldGrid={12}
@@ -44,13 +46,11 @@ const SocialComponent = ({
               placeholder="Enter link"
             />
           </div>
-          <button
-            type="button"
-            className="btn cmnbtn btn-primary mt-4"
-            onClick={() => handleDelete(index)}
-          >
-            <i className="bi bi-trash" />
-          </button>
+          <div className="w-auto pt25">
+            <Button className="iconBtn mt24" onClick={() => handleDelete(index)}>
+              <Trash />
+            </Button>
+          </div>
         </div>
       ))}
     </>

@@ -4,6 +4,7 @@ import FieldContainer from "../../CommonComponent/FormElement/FieldContainer";
 import DynamicSelect from "../../CommonComponent/FormElement/DynamicSelect";
 import CustomSelect from "../../CommonComponent/FormElement/CustomSelect";
 import { Button } from "@mui/material";
+import { Eye, Plus, Trash } from "@phosphor-icons/react";
 
 const PointOfContact = ({
   pocs,
@@ -14,7 +15,6 @@ const PointOfContact = ({
   departments,
   socialOptions,
 }) => {
-
   const handlePocChange = (index, key, value) => {
     const updatedPocs = pocs?.map((poc, pocIndex) =>
       pocIndex === index ? { ...poc, [key]: value } : poc
@@ -44,27 +44,26 @@ const PointOfContact = ({
     const updatedPocs = pocs.map((poc, pocIndex) =>
       pocIndex === index
         ? {
-          ...poc,
-          social_platforms: [
-            ...(poc.social_platforms || []),
-            { platform: null, link: "" },
-          ],
-        }
+            ...poc,
+            social_platforms: [
+              ...(poc.social_platforms || []),
+              { platform: null, link: "" },
+            ],
+          }
         : poc
     );
     setPocs(updatedPocs);
   };
 
   const handleSocialLinkChange = (pocIndex, linkIndex, key, value) => {
-
     const updatedPocs = pocs.map((poc, index) =>
       index === pocIndex
         ? {
-          ...poc,
-          social_platforms: poc.social_platforms.map((link, i) =>
-            i === linkIndex ? { ...link, [key]: value } : link
-          ),
-        }
+            ...poc,
+            social_platforms: poc.social_platforms.map((link, i) =>
+              i === linkIndex ? { ...link, [key]: value } : link
+            ),
+          }
         : poc
     );
 
@@ -75,11 +74,11 @@ const PointOfContact = ({
     const updatedPocs = pocs.map((poc, index) =>
       index === pocIndex
         ? {
-          ...poc,
-          social_platforms: poc.social_platforms.filter(
-            (_, i) => i !== linkIndex
-          ),
-        }
+            ...poc,
+            social_platforms: poc.social_platforms.filter(
+              (_, i) => i !== linkIndex
+            ),
+          }
         : poc
     );
     setPocs(updatedPocs);
@@ -95,7 +94,7 @@ const PointOfContact = ({
       (option) =>
         !selectedValues.includes(option.value) ||
         pocs[pocIndex]?.social_platforms[linkIndex]?.platform?.value ===
-        option.value
+          option.value
     );
   };
 
@@ -103,19 +102,25 @@ const PointOfContact = ({
     <>
       {pocs?.map((poc, index) => (
         <div className="card" key={"aslnkh" + index}>
-          <div className="card-header sb">
-            <h4>Point of Contact ({index + 1})</h4>
-            <button className="icon-1" onClick={() => handleDeletePoc(index)}>
-              <i className="bi bi-trash"></i>
-            </button>
+          <div className="card-header">
+            <div className="cardHeading">
+              <h5 className="cardTitle">Point of Contact ({index + 1})</h5>
+            </div>
+            <div className="cardAction">
+              <Button
+                className="iconBtn"
+                onClick={() => handleDeletePoc(index)}
+              >
+                <Trash />
+              </Button>
+            </div>
           </div>
           <div className="card-body">
             <div key={index} className="row poc-container">
-              <div className="col-4">
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   astric
                   label="Contact Name"
-                  fieldGrid={4}
                   value={poc.contact_name}
                   onChange={(e) => {
                     handlePocChange(index, "contact_name", e.target.value);
@@ -134,12 +139,11 @@ const PointOfContact = ({
                   <div className="form-error">Please Enter Contact Name</div>
                 )}
               </div>
-              <div className="col-4">
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   astric
                   label="Contact Number"
                   type="number"
-                  fieldGrid={12}
                   value={poc.contact_no}
                   onChange={(e) => {
                     handlePocChange(index, "contact_no", e.target.value);
@@ -163,12 +167,11 @@ const PointOfContact = ({
                   <div className="form-error">Please Enter Contact Number</div>
                 )}
               </div>
-              <div className="col-4">
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   required={false}
                   label="Alternative Contact Number"
                   type="number"
-                  fieldGrid={12}
                   value={poc.alternative_contact_no}
                   onChange={(e) => {
                     handlePocChange(
@@ -185,12 +188,11 @@ const PointOfContact = ({
                   </div>
                 )}
               </div>
-              <div className="col-4">
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   required={false}
                   label="Email"
                   type="email"
-                  fieldGrid={4}
                   value={poc.email}
                   onChange={(e) => {
                     handlePocChange(index, "email", e.target.value);
@@ -203,11 +205,8 @@ const PointOfContact = ({
                 )}
               </div>
 
-              <div className="col-xl-4 col-lg-4 col-md-3 col-sm-3">
-
-
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <CustomSelect
-                  fieldGrid={12}
                   required={true}
                   label={"Select Department"}
                   dataArray={departments}
@@ -215,43 +214,34 @@ const PointOfContact = ({
                   optionLabel={"department_name"}
                   selectedId={poc["department"]}
                   setSelectedId={(value) => {
-                    handlePocChange(index, "department", value)
+                    handlePocChange(index, "department", value);
                   }}
-
                 >
                   <>
                     <Button
-                      variant="outlined"
-                      color="primary"
-
                       type="button"
-                      className="btn cmnbtn btn_sm btn-primary mt-4"
+                      className="icon"
                       onClick={() => openModal("addDepartment")}
                     >
-                      +
+                      <Plus />
                     </Button>
                     <Button
-                      variant="outlined"
-                      color="primary"
-
                       type="button"
-                      className="btn cmnbtn btn_sm btn-primary mt-4"
+                      className="icon"
                       onClick={() => openModal("viewDepartment")}
                     >
-                      <i className="bi bi-eye" />
+                      <Eye />
                     </Button>
                   </>
                 </CustomSelect>
                 {isValidPoc[index]?.department === "" && (
                   <div className="form-error">Please Enter Department</div>
                 )}
-
               </div>
-              <div className="col-4">
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   required={false}
                   label="Designation"
-                  fieldGrid={12}
                   value={poc.designation}
                   onChange={(e) => {
                     handlePocChange(index, "designation", e.target.value);
@@ -259,13 +249,12 @@ const PointOfContact = ({
                   placeholder="Enter designation"
                 />
               </div>
-
+              <hr className="body_hr" />
               <div className="col-12">
                 {poc.social_platforms?.map((socialLink, linkIndex) => (
-                  <div className="flex-row gap-1" key={linkIndex}>
-                    <div className="col-4">
+                  <div className="row" key={linkIndex}>
+                    <div className="col">
                       <CustomSelect
-                        fieldGrid={12}
                         label={"Select Platform"}
                         dataArray={socialOptions}
                         optionId={"value"}
@@ -296,9 +285,8 @@ const PointOfContact = ({
                         }
                       /> */}
                     </div>
-                    <div className="col-4 mt-1">
+                    <div className="col">
                       <FieldContainer
-                        fieldGrid={12}
                         label="Link"
                         value={socialLink.link}
                         onChange={(e) =>
@@ -312,33 +300,33 @@ const PointOfContact = ({
                         placeholder="Enter social link"
                       />
                     </div>
-                    <button
-                      type="button"
-                      className="btn cmnbtn btn_sm btn-danger mt-4"
-                      onClick={() => handleDeleteSocialLink(index, linkIndex)}
-                    >
-                      Delete
-                    </button>
+                    <div className="w-auto pt25">
+                      <Button
+                        className="iconBtn mt24"
+                        onClick={() => handleDeleteSocialLink(index, linkIndex)}
+                      >
+                        <Trash />
+                      </Button>
+                    </div>
                   </div>
                 ))}
-                <div style={{ color: "red" }}>
-                  Note: Please add POC social media profile details
-                </div>
-                {poc.social_platforms?.length < 4 && (
-                  <button
-                    type="button"
-                    className="btn cmnbtn btn_sm btn-primary mt-2"
-                    onClick={() => handleAddSocialLink(index)}
-                  >
-                    Add Social Link
-                  </button>
-                )}
               </div>
-              <div className="col-4">
+              <div style={{ color: "red" }}>
+                Note: Please add POC social media profile details
+              </div>
+              {poc.social_platforms?.length < 4 && (
+                <button
+                  type="button"
+                  className="btn cmnbtn btn_sm btn-primary mt-2"
+                  onClick={() => handleAddSocialLink(index)}
+                >
+                  Add Social Link
+                </button>
+              )}
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   required={false}
                   label="Description"
-                  fieldGrid={12}
                   value={poc.description}
                   onChange={(e) => {
                     handlePocChange(index, "description", e.target.value);

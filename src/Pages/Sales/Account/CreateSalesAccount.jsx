@@ -1096,7 +1096,6 @@ const CreateSalesAccount = () => {
           id={id}
           setGstDetails={setGstDetails}
         />
-
         <div className="card">
           <div className="card-header">
             <div className="cardHeading">
@@ -1348,9 +1347,22 @@ const CreateSalesAccount = () => {
         </div>
         <div className="card">
           <div className="card-header">
-            <h3 className="cardHeading">Socials</h3>
+            <div className="cardHeading">
+              <h5 className="cardTitle">Socials</h5>
+            </div>
+            <div className="cardAction">
+              {fields?.length !== socialOptions?.length && (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={handleAddMore}
+                >
+                  Add Another Social
+                </Button>
+              )}
+            </div>
           </div>
-          <div className="card-body row">
+          <div className="card-body">
             <SocialComponent
               fields={fields}
               handlePlatformChange={handlePlatformChange}
@@ -1358,64 +1370,56 @@ const CreateSalesAccount = () => {
               getAvailableOptions={getAvailableOptions}
               handleDelete={handleDelete}
             />
-            {fields?.length !== socialOptions?.length && (
-              <div className="flex-row sb mb-3">
-                <button
-                  type="button"
-                  className="btn cmnbtn btn-primary"
-                  onClick={handleAddMore}
-                >
-                  Add Another Social
-                </button>
-              </div>
-            )}
           </div>
         </div>
         <div className="card">
           <div className="card-header">
-            <h3 className="cardHeading">Details</h3>
+            <div className="cardHeading">
+              <h5 className="cardTitle">Details</h5>
+            </div>
           </div>
-          <div className="card-body row">
-            <div className="col-4" ref={accountOwnerRef}>
-              <CustomSelect
-                fieldGrid={12}
-                label="Account Owner Name"
-                dataArray={accOwnerNameData}
-                optionId="user_id"
-                optionLabel="user_name"
-                selectedId={selectedOwner}
-                setSelectedId={setSelectedOwner}
-                required
-                disabled={true}
-              />
-              {isValid.account_owner_id === null && (
-                <div className="form-error">
-                  Please Select Account Owner Name
-                </div>
-              )}
-            </div>
-            <div className="col-4">
-              <FieldContainer
-                label="Website"
-                fieldGrid={12}
-                value={website}
-                onChange={(e) => setWebsite(e.target.value)}
-                placeholder="Enter website"
-                required
-              />
-            </div>
-            <div className="col-4 flex-row">
-              <FieldContainer
-                label="Turnover (in cr)"
-                type="number"
-                fieldGrid={10}
-                value={turnover}
-                required={false}
-                onChange={(e) => setTurnover(e.target.value)}
-                placeholder="Enter last financial year turnover"
-              />
+          <div className="card-body">
+            <div className="row">
+              <div
+                className="col-lg-4 col-md-4 col-sm-12 col-12"
+                ref={accountOwnerRef}
+              >
+                <CustomSelect
+                  label="Account Owner Name"
+                  dataArray={accOwnerNameData}
+                  optionId="user_id"
+                  optionLabel="user_name"
+                  selectedId={selectedOwner}
+                  setSelectedId={setSelectedOwner}
+                  required
+                  disabled={true}
+                />
+                {isValid.account_owner_id === null && (
+                  <div className="form-error">
+                    Please Select Account Owner Name
+                  </div>
+                )}
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <FieldContainer
+                  label="Website"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  placeholder="Enter website"
+                  required
+                />
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12 flex-row">
+                <FieldContainer
+                  label="Turnover (in cr)"
+                  type="number"
+                  value={turnover}
+                  required={false}
+                  onChange={(e) => setTurnover(e.target.value)}
+                  placeholder="Enter last financial year turnover"
+                />
 
-              {/* <div className="mt-2">
+                {/* <div className="mt-2">
 
                 <button className="cmnbtn bgtn btn-primary btn_sm mt-4">
                   <i
@@ -1424,36 +1428,33 @@ const CreateSalesAccount = () => {
                   />
                 </button>
               </div> */}
-            </div>
+              </div>
 
-            <div className="col-4">
-              <FieldContainer
-                label="Company Email"
-                type="email"
-                fieldGrid={4}
-                value={companyEmail}
-                onChange={(e) => setCompanyEmail(e.target.value)}
-                placeholder="Enter company email"
-                required
-              />
-              {!isValidEmail(companyEmail) && (
-                <div className="form-error">Please Enter Valid Email</div>
-              )}
-            </div>
-            <div className="col-4">
-              <FieldContainer
-                label="How Many Offices"
-                type="number"
-                fieldGrid={12}
-                value={officesCount}
-                onChange={(e) => setOfficesCount(e.target.value)}
-                placeholder="Enter number of offices"
-              />
-            </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <FieldContainer
+                  label="Company Email"
+                  type="email"
+                  value={companyEmail}
+                  onChange={(e) => setCompanyEmail(e.target.value)}
+                  placeholder="Enter company email"
+                  required
+                />
+                {!isValidEmail(companyEmail) && (
+                  <div className="form-error">Please Enter Valid Email</div>
+                )}
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <FieldContainer
+                  label="How Many Offices"
+                  type="number"
+                  value={officesCount}
+                  onChange={(e) => setOfficesCount(e.target.value)}
+                  placeholder="Enter number of offices"
+                />
+              </div>
 
-            {/* <div className="col-4">
+              {/* <div className="col-lg-4 col-md-4 col-sm-12 col-12">
               <CustomSelect
-                fieldGrid={12}
                 label="Social"
                 dataArray={socialOptions}
                 optionId="value"
@@ -1464,11 +1465,10 @@ const CreateSalesAccount = () => {
             </div>
 
             {selectedOfficeSocial && (
-              <div className="col-4">
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   label={`${selectedOfficeSocial} link`}
                   type="url"
-                  fieldGrid={12}
                   value={(e) => accountSocialLink(e.target.value)}
                   onChange={setAccountSocialLink}
                   placeholder="Enter link"
@@ -1476,110 +1476,112 @@ const CreateSalesAccount = () => {
               </div>
             )} */}
 
-            {/* <div className="col-4">
+              {/* <div className="col-lg-4 col-md-4 col-sm-12 col-12">
               <FieldContainer
                 label="Description"
-                fieldGrid={12}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter description"
                 required
               />
             </div> */}
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="card-header ">
-            <div className="d-flex justify-content-between w-100">
-              <h3 className="cardHeading">Connected Address</h3>
-              <div>
-                <input
-                  type="checkbox"
-                  value={gifts}
-                  onChange={(e) => setGifts(e.target.checked)}
-                />
-                <label className="form-label">Diwali Gifts</label>
-              </div>
-            </div>
-          </div>
-          <div className="card-body row">
-            {/* <div className="col-4">
-              <FieldContainer
-                label="Connected Office"
-                fieldGrid={12}
-                value={connectedOffice}
-                onChange={(e) => setConnectedOffice(e.target.value)}
-                placeholder="Enter connected offices"
-              />
-            </div> */}
-            <div className="col-4">
-              <FieldContainer
-                label="Pin Code"
-                type="number"
-                fieldGrid={4}
-                value={conPinCode}
-                onChange={(e) => handlePincode(e, "connected")}
-                placeholder="Enter pin code"
-              />
-            </div>
-
-            <CustomSelect
-              fieldGrid={4}
-              label="Connected Billing Country"
-              dataArray={countries}
-              optionId="country_name"
-              optionLabel="country_name"
-              selectedId={connectedBillingCountry}
-              setSelectedId={setConnectedBillingCountry}
-            />
-
-            <IndianStatesMui
-              selectedState={connectedBillingState}
-              onChange={(option) =>
-                setConnectedBillingState(option ? option : null)
-              }
-              fieldGrid={4}
-              label="Connected Billing State"
-            />
-
-            <IndianCitiesMui
-              selectedState={connectedBillingState}
-              selectedCity={connectedBillingCity}
-              onChange={(option) =>
-                setConnectedBillingCity(option ? option : null)
-              }
-              fieldGrid={4}
-              label="Connected Billing City"
-            />
-
-            <div className="col-4">
-              <FieldContainer
-                label="Connected Billing Address"
-                fieldGrid={12}
-                value={connectedBillingStreet}
-                onChange={(e) => setConnectedBillingStreet(e.target.value)}
-                placeholder="Enter connected billing Addresss"
-              />
             </div>
           </div>
         </div>
         <div className="card">
           <div className="card-header">
-            <label className="cardHeading flex-row ml-3">
+            <div className="cardHeading">
+              <h5 className="cardTitle">Connected Address</h5>
+            </div>
+            <label className="flexCenter pointer">
               <input
                 type="checkbox"
-                className="form-check-input"
+                className="form-check-input m0"
+                value={gifts}
+                onChange={(e) => setGifts(e.target.checked)}
+              />
+              <p className="ml8 mt2 wMaxContent">Diwali Gifts</p>
+            </label>
+          </div>
+          <div className="card-body">
+            <div className="row">
+              {/* <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <FieldContainer
+                  label="Connected Office"
+                  value={connectedOffice}
+                  onChange={(e) => setConnectedOffice(e.target.value)}
+                  placeholder="Enter connected offices"
+                />
+              </div> */}
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <FieldContainer
+                  label="Pin Code"
+                  type="number"
+                  value={conPinCode}
+                  onChange={(e) => handlePincode(e, "connected")}
+                  placeholder="Enter pin code"
+                />
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <CustomSelect
+                  label="Connected Billing Country"
+                  dataArray={countries}
+                  optionId="country_name"
+                  optionLabel="country_name"
+                  selectedId={connectedBillingCountry}
+                  setSelectedId={setConnectedBillingCountry}
+                />
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <IndianStatesMui
+                  selectedState={connectedBillingState}
+                  onChange={(option) =>
+                    setConnectedBillingState(option ? option : null)
+                  }
+                  label="Connected Billing State"
+                />
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <IndianCitiesMui
+                  selectedState={connectedBillingState}
+                  selectedCity={connectedBillingCity}
+                  onChange={(option) =>
+                    setConnectedBillingCity(option ? option : null)
+                  }
+                  label="Connected Billing City"
+                />
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <FieldContainer
+                  label="Connected Billing Address"
+                  value={connectedBillingStreet}
+                  onChange={(e) => setConnectedBillingStreet(e.target.value)}
+                  placeholder="Enter connected billing Addresss"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="card">
+          <div className="card-header">
+            <div className="cardHeading">
+              <h5 className="cardTitle">Head office Address</h5>
+            </div>
+            <label className="flexCenter pointer">
+              <input
+                type="checkbox"
+                className="form-check-input m0"
                 checked={fillHeadFields}
                 onChange={handleCheckboxChange}
               />
-              <p className="cardHeading mt-1">
-                Head office address same as Connected Office{" "}
+              <p className="ml8 mt2 wMaxContent">
+                Head office address same as Connected Office
               </p>
             </label>
           </div>
-          <div className="card-body row">
-            {/* <div className="col-4">
+          <div className="card-body">
+            <div className="row">
+              {/* <div className="col-lg-4 col-md-4 col-sm-12 col-12">
               <FieldContainer
                 label="Head Office"
                 fieldGrid={12}
@@ -1588,20 +1590,17 @@ const CreateSalesAccount = () => {
                 placeholder="Enter head office"
               />
             </div> */}
-            <div className="col-4">
-              <FieldContainer
-                label="Pin Code"
-                type="number"
-                fieldGrid={4}
-                value={headPinCode}
-                onChange={(e) => handlePincode(e, "head")}
-                placeholder="Enter pin code"
-              />
-            </div>
-            <div className="col-md-4 flex-row">
-              <div className="col-12">
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <FieldContainer
+                  label="Pin Code"
+                  type="number"
+                  value={headPinCode}
+                  onChange={(e) => handlePincode(e, "head")}
+                  placeholder="Enter pin code"
+                />
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <CustomSelect
-                  fieldGrid={12}
                   label="Head Billing Country"
                   dataArray={countries}
                   optionId="country_name"
@@ -1610,36 +1609,37 @@ const CreateSalesAccount = () => {
                   setSelectedId={setHeadBillingCountry}
                 />
               </div>
-            </div>
-            <div className="form-group col-4 ">
-              <label htmlFor="">Head Billing State</label>
-              <IndianStatesMui
-                selectedState={headBillingState}
-                onChange={(option) =>
-                  setHeadBillingState(option ? option : null)
-                }
-              />
-            </div>
-
-            <div className="form-group col-4 ">
-              <label htmlFor="">Head Billing City</label>
-              <IndianCitiesMui
-                selectedState={headBillingState}
-                selectedCity={headBillingCity}
-                onChange={(option) =>
-                  setHeadBillingCity(option ? option : null)
-                }
-              />
-            </div>
-
-            <div className="col-4">
-              <FieldContainer
-                label="Head Billing Address"
-                fieldGrid={12}
-                value={headBillingStreet}
-                onChange={(e) => setHeadBillingStreet(e.target.value)}
-                placeholder="Enter head billing Address"
-              />
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <div className="form-group ">
+                  <IndianStatesMui
+                    label="Head Billing State"
+                    selectedState={headBillingState}
+                    onChange={(option) =>
+                      setHeadBillingState(option ? option : null)
+                    }
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <div className="form-group">
+                  <IndianCitiesMui
+                    label="Head Billing City"
+                    selectedState={headBillingState}
+                    selectedCity={headBillingCity}
+                    onChange={(option) =>
+                      setHeadBillingCity(option ? option : null)
+                    }
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+                <FieldContainer
+                  label="Head Billing Address"
+                  value={headBillingStreet}
+                  onChange={(e) => setHeadBillingStreet(e.target.value)}
+                  placeholder="Enter head billing Address"
+                />
+              </div>
             </div>
           </div>
         </div>
