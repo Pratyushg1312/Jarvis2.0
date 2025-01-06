@@ -10,9 +10,10 @@
 - **Advanced Analytics:** Provides comprehensive analytics for business insights and decision-making.
 - **Cloud Integration:** Offers cloud-based access for flexibility and remote work.
   **Jarvis 2.0** is developed to enhance business efficiency, provide deeper insights into operations and customer interactions, and support the growth and scalability of modern businesses.
-  
-  # Table of Contents
-- [Installation](#Documentation)
+
+
+# Table of Contents
+- [Documentation](#Documentation)
 - [Usage](#usage)
 - [Contributing](#Api)
 
