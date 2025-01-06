@@ -1,4 +1,4 @@
-# ![Logo](https://i.ibb.co/jZ3pgnS/logo.webp)
+![Logo](https://i.ibb.co/jZ3pgnS/logo.webp)
 
 # Jarvis 2.0
 
