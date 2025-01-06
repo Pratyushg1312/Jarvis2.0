@@ -3,10 +3,7 @@ import Select from "react-select";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
-import {
-  useGetUserDetailsByIdMutation,
-  useLoginUserDataQuery,
-} from "../../../Redux/Slices/UserSlices/UserApi";
+import { useLoginUserDataQuery } from "../../../Redux/Slices/UserSlices/UserApi";
 import {
   useEditMultipleRecordServicesMutation,
   useGetSingleRecordServiceQuery,
@@ -651,9 +648,9 @@ const CreateSaleBooking = () => {
   };
 
   const handlePaymentStatusSelect = (selectedOption) => {
-
-
-    setSelectedPaymentStatus(paymentStatusList.find(item => item.label == selectedOption));
+    setSelectedPaymentStatus(
+      paymentStatusList.find((item) => item.label == selectedOption)
+    );
     setIsValidate((prev) => ({ ...prev, selectedPaymentStatus: false }));
   };
 
@@ -918,18 +915,20 @@ const CreateSaleBooking = () => {
                   disabled={
                     (account_info?.state &&
                       account_info?.state?.account_data?.account_type_name !==
-                      "Agency") ||
+                        "Agency") ||
                     allAccounts?.find(
                       (item) => item?.account_id == selectedAccount
                     )?.account_type_name !== "Agency"
                   }
-                > <Button
-                  variant="outlined"
-                  color="primary"
-                  type="button"
-                  disabled={!selectedAccount}
-                  onClick={() => openModal("addBrand")}
                 >
+                  {" "}
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    type="button"
+                    disabled={!selectedAccount}
+                    onClick={() => openModal("addBrand")}
+                  >
                     +
                   </Button>
                 </CustomSelect>
@@ -979,11 +978,7 @@ const CreateSaleBooking = () => {
                   <div className="form-error">Please enter a campaign name</div>
                 )}
               </div>
-              {
-                <div className="col-md-4 mt-2 flex-row gap-2">
-
-                </div>
-              }
+              {<div className="col-md-4 mt-2 flex-row gap-2"></div>}
             </div>
             {gstAvailable && (
               <div className="col-12">
@@ -1133,7 +1128,6 @@ const CreateSaleBooking = () => {
               <DynamicSelect
                 required={true}
                 data={paymentStatusList.map((item) => item.label)}
-
                 label={"Payment Status"}
                 onChange={(e) => handlePaymentStatusSelect(e)}
                 value={selectedPaymentStatus?.label}
@@ -1166,25 +1160,29 @@ const CreateSaleBooking = () => {
             {selectedPaymentStatus?.value === "self_credit_used" && (
               <>
                 <div className="form-group col-4">
-
                   <DynamicSelect
                     required={true}
                     label={"Payment Terms"}
                     data={creditApprovalList.map((item) => item.reason)}
-                    onChange={(value) => { handleReasonCreditApp(creditApprovalList.find((item) => item.reason == value)) }}
-                    value={creditApprovalList?.find(
-                      (item) => item._id == selectedCreditApp
-                    )?.reason}
-
+                    onChange={(value) => {
+                      handleReasonCreditApp(
+                        creditApprovalList.find((item) => item.reason == value)
+                      );
+                    }}
+                    value={
+                      creditApprovalList?.find(
+                        (item) => item._id == selectedCreditApp
+                      )?.reason
+                    }
                   />
-
 
                   {isValidate.selectedCreditApp && (
                     <div className="form-error">Please select a reason</div>
                   )}
                 </div>
 
-                {creditApprovalList?.find((opt) => opt._id == selectedCreditApp)?.reason_type == "own_reason" && (
+                {creditApprovalList?.find((opt) => opt._id == selectedCreditApp)
+                  ?.reason_type == "own_reason" && (
                   <div className="col-4">
                     <FieldContainer
                       label="Reason Credit Approval"

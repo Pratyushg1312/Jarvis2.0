@@ -20,6 +20,7 @@ import { formatNumber } from "../../../Utils/formatNumber";
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 import View from "../../../Components/CommonComponent/View/View";
 import { toastError } from "../../../Utils/ToastUtil";
+import { Button } from "@mui/material";
 
 const IncentiveDashboard = () => {
   const loginUserId = GetDecodedToken().id;
@@ -352,13 +353,14 @@ const IncentiveDashboard = () => {
         return (
           <div title={disabledState ? "Release Request Already Pending" : ""}>
             {row?.incentiveRequestPendingAmount > 0 && (
-              <button
-                className="btn btn-primary btn_sm cmnbtn"
+              <Button
+                variant="contained"
+                color="primary"
                 onClick={(e) => handleRelease(e, row)}
                 disabled={disabledState}
               >
                 Release
-              </button>
+              </Button>
             )}
           </div>
         );

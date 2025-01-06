@@ -127,8 +127,9 @@ const PaymentDetailsOverview = () => {
       compare: true,
     },
     {
-      key: "status",
+      key: "status-1",
       name: "Status",
+      compare: true,
       renderRowCell: (row, index) => {
         if (!row.is_hide) {
           return (

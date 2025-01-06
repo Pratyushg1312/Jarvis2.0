@@ -14,7 +14,6 @@ const LoginApi = createApi({
       onQueryStarted: async (loggedData, { dispatch, queryFulfilled }) => {
         try {
           const { data: response } = await queryFulfilled;
-          // sessionStorage.setItem("token", response.token);
         } catch (error) {
           console.error(error);
         }

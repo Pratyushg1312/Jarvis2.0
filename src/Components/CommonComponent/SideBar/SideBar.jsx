@@ -1,25 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CaretRight } from "@phosphor-icons/react";
-import DashboardSidebarLinks from "./DashboardSidebarLinks";
-import HumanResourceSidebarLinks from "./HumanResourceSidebarLinks";
-import OrganizationSidebrLinks from "./OrganizationSidebrLinks";
-import OpertaionSidebarLink from "./OpertaionSidebarLink";
-import FinanceSidebarLinks from "./FinanceSidebarLinks";
-import InventorySidebarLinks from "./InventorySidebarLinks";
-import ComunitySidebarLinks from "./ComunitySidebarLinks";
-import UiSideBarLinks from "./UiSideBarLinks";
-import SalesSidebarLinks from "./SalesSidebarLinks";
-import GetDecodedToken from "../../../Utils/GetDecodedToken";
+import { useSelector } from "react-redux";
+import AuthSideBar from "./AuthSideBar";
 
 const SideBar = () => {
+  const semiTheme = useSelector((state) => state.semiTheme);
   const placeholder = useRef();
   const [listNode, setListNode] = useState();
   const [position, setPosition] = useState([]);
-  const token = GetDecodedToken();
-  const userID = token.id;
-  const RoleId = token.role_id;
-  const deptId = token.dept_id;
-  const job_type = token.job_type;
 
   useEffect(() => {
     const nodes = placeholder?.current?.childNodes;
@@ -76,7 +64,11 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="sideBar semiDark-disable">
+      <div
+        className={`sideBar ${
+          semiTheme.enable ? "semiDark" : "semiDark-disable"
+        }`}
+      >
         <div className="sidebarToggle">
           <label htmlFor="toggle-sidebar" className="toggle-sidebar-label">
             <CaretRight />
@@ -86,15 +78,7 @@ const SideBar = () => {
           <div className="sideBarContent">
             <div className="sidebarMenu">
               <ul className="navbar-nav" ref={placeholder}>
-                <DashboardSidebarLinks />
-                <HumanResourceSidebarLinks />
-                <OrganizationSidebrLinks />
-                <InventorySidebarLinks />
-                <FinanceSidebarLinks />
-                <OpertaionSidebarLink />
-                <SalesSidebarLinks />
-                <ComunitySidebarLinks />
-                <UiSideBarLinks />
+                <AuthSideBar />
               </ul>
             </div>
           </div>
@@ -103,11 +87,12 @@ const SideBar = () => {
       {listNode?.map((node, index) => {
         return (
           <p
+            key={index}
             className="side-bar-tooltip"
             style={{
               position: "fixed",
-              left: `${position[index]?.x-5}px`,
-              top: `${position[index]?.y-15}px`,
+              left: `${position[index]?.x}px`,
+              top: `${position[index]?.y}px`,
             }}
           >
             {node.querySelector("h5").innerText}

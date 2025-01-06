@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, use, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
@@ -1272,7 +1272,6 @@ const CreateSalesAccount = () => {
                       optionLabel="brand_category_name"
                       selectedId={selectedCategory}
                       setSelectedId={setSelectedCategory}
-                      disabled
                       required
                     >
                       {loginUserRole == 1 && (

@@ -13,6 +13,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import {
+  useGetAllUsersQuery,
+  useGetUserAuthQuery,
+  useGetUserDetailsByIdQuery,
+  useLoginUserDataQuery,
+} from "../../Redux/Slices/UserSlices/UserApi";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +36,25 @@ const Login = () => {
       isSuccess: loginIsSuccess,
     },
   ] = useLoginMutation();
+  const { isSuccess: authSuccess } = useGetUserAuthQuery(loginData?.user?.id, {
+    skip: !loginData?.user?.id,
+  });
+  const { isLoading: allUserLoading } = useGetAllUsersQuery(
+    loginData?.user?.id,
+    {
+      skip: !loginData?.user?.id,
+    }
+  );
+  const { isLoading: loginUserDataLoading, isSuccess: loginUserDataSuccess } =
+    useLoginUserDataQuery(loginData?.user?.id, {
+      skip: !loginData?.user?.id,
+    });
+  const { isLoading: detailLoading } = useGetUserDetailsByIdQuery(
+    loginData?.user?.id,
+    {
+      skip: !loginData?.user?.id,
+    }
+  );
 
   useEffect(() => {
     if (loginIsSuccess) {
@@ -40,15 +65,15 @@ const Login = () => {
       }, Session); // 10 hours
 
       //check for the  previous route
-
-      navigate("/");
+      if (authSuccess) navigate("/");
     }
-  }, [loginIsSuccess]);
+  }, [loginIsSuccess, authSuccess]);
 
   async function handelSubmit(e) {
     e.preventDefault();
     try {
       await login(form).unwrap();
+
       toastAlert("Login Successful");
     } catch (error) {
       console.error(error);

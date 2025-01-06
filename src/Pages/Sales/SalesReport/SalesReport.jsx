@@ -175,6 +175,20 @@ const SalesReport = () => {
       access: [1, 4],
       element: (
         <>
+          {categoryDetails && (
+            <CustomSelect
+              label={"Category"}
+              fieldGrid={4}
+              dataArray={[
+                ...categoryDetails,
+                { sales_category_id: null, sales_category_name: "None" },
+              ]?.reverse()}
+              optionId="sales_category_id"
+              optionLabel="sales_category_name"
+              selectedId={Cat_id}
+              setSelectedId={setCat_id}
+            />
+          )}
           <CustomSelect
             label={"Filter By"}
             dataArray={options}
@@ -220,62 +234,6 @@ const SalesReport = () => {
         mainTitle={"Sales Report"}
         LinkButtons={LinkButtons}
       />
-
-      <div className="card">
-        <div className="card-body row p-3">
-          <CustomSelect
-            fieldGrid={"4"}
-            label={"Filter By"}
-            dataArray={options}
-            optionId={"value"}
-            optionLabel={"label"}
-            selectedId={filter}
-            setSelectedId={setFilter}
-          />
-          {filter === "custom" && (
-            <>
-              <FieldContainer
-                type="date"
-                label="From Date"
-                fieldGrid={4}
-                value={fromDate}
-                onChange={(e) => setFromDate(e.target.value)}
-              />
-              <FieldContainer
-                type="date"
-                label="To Date"
-                fieldGrid={4}
-                value={toDate}
-                onChange={(e) => setToDate(e.target.value)}
-              />
-            </>
-          )}
-          {categoryDetails && (
-            <CustomSelect
-              label={"Category"}
-              fieldGrid={4}
-              dataArray={[
-                ...categoryDetails,
-                { sales_category_id: null, sales_category_name: "None" },
-              ]?.reverse()}
-              optionId="sales_category_id"
-              optionLabel="sales_category_name"
-              selectedId={Cat_id}
-              setSelectedId={setCat_id}
-            />
-          )}
-          <div className="col-4 mt-4">
-            <Button
-              variant={"contained"}
-              color={"primary"}
-              className="btn cmnbtn btn-primary"
-              onClick={handelSearch}
-            >
-              Search
-            </Button>
-          </div>
-        </div>
-      </div>
 
       <div className="card">
         <div className="card-body">

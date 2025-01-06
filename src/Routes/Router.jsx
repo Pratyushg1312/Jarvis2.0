@@ -4,6 +4,7 @@ import Login from "../Pages/Login/Login"; // Assuming the login page doesn't nee
 import ProtectedRoute from "./ProtectedRoute";
 import Loader from "../Components/CommonComponent/Loader/Loader";
 import PageNotFound from "../Components/CommonComponent/PageNotFound/PageNotFound";
+import AuthLayer from "./AuthLayer";
 
 // Lazy-loaded route components
 const DummyRoute = lazy(() => import("./DummyRoute"));
@@ -23,96 +24,94 @@ const Router = () => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route index element={<Navigate to="sales" replace={true} />} /> // It
-          redirects index to desired routing like dashboard or landing page of
-          modules . Use only if index is not in use.
+          <Route index element={<AuthLayer module={"index"} />} />
           <Route
             path="/"
             element={
-              <ProtectedRoute>
+              <AuthLayer>
                 <DummyRoute />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* UI Routes */}
           <Route
             path="ui/*"
             element={
-              <ProtectedRoute>
+              <AuthLayer module="ui">
                 <UIRoutes />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* Sales Routes */}
           <Route
             path="sales/*"
             element={
-              <ProtectedRoute>
+              <AuthLayer module="sales">
                 <SalesRoute />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* Finance Routes */}
           <Route
             path="finance/*"
             element={
-              <ProtectedRoute>
+              <AuthLayer module="finance">
                 <FinanceRoute />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* User Routes */}
           <Route
             path="user/*"
             element={
-              <ProtectedRoute>
+              <AuthLayer module="user">
                 <UserRoute />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* Sarcasm Routes */}
           <Route
             path="sarcasm/*"
             element={
-              <ProtectedRoute>
+              <AuthLayer module="sarcasm">
                 <SarcasmRoute />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* Operation Routes */}
           <Route
             path="operation/*"
             element={
-              <ProtectedRoute>
+              <AuthLayer module="operation">
                 <OperationRoute />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* Inventory Routes */}
           <Route
             path="inventory/*"
             element={
-              <ProtectedRoute>
+              <AuthLayer module="inventory">
                 <InventoryRoute />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* Execution Routes */}
           <Route
             path="execution/*"
             element={
-              <ProtectedRoute>
+              <AuthLayer module="execution">
                 <ExecutionRoute />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* Community Routes */}
           <Route
             path="community/*"
             element={
-              <ProtectedRoute>
+              <AuthLayer module="community">
                 <CommunityRoute />
-              </ProtectedRoute>
+              </AuthLayer>
             }
           />
           {/* Page Not Found */}
