@@ -95,7 +95,7 @@ const TargetCompetitionOverview = () => {
       key: "status",
       name: "Status",
       renderRowCell: (row, index) => {
-        if (row.status == 0) {
+        if (row.status == 1) {
           return (
             <div
               className="badge danger"

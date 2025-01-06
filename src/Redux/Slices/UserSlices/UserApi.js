@@ -10,12 +10,12 @@ const UserApi = createApi({
       query: (id) => ({
         url: `get_single_user/${id}`,
       }),
-      transformResponse: (response) => response?.[0],
+      transformResponse: (response) => response,
       keepUnusedDataFor: Session / 1000,
     }),
 
     getAllUsers: builder.query({
-      query: () => "get_all_users",
+      query: (id) => "get_all_users",
       transformResponse: (response) => response.data,
       keepUnusedDataFor: Session / 1000,
     }),
@@ -25,13 +25,9 @@ const UserApi = createApi({
       keepUnusedDataFor: Session / 1000,
     }),
 
-    getUserDetailsById: builder.mutation({
+    getUserDetailsById: builder.query({
       query: (id) => ({
-        url: `login_user_data`,
-        method: "POST",
-        body: {
-          user_id: id,
-        },
+        url: `login_user_data_with_jarvis/${id}`,
       }),
       transformResponse: (response) => response?.[0],
       keepUnusedDataFor: Session / 1000,
@@ -43,7 +39,7 @@ export const {
   useLoginUserDataQuery,
   useGetAllUsersQuery,
   useGetUserAuthQuery,
-  useGetUserDetailsByIdMutation,
+  useGetUserDetailsByIdQuery,
 } = UserApi;
 
 export default UserApi;

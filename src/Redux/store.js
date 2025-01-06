@@ -38,9 +38,13 @@ import UserIncentiveDashboardApi from "./Slices/SalesSlices/UserIncentiveDashboa
 import CountryCodeApi from "./Slices/CountryCodeSlices/CountryCodeApi";
 import SalesCategoryApi from "./Slices/SalesSlices/salesCategoryApi";
 import OutstandingApi from "./Slices/FinanceSlices/OutstandingApi";
+import semiThemeReducer from "./Slices/ThemeSlices/SemiThemeSlice";
+import themeCollapseReducer from "./Slices/ThemeSlices/ThemeCollapseSlice";
 
 const store = configureStore({
   reducer: {
+    themeCollapse: themeCollapseReducer,
+    semiTheme: semiThemeReducer,
     notification: notificationReducer,
     previousRoute: PreviousRouteReducer,
     [SalesAccountApi.reducerPath]: SalesAccountApi.reducer,

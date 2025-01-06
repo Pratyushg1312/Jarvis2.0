@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
 import Router from "./Routes/Router.jsx";
 
 import OfflinePage from "./Components/CommonComponent/OfflinePage/OfflinePage.jsx";
+import { setthemeCollapse } from "./Redux/Slices/ThemeSlices/ThemeCollapseSlice.js";
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // this code may cause vulnerability so please  inform pratyush  to reserch on it and i am adding this comment for my self
@@ -41,6 +43,7 @@ function App() {
     show = false,
   } = useSelector((state) => state.notification || {}); // Get notification state from Redux
   const checkbox = useRef(null);
+  const ref = useSelector((state) => state.themeCollapse);
 
   useEffect(() => {
     // Show toast notification
@@ -62,31 +65,31 @@ function App() {
     const handleOffline = () => {
       setIsOnline(false);
     };
-    const handleCheckboxChange = () => {
-      if (checkbox?.current?.checked) {
-        document.body.classList.add("sidebarActive");
-      } else {
-        document.body?.classList?.remove("sidebarActive");
-      }
-    };
 
-    const checkboxElement = checkbox?.current;
-    checkboxElement?.addEventListener("change", handleCheckboxChange);
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
 
     // Cleanup event listener on component unmount
     return () => {
-      checkboxElement?.removeEventListener("change", handleCheckboxChange);
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
+  useEffect(() => {
+    if (ref.ref) {
+      document.body.classList.add("sidebarActive");
+    } else {
+      document.body.classList.remove("sidebarActive");
+    }
+  }, [ref]);
+
   return (
     <div className="app bodyWrapper">
       <input
         ref={checkbox}
+        defaultChecked={ref.ref}
+        onChange={(e) => dispatch(setthemeCollapse(e.target.checked))}
         type="checkbox"
         id="toggle-sidebar"
         className="toggle-sidebar-checkbox"

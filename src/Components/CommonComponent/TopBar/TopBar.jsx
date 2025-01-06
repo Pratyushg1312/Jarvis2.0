@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import {
   useGetAllUsersQuery,
   useGetUserAuthQuery,
-  useGetUserDetailsByIdMutation,
+  useGetUserDetailsByIdQuery,
   useLoginUserDataQuery,
 } from "../../../Redux/Slices/UserSlices/UserApi";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
@@ -33,15 +33,12 @@ const TopBar = () => {
     isLoading: allUserIsLoading,
     isSuccess: allUserIsSuccess,
   } = useGetAllUsersQuery();
-  const [
-    getData,
-    {
-      data: userData,
-      error: userError,
-      isLoading: userIsLoading,
-      isSuccess: userIsSuccess,
-    },
-  ] = useGetUserDetailsByIdMutation();
+  const {
+    data: userData,
+    error: userError,
+    isLoading: userIsLoading,
+    isSuccess: userIsSuccess,
+  } = useGetUserDetailsByIdQuery(loginUser);
 
   const {
     data: userAuthData,
@@ -49,18 +46,6 @@ const TopBar = () => {
     isLoading: userAuthIsLoading,
     isSuccess: userAuthIsSuccess,
   } = useGetUserAuthQuery(loginUser, { skip: !loginUser });
-
-  async function getUserData() {
-    try {
-      await getData(loginUser).unwrap();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    getUserData();
-  }, []);
 
   function convertTimestamps(user) {
     const { exp, iat, ...rest } = user;
@@ -72,12 +57,12 @@ const TopBar = () => {
   }
 
   // Toggle Dark/Light Theme
-  useEffect(() => {
-    document.getElementById("theme-toggle").addEventListener("click", (e) => {
-      const checked = e.target.checked;
-      document.body.setAttribute("theme", checked ? "dark" : "light");
-    });
-  }, []);
+  // useEffect(() => {
+  //   document.getElementById("theme-toggle").addEventListener("click", (e) => {
+  //     const checked = e.target.checked;
+  //     document.body.setAttribute("theme", checked ? "dark" : "light");
+  //   });
+  // }, []);
 
   return (
     <>
@@ -97,7 +82,10 @@ const TopBar = () => {
             </div>
           </div>
           <nav className="navbar navbar-expand-sm">
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
               <div className="navbarRight">
                 <div className="themeToggle">
                   <button
@@ -113,7 +101,7 @@ const TopBar = () => {
                     <GearSix />
                   </button>
                 </div>
-                <div className="theme-switch">
+                {/* <div className="theme-switch">
                   <input type="checkbox" id="theme-toggle" />
                   <label htmlFor="theme-toggle">
                     <div className="theme-sw iconBtn">
@@ -125,7 +113,7 @@ const TopBar = () => {
                       </i>
                     </div>
                   </label>
-                </div>
+                </div> */}
                 <div className="dropdown userDropdown">
                   <a
                     className="dropdown-toggle"

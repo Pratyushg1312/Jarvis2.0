@@ -34,39 +34,6 @@ import { useGetSalesCategoryListQuery } from "../../../Redux/Slices/SalesSlices/
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 import OutstandingComp from "../../../Components/CommonComponent/Outstanding/OutstandingComp";
 
-const LinkButtons = [
-  {
-    name: "View POC",
-    link: "/sales/point-of-contact",
-    type: "link",
-    access: [1],
-  },
-  {
-    name: "Sales Report",
-    link: "/sales/report-overview",
-    type: "link",
-    access: [1],
-  },
-  {
-    name: "View Target Competition",
-    link: "/sales/target-competition-overview",
-    type: "link",
-    access: [1, 4],
-  },
-  {
-    name: "Add Account",
-    link: "/sales/create-sales-account/0",
-    type: "link",
-    access: [1, 4],
-  },
-  {
-    name: "Create Sale Booking",
-    link: "/sales/create-sales-booking",
-    type: "link",
-    access: [1, 4],
-  },
-];
-
 const SalesDashboard = () => {
   const navigate = useNavigate();
   const loginUserId = GetDecodedToken().id;
@@ -136,7 +103,7 @@ const SalesDashboard = () => {
   useEffect(() => {
     if (!targetCompetitionsLoading && allTargetCompetitionsData) {
       const activeCompetitions = allTargetCompetitionsData?.filter(
-        (competition) => competition.status == 1
+        (competition) => competition.status == 0
       );
 
       if (activeCompetitions?.length > 0) {
@@ -152,7 +119,7 @@ const SalesDashboard = () => {
 
   const { data: totalSaleAmountDateWise, isError: totalSaleAmountError } =
     useGetTotalSaleAmountDateWiseQuery(
-      { startDate, endDate },
+      { startDate, endDate, Cat_id },
       { skip: !startDate || !endDate }
     );
 
@@ -206,7 +173,7 @@ const SalesDashboard = () => {
       renderRowCell: (row) => {
         return (
           <div
-            style={{ color: "blue", cursor: "pointer" }}
+            className="pointer colorPrimary"
             onClick={() =>
               navigate("/sales/closed-deal", {
                 state: { booking_status: row.booking_status },
@@ -233,7 +200,7 @@ const SalesDashboard = () => {
       name: "Account Name",
       renderRowCell: (row) => (
         <Link
-          style={{ color: "blue" }}
+          className="colorPrimary pointer"
           to={`/sales/account-info/${row?.account_obj_id}`}
         >
           {formatString(row?.account_name)}
@@ -265,6 +232,57 @@ const SalesDashboard = () => {
       width: 150,
     },
   ];
+  const LinkButtons = [
+    {
+      name: "View POC",
+      link: "/sales/point-of-contact",
+      type: "link",
+      access: [1],
+    },
+    {
+      name: "Sales Report",
+      link: "/sales/report-overview",
+      type: "link",
+      access: [1],
+    },
+    {
+      name: "View Target Competition",
+      link: "/sales/target-competition-overview",
+      type: "link",
+      access: [1, 4],
+    },
+    {
+      name: "Add Account",
+      link: "/sales/create-sales-account/0",
+      type: "link",
+      access: [1, 4],
+    },
+    {
+      name: "Create Sale Booking",
+      link: "/sales/create-sales-booking",
+      type: "link",
+      access: [1, 4],
+    },
+  ];
+  if (categoryDetails?.length > 0)
+    LinkButtons.push({
+      type: "element",
+      element: (
+        <CustomSelect
+          label={"Category"}
+          fieldGrid={4}
+          dataArray={[
+            ...categoryDetails,
+            { sales_category_id: null, sales_category_name: "All" },
+          ]?.reverse()}
+          optionId="sales_category_id"
+          optionLabel="sales_category_name"
+          selectedId={Cat_id}
+          setSelectedId={setCat_id}
+        />
+      ),
+      access: [1],
+    });
 
   return (
     <div>
@@ -309,23 +327,6 @@ const SalesDashboard = () => {
         LinkButtons={LinkButtons}
       />
 
-      {loginUserRole === 1 && categoryDetails && (
-        <div className="card">
-          <div className="card-header">
-            <h5 className="card-title">Filter By Category</h5>
-          </div>
-          <div className="row pl-3">
-            <CustomSelect
-              fieldGrid={4}
-              dataArray={[...categoryDetails]?.reverse()}
-              optionId="sales_category_id"
-              optionLabel="sales_category_name"
-              selectedId={Cat_id}
-              setSelectedId={setCat_id}
-            />
-          </div>
-        </div>
-      )}
       {!weekMonthCardLoading && (
         <>
           <div className="row mt20">
@@ -468,7 +469,7 @@ const SalesDashboard = () => {
 
       {allTargetCompetitionsData?.map(
         (data, index) =>
-          data?.status == 1 && (
+          data?.status == 0 && (
             <TargetCard
               index={index}
               data={data}

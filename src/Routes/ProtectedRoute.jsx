@@ -2,6 +2,8 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { baseUrl } from "../Config";
+import { AuthEngine, useAuth } from "../Context/ApiCaller";
+import PageNotFound from "../Components/CommonComponent/PageNotFound/PageNotFound";
 
 const isAuthenticated = () => {
   const token = sessionStorage.getItem("token");
@@ -22,19 +24,43 @@ const isAuthenticated = () => {
   }
 };
 const isLiveServer = () => {
-
-  return baseUrl === baseUrl.includes("jarvis.work");
-
+  return baseUrl === baseUrl.includes("jarvis");
 };
 
+const DeptMap = {
+  36: "sales",
+  40: "finance",
+  62: "community",
+  12: "operation",
+  34: "hrms",
+};
 
+const RouteDirectory = (children, module, auth) => {
+  console.log(auth.isSalesAdmin);
 
+  switch (module) {
+    case "index":
+      return <Navigate to={DeptMap[auth?.dept_id]} replace />;
 
-const ProtectedRoute = ({ children }) => {
-  console.log(children);
+    case "ui":
+      if (!isLiveServer()) return children;
+      else return <PageNotFound />;
+    case "sales":
+      if (auth.isSales || auth.isSalesAdmin) return children;
+      else return <PageNotFound />;
+    default:
+      return <PageNotFound />;
+  }
+};
 
+const ProtectedRoute = ({ children, module }) => {
+  const auth = useAuth();
 
-  return isAuthenticated() ? children : <Navigate to="/login" />;
+  return isAuthenticated() ? (
+    RouteDirectory(children, module, auth)
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 export default ProtectedRoute;
