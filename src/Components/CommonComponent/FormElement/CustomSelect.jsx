@@ -56,7 +56,7 @@ const CustomSelect = ({
   const Wrapper = children ? FormGroup : "div";
 
   return (
-    <Wrapper className={children ? `form-group col-${fieldGrid}` : ""}>
+    <Wrapper className={children ? `form-group` : ""}>
       <Autocomplete
         multiple={multiple}
         disableCloseOnSelect={multiple}
