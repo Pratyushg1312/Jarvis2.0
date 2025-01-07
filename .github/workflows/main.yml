@@ -20,12 +20,12 @@ jobs:
 
     - name: Add destination repo as remote
       run: |
-        git remote add destination https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/sumit-sen-cf/jarvis-frontend-2.git
+        git remote add destination https://github.com/Pratyushg1312/deployAMS.git
         git fetch destination
 
 
     - name: Push to destination repo
       run: |
-        git push --force destination main:master
+        git push --force destination main:main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
