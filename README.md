@@ -1,4 +1,4 @@
-# Jarvis 2.0
+#  <img src="https://i.ibb.co/jZ3pgnS/logo.webp" title="logo" width="35"> Jarvis 2.0 
 
 **Jarvis 2.0** is a modern ERP and CRM software solution designed to seamlessly integrate and manage both enterprise resource planning and customer relationship management functionalities in a single platform. This project aims to deliver an efficient, scalable, and user-friendly system that helps organizations optimize their operations and improve customer engagement.
 
