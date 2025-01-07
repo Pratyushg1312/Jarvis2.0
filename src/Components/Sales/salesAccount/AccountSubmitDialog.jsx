@@ -18,14 +18,14 @@ const AccountSubmitDialog = ({
           {id == 0 && <h6>Account has been created successfully.</h6>}
           {id != 0 && <h6>Account has been edited successfully.</h6>}
           <button
-            className="btn cmnbtn btn-success"
+            className="btn btn-success"
             onClick={() => navigate("/sales/dashboard")}
           >
             HOME
           </button>
           {id == 0 && (
             <button
-              className="btn cmnbtn btn-success"
+              className="btn btn-success"
               onClick={() =>
                 navigate("/sales/create-sales-booking", {
                   state: {
@@ -39,7 +39,7 @@ const AccountSubmitDialog = ({
           )}
           {id != 0 && (
             <button
-              className="btn cmnbtn btn-success"
+              className="btn btn-success"
               onClick={() => navigate("/sales/account-overview")}
             >
               Continue to sale Overview
@@ -52,7 +52,7 @@ const AccountSubmitDialog = ({
           <img src={"/assets/images/badge/error.png"} alt="icon" />
           <h2>Error</h2>
           <h6>Task failed. please wait we'll get back to you soon.</h6>
-          <button className="btn cmnbtn btn-danger" onClick={closeModal}>
+          <button className="btn btn-danger" onClick={closeModal}>
             Try again !
           </button>
         </div>

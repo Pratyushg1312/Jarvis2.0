@@ -194,7 +194,7 @@ const ViewSalesPoc = () => {
       ) => (
         <div className="flexCenter colGap8">
           <button
-            className="iconBtn sm"
+            className="iconBtn"
             onClick={() => {
               setEditFlag(index);
             }}
@@ -203,7 +203,7 @@ const ViewSalesPoc = () => {
           </button>
           {editflag === index && (
             <button
-              className="iconBtn sm"
+              className="iconBtn"
               onClick={() => {
                 handelEdit(row);
                 setEditFlag(false);

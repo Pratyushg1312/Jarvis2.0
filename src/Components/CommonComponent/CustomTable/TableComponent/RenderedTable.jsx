@@ -735,7 +735,7 @@ function DropdownElement({
       </div>
       <div className="dropdownFooter">
         <button
-          className="cmnbtn btn btn-success btn_sm ml-auto"
+          className="btn btn-success btn_sm ml-auto"
           onClick={() => {
             setApplyFlag(!applyFlag);
             setIsOpen((prev) => !prev);

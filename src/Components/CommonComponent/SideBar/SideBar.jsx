@@ -92,7 +92,7 @@ const SideBar = () => {
             style={{
               position: "fixed",
               left: `${position[index]?.x}px`,
-              top: `${position[index]?.y}px`,
+              top: `${position[index]?.y - 16}px`,
             }}
           >
             {node.querySelector("h5").innerText}

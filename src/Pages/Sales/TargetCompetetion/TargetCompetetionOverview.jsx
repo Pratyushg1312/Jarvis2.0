@@ -11,6 +11,7 @@ import {
   useEditTargetCompetitionMutation,
   useGetAllTargetCompetitionsQuery,
 } from "../../../Redux/Slices/SalesSlices/TargetCompetitionApi";
+import { Pencil, Trash } from "@phosphor-icons/react";
 
 const TargetCompetitionOverview = () => {
   const navigate = useNavigate();
@@ -121,16 +122,16 @@ const TargetCompetitionOverview = () => {
       renderRowCell: (row) => (
         <div className="flexCenter colGap12">
           <Link to={`/sales/create-target-competition/${row._id}`}>
-            <button className="iconBtn sm" title="Edit">
-              <i className="bi bi-pencil" />
+            <button className="iconBtn" title="Edit">
+              <Pencil />
             </button>
           </Link>
           <button
-            className="iconBtn sm"
+            className="iconBtn"
             onClick={() => handleDelete(row._id)}
             title="Delete"
           >
-            <i className="bi bi-trash" />
+            <Trash />
           </button>
         </div>
       ),

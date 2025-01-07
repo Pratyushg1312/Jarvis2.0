@@ -26,9 +26,6 @@ const CreateRecordServices = ({
   const [serviceFieldsData, setServiceFieldsData] = useState([]);
   const [error, setError] = useState(""); // New state for error handling
 
-
-
-
   useEffect(() => {
     if (serviceFieldsData.length > 0) {
       setValidateService(serviceFieldsData);
@@ -67,15 +64,10 @@ const CreateRecordServices = ({
 
     if (baseAmount > totalAmount) {
       setRemainingAmount(baseAmount - totalAmount);
-
     } else {
       setRemainingAmount(0);
     }
-
-
   }, [records, baseAmount]);
-
-
 
   const handleRecordChange = (index, key, value) => {
     if (value < 0) {
@@ -85,8 +77,6 @@ const CreateRecordServices = ({
     const updatedRecords = records?.map((record, recordIndex) =>
       recordIndex === index ? { ...record, [key]: value } : record
     );
-
-
 
     setIsValidRec((prev) =>
       prev.map((rec, recIndex) =>
@@ -103,14 +93,12 @@ const CreateRecordServices = ({
 
       if (baseAmount > totalAmount) {
         setRemainingAmount(baseAmount - totalAmount);
-
       }
 
       if (totalAmount > baseAmount) {
         toastError(`Total amount cannot exceed ${baseAmount}`);
         return; // Early return if validation fails
       }
-
     }
 
     setRecords(updatedRecords);
@@ -135,8 +123,6 @@ const CreateRecordServices = ({
     }
 
     if (key === "sales_service_master_id") {
-
-
       const updatedSelectedRecords = [...selectedRecords];
       updatedSelectedRecords[index] = value;
       const updatedServiceFieldsData = [...serviceFieldsData];
@@ -146,7 +132,6 @@ const CreateRecordServices = ({
 
       setSelectedRecords(updatedSelectedRecords);
       setServiceFieldsData(updatedServiceFieldsData);
-
     }
   };
 
@@ -186,7 +171,6 @@ const CreateRecordServices = ({
         const ServiceFields = serviceFieldsData?.[index];
         const isValidRecIndex = isValidRec?.[index];
 
-
         return (
           <div className="card" key={index}>
             <div className="card-header sb">
@@ -200,35 +184,50 @@ const CreateRecordServices = ({
             </div>
             <div className="card-body">
               <div className="row record-container">
-
                 <div className="col-12">
-                  {
-                    getincentiveSharingData?.services?.find(data => data.service_id === record?.sales_service_master_id)?.service_percentage &&
+                  {getincentiveSharingData?.services?.find(
+                    (data) =>
+                      data.service_id === record?.sales_service_master_id
+                  )?.service_percentage && (
                     <div className="card gstinfo-card">
-
                       {
                         <div>
                           <h5>
-
-                            {record?.sales_service_master_id ? "Service Percentage" + " " + getincentiveSharingData?.services?.find(data => data.service_id === record?.sales_service_master_id)?.service_percentage + "%" : "Please Select Service Type"}
-
+                            {record?.sales_service_master_id
+                              ? "Service Percentage" +
+                                " " +
+                                getincentiveSharingData?.services?.find(
+                                  (data) =>
+                                    data.service_id ===
+                                    record?.sales_service_master_id
+                                )?.service_percentage +
+                                "%"
+                              : "Please Select Service Type"}
                           </h5>
                         </div>
                       }
                       <div className="flex-grid gap-2 ">
-
-                        {
-                          getincentiveSharingData?.services?.find(data => data?.service_id === record?.sales_service_master_id)?.incentive_sharing_users?.map((data, index) => (
-                            <div key={index} className="sb gap-2  cmnbtn btn btn_sm">
-                              <p>{usersDataContext?.find(user => user?.user_id === data?.user_id)?.user_name}</p>
+                        {getincentiveSharingData?.services
+                          ?.find(
+                            (data) =>
+                              data?.service_id ===
+                              record?.sales_service_master_id
+                          )
+                          ?.incentive_sharing_users?.map((data, index) => (
+                            <div key={index} className="sb gap-2 btn btn_sm">
+                              <p>
+                                {
+                                  usersDataContext?.find(
+                                    (user) => user?.user_id === data?.user_id
+                                  )?.user_name
+                                }
+                              </p>
                               <p>{data?.user_percentage + "%"}</p>
                             </div>
-                          ))
-                        }
+                          ))}
                       </div>
-
                     </div>
-                  }
+                  )}
                 </div>
                 <div className="col-6">
                   <CustomSelect

@@ -76,7 +76,7 @@ const DocumentTypeOverview = () => {
         return (
           <div className="flexCenter colGap12">
             <button
-              className="iconBtn sm"
+              className="iconBtn"
               title="Edit"
               onClick={() => {
                 setEditFlag(index);

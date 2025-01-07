@@ -43,11 +43,7 @@ const CreateDepartment = ({ loginUserId, closeModal }) => {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="btn cmnbtn btn-primary"
-          disabled={isLoading}
-        >
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
           {isLoading ? "Submitting..." : "Submit"}
         </button>
       </form>

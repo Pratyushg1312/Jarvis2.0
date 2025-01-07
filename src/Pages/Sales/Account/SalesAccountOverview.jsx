@@ -569,15 +569,15 @@ const SalesAccountOverview = () => {
         link={true}
         LinkButtons={LinkButtons}
       />
-      <div className="flexRowBetween">
-        <div className="flexCenterCol">
-          <div className="card w-100">
+
+      <div className="row">
+        <div className="col-lg-8 col-md-8 col-sm-12 col-12">
+          <div className="card">
             <div className="card-body">
               <div className="row">
-                <div className="col-md-4">
+                <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                   <CustomSelect
                     label="Seclect Column"
-                    fieldGrid={4}
                     dataArray={dateFilterArray}
                     optionId="value"
                     optionLabel="label"
@@ -585,10 +585,9 @@ const SalesAccountOverview = () => {
                     setSelectedId={setSelectedFilter}
                   />
                 </div>
-                <div className="col-md-4">
+                <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                   <CustomSelect
-                    label="date"
-                    fieldGrid={4}
+                    label="Date"
                     dataArray={dateFilterOptions}
                     optionId="value"
                     optionLabel="label"
@@ -598,28 +597,25 @@ const SalesAccountOverview = () => {
                 </div>
                 {quickFiltring === "custom" && (
                   <>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                       <FieldContainer
                         type="date"
                         label="From Date"
-                        fieldGrid={4}
                         value={fromDate}
                         onChange={(e) => setFromDate(e.target.value)}
                       />
                     </div>
-
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                       <FieldContainer
                         type="date"
                         label="To Date"
-                        fieldGrid={4}
                         value={toDate}
                         onChange={(e) => setToDate(e.target.value)}
                       />
                     </div>
                   </>
                 )}
-                <div className="col-md-4 col-12 flexCenter colGap12 pt12">
+                <div className="col-lg-4 col-md-4 col-sm-12 col-12 flexCenter colGap12 pt10">
                   <Button
                     className="w-100"
                     variant="contained"
@@ -641,9 +637,8 @@ const SalesAccountOverview = () => {
               </div>
             </div>
           </div>
-
           <div className="row">
-            <div className="col-md-4 col-12">
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
               <div
                 className="card flexCenterRow colGap12 p20"
                 onClick={() => {
@@ -655,11 +650,11 @@ const SalesAccountOverview = () => {
                 </div>
                 <div>
                   <h6>Total Accounts</h6>
-                  <h5 className="fw_500 mt4">{allAccount?.length}</h5>
+                  <h4 className="fw_500 mt4">{allAccount?.length}</h4>
                 </div>
               </div>
             </div>
-            <div className="col-md-4 col-12">
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
               <div
                 className="card flexCenterRow colGap12 p20"
                 onClick={() => {
@@ -676,18 +671,20 @@ const SalesAccountOverview = () => {
                   <Blueprint />
                 </div>
                 <div>
-                  <h6>Idle Accounts (Without Sale Booking)</h6>
-                  <h5 className="fw_500 mt4">
+                  <h6>
+                    Idle Accounts <br /> (Without Sale Booking)
+                  </h6>
+                  <h4 className="fw_500 mt4">
                     {
                       allAccount?.filter(
                         (account) => account?.totalSaleBookingCounts == 0
                       )?.length
                     }
-                  </h5>
+                  </h4>
                 </div>
               </div>
             </div>
-            <div className="col-md-4 col-12">
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
               <div
                 className="card flexCenterRow colGap12 p20"
                 onClick={() => {
@@ -702,20 +699,21 @@ const SalesAccountOverview = () => {
                   <Blueprint />
                 </div>
                 <div>
-                  <h6>Idle Accounts (Without Payment)</h6>
-                  <h5 className="fw_500 mt4">
+                  <h6>
+                    Idle Accounts <br /> (Without Payment)
+                  </h6>
+                  <h4 className="fw_500 mt4">
                     {
                       allAccount?.filter((account) => account?.paidAmount == 0)
                         .length
                     }
-                  </h5>
+                  </h4>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div className=" flexCenterCenter ml20">
+        <div className="col-lg-4 col-md-4 col-sm-12 col-12">
           {loginUserRole === 1 && allAccount && allAccount?.length > 0 && (
             <PieGraph
               allAccount={combinedData}

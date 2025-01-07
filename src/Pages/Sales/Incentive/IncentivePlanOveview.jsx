@@ -6,6 +6,7 @@ import FormContainer from "../../../Components/CommonComponent/FormElement/FormC
 import View from "../../../Components/CommonComponent/View/View";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
+import { Pencil } from "@phosphor-icons/react";
 
 const IncentivePlanOverview = () => {
   const navigate = useNavigate();
@@ -67,14 +68,14 @@ const IncentivePlanOverview = () => {
       key: "sales_service_name",
       name: "Service Name",
       renderRowCell: (row) => row?.sales_service_master_Data?.service_name,
-      width: 200,
+      width: 400,
     },
 
     {
       key: "value",
       name: "Value (%)",
       renderRowCell: (row) => row.value,
-      width: 400,
+      width: 350,
     },
   ];
 
@@ -94,13 +95,13 @@ const IncentivePlanOverview = () => {
       renderRowCell: (row) => (
         <div className="flex-row">
           <Link to={`/sales/incentive-plan/${row._id}`}>
-            <div className="icon-1">
-              <i className="bi bi-pencil"></i>
-            </div>
+            <button className="iconBtn">
+              <Pencil />
+            </button>
           </Link>
         </div>
       ),
-      width: 500,
+      width: 300,
     });
   }
 

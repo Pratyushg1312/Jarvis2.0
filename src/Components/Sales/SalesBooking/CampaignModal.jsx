@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { useAddExeCampaignMutation, useGetExeCampaignsNameWiseDataQuery } from "../../../Redux/Slices/SalesSlices/ExecutionCampaignApi";
+import {
+  useAddExeCampaignMutation,
+  useGetExeCampaignsNameWiseDataQuery,
+} from "../../../Redux/Slices/SalesSlices/ExecutionCampaignApi";
 import FieldContainer from "../../CommonComponent/FormElement/FieldContainer";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 // import CustomSelect from "../../../ReusableComponents/CustomSelect";
@@ -25,7 +28,7 @@ const CampaignModal = ({
   // const [campaignImage, setCampaignImage] = useState(null);
   const [addExeCampaign, { isLoading, isSuccess, isError }] =
     useAddExeCampaignMutation();
-  const { refetch } = useGetExeCampaignsNameWiseDataQuery()
+  const { refetch } = useGetExeCampaignsNameWiseDataQuery();
 
   // const handleImageChange = (e) => {
   //   setCampaignImage(e.target.files[0]);
@@ -127,7 +130,7 @@ const CampaignModal = ({
  */}
         <button
           type="submit"
-          className="btn cmnbtn btn_sm mt-2 ml-3 btn-primary"
+          className="btn btn_sm mt-2 ml-3 btn-primary"
           disabled={isLoading}
         >
           {isLoading ? "Submitting..." : "Submit"}

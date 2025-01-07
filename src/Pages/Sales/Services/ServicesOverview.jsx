@@ -94,18 +94,18 @@ const ServicesOverview = () => {
         <>
           <div className="flexCenter colGap8">
             <Link to={`/sales/create-sales-services/${row._id}/${"put"}`}>
-              <button className="iconBtn sm" title="Edit">
+              <button className="iconBtn" title="Edit">
                 <Pencil />
               </button>
             </Link>
 
             <Link to={`/sales/create-sales-services/${row._id}/${post}`}>
-              <button className="iconBtn sm" title="Clone">
+              <button className="iconBtn" title="Clone">
                 <Copy />
               </button>
             </Link>
 
-            <button className="iconBtn sm">
+            <button className="iconBtn">
               <DeleteButton
                 endpoint="sales/delete_sale_service_master"
                 id={row._id}

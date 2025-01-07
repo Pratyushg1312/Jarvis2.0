@@ -45,7 +45,6 @@ import CreateCompanyType from "../../../Components/Sales/salesAccount/CreateComp
 import CreateDepartment from "../../../Components/Sales/salesAccount/CreateDepartment";
 import ShareIncentive from "../../../Components/Sales/CommonComponent/Incentive/ShareIncentive";
 import AccountSubmitDialog from "../../../Components/Sales/salesAccount/AccountSubmitDialog";
-import Loader from "../../../Components/CommonComponent/Loader/Loader";
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import DocumentUpload from "../../../Components/Sales/salesAccount/DocumentUpload";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
@@ -57,7 +56,6 @@ import PointOfContact from "../../../Components/Sales/salesAccount/PointOfContac
 import View from "../../../Components/CommonComponent/View/View";
 import { ViewAccountTypeColumns } from "../../../Components/Sales/salesAccount/ViewAccountTypeColumns";
 import { ViewCompanyTypeColumns } from "../../../Components/Sales/salesAccount/ViewCompanyTypeColumns";
-import { Autocomplete, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Eye, Plus } from "@phosphor-icons/react";
 
@@ -198,12 +196,6 @@ const CreateSalesAccount = () => {
   const companyTypeRef = useRef(null);
   const categoryRef = useRef(null);
   const accountOwnerRef = useRef(null);
-
-  // account_name: true,
-  //   account_type_id: true,
-  //   company_type_id: true,
-  //   category_id: true,
-  //   account_owner_id: true,
 
   const [isValidPoc, setIsValIDPoc] = useState({});
   const [isValidDoc, setIsValidDoc] = useState({});
@@ -376,7 +368,6 @@ const CreateSalesAccount = () => {
       setSelectedOwner(account_owner_id);
       setWebsite(website);
       setTurnover(turn_over);
-      // setDescription(description);
       setSelectedBrand(brand_id);
       setCompanyEmail(company_email);
       setPreviewUrl(account_image_url);
@@ -566,14 +557,9 @@ const CreateSalesAccount = () => {
       category_id: selectedCategory,
       account_owner_id: selectedOwner,
     };
-    // const pocValidation = pocs.map((poc, index) => ({
-    //   contact_name: poc.contact_name,
-    //   contact_no: poc.contact_no,
-    // }));
 
     setIsValid(validation);
     // setIsValIDPoc(pocValidation);
-
     const invalidField = Object.keys(validation).find(
       (key) => !validation[key]
     );
@@ -730,17 +716,10 @@ const CreateSalesAccount = () => {
         toastAlert("Account Created Successfully");
         setAccountMasterData(response?.data?.accountMaster);
         openModal("SubmitDialogSuccess");
-        // navigate("/admin/create-sales-booking", {
-        //   state: {
-        //     account_data: response.data.accountMaster,
-        //   },
-        // });
       } else {
         setIsValIDPoc(pocs);
         setIsValidDoc(documents);
-
         // await updateSalesAccount({ ...payloads, id }).unwrap();
-
         await axios.put(`${baseUrl}accounts/edit_account/${id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -784,7 +763,6 @@ const CreateSalesAccount = () => {
 
         toastAlert("Updated Successfully");
         openModal("SubmitDialogSuccess");
-        // navigate("/admin/sales-account-overview");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -940,13 +918,7 @@ const CreateSalesAccount = () => {
     if (selectedBrand !== null)
       setIsValid({ ...isValid, brand_id: selectedBrand });
   }, [selectedBrand]);
-  // useEffect(() => {
-  //   if (
-  //     allAccountTypes?.find((data) => data._id === selectedAccountType)
-  //       ?.account_type_name === "Agency"
-  //   )
-  //     setSelectedBrand(null);
-  // }, [selectedAccountType]);
+
   let loaderview;
   if (
     allAccountTypesLoading ||
@@ -1209,18 +1181,6 @@ const CreateSalesAccount = () => {
                       </Button>
                     </CustomSelect>
                   </div>
-                  {/* <div className="flexCenter colGap8 pt8">
-                    <BrandRegistration
-                      userID={loginUserId}
-                      disabled={
-                        allAccountTypes?.find(
-                          (data) => data._id === selectedAccountType
-                        )?.account_type_name !== "Agency"
-                          ? false
-                          : true
-                      }
-                    />
-                  </div> */}
                 </div>
                 {isValid.selectedBrand && (
                   <div className="form-error">Please select a brand</div>
@@ -1272,7 +1232,6 @@ const CreateSalesAccount = () => {
               <div className="col-md-4 col-12">
                 <div className="flexCenter colGap8">
                   <div className="w-100">
-                    {/* Brand Category renamed to Industry */}
                     <CustomSelect
                       fieldGrid={12}
                       label="Industry Name (Auto Select)"
@@ -1318,12 +1277,6 @@ const CreateSalesAccount = () => {
                   accept="image/*"
                   onChange={handleImageChange}
                 />
-                {/* <h6>Upload Brand Image</h6>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                /> */}
                 {previewUrl && (
                   <div>
                     <h3>Image Preview:</h3>
@@ -1340,16 +1293,6 @@ const CreateSalesAccount = () => {
                   </div>
                 )}
               </div>
-
-              {/* <div className="col-md-6 flex-row">
-                <button
-                  type="button"
-                  className="btn cmnbtn btn-primary"
-                  onClick={() => openModal("shareIncentive")}
-                >
-                  Share Incentive
-                </button>
-              </div> */}
             </div>
           </div>
         </div>
@@ -1426,18 +1369,7 @@ const CreateSalesAccount = () => {
                   onChange={(e) => setTurnover(e.target.value)}
                   placeholder="Enter last financial year turnover"
                 />
-
-                {/* <div className="mt-2">
-
-                <button className="cmnbtn bgtn btn-primary btn_sm mt-4">
-                  <i
-                    className="bi bi-info-circle"
-                    title="Please update as per last financial year"
-                  />
-                </button>
-              </div> */}
               </div>
-
               <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   label="Company Email"
@@ -1460,39 +1392,6 @@ const CreateSalesAccount = () => {
                   placeholder="Enter number of offices"
                 />
               </div>
-
-              {/* <div className="col-lg-4 col-md-4 col-sm-12 col-12">
-              <CustomSelect
-                label="Social"
-                dataArray={socialOptions}
-                optionId="value"
-                optionLabel="label"
-                selectedId={selectedOfficeSocial}
-                setSelectedId={setSelectedOfficeSocial}
-              />
-            </div>
-
-            {selectedOfficeSocial && (
-              <div className="col-lg-4 col-md-4 col-sm-12 col-12">
-                <FieldContainer
-                  label={`${selectedOfficeSocial} link`}
-                  type="url"
-                  value={(e) => accountSocialLink(e.target.value)}
-                  onChange={setAccountSocialLink}
-                  placeholder="Enter link"
-                />
-              </div>
-            )} */}
-
-              {/* <div className="col-lg-4 col-md-4 col-sm-12 col-12">
-              <FieldContainer
-                label="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter description"
-                required
-              />
-            </div> */}
             </div>
           </div>
         </div>
@@ -1513,14 +1412,6 @@ const CreateSalesAccount = () => {
           </div>
           <div className="card-body">
             <div className="row">
-              {/* <div className="col-lg-4 col-md-4 col-sm-12 col-12">
-                <FieldContainer
-                  label="Connected Office"
-                  value={connectedOffice}
-                  onChange={(e) => setConnectedOffice(e.target.value)}
-                  placeholder="Enter connected offices"
-                />
-              </div> */}
               <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   label="Pin Code"
@@ -1589,15 +1480,6 @@ const CreateSalesAccount = () => {
           </div>
           <div className="card-body">
             <div className="row">
-              {/* <div className="col-lg-4 col-md-4 col-sm-12 col-12">
-              <FieldContainer
-                label="Head Office"
-                fieldGrid={12}
-                value={headOffice}
-                onChange={(e) => setHeadOffice(e.target.value)}
-                placeholder="Enter head office"
-              />
-            </div> */}
               <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   label="Pin Code"
@@ -1660,10 +1542,9 @@ const CreateSalesAccount = () => {
           socialOptions={socialOptions}
           openModal={openModal}
         />
-
-        <div className="flex-row sb mb-3">
+        <div className="flexCenter colGap8 mb24">
           <button
-            className="btn cmnbtn btn-primary"
+            className="btn btn-primary"
             disabled={isCreateSalesLoading || editAccountLoading}
             onClick={handleSubmitWithValidation}
           >
@@ -1675,10 +1556,7 @@ const CreateSalesAccount = () => {
               ? "Submitting..."
               : "Saving..."}
           </button>
-          <button
-            className="btn cmnbtn btn-warning"
-            onClick={() => handleAddPoc()}
-          >
+          <button className="btn btn-warning" onClick={() => handleAddPoc()}>
             Add More POC
           </button>
         </div>

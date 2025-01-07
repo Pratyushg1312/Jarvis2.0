@@ -483,7 +483,7 @@ const CreatePaymentUpdate = () => {
         </div>
       </div>
       <button
-        className="cmnbtn btn btn-primary mb-3 "
+        className="btn btn-primary mb-3 "
         disabled={isLoading || updatePaymentLoading}
         onClick={(e) => handleSubmit(e)}
       >
