@@ -13,8 +13,6 @@
 # Table of Contents
 - [Folder Structure](#FolderStructure)
 - [Documentation](#Documentation)
-- [Usage](#usage)
-- [API](#Api)
 ## Folder Structure
 
 ```
@@ -105,7 +103,6 @@
 + [**DYNAMIC SELECT**](#DynamicSelect)
 + [**FIELD CONTAINER**](#FieldContainer)
 + [**VIEW**](#View)
-+ **CUSTOM TABLE**
 
 # CustomSelect
 
