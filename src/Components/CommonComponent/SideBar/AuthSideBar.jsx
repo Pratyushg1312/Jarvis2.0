@@ -21,14 +21,14 @@ const AuthSideBar = () => {
   const job_type = token.job_type;
   return (
     <>
-      <DashboardSidebarLinks />
+      {/* <DashboardSidebarLinks />
       <HumanResourceSidebarLinks />
       <OpertaionSidebarLink />
-      <FinanceSidebarLinks />
+      <FinanceSidebarLinks /> */}
       {/* <OrganizationSidebrLinks /> */}
-      <InventorySidebarLinks />
+      {/* <InventorySidebarLinks /> */}
       {auth.isSales && <SalesSidebarLinks />}
-      <ComunitySidebarLinks />
+      {/* <ComunitySidebarLinks /> */}
       <UiSideBarLinks />
     </>
   );
