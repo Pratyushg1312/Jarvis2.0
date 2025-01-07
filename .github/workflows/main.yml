@@ -1,5 +1,8 @@
 name: Copy Repo to Another Repo
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
