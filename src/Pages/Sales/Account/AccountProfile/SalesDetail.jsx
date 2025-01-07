@@ -14,6 +14,14 @@ import {
   useGetSingleAccountSalesBookingQuery,
   useUpdateImageMutation,
 } from "../../../../Redux/Slices/SalesSlices/SalesAccountApi";
+import {
+  Buildings,
+  CurrencyInr,
+  Envelope,
+  Globe,
+  Pencil,
+  Phone,
+} from "@phosphor-icons/react";
 const SalesDetail = ({ SingleAccount, refetchSingleAccount }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -219,7 +227,6 @@ const SalesDetail = ({ SingleAccount, refetchSingleAccount }) => {
                     <h3 class="dynamic-message"> Drag & drop any file here </h3>
                   </div>
                   <span class="cannot-upload-message">
-                    {" "}
                     <span class="material-icons-outlined">error</span> Please
                     select a file first{" "}
                     <span class="material-icons-outlined cancel-alert-button">
@@ -280,7 +287,7 @@ const SalesDetail = ({ SingleAccount, refetchSingleAccount }) => {
               </div>
               <div className="modal-footer d-flex sb">
                 <button
-                  className="btn btn-primary cmnbtn btn_sm"
+                  className="btn btn-primary btn_sm"
                   onClick={() => showCroppedImage()}
                 >
                   Save Image
@@ -303,10 +310,10 @@ const SalesDetail = ({ SingleAccount, refetchSingleAccount }) => {
                 <div className="saleAccTitleImgCol col">
                   <div className="saleAccTitleImg">
                     <div
-                      className="icon-1 edit-btn "
+                      className="iconBtn edit-btn "
                       onClick={() => setModalIsOpen(true)}
                     >
-                      <i className="bi bi-pencil"> </i>
+                      <Pencil />
                     </div>
                     <img src={SingleAccount?.account_image_url} alt="logo" />
                   </div>
@@ -352,7 +359,7 @@ const SalesDetail = ({ SingleAccount, refetchSingleAccount }) => {
               <ul>
                 <li>
                   <span className="icon">
-                    <i className="bi bi-globe2"></i>
+                    <Globe />
                   </span>
                   <h4>
                     <b>Website</b>
@@ -377,7 +384,7 @@ const SalesDetail = ({ SingleAccount, refetchSingleAccount }) => {
                 </li>
                 <li>
                   <span className="icon">
-                    <i className="bi bi-telephone"></i>
+                    <Phone />
                   </span>
                   <h4>
                     <b>Phone</b>
@@ -386,7 +393,7 @@ const SalesDetail = ({ SingleAccount, refetchSingleAccount }) => {
                 </li>
                 <li>
                   <span className="icon">
-                    <i className="bi bi-envelope"></i>
+                    <Envelope />
                   </span>
                   <h4>
                     <b>Company Email</b>
@@ -401,7 +408,7 @@ const SalesDetail = ({ SingleAccount, refetchSingleAccount }) => {
                 </li>
                 <li>
                   <span className="icon">
-                    <i className="bi bi-currency-rupee"></i>
+                    <CurrencyInr />
                   </span>
                   <h4>
                     <b>Turnover</b>
@@ -411,7 +418,7 @@ const SalesDetail = ({ SingleAccount, refetchSingleAccount }) => {
                 </li>
                 <li>
                   <span className="icon">
-                    <i className="bi bi-buildings"></i>
+                    <Buildings />
                   </span>
                   <h4>
                     <b>No. of Offices</b>

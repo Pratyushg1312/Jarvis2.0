@@ -162,7 +162,7 @@ const DocumentUpload = ({
                 />
                 {id !== "0" && document?.document_image_upload ? (
                   <a href={document.document_image_upload} className="mt-2">
-                    <button className="cmnbtn btn btn_sm btn-primary mt-4 ">
+                    <button className="btn btn_sm btn-primary mt-4 ">
                       <i className="bi bi-download"></i>
                     </button>
                   </a>

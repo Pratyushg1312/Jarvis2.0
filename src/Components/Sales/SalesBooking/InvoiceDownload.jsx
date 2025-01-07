@@ -10,7 +10,9 @@ const InvoiceDownload = ({ taxInvoiceData, closeModal }) => {
     isLoading: invoiceListLoading,
     isSuccess: invoiceListSuccess,
     isError: invoiceListError,
-  } = useAddInvoiceRequestMutation(taxInvoiceData?.sale_booking_id, { skip: !taxInvoiceData?.sale_booking_id });
+  } = useAddInvoiceRequestMutation(taxInvoiceData?.sale_booking_id, {
+    skip: !taxInvoiceData?.sale_booking_id,
+  });
   // useEffect(() => {
   //   const fetchInvoiceLinks = async () => {
   //     try {
@@ -49,7 +51,7 @@ const InvoiceDownload = ({ taxInvoiceData, closeModal }) => {
           </li>
         ))}
       </ul>
-      <button className="btn cmnbtn btn-primary" onClick={closeModal}>
+      <button className="btn btn-primary" onClick={closeModal}>
         Close
       </button>
     </div>

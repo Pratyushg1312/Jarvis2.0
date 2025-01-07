@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useEditExeCampaignMutation } from "../../../Redux/Slices/SalesSlices/ExecutionCampaignApi";
 import FieldContainer from "../../CommonComponent/FormElement/FieldContainer";
 
-
 const EditCampaign = ({
   loginUserId,
   closeModal,
@@ -41,12 +40,12 @@ const EditCampaign = ({
         astric
       />
       <button
-        className="btn cmnbtn btn_sm btn-primary"
+        className="btn btn_sm btn-primary"
         disabled={
           isLoading ||
           editedCampaign ===
-          campaignList?.find((data) => data?._id === campaignName)
-            ?.exe_campaign_name
+            campaignList?.find((data) => data?._id === campaignName)
+              ?.exe_campaign_name
         }
         onClick={(e) => handleSubmit(e)}
       >

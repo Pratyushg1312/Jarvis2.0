@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import Select from "react-select";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
@@ -25,7 +24,6 @@ import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 import FetchSheet from "../../../Components/Sales/SalesBooking/FetchSheet";
 import ShareIncentive from "../../../Components/Sales/CommonComponent/Incentive/ShareIncentive";
 import CampaignModal from "../../../Components/Sales/SalesBooking/CampaignModal";
-import Loader from "../../../Components/CommonComponent/Loader/Loader";
 import CreateRecordServices from "../../../Components/Sales/SalesBooking/CreateRecordServices";
 import SalesSubmitDialog from "../../../Components/Sales/SalesBooking/SalesSubmitDialog";
 import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
@@ -35,6 +33,7 @@ import CustomSelect from "../../../Components/CommonComponent/FormElement/Custom
 import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
 import { Button } from "@mui/material";
 import DynamicSelect from "../../../Components/CommonComponent/FormElement/DynamicSelect";
+import { Download, Pencil, Plus } from "@phosphor-icons/react";
 
 const todayDate = new Date().toISOString().split("T")[0];
 
@@ -843,43 +842,17 @@ const CreateSaleBooking = () => {
       </Modal>
 
       <FormContainer mainTitle="Sale Booking" link={true} />
-      {/* <div className="w-100">
-        <div className="card gstinfo-card flex-row sb">
-          {gstLoading && <p>Loading...</p>}
-          {gstError && toastError(gstError)}
-          {!gstLoading && (
-            <>
-              <p>
-                {" "}
-                Sales Executive Credit Limit:{" "}
-                <span>{userCreditLimit} Total Used</span>
-              </p>
 
-              <p>
-                Sales Executive Credit Limit:{" "}
-                <span>10000 Total Available Credit</span>
-              </p>
-
-              <p>
-                Limit:
-                <span>20000</span>
-              </p>
-            </>
-          )}
-        </div>
-      </div> */}
-      <>
-        <div className="card">
-          <div className="card-header">
-            <div className="cardHeading">
-              <h5 className="cardTitle">Create</h5>
-            </div>
+      <div className="card">
+        <div className="card-header">
+          <div className="cardHeading">
+            <h5 className="cardTitle">Create Sale Booking</h5>
           </div>
-
-          <div className="card-body row">
-            <div className="col-4">
+        </div>
+        <div className="card-body">
+          <div className="row">
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12 position-relative">
               <CustomSelect
-                fieldGrid={12}
                 label="Accounts"
                 dataArray={allAccounts}
                 optionId="account_id"
@@ -889,96 +862,92 @@ const CreateSaleBooking = () => {
                 disabled={account_info?.state?.account_data}
                 required
               />
-              Account Type:{" "}
-              <span style={{ color: "green" }}>
-                {
-                  allAccounts?.find(
-                    (item) => item?.account_id == selectedAccount
-                  )?.account_type_name
-                }
-              </span>
+              <div className="inputInfo">
+                <h6>
+                  Account Type :
+                  <span className="colorPrimary">
+                    {
+                      allAccounts?.find(
+                        (item) => item?.account_id == selectedAccount
+                      )?.account_type_name
+                    }
+                  </span>
+                </h6>
+              </div>
               {isValidate.selectedAccount && (
                 <div className="form-error">Please select an account</div>
               )}
             </div>
-            <div className="col-4 flex-row gap-2">
-              <div className="col-12">
-                <CustomSelect
-                  fieldGrid={12}
-                  label="Brand"
-                  dataArray={allBrands}
-                  optionId="_id"
-                  optionLabel="brand_name"
-                  selectedId={selectedBrand}
-                  setSelectedId={setSelectedBrand}
-                  required
-                  disabled={
-                    (account_info?.state &&
-                      account_info?.state?.account_data?.account_type_name !==
-                        "Agency") ||
-                    allAccounts?.find(
-                      (item) => item?.account_id == selectedAccount
-                    )?.account_type_name !== "Agency"
-                  }
-                >
-                  {" "}
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    type="button"
-                    disabled={!selectedAccount}
-                    onClick={() => openModal("addBrand")}
-                  >
-                    +
-                  </Button>
-                </CustomSelect>
-
-                {isValidate.selectedBrand && (
-                  <div className="form-error">Please select a brand</div>
-                )}
-              </div>
-
-              {/* <div className="col-1 mt-4 flex-row gap-1">
-                <div className="mt-2">
-                  <button className="btn cmnbtn btn-primary">
-                    <BrandRegistration userID={loginUserId} />
-                  </button>
-                </div>
-              </div> */}
-            </div>
-            <div className="col-4 flex-row gap-2">
-              <div className="col-10">
-                <CustomSelect
-                  fieldGrid={12}
-                  placeholder="Enter campaign Name"
-                  label="Campaign Name"
-                  dataArray={campaignList?.filter((data) =>
-                    editId ? data : !data.is_sale_booking_created
-                  )}
-                  optionId="_id"
-                  optionLabel="exe_campaign_name"
-                  selectedId={campaignName}
-                  setSelectedId={setCampaignName}
-                  disabled={editId ? true : false}
-                  required
-                >
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    title="edit"
-                    type="button"
-                    onClick={() =>
-                      openModal(editId ? "EditCampaign" : "CampaignModal")
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <div className="flexCenter colGap8">
+                <div className="w-100">
+                  <CustomSelect
+                    label="Brand"
+                    dataArray={allBrands}
+                    optionId="_id"
+                    optionLabel="brand_name"
+                    selectedId={selectedBrand}
+                    setSelectedId={setSelectedBrand}
+                    required
+                    disabled={
+                      (account_info?.state &&
+                        account_info?.state?.account_data?.account_type_name !==
+                          "Agency") ||
+                      allAccounts?.find(
+                        (item) => item?.account_id == selectedAccount
+                      )?.account_type_name !== "Agency"
                     }
                   >
-                    {editId ? <i className="bi bi-pencil" /> : "+"}
-                  </Button>
-                </CustomSelect>
-                {isValidate.campaignName && (
-                  <div className="form-error">Please enter a campaign name</div>
-                )}
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      disabled={!selectedAccount}
+                      onClick={() => openModal("addBrand")}
+                    >
+                      <Plus />
+                    </Button>
+                  </CustomSelect>
+
+                  {isValidate.selectedBrand && (
+                    <div className="form-error">Please select a brand</div>
+                  )}
+                </div>
               </div>
-              {<div className="col-md-4 mt-2 flex-row gap-2"></div>}
+            </div>
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <div className="flexCenter colGap8">
+                <div className="w-100">
+                  <CustomSelect
+                    placeholder="Enter campaign Name"
+                    label="Campaign Name"
+                    dataArray={campaignList?.filter((data) =>
+                      editId ? data : !data.is_sale_booking_created
+                    )}
+                    optionId="_id"
+                    optionLabel="exe_campaign_name"
+                    selectedId={campaignName}
+                    setSelectedId={setCampaignName}
+                    disabled={editId ? true : false}
+                    required
+                  >
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      title="edit"
+                      onClick={() =>
+                        openModal(editId ? "EditCampaign" : "CampaignModal")
+                      }
+                    >
+                      {editId ? <Pencil /> : <Plus />}
+                    </Button>
+                  </CustomSelect>
+                  {isValidate.campaignName && (
+                    <div className="form-error">
+                      Please enter a campaign name
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
             {gstAvailable && (
               <div className="col-12">
@@ -1028,20 +997,39 @@ const CreateSaleBooking = () => {
                 </div>
               </div>
             )}
-
-            <FieldContainer
-              label="Sale Booking Date"
-              fieldGrid={4}
-              required={true}
-              type="date"
-              value={bookingDate}
-              max={todayDate}
-              onChange={(e) => setBookingDate(e)}
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <FieldContainer
+                label="Sale Booking Date"
+                required={true}
+                type="date"
+                value={bookingDate}
+                max={todayDate}
+                onChange={(e) => setBookingDate(e)}
+              />
+            </div>
+          </div>
+        </div>
+        <hr className="body_hr" />
+        <div className="card-header">
+          <div className="cardHeading">
+            <h5 className="cardTitle">Amounts</h5>
+          </div>
+          <label className="flexCenter pointer">
+            <input
+              className="form-check-input m0"
+              type="checkbox"
+              id="addGst"
+              checked={addGst}
+              onChange={handleGstChange}
             />
-            <div className="col-4">
+            <p className="ml8 mt2 wMaxContent">+18% GST</p>
+          </label>
+        </div>
+        <div className="card-body">
+          <div className="row">
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12 position-relative">
               <FieldContainer
                 label="Base Amount"
-                fieldGrid={12}
                 placeholder="Enter amount here"
                 required={true}
                 type="number"
@@ -1054,77 +1042,69 @@ const CreateSaleBooking = () => {
                   });
                 }}
               />
+              <div className="inputInfo">
+                <h6 className="small colorMedium">
+                  {convertNumberToIndianString(baseAmount)}
+                </h6>
+              </div>
               {isValidate.baseAmount && (
                 <div className="form-error">Please enter Base Amount</div>
               )}
-              <span className="successText">
-                {convertNumberToIndianString(baseAmount)}
-              </span>
-
-              {/* <div className="col-md-6 flex-row">
-                <button
-                  type="button"
-                  className="btn cmnbtn btn-primary"
-                  onClick={() => {
-                    openModal("ShareIncentive");
-                  }}
-                >
-                  Share Incentive
-                </button>
-              </div> */}
-
-              <div className="form-group ml-4 sb form-sub d-flex">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="addGst"
-                  checked={addGst}
-                  onChange={handleGstChange}
-                />
-                <label className="mt-3" htmlFor="addGst">
-                  +18% GST
-                </label>
-              </div>
-
-              {/* <div className="flex-col gap-1 ">
-                  <p>Gst Amount: Rs.{gstAmount}</p>
-                  <p>Net / Campaign Amount: Rs.{netAmount}</p>
-                </div> */}
             </div>
-
-            {
-              <>
-                <div className="col-4">
-                  <FieldContainer
-                    label="GST Amount"
-                    fieldGrid={12}
-                    type="number"
-                    value={gstAmount}
-                    disabled={true}
-                  />
-                  <span className="successText">
-                    {convertNumberToIndianString(gstAmount)}
-                  </span>
-                </div>
-                <div className="col-4">
-                  <FieldContainer
-                    label="Net / Campaign Amount"
-                    fieldGrid={12}
-                    type="number"
-                    value={netAmount}
-                    disabled={true}
-                  />
-                  <span className="successText">
-                    {convertNumberToIndianString(netAmount)}
-                  </span>
-                </div>
-              </>
-            }
-
-            <div className="form-group col-4">
-              <label className="form-label">
-                Payment Status <sup style={{ color: "red" }}>*</sup>
-              </label>
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12 position-relative">
+              <FieldContainer
+                label="GST Amount"
+                type="number"
+                value={gstAmount}
+                disabled={true}
+              />
+              <div className="inputInfo">
+                <h6 className="small colorMedium">
+                  {convertNumberToIndianString(gstAmount)}
+                </h6>
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12 position-relative">
+              <FieldContainer
+                label="Net / Campaign Amount"
+                type="number"
+                value={netAmount}
+                disabled={true}
+              />
+              <div className="inputInfo">
+                <h6 className="small colorMedium">
+                  {convertNumberToIndianString(netAmount)}
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr className="body_hr" />
+        <div className="card-header">
+          <div className="cardHeading">
+            <h5 className="cardTitle">Payments</h5>
+          </div>
+          <label className="flexCenter pointer">
+            <input
+              className="form-check-input m0"
+              type="checkbox"
+              id="addGst"
+              checked={incentiveCheck}
+              onChange={(e) => setIncentiveCheck(e.target.checked)}
+            />
+            <p className="ml8 mt2 wMaxContent flexCenter colGap4">
+              No Incentive
+              <i
+                style={{ cursor: "pointer" }}
+                className="bi bi-info-circle-fill warningText"
+                title="Please enable no incentive in case of competitive pricing."
+              />
+            </p>
+          </label>
+        </div>
+        <div className="card-body">
+          <div className="row">
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
               <DynamicSelect
                 required={true}
                 data={paymentStatusList.map((item) => item.label)}
@@ -1132,12 +1112,6 @@ const CreateSaleBooking = () => {
                 onChange={(e) => handlePaymentStatusSelect(e)}
                 value={selectedPaymentStatus?.label}
               />
-              {/* <Select
-                options={paymentStatusList}
-                value={selectedPaymentStatus}
-                onChange={handlePaymentStatusSelect}
-                required
-              /> */}
               {selectedPaymentStatus?.value == "self_credit_used" &&
                 netAmount > loginUserData?.user_credit_limit && (
                   <div className="d-flex flex-column">
@@ -1156,10 +1130,9 @@ const CreateSaleBooking = () => {
                 <div className="form-error">Please select a payment status</div>
               )}
             </div>
-
             {selectedPaymentStatus?.value === "self_credit_used" && (
               <>
-                <div className="form-group col-4">
+                <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                   <DynamicSelect
                     required={true}
                     label={"Payment Terms"}
@@ -1175,19 +1148,16 @@ const CreateSaleBooking = () => {
                       )?.reason
                     }
                   />
-
                   {isValidate.selectedCreditApp && (
                     <div className="form-error">Please select a reason</div>
                   )}
                 </div>
-
                 {creditApprovalList?.find((opt) => opt._id == selectedCreditApp)
                   ?.reason_type == "own_reason" && (
-                  <div className="col-4">
+                  <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                     <FieldContainer
                       label="Reason Credit Approval"
                       placeholder={"Enter Reason"}
-                      fieldGrid={12}
                       value={reasonCreditApproval}
                       onChange={(e) => {
                         setReasonCreditApproval(e.target.value);
@@ -1205,11 +1175,10 @@ const CreateSaleBooking = () => {
                 )}
               </>
             )}
-            <div className="col-4 ">
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
               <FieldContainer
                 label="Balance Payment Date"
                 type="date"
-                fieldGrid={12}
                 value={balancePayDate}
                 onChange={(e) => {
                   setBalancePayDate(e);
@@ -1227,110 +1196,79 @@ const CreateSaleBooking = () => {
                 </div>
               )}
             </div>
-            <div className="col-4 flex-row gap-2">
-              <div className={`${editId ? "col-10" : "col-12"}`}>
-                <FieldContainer
-                  label="Plan Upload"
-                  type="file"
-                  name="Image"
-                  fieldGrid={12}
-                  accept=".xls, .xlsx"
-                  onChange={(e) => {
-                    setExcelFile(e.target.files[0]),
-                      setIsValidate({
-                        ...isValidate,
-                        excelFile: e.target.files[0] === null,
-                      });
-                  }}
-                  required={true}
-                />
-                {isValidate.excelFile && (
-                  <div className="form-error">Please upload an excel file</div>
-                )}
-              </div>
-              {editId && (
-                <>
-                  <div className="mt-2">
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <div className="flexCenter colGap4">
+                <div className={`${editId ? "col-10" : "col-12"}`}>
+                  <FieldContainer
+                    label="Plan Upload"
+                    type="file"
+                    name="Image"
+                    accept=".xls, .xlsx"
+                    onChange={(e) => {
+                      setExcelFile(e.target.files[0]),
+                        setIsValidate({
+                          ...isValidate,
+                          excelFile: e.target.files[0] === null,
+                        });
+                    }}
+                    required={true}
+                  />
+                  {isValidate.excelFile && (
+                    <div className="form-error">
+                      Please upload an excel file
+                    </div>
+                  )}
+                </div>
+                {editId && (
+                  <div className="flexCenter colGap8 mt10">
                     <a
                       href={salesdata?.recordServiceFileURL}
                       title="download Excel File"
                     >
-                      <button className="cmnbtn btn btn-primary btn_sm mt-4">
-                        <i className="bi bi-download "></i>
+                      <button className="iconBtn">
+                        <Download />
                       </button>
                     </a>
-                    File: {salesdata?.record_service_file}
+                    <h6>File: {salesdata?.record_service_file}</h6>
                   </div>
-                </>
-              )}
-
-              <div className="form-group col-3 mt-5 mr-2 pl-4">
-                <input
-                  className="form-check-input "
-                  type="checkbox"
-                  checked={incentiveCheck}
-                  onChange={(e) => setIncentiveCheck(e.target.checked)}
-                />
-
-                <label className="mr-2 d-flex">
-                  No Incentive
-                  <i
-                    style={{ cursor: "pointer" }}
-                    className="bi bi-info-circle-fill warningText"
-                    title="Please enable no incentive in case of competitive pricing."
-                  />
-                </label>
+                )}
               </div>
             </div>
-            {/* sheet link  */}
-            {/* <div className="col-md-6 flex-row pb-3">
-              <button
-                type="button"
-                className="btn cmnbtn btn-primary"
-                onClick={() => {
-                  openModal("SheetLink");
-                }}
-              >
-                Upload Sheet Link
-              </button>
-            </div> */}
           </div>
         </div>
+      </div>
 
-        <CreateRecordServices
-          records={recServices}
-          setRecords={setRecServices}
-          serviceTypes={serviceTypes}
-          baseAmount={baseAmount}
-          setValidateService={setValidateService}
-          isValidRec={isValidRec}
-          setIsValidRec={setIsValidRec}
-          getincentiveSharingData={getincentiveSharingData}
-          setRemainingAmount={setRemainingAmount}
-          remainingAmount={remainingAmount}
-        />
-        {/* <ExcelToInputFields /> */}
-        <div className="flex-row sb">
-          <button
-            className="btn cmnbtn btn-primary mb-4"
-            onClick={(e) => handleSubmit(e, !recServices?.length > 0)}
-          >
-            {recServices?.length > 0
-              ? addsaleLoading ||
-                updateSalesBookingLoading ||
-                updateRecordServicesLoading
-                ? "Submitting"
-                : "Submit"
-              : "Save as Draft"}
-          </button>
-          <button
-            className="btn cmnbtn btn-secondary mb-4"
-            onClick={handleAddRecServices}
-          >
-            Add Record Service
-          </button>
-        </div>
-      </>
+      <CreateRecordServices
+        records={recServices}
+        setRecords={setRecServices}
+        serviceTypes={serviceTypes}
+        baseAmount={baseAmount}
+        setValidateService={setValidateService}
+        isValidRec={isValidRec}
+        setIsValidRec={setIsValidRec}
+        getincentiveSharingData={getincentiveSharingData}
+        setRemainingAmount={setRemainingAmount}
+        remainingAmount={remainingAmount}
+      />
+      {/* <ExcelToInputFields /> */}
+
+      <div className="flexCenter colGap8">
+        <button
+          className="btn btn-primary"
+          onClick={(e) => handleSubmit(e, !recServices?.length > 0)}
+        >
+          {recServices?.length > 0
+            ? addsaleLoading ||
+              updateSalesBookingLoading ||
+              updateRecordServicesLoading
+              ? "Submitting"
+              : "Submit"
+            : "Save as Draft"}
+        </button>
+        <button className="btn btn-secondary" onClick={handleAddRecServices}>
+          Add Record Service
+        </button>
+      </div>
     </>
   );
 };

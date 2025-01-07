@@ -4,15 +4,17 @@ import EditIncentiveSharing from "./EditIncentiveSharing";
 import { useGetAllUsersQuery } from "../../../../Redux/Slices/UserSlices/UserApi";
 import GetDecodedToken from "../../../../Utils/GetDecodedToken";
 import FormContainer from "../../../CommonComponent/FormElement/FormContainer";
-import { useAddIncentiveSharingMutation, useDeleteIncentiveSharingMutation, useGetIncentiveSharingDetailsQuery } from "../../../../Redux/Slices/SalesSlices/IncentiveSharingApi";
+import {
+  useAddIncentiveSharingMutation,
+  useDeleteIncentiveSharingMutation,
+  useGetIncentiveSharingDetailsQuery,
+} from "../../../../Redux/Slices/SalesSlices/IncentiveSharingApi";
 import { useGetAllSaleServiceQuery } from "../../../../Redux/Slices/SalesSlices/SalesServiceApi";
 
 const ShareIncentive = ({ closeModal, accountInfo }) => {
-
-  const {
-    data: userContextData,
-  } = useGetAllUsersQuery();
-  const [accountincentivepercentage, setAccountIncentivePercentage] = useState(100);
+  const { data: userContextData } = useGetAllUsersQuery();
+  const [accountincentivepercentage, setAccountIncentivePercentage] =
+    useState(100);
   const [incentiveSharing, setIncentiveSharing] = useState([]);
   const [editFlag, setEditFlag] = useState(false);
 
@@ -26,39 +28,44 @@ const ShareIncentive = ({ closeModal, accountInfo }) => {
     refetch: getIncentiveSharingDetails,
     data: getincentiveSharingData,
     isError: getincentiveSharingError,
-    isLoading: getincentiveSharingLoading
-
+    isLoading: getincentiveSharingLoading,
   } = useGetIncentiveSharingDetailsQuery(accountInfo?.[0]?.account_id);
 
   useEffect(() => {
-
     if (!getincentiveSharingError) {
-      setAccountIncentivePercentage(getincentiveSharingData?.account_percentage);
+      setAccountIncentivePercentage(
+        getincentiveSharingData?.account_percentage
+      );
       setServiceField(getincentiveSharingData?.services);
       setEditFlag(getincentiveSharingData?.services?.length > 0);
     }
-  }, [getincentiveSharingData])
+  }, [getincentiveSharingData]);
 
   useEffect(() => {
     if (!editFlag) {
-      setAccountIncentivePercentage(getincentiveSharingData?.account_percentage);
+      setAccountIncentivePercentage(
+        getincentiveSharingData?.account_percentage
+      );
       setServiceField(getincentiveSharingData?.services);
     }
-
-  }, [editFlag])
-
-
-
-
+  }, [editFlag]);
 
   const [
     addIncentiveSharing,
-    { data: incentiveSharingData, isError: incentiveSharingError, isLoading: incentiveSharingLoading },
+    {
+      data: incentiveSharingData,
+      isError: incentiveSharingError,
+      isLoading: incentiveSharingLoading,
+    },
   ] = useAddIncentiveSharingMutation();
 
   const [
     deleteIncentiveSharing,
-    { data: deleteIncentiveSharingData, isError: deleteIncentiveSharingError, isLoading: deleteIncentiveSharingLoading }
+    {
+      data: deleteIncentiveSharingData,
+      isError: deleteIncentiveSharingError,
+      isLoading: deleteIncentiveSharingLoading,
+    },
   ] = useDeleteIncentiveSharingMutation();
 
   const {
@@ -70,43 +77,41 @@ const ShareIncentive = ({ closeModal, accountInfo }) => {
   useEffect(() => {
     if (allSalesService) {
       if (serviceField?.length === 0) {
-        setAllSalesServiceData(allSalesService?.filter(data => data?.status === 0));
-      }
-      else {
-        setAllSalesServiceData(allSalesService?.filter(data => !serviceField?.some(sf => sf?.service_id === data?._id) && data?.status === 0));
+        setAllSalesServiceData(
+          allSalesService?.filter((data) => data?.status === 0)
+        );
+      } else {
+        setAllSalesServiceData(
+          allSalesService?.filter(
+            (data) =>
+              !serviceField?.some((sf) => sf?.service_id === data?._id) &&
+              data?.status === 0
+          )
+        );
       }
     }
   }, [allSalesService, serviceField]);
 
-
   useEffect(() => {
-    setAccountIncentivePercentage(pre => {
+    setAccountIncentivePercentage((pre) => {
       if (pre > 100) {
         return 100;
       } else if (pre < 0) {
         return 0;
       }
       return pre;
-
-    })
-  }, [accountincentivepercentage])
+    });
+  }, [accountincentivepercentage]);
 
   const handelDelete = async (row) => {
-
-
-
     const data = {
       id: accountInfo?.[0]?.account_id,
       service_id: row?.service_id,
-      incentive_sharing_users: row?.incentive_sharing_users?.map(data => data?.user_id),
+      incentive_sharing_users: row?.incentive_sharing_users?.map(
+        (data) => data?.user_id
+      ),
       updated_by: loginUser,
-    }
-
-
-
-
-
-
+    };
 
     try {
       await deleteIncentiveSharing(data).unwrap();
@@ -114,34 +119,31 @@ const ShareIncentive = ({ closeModal, accountInfo }) => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   const removeServices = (index) => {
     const newServiceField = [...serviceField];
     newServiceField.splice(index, 1);
     setServiceField(newServiceField);
-  }
+  };
 
-  const
-    handelSubmit = async (e) => {
-      e.preventDefault();
+  const handelSubmit = async (e) => {
+    e.preventDefault();
 
-      const data = {
-        account_id: accountInfo?.[0]?.account_id,
-        account_percentage: Number(accountincentivepercentage),
-        services: serviceField,
-        created_by: loginUser,
-      }
+    const data = {
+      account_id: accountInfo?.[0]?.account_id,
+      account_percentage: Number(accountincentivepercentage),
+      services: serviceField,
+      created_by: loginUser,
+    };
 
-      try {
-        await addIncentiveSharing(data).unwrap();
-        getIncentiveSharingDetails();
-      } catch (error) {
-        log.error(error);
-      }
-
+    try {
+      await addIncentiveSharing(data).unwrap();
+      getIncentiveSharingDetails();
+    } catch (error) {
+      log.error(error);
     }
-
+  };
 
   const columns = [
     {
@@ -153,7 +155,9 @@ const ShareIncentive = ({ closeModal, accountInfo }) => {
     {
       key: "service_name",
       name: "Service Name",
-      renderRowCell: (row) => allSalesService?.find(data => data?._id === row?.service_id)?.service_name,
+      renderRowCell: (row) =>
+        allSalesService?.find((data) => data?._id === row?.service_id)
+          ?.service_name,
       width: 50,
     },
     {
@@ -165,86 +169,109 @@ const ShareIncentive = ({ closeModal, accountInfo }) => {
     {
       key: "incentive_sharing_users_Count",
       name: "Incentive Sharing Users Count",
-      renderRowCell: (row, index) =>
+      renderRowCell: (row, index) => (
         <>
-          <p type="button" className="btn cmnbtn btn-primary btn_sm mb-2" data-toggle="collapse" data-target={"#collapseExample" + index} aria-expanded="false" aria-controls="collapseExample">
+          <p
+            type="button"
+            className="btn btn-primary btn_sm mb-2"
+            data-toggle="collapse"
+            data-target={"#collapseExample" + index}
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
             {row?.incentive_sharing_users?.length}
           </p>
 
           <div class="collapse" id={"collapseExample" + index}>
             <div class="card card-body">
-              {
-                row?.incentive_sharing_users?.map((data, index) => (
-                  <div key={index} className="sb">
-                    <p>{userContextData?.find(user => user?.user_id === data?.user_id)?.user_name}</p>
-                    <p>{data?.user_percentage + "%"}</p>
-                  </div>
-                ))
-              }
+              {row?.incentive_sharing_users?.map((data, index) => (
+                <div key={index} className="sb">
+                  <p>
+                    {
+                      userContextData?.find(
+                        (user) => user?.user_id === data?.user_id
+                      )?.user_name
+                    }
+                  </p>
+                  <p>{data?.user_percentage + "%"}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </>,
+        </>
+      ),
       width: 100,
     },
     {
       key: "Action",
       name: "Action",
-      renderRowCell: (row, index) => <button onClick={() => handelDelete(row)} className="icon-1">
-        <i className="bi bi-trash"></i>
-      </button>,
+      renderRowCell: (row, index) => (
+        <button onClick={() => handelDelete(row)} className="icon-1">
+          <i className="bi bi-trash"></i>
+        </button>
+      ),
       width: 50,
-    }
+    },
   ];
 
   const LinkButtons = [
     {
       type: "button",
       access: [1],
-      name: allSalesService?.filter(data => data.status === 0)?.length === serviceField?.length ? "Edit" : "Add More",
+      name:
+        allSalesService?.filter((data) => data.status === 0)?.length ===
+        serviceField?.length
+          ? "Edit"
+          : "Add More",
       condition: () => editFlag,
       onClick: () => setEditFlag(false),
-
-    }
+    },
   ];
 
-
-
   return (
-    <div className="w-700" >
+    <div className="w-700">
+      <FormContainer
+        link={true}
+        mainTitle={"Share Incentive for" + " " + accountInfo?.[0]?.account_name}
+        LinkButtons={LinkButtons}
+      />
 
-      <FormContainer link={true} mainTitle={"Share Incentive for" + " " + accountInfo?.[0]?.account_name} LinkButtons={LinkButtons} />
-
-      {
-        editFlag ? <View
+      {editFlag ? (
+        <View
           columns={columns}
           data={serviceField}
-          title={"Account Sharing Percentage" + " " + accountincentivepercentage + "%"}
+          title={
+            "Account Sharing Percentage" +
+            " " +
+            accountincentivepercentage +
+            "%"
+          }
           isLoading={getincentiveSharingLoading || salesLoading}
           pagination
           tableName={"sales_incentive_sharing"}
-
-        /> :
-          <EditIncentiveSharing
-            accountincentivepercentage={accountincentivepercentage}
-            setAccountIncentivePercentage={setAccountIncentivePercentage}
-            allSalesServiceData={allSalesServiceData}
-            selectedService={selectedService}
-            setSelectedService={setSelectedService}
-            incentiveSharing={incentiveSharing}
-            setIncentiveSharing={setIncentiveSharing}
-            serviceField={serviceField}
-            setServiceField={setServiceField}
-            allSalesService={allSalesService}
-            editFlag={editFlag}
-            incentiveSharingLoading={incentiveSharingLoading}
-            handelSubmit={handelSubmit}
-            loginUser={loginUser}
-            userContextData={userContextData}
-            removeServices={removeServices}
-            userRole={userRole}
-          />
-      }
-    </div >
+        />
+      ) : (
+        <EditIncentiveSharing
+          accountincentivepercentage={accountincentivepercentage}
+          setAccountIncentivePercentage={setAccountIncentivePercentage}
+          allSalesServiceData={allSalesServiceData}
+          selectedService={selectedService}
+          setSelectedService={setSelectedService}
+          incentiveSharing={incentiveSharing}
+          setIncentiveSharing={setIncentiveSharing}
+          serviceField={serviceField}
+          setServiceField={setServiceField}
+          allSalesService={allSalesService}
+          editFlag={editFlag}
+          incentiveSharingLoading={incentiveSharingLoading}
+          handelSubmit={handelSubmit}
+          loginUser={loginUser}
+          userContextData={userContextData}
+          removeServices={removeServices}
+          userRole={userRole}
+        />
+      )}
+    </div>
   );
 };
 

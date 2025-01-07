@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import logo from "/assets/images/logo/logo.png";
 import {
   AddressBook,
+  ArrowLeft,
   CashRegister,
   ChartLineUp,
   File,
+  Pencil,
 } from "@phosphor-icons/react";
 import SalesDetail from "./SalesDetail";
 import PocDetails from "./PocDetails";
 import { useNavigate, useParams } from "react-router-dom";
 import DocumentTypDetails from "./DocumentTypDetails";
 import SalesBookingDetails from "./SalesBookingDetails";
-import TimelineView from "./TimelineView";
-import PaymentView from "./PaymentView";
+// import TimelineView from "./TimelineView";
+// import PaymentView from "./PaymentView";
 import { useGetSingleAccountQuery } from "../../../../Redux/Slices/SalesSlices/SalesAccountApi";
 
 const AccountInfo = () => {
@@ -69,7 +71,8 @@ const AccountInfo = () => {
                   <AddressBook weight="duotone" />
                 </i>
                 <span>
-                  Contacts(POC) <span className="badgeNum">{pocCount}</span>
+                  Contacts(POC){" "}
+                  <span className="badge primary">{pocCount}</span>
                 </span>
               </div>
             </div>
@@ -100,7 +103,7 @@ const AccountInfo = () => {
                 </span>
               </div>
             </div>
-            <div className="nav-item nav-item-single">
+            {/* <div className="nav-item nav-item-single">
               <div
                 className="nav-btn nav-link"
                 onClick={() => handleClickScroll("TimelineView")}
@@ -110,8 +113,8 @@ const AccountInfo = () => {
                 </i>
                 <span>Timeline</span>
               </div>
-            </div>
-            <div className="nav-item nav-item-single">
+            </div> */}
+            {/* <div className="nav-item nav-item-single">
               <div
                 className="nav-btn nav-link"
                 onClick={() => handleClickScroll("PaymentView")}
@@ -121,74 +124,71 @@ const AccountInfo = () => {
                 </i>
                 <span>Payments</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
       <div className="sales-accountinfo-view">
         <div className="actionNavbar">
-          <button className="icon" onClick={() => navigate(-1)}>
-            <i className="bi bi-arrow-left"></i>
+          <button className="iconBtn" onClick={() => navigate(-1)}>
+            <ArrowLeft />
           </button>
           <ul>
             <li>
               <a
-                className="btn cmnbtn btn_sm btn-primary"
+                className="iconBtn btn-primary"
                 onClick={() =>
                   navigate(`/admin/create-sales-account/${SingleAccount?._id}`)
                 }
               >
-                <i className="bi bi-pencil" />
-                Edit
+                <Pencil />
               </a>
             </li>
           </ul>
         </div>
-
-        <section id="DetailView">
-          <SalesDetail
-            SingleAccount={SingleAccount}
-            SingleAccountLoading={SingleAccountLoading}
-            refetchSingleAccount={refetchSingleAccount}
-          />
-        </section>
-
-        <section id="ContactView">
-          <PocDetails
-            SingleAccount={SingleAccount}
-            SingleAccountLoading={SingleAccountLoading}
-            setPocCount={setPocCount}
-          />
-        </section>
-
-        <section id="SalesView">
-          <SalesBookingDetails
-            SingleAccount={SingleAccount}
-            setSalesLength={setSalesLength}
-          />
-        </section>
-
-        <section id="DocumentsView">
-          <DocumentTypDetails
-            SingleAccount={SingleAccount}
-            SingleAccountLoading={SingleAccountLoading}
-            setDocCount={setDocCount}
-          />
-        </section>
-        <section id="TimelineView">
-          <TimelineView
-            SingleAccount={SingleAccount}
-            SingleAccountLoading={SingleAccountLoading}
-            setDocCount={setDocCount}
-          />
-        </section>
-        <section id="PaymentView">
-          <PaymentView
-            SingleAccount={SingleAccount}
-            SingleAccountLoading={SingleAccountLoading}
-            setDocCount={setDocCount}
-          />
-        </section>
+        <div className="sales-accountinfo-view-in">
+          <section id="DetailView">
+            <SalesDetail
+              SingleAccount={SingleAccount}
+              SingleAccountLoading={SingleAccountLoading}
+              refetchSingleAccount={refetchSingleAccount}
+            />
+          </section>
+          <section id="ContactView">
+            <PocDetails
+              SingleAccount={SingleAccount}
+              SingleAccountLoading={SingleAccountLoading}
+              setPocCount={setPocCount}
+            />
+          </section>
+          <section id="SalesView">
+            <SalesBookingDetails
+              SingleAccount={SingleAccount}
+              setSalesLength={setSalesLength}
+            />
+          </section>
+          <section id="DocumentsView">
+            <DocumentTypDetails
+              SingleAccount={SingleAccount}
+              SingleAccountLoading={SingleAccountLoading}
+              setDocCount={setDocCount}
+            />
+          </section>
+          {/* <section id="TimelineView">
+            <TimelineView
+              SingleAccount={SingleAccount}
+              SingleAccountLoading={SingleAccountLoading}
+              setDocCount={setDocCount}
+            />
+          </section> */}
+          {/* <section id="PaymentView">
+            <PaymentView
+              SingleAccount={SingleAccount}
+              SingleAccountLoading={SingleAccountLoading}
+              setDocCount={setDocCount}
+            />
+          </section> */}
+        </div>
       </div>
     </div>
   );

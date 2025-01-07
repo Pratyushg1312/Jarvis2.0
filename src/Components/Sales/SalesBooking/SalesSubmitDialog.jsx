@@ -19,7 +19,7 @@ const SalesSubmitDialog = ({
           <h6>`Sale booking ${id ? "updated" : "created"} successfully.`</h6>
           {selectedPaymentStatus?.value === "sent_for_payment_approval" && (
             <button
-              className="btn cmnbtn btn-success"
+              className="btn btn-success"
               onClick={() =>
                 navigate(`/sales/create-payment-update/0`, {
                   state: { sales_user: newSaleBookingData }, // your additional data here
@@ -31,7 +31,7 @@ const SalesSubmitDialog = ({
           )}
 
           <button
-            className="btn cmnbtn btn-success"
+            className="btn btn-success"
             onClick={() => navigate("/sales/closed-deal")}
           >
             Sale Booking
@@ -43,7 +43,7 @@ const SalesSubmitDialog = ({
           <img src={"/assets/images/badge/error.png"} alt="icon" />
           <h2>Error</h2>
           <h6>Task failed. please wait we'll get back to you soon.</h6>
-          <button className="btn cmnbtn btn-danger" onClick={closeModal}>
+          <button className="btn btn-danger" onClick={closeModal}>
             Try again !
           </button>
         </div>

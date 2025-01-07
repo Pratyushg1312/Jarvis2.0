@@ -204,7 +204,6 @@ const PointOfContact = ({
                   <div className="form-error">Please Enter Valid Email</div>
                 )}
               </div>
-
               <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <CustomSelect
                   required={true}
@@ -249,7 +248,29 @@ const PointOfContact = ({
                   placeholder="Enter designation"
                 />
               </div>
-              <hr className="body_hr" />
+            </div>
+          </div>
+          <hr className="body_hr" />
+          <div className="card-header">
+            <div className="cardHeading">
+              <h5 className="cardTitle">
+                Please add POC social media profile details
+              </h5>
+            </div>
+            <div className="cardAction">
+              {poc.social_platforms?.length < 4 && (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={() => handleAddSocialLink(index)}
+                >
+                  Add Social Link
+                </Button>
+              )}
+            </div>
+          </div>
+          <div className="card-body">
+            <div className="row">
               <div className="col-12">
                 {poc.social_platforms?.map((socialLink, linkIndex) => (
                   <div className="row" key={linkIndex}>
@@ -311,18 +332,7 @@ const PointOfContact = ({
                   </div>
                 ))}
               </div>
-              <div style={{ color: "red" }}>
-                Note: Please add POC social media profile details
-              </div>
-              {poc.social_platforms?.length < 4 && (
-                <button
-                  type="button"
-                  className="btn cmnbtn btn_sm btn-primary mt-2"
-                  onClick={() => handleAddSocialLink(index)}
-                >
-                  Add Social Link
-                </button>
-              )}
+
               <div className="col-lg-4 col-md-4 col-sm-12 col-12">
                 <FieldContainer
                   required={false}
@@ -336,12 +346,19 @@ const PointOfContact = ({
               </div>
             </div>
           </div>
-          <div style={{ color: "red" }} className="ml-4 mb-4">
-            Note:
-            <br /> 1: Please ensure to fill proper details in POC-
-            Email/Department/Designation/Contact/Socials. <br />
-            2: Kindly ask POC to share finance team contact & details for smooth
-            journey.
+          <hr className="body_hr" />
+          <div className="card-body">
+            <div className="mb16">
+              <p>
+                Note:
+                <br /> 1: Please ensure to fill proper details in POC-
+                Email/Department/Designation/Contact/Socials.
+              </p>
+              <p>
+                2: Kindly ask POC to share finance team contact & details for
+                smooth journey.
+              </p>
+            </div>
           </div>
         </div>
       ))}

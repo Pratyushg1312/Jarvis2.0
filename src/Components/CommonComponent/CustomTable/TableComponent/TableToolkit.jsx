@@ -493,7 +493,7 @@ const TableToolkit = ({
           </div>
           <div className="flex-row sb">
             <button
-              className="btn cmnbtn btn_sm btn-danger"
+              className="btn btn_sm btn-danger"
               onClick={() => {
                 setModalOpen(false);
                 setUnSortedData(originalData);
@@ -517,7 +517,7 @@ const TableToolkit = ({
               No
             </button>
             <button
-              className="btn cmnbtn btn_sm btn-success"
+              className="btn btn_sm btn-success"
               onClick={() => {
                 cloudInvader("");
               }}
@@ -659,14 +659,14 @@ function DropdownElement({
         <div className="flex-row gap-2">
           {dragFlag && (
             <button
-              className="btn cmnbtn btn_sm btn-success"
+              className="btn btn_sm btn-success"
               onClick={() => handleSave(setIsOpen)}
             >
               save
             </button>
           )}
           <button
-            className={`btn cmnbtn btn_sm ${
+            className={`btn btn_sm ${
               dragFlag ? "btn-danger" : "btn-primary"
             }`}
             onClick={() => setDragFlag(!dragFlag)}

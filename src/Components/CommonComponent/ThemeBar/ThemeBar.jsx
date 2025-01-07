@@ -30,7 +30,7 @@ function updateBlueTheme() {
   document.documentElement.style.setProperty("--primary2", "#384bf6");
   document.documentElement.style.setProperty(
     "--primaryLight",
-    "rgb(61 115 255 /20%)"
+    "rgb(61 115 255 /13%)"
   );
 }
 function updatePurpleTheme() {
@@ -38,7 +38,7 @@ function updatePurpleTheme() {
   document.documentElement.style.setProperty("--primary2", "#870bd4");
   document.documentElement.style.setProperty(
     "--primaryLight",
-    "rgb(165 35 246 /20%)"
+    "rgb(165 35 246 /13%)"
   );
 }
 function updateNavyBlueTheme() {
@@ -46,7 +46,7 @@ function updateNavyBlueTheme() {
   document.documentElement.style.setProperty("--primary2", "#293274");
   document.documentElement.style.setProperty(
     "--primaryLight",
-    "rgb(59 71 157 /20%)"
+    "rgb(59 71 157 /13%)"
   );
 }
 function updateGreenTheme() {
@@ -54,7 +54,7 @@ function updateGreenTheme() {
   document.documentElement.style.setProperty("--primary2", "#0caf0c");
   document.documentElement.style.setProperty(
     "--primaryLight",
-    "rgb(25 210 25 /20%)"
+    "rgb(25 210 25 /13%)"
   );
 }
 function updateOrangeTheme() {
@@ -62,7 +62,7 @@ function updateOrangeTheme() {
   document.documentElement.style.setProperty("--primary2", "#f0831c");
   document.documentElement.style.setProperty(
     "--primaryLight",
-    "rgb(244 167 52 /20%)"
+    "rgb(244 167 52 /13%)"
   );
 }
 
@@ -179,7 +179,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
             <h6 className="themeBarHeading">Style (Mode)</h6>
             <ul>
               <li>
-                <div className="themeBox">
+                <div className={`themeBox ${isLight ? "isactive" : ""}`}>
                   <input type="radio" name="theme-style" id="themeLight" />
                   <label htmlFor="themeLight">
                     <div className="themeBoxIn">
@@ -192,7 +192,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
                 <p>Light</p>
               </li>
               <li>
-                <div className="themeBox">
+                <div className={`themeBox ${!isLight ? "isactive" : ""}`}>
                   <input type="radio" name="theme-style" id="themeDark" />
                   <label htmlFor="themeDark">
                     <div className="themeBoxIn">
@@ -238,7 +238,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
             <ul>
               <li>
                 <div
-                  className="themeBox"
+                  className={`themeBox ${!semiTheme ? "isactive" : ""}`}
                   onClick={() => {
                     dispatch(setSemiTheme(false));
                     setSemTheme(false);
@@ -255,7 +255,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
               </li>
               <li>
                 <div
-                  className="themeBox"
+                  className={`themeBox ${semiTheme ? "isactive" : ""}`}
                   onClick={() => {
                     dispatch(setSemiTheme(true));
                     setSemTheme(true);
@@ -277,7 +277,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
             <ul>
               <li>
                 <div
-                  className="themeBox"
+                  className={`themeBox ${themeCollapse ? "isactive" : ""}`}
                   onClick={() => {
                     dispatch(setthemeCollapse(false));
                     setThemeCollapse(false);
@@ -294,7 +294,7 @@ const ThemeBar = ({ toggleClass, setToggleClass }) => {
               </li>
               <li>
                 <div
-                  className="themeBox"
+                  className={`themeBox ${!themeCollapse ? "isactive" : ""}`}
                   onClick={() => {
                     dispatch(setthemeCollapse(true));
                     setThemeCollapse(true);

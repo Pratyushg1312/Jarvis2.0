@@ -234,7 +234,7 @@ const ServiceIncentiveSharing = ({
 
         <div className="col-12 mt-3">
           <button
-            className="btn cmnbtn btn-primary"
+            className="btn btn-primary"
             onClick={handleSubmit}
             disabled={
               // selectedService === serviceField?.find(data => data?.service_id === selectedService)?.service_id ||

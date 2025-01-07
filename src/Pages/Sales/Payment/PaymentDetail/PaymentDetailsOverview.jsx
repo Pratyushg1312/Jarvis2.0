@@ -103,7 +103,7 @@ const PaymentDetailsOverview = () => {
     },
     {
       key: "details",
-      width: 100,
+      width: 420,
       name: "Details",
       renderRowCell: (row) =>
         row.details?.split("\n").map((line, index) => (
@@ -128,6 +128,7 @@ const PaymentDetailsOverview = () => {
     },
     {
       key: "status-1",
+      width: 160,
       name: "Status",
       compare: true,
       renderRowCell: (row, index) => {
@@ -158,7 +159,7 @@ const PaymentDetailsOverview = () => {
       renderRowCell: (row) => (
         <div className="flexCenter colGap12">
           <button
-            className="iconBtn sm"
+            className="iconBtn"
             title="Copy"
             onClick={() => handleCopyDetails(row)}
             disabled={row._id === copiedRowId}
@@ -176,12 +177,12 @@ const PaymentDetailsOverview = () => {
           )}
 
           <Link to={`/sales/edit-payment-details/${row._id}`}>
-            <button className="iconBtn sm" title="Edit">
+            <button className="iconBtn" title="Edit">
               <i className="bi bi-pencil" />
             </button>
           </Link>
           <button
-            className="iconBtn sm"
+            className="iconBtn"
             onClick={() => handleDelete(row._id)}
             title="Delete"
           >

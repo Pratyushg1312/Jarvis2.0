@@ -119,79 +119,83 @@ const CreateIncentivePlan = () => {
             <h5 className="cardTitle">Incentive Plan Creation</h5>
           </div>
         </div>
-        <div className="card-body row">
-          <div className="form-group col-4">
-            <CustomSelect
-              label={"Service Name"}
-              dataArray={allSalesServiceData}
-              optionId={"_id"}
-              optionLabel={"service_name"}
-              selectedId={servicename}
-              setSelectedId={(value) => {
-                setServiceName(value);
-                setIsValid({ ...isValid, sales_service_master_id: false });
-              }}
-              required={true}
-            />
+        <div className="card-body">
+          <div className="row">
+            <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+              <CustomSelect
+                label={"Service Name"}
+                dataArray={allSalesServiceData}
+                optionId={"_id"}
+                optionLabel={"service_name"}
+                selectedId={servicename}
+                setSelectedId={(value) => {
+                  setServiceName(value);
+                  setIsValid({ ...isValid, sales_service_master_id: false });
+                }}
+                required={true}
+              />
 
-            {isValid.sales_service_master_id && (
-              <span className="form-error">Service Name is Required</span>
-            )}
+              {isValid.sales_service_master_id && (
+                <span className="form-error">Service Name is Required</span>
+              )}
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+              <CustomSelect
+                required={true}
+                label={"Incentive Type"}
+                dataArray={IncentiveTypeData}
+                optionId={"value"}
+                optionLabel={"label"}
+                selectedId={incentiveType}
+                setSelectedId={(value) => {
+                  setIncentiveType(value);
+                  setIsValid({ ...isValid, incentive_type: false });
+                }}
+              />
+              {isValid.incentive_type && (
+                <span className="form-error">Incentive Type is Required</span>
+              )}
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+              <FieldContainer
+                label="Value"
+                astric={true}
+                type="number"
+                value={values}
+                required
+                onChange={(e) => {
+                  setValues(e.target.value);
+                  setIsValid({
+                    ...isValid,
+                    value: false,
+                  });
+                }}
+              />
+              {isValid.value && (
+                <span className="form-error">Value is Required</span>
+              )}
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+              <FieldContainer
+                label={"Remarks"}
+                type={"text"}
+                value={remarks}
+                required={false}
+                onChange={(e) => setRemarks(e.target.value)}
+              />
+            </div>
           </div>
-          <div className="form-group col-4">
-            <CustomSelect
-              required={true}
-              label={"Incentive Type"}
-              dataArray={IncentiveTypeData}
-              optionId={"value"}
-              optionLabel={"label"}
-              selectedId={incentiveType}
-              setSelectedId={(value) => {
-                setIncentiveType(value);
-                setIsValid({ ...isValid, incentive_type: false });
-              }}
-            />
-            {isValid.incentive_type && (
-              <span className="form-error">Incentive Type is Required</span>
-            )}
-          </div>
-          <div className="col-4">
-            <FieldContainer
-              label="Value"
-              astric={true}
-              type="number"
-              fieldGrid={12}
-              value={values}
-              required
-              onChange={(e) => {
-                setValues(e.target.value);
-                setIsValid({
-                  ...isValid,
-                  value: false,
-                });
-              }}
-            />
-            {isValid.value && (
-              <span className="form-error">Value is Required</span>
-            )}
-          </div>
-          <FieldContainer
-            label={"Remarks"}
-            type={"text"}
-            fieldGrid={12}
-            value={remarks}
-            required={false}
-            onChange={(e) => setRemarks(e.target.value)}
-          />
+        </div>
+        <div className="card-footer">
+          <button
+            className="btn btn-primary"
+            disabled={incentiveLoading}
+            onClick={handleSubmit}
+          >
+            {incentiveLoading ? "Submitting" : "Submit"}
+          </button>
         </div>
       </div>
-      <button
-        className="cmnbtn btn btn-primary mb-5"
-        disabled={incentiveLoading}
-        onClick={handleSubmit}
-      >
-        {incentiveLoading ? "Submitting" : "Submit"}
-      </button>
     </div>
   );
 };

@@ -58,11 +58,11 @@ const PaymentModeOverview = () => {
       renderRowCell: (row) => (
         <div className="flexCenter colGap8">
           <Link to={`/sales/create-payment-mode/${row._id}`}>
-            <button className="iconBtn sm" title="Edit">
+            <button className="iconBtn" title="Edit">
               <Pencil />
             </button>
           </Link>
-          <button className="iconBtn sm">
+          <button className="iconBtn">
             <DeleteButton
               api={deletePaymentMode}
               id={row._id}

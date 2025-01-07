@@ -166,7 +166,7 @@ const EditIncentiveSharing = ({
       <Button
         variant="contained"
         color="primary"
-        className="btn cmnbtn btn-primary mt-5"
+        className="btn btn-primary mt-5"
         disabled={incentiveSharingLoading}
         onClick={(e) => handelSubmit(e)}
       >

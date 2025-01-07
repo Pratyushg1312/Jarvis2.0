@@ -7,6 +7,7 @@ import {
   CurrencyDollar,
   CoinVertical,
   Money,
+  X,
 } from "@phosphor-icons/react";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import {
@@ -436,146 +437,144 @@ const IncentiveDashboard = () => {
       <div className="row">
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge small bgPrimaryLight m-0">
+            <div className="p20 flexCenter colGap12">
+              <div className="icon large primary">
                 <span>
                   <CardsThree weight="duotone" />
                 </span>
               </div>
               <div>
-                <h6 className="colorMedium">Total Campaign Amount</h6>
-                <h6 className="mt4 fs_16">
+                <h6>Total Campaign Amount</h6>
+                <h4 className="fw_500 mt4">
                   {formatNumber(incentiveTotalData?.totalCampaignAmount)}
-                </h6>
+                </h4>
               </div>
             </div>
           </div>
         </div>
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge small bgSecondaryLight m-0">
+            <div className="p20 flexCenter colGap12">
+              <div className="icon large secondary">
                 <span>
                   <Dresser weight="duotone" />
                 </span>
               </div>
               <div>
-                <h6 className="colorMedium">Total Record Service Amount</h6>
-                <h6 className="mt4 fs_16">
+                <h6>Total Record Service Amount</h6>
+                <h4 className="fw_500 mt4">
                   {formatNumber(incentiveTotalData?.totalRecordServiceAmount)}
-                </h6>
+                </h4>
               </div>
             </div>
           </div>
         </div>
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge small bgTertiaryLight m-0">
+            <div className="p20 flexCenter colGap12">
+              <div className="icon large success">
                 <span>
                   <CurrencyDollar weight="duotone" />
                 </span>
               </div>
               <div>
-                <h6 className="colorMedium">Total Earned</h6>
-                <h6 className="mt4 fs_16">
+                <h6>Total Earned</h6>
+                <h4 className="fw_500 mt4">
                   {formatNumber(incentiveTotalData?.totalEarnedIncentiveAmount)}
-                </h6>
+                </h4>
               </div>
             </div>
           </div>
         </div>
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge small bgSuccessLight m-0">
+            <div className="p20 flexCenter colGap12">
+              <div className="icon large info">
                 <span>
                   <CoinVertical weight="duotone" />
                 </span>
               </div>
               <div>
-                <h6 className="colorMedium">Total Unearned</h6>
-                <h6 className="mt4 fs_16">
+                <h6>Total Unearned</h6>
+                <h4 className="fw_500 mt4">
                   {formatNumber(
                     incentiveTotalData?.totalUnEarnedIncentiveAmount
                   )}
-                </h6>
+                </h4>
               </div>
             </div>
           </div>
         </div>
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge small bgWarningLight m-0">
+            <div className="p20 flexCenter colGap12">
+              <div className="icon large warning">
                 <span>
                   <Money weight="duotone" />
                 </span>
               </div>
               <div>
-                <h6 className="colorMedium">Total Paid Amount</h6>
-                <h6 className="mt4 fs_16">
+                <h6>Total Paid Amount</h6>
+                <h4 className="fw_500 mt4">
                   {formatNumber(incentiveTotalData?.totalPaidAmount)}
-                </h6>
+                </h4>
               </div>
             </div>
           </div>
         </div>
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge small bgInfoLight m-0">
+            <div className="p20 flexCenter colGap12">
+              <div className="icon large primary">
                 <span>
                   <Money weight="duotone" />
                 </span>
               </div>
               <div>
-                <h6 className="colorMedium">Total Release Request Amount</h6>
-                <h6 className="mt4 fs_16">
+                <h6>Total Release Request Amount</h6>
+                <h4 className="fw_500 mt4">
                   {formatNumber(
                     incentiveTotalData?.totalIncentiveRequestedAmount
                   )}
-                </h6>
+                </h4>
               </div>
             </div>
           </div>
         </div>
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge small bgDangerLight m-0">
+            <div className="p20 flexCenter colGap12">
+              <div className="icon large secondary">
                 <span>
                   <Money weight="duotone" />
                 </span>
               </div>
               <div>
-                <h6 className="colorMedium">
-                  Total Release Request Pending Amount
-                </h6>
-                <h6 className="mt4 fs_16">
+                <h6>Total Release Request Pending Amount</h6>
+                <h4 className="fw_500 mt4">
                   {formatNumber(
                     incentiveTotalData?.totalIncentiveRequestPendingAmount
                   )}
-                </h6>
+                </h4>
               </div>
             </div>
           </div>
         </div>
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
           <div className="card">
-            <div className="card-body pb20 flexCenter colGap14">
-              <div className="iconBadge small bgPrimaryLight m-0">
+            <div className="p20 flexCenter colGap12">
+              <div className="icon large success">
                 <span>
                   <Money weight="duotone" />
                 </span>
               </div>
               <div>
-                <h6 className="colorMedium">Total Release Completed Amount</h6>
-                <h6 className="mt4 fs_16">
+                <h6>Total Release Completed Amount</h6>
+                <h4 className="fw_500 mt4">
                   {formatNumber(
                     incentiveTotalData?.totalIncentiveReleasedAmount
                   )}
-                </h6>
+                </h4>
               </div>
             </div>
           </div>
@@ -585,65 +584,68 @@ const IncentiveDashboard = () => {
       <div className="card">
         <div className="card-body">
           <div className="row">
-            <CustomSelect
-              label={"User"}
-              fieldGrid={5}
-              dataArray={allSalesUsersData}
-              optionId={"user_id"}
-              optionLabel={"user_name"}
-              selectedId={selectedUsers}
-              setSelectedId={setSelectedUsers}
-              required={false}
-              multiple={true}
-            />
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <CustomSelect
+                label={"User"}
+                dataArray={allSalesUsersData}
+                optionId={"user_id"}
+                optionLabel={"user_name"}
+                selectedId={selectedUsers}
+                setSelectedId={setSelectedUsers}
+                required={false}
+                multiple={true}
+              />
+            </div>
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <CustomSelect
+                label={"Year-Month"}
+                dataArray={yearMonthDataArray}
+                optionId={"id"}
+                optionLabel={"name"}
+                selectedId={selectedYearMonths} // Ensure this state can handle an array of selections
+                setSelectedId={setSelectedYearMonths} // Update this function to handle setting an array
+                required={false}
+                multiple={true}
+              />
+            </div>
+            <div className="col-lg-4 col-md-4 col-sm-12 col-12">
+              <div className="flexCenter colGap12 pt25">
+                <button
+                  className="btn btn-primary w-100"
+                  onClick={() => {
+                    let payload = {};
+                    if (selectedUsers.length === 0) {
+                      payload = { monthYearArray: selectedYearMonths };
+                    }
+                    if (selectedYearMonths.length === 0) {
+                      payload = { user_ids: selectedUsers };
+                    }
+                    if (
+                      selectedUsers.length !== 0 &&
+                      selectedYearMonths.length !== 0
+                    ) {
+                      payload = {
+                        user_ids: selectedUsers,
+                        monthYearArray: selectedYearMonths,
+                      };
+                    }
 
-            <CustomSelect
-              label={"Year-Month"}
-              fieldGrid={5}
-              dataArray={yearMonthDataArray}
-              optionId={"id"}
-              optionLabel={"name"}
-              selectedId={selectedYearMonths} // Ensure this state can handle an array of selections
-              setSelectedId={setSelectedYearMonths} // Update this function to handle setting an array
-              required={false}
-              multiple={true}
-            />
-            <div className="col flexCenter colGap12 pt8">
-              <button
-                className="cmnbtn btn btn-primary w-100"
-                onClick={() => {
-                  let payload = {};
-                  if (selectedUsers.length === 0) {
-                    payload = { monthYearArray: selectedYearMonths };
-                  }
-                  if (selectedYearMonths.length === 0) {
-                    payload = { user_ids: selectedUsers };
-                  }
-                  if (
-                    selectedUsers.length !== 0 &&
-                    selectedYearMonths.length !== 0
-                  ) {
-                    payload = {
-                      user_ids: selectedUsers,
-                      monthYearArray: selectedYearMonths,
-                    };
-                  }
-
-                  getData(payload);
-                }}
-              >
-                Search
-              </button>
-              <button
-                className="iconBtn btn btn-outline-danger"
-                onClick={() => {
-                  getData();
-                  setSelectedUsers([]);
-                  setSelectedYearMonths([]);
-                }}
-              >
-                <i className="bi bi-x-circle"></i>
-              </button>
+                    getData(payload);
+                  }}
+                >
+                  Search
+                </button>
+                <button
+                  className="iconBtn btn btn-outline-danger"
+                  onClick={() => {
+                    getData();
+                    setSelectedUsers([]);
+                    setSelectedYearMonths([]);
+                  }}
+                >
+                  <X />
+                </button>
+              </div>
             </div>
           </div>
         </div>

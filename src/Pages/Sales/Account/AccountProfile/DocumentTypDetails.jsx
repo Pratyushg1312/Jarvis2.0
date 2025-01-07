@@ -75,10 +75,10 @@ const DocumentTypDetails = ({ SingleAccount, setDocCount }) => {
                           )?.document_name
                         }
                       </h4>
-                      <ul className="flex-row gap-2">
+                      <ul className="flexCenter colGap8">
                         <li>
                           <a
-                            className="icon-1 sm"
+                            className="iconBtn sm"
                             target="_blank"
                             href={document?.document_image_upload}
                             download
@@ -88,7 +88,7 @@ const DocumentTypDetails = ({ SingleAccount, setDocCount }) => {
                         </li>
                         <li>
                           <a
-                            className="icon-1 sm"
+                            className="iconBtn sm"
                             // target="_blank"
                             href={document?.document_image_upload}
                             download
