@@ -1,7 +1,7 @@
 name: Copy Repo to Another Repo
 
 permissions:
-  contents: write
+  contents: write  # Explicitly grant write access to repository contents
 
 on:
   push:
