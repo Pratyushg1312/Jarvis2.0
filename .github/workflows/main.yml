@@ -24,9 +24,10 @@ jobs:
     - name: Add destination repo as remote
       run: |
         git remote add destination https://Pratyushg1312:${{ secrets.PAT_TOKEN }}@github.com/Pratyushg1312/deployAMS.git
-        git fetch destination
+        git fetch destination || echo "First time setup, no existing branch to fetch."
 
     - name: Push to destination repo
       run: |
         git push --force destination main:main
-
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
