@@ -23,7 +23,7 @@ jobs:
 
     - name: Add destination repo as remote
       run: |
-        git remote add destination https://github.com/Pratyushg1312/deployAMS.git
+        git remote add destination https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Pratyushg1312/deployAMS.git
         git fetch destination
 
 
