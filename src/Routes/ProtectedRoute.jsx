@@ -4,6 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import { baseUrl } from "../Config";
 import { AuthEngine, useAuth } from "../Context/ApiCaller";
 import PageNotFound from "../Components/CommonComponent/PageNotFound/PageNotFound";
+import { setLoader } from "../Utils/ToastUtil";
+import Loader from "../Components/CommonComponent/Loader/Loader";
 
 const isAuthenticated = () => {
   const token = sessionStorage.getItem("token");
@@ -38,6 +40,8 @@ const DeptMap = {
 
 const RouteDirectory = (children, module, auth) => {
   // protected route
+  if (auth.userAuthIsLoading) return <Loader />;
+
   switch (module) {
     case "index":
       return <Navigate to={DeptMap[auth?.dept_id]} replace />;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useGetIncentiveCalculationwiseQuery } from "../../../Redux/Slices/SalesSlices/UserIncentiveDashboardApi";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../Components/CommonComponent/View/View";
 import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
 
@@ -131,7 +131,7 @@ const EarnedAndUnearned = () => {
 
   return (
     <div>
-      <FormContainer link={true} mainTitle={userData?.name} />
+      <PageHeader link={true} mainTitle={userData?.name} />
       <View
         title={`${userData?.name} Overview`}
         columns={columns}

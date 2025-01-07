@@ -53,7 +53,7 @@ const JarvisHeaders = () => {
   };
   return (
     <>
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Pagetitle</h2>
           <Breadcrumbs aria-label="breadcrumb">
@@ -65,7 +65,7 @@ const JarvisHeaders = () => {
 
       <hr className="mb24" />
 
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Pagetitle with button</h2>
           <Breadcrumbs aria-label="breadcrumb">
@@ -82,7 +82,7 @@ const JarvisHeaders = () => {
 
       <hr className="mb24" />
 
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Pagetitle with icon button</h2>
           <Breadcrumbs aria-label="breadcrumb">
@@ -102,7 +102,7 @@ const JarvisHeaders = () => {
 
       <hr className="mb24" />
 
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Pagetitle with dropdown action</h2>
           <Breadcrumbs aria-label="breadcrumb">
@@ -163,7 +163,7 @@ const JarvisHeaders = () => {
 
       <hr className="mb24" />
 
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Pagetitle with input</h2>
           <Breadcrumbs aria-label="breadcrumb">
@@ -178,7 +178,7 @@ const JarvisHeaders = () => {
 
       <hr className="mb24" />
 
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Pagetitle with autocomplete</h2>
           <Breadcrumbs aria-label="breadcrumb">
@@ -197,7 +197,7 @@ const JarvisHeaders = () => {
 
       <hr className="mb24" />
 
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Pagetitle with input-group</h2>
           <Breadcrumbs aria-label="breadcrumb">
@@ -217,7 +217,7 @@ const JarvisHeaders = () => {
 
       <hr className="mb24" />
 
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Pagetitle with tabs</h2>
           <Breadcrumbs aria-label="breadcrumb">
@@ -240,7 +240,7 @@ const JarvisHeaders = () => {
 
       <hr className="mb24" />
 
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Pagetitle with menu link</h2>
           <Breadcrumbs aria-label="breadcrumb">

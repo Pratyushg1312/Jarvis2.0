@@ -1,7 +1,7 @@
 import React from "react";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
-import FormContainer from "../../CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../CommonComponent/FormElement/PageHeader";
 import View from "../../CommonComponent/View/View";
 import { useGetAllRecordServicesQuery } from "../../../Redux/Slices/SalesSlices/RecordServicesApi";
 import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
@@ -73,7 +73,7 @@ const ExecutionData = ({ selectedRowData }) => {
 
   return (
     <div>
-      <FormContainer mainTitle={"Records"} link={true} />
+      <PageHeader mainTitle={"Records"} link={true} />
       <View
         data={selectedRowData?.executionData}
         columns={column}

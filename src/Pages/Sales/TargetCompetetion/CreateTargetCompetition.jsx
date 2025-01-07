@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
@@ -109,7 +109,7 @@ const CreateTargetCompetition = () => {
 
   return (
     <div>
-      <FormContainer
+      <PageHeader
         mainTitle={id ? "Edit Target Competition" : "Create Target Competition"}
         link="/"
       />

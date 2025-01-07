@@ -5,7 +5,7 @@ import {
   useGetPaymentDetailListQuery,
   useUpdatePaymentDetailsMutation,
 } from "../../../../Redux/Slices/SalesSlices/PaymentDetailsApi";
-import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../../Components/CommonComponent/View/View";
 
 const LinkButtons = [
@@ -195,7 +195,7 @@ const PaymentDetailsOverview = () => {
 
   return (
     <>
-      <FormContainer
+      <PageHeader
         mainTitle="Payment Detail"
         link="/sales/create-payment-details"
         // buttonAccess={true}

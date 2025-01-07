@@ -6,7 +6,7 @@ import {
   useGetAllDocumentTypeQuery,
 } from "../../../Redux/Slices/SalesSlices/DocumentTypeApi";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../Components/CommonComponent/View/View";
 import { FloppyDisk, PencilSimple, X } from "@phosphor-icons/react";
 import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
@@ -123,7 +123,7 @@ const DocumentTypeOverview = () => {
   ];
   return (
     <>
-      <FormContainer
+      <PageHeader
         mainTitle={"Document Type"}
         link={true}
         LinkButtons={LinkButtons}

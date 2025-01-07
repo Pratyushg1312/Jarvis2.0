@@ -16,7 +16,7 @@ import {
 } from "../../../../Redux/Slices/SalesSlices/PaymentUpdateApi";
 import FieldContainer from "../../../../Components/CommonComponent/FormElement/FieldContainer";
 import { setLoader, toastAlert, toastError } from "../../../../Utils/ToastUtil";
-import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../../Components/CommonComponent/FormElement/PageHeader";
 import Loader from "../../../../Components/CommonComponent/Loader/Loader";
 import DateISOtoNormal from "../../../../Utils/DateISOtoNormal";
 import { useGetUserAuthQuery } from "../../../../Redux/Slices/UserSlices/UserApi";
@@ -287,7 +287,7 @@ const CreatePaymentUpdate = () => {
   }, [isLoading]);
   return (
     <div>
-      <FormContainer mainTitle="Payment Update" link={true} />
+      <PageHeader mainTitle="Payment Update" link={true} />
       <div className="card">
         <div className="card-header">
           <h4 className="cardHeading">Creation</h4>

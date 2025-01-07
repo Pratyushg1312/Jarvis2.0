@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAddDocumentTypeMutation } from "../../../Redux/Slices/SalesSlices/DocumentTypeApi";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { toastAlert, toastError } from "../../../Utils/ToastUtil";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import { Button } from "@mui/material";
 
@@ -52,7 +52,7 @@ const CreateDocumentType = () => {
 
   return (
     <div>
-      <FormContainer mainTitle={"Documents Master"} link={"/"} />
+      <PageHeader mainTitle={"Documents Master"} link={"/"} />
       <div className="card">
         <div class="card-header">
           <div class="cardHeading">

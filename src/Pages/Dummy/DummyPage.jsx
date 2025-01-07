@@ -8,13 +8,13 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import { AppleLogo } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
-import FormContainer from "../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../Components/CommonComponent/FormElement/PageHeader";
 
 const DummyPage = ({ name }) => {
   const navigate = useNavigate();
   return (
     <>
-      {name && <FormContainer mainTitle={name} link={"/sales"} />}
+      {name && <PageHeader mainTitle={name} link={"/sales"} />}
       <div className="card">
         <div className="card-header">
           <div className="cardHeading">

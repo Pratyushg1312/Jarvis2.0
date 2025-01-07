@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../Components/CommonComponent/View/View";
 import {
   useEditIndividualPocMutation,
@@ -218,7 +218,7 @@ const PocOverview = () => {
 
   return (
     <div>
-      <FormContainer link={true} mainTitle={"POC Overview"} />
+      <PageHeader link={true} mainTitle={"POC Overview"} />
 
       <View
         columns={columns}

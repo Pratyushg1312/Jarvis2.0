@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetSingleRecordServiceQuery } from "../../../../Redux/Slices/SalesSlices/RecordServicesApi";
-import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../../Components/CommonComponent/View/View";
 
 const RecordServicesData = ({ modalData }) => {
@@ -119,7 +119,7 @@ const RecordServicesData = ({ modalData }) => {
   ];
   return (
     <div>
-      <FormContainer mainTitle={"Record Services"} link={true} />
+      <PageHeader mainTitle={"Record Services"} link={true} />
       <View
         columns={columns}
         data={SingleRecordData}

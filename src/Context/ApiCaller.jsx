@@ -99,6 +99,7 @@ export const AuthEngine = ({ children }) => {
   return (
     <ApiCaller.Provider
       value={{
+        userAuthIsLoading,
         themeData,
         dept_id: loginUserData?.dept_id,
         isUserManagementVisible,

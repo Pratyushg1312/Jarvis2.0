@@ -9,7 +9,7 @@ import { setPreviousRoute } from "../../../Redux/Slices/BreadCrumbSlices/Previou
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { Button } from "@mui/material";
 
-const FormContainer = ({
+const PageHeader = ({
   mainTitle,
   title,
   link,
@@ -61,7 +61,7 @@ const FormContainer = ({
 
   return (
     <>
-      <div className="pageHeader">
+      <div className="PageHeader">
         {mainTitleRequired && (
           <div className="pageTitle">
             <h2>{mainTitle}</h2>
@@ -103,15 +103,17 @@ const FormContainer = ({
           )}
           {elements?.length > 0 && (
             <div className="pageForms">
-              {elements?.map((item) => {
+              {elements?.map((item, index) => {
                 const hasAccess = item?.access?.indexOf(UserRole);
                 const isShow = item?.condition ? item.condition() : true;
                 if (hasAccess !== -1) {
-                  if (isShow) return item?.element;
+                  if (isShow)
+                    return <div key={item.id || index}>{item?.element}</div>;
                 }
               })}
             </div>
           )}
+
           {buttons?.length > 0 &&
             buttons?.map((item) => {
               const hasAccess = item?.access?.indexOf(UserRole);
@@ -140,4 +142,4 @@ const FormContainer = ({
   );
 };
 
-export default FormContainer;
+export default PageHeader;

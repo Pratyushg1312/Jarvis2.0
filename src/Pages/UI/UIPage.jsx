@@ -54,7 +54,7 @@ const UIPage = () => {
           </div>
         </div>
       </div>
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Sales Dashboard</h2>
           <Breadcrumbs aria-label="breadcrumb">

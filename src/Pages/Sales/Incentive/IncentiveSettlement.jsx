@@ -1,7 +1,7 @@
 import React from "react";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import View from "../../../Components/CommonComponent/View/View";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import { useGetIncentiveSettelmentQuery } from "../../../Redux/Slices/SalesSlices/SalesDashboardApi";
 import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
 
@@ -64,7 +64,7 @@ const IncentiveSettlement = () => {
 
   return (
     <div>
-      <FormContainer mainTitle={"Incentive Settlement"} />
+      <PageHeader mainTitle={"Incentive Settlement"} />
       <View
         title={"Incentive Settlement Overview"}
         data={settlementData}

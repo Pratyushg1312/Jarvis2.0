@@ -6,7 +6,7 @@ import {
   useGetSinglePaymentModeQuery,
   useUpdatePaymentModeMutation,
 } from "../../../../Redux/Slices/SalesSlices/PaymentModeApi";
-import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../../Components/CommonComponent/FormElement/PageHeader";
 import FieldContainer from "../../../../Components/CommonComponent/FormElement/FieldContainer";
 import { toastAlert, toastError } from "../../../../Utils/ToastUtil";
 import GetDecodedToken from "../../../../Utils/GetDecodedToken";
@@ -66,7 +66,7 @@ const CreatePaymentMode = () => {
   };
   return (
     <>
-      <FormContainer mainTitle="Payment Mode" link={"true"} />
+      <PageHeader mainTitle="Payment Mode" link={"true"} />
 
       <div className="card">
         <div className="card-header">

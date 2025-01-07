@@ -16,7 +16,7 @@ import {
   useIncentiveCalculationDashboardMutation,
 } from "../../../Redux/Slices/SalesSlices/UserIncentiveDashboardApi";
 import IncentiveRelease from "../../../Components/Sales/CommonComponent/Incentive/IncentiveRelease";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import { formatNumber } from "../../../Utils/formatNumber";
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 import View from "../../../Components/CommonComponent/View/View";
@@ -432,7 +432,7 @@ const IncentiveDashboard = () => {
         />
       </Modal>
 
-      <FormContainer mainTitle={"Incentive Dashboard"} link={true} />
+      <PageHeader mainTitle={"Incentive Dashboard"} link={true} />
 
       <div className="row">
         <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">

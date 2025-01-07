@@ -30,7 +30,7 @@ import {
 import { useGetAllAccountQuery } from "../../../Redux/Slices/SalesSlices/SalesAccountApi";
 import formatString from "../../../Utils/formatString";
 import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import CustomTable from "../../../Components/CommonComponent/CustomTable/CustomTable";
@@ -936,7 +936,7 @@ const SalesBookingOverview = () => {
       </Modal>
       <div className="action_heading">
         <div className="action_title">
-          <FormContainer
+          <PageHeader
             mainTitle={"Sale Bookings Overview"}
             link={true}
             LinkButtons={LinkButtons}
@@ -1082,7 +1082,6 @@ const SalesBookingOverview = () => {
         addHtml={
           loginUserRole === 1 && (
             <CustomSelect
-              fieldGrid={12}
               dataArray={[
                 { sales_category_id: null, sales_category_name: "None" },
                 ...(categoryDetails || []),

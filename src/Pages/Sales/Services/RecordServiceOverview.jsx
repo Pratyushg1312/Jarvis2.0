@@ -2,7 +2,7 @@ import React from "react";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { useGetAllRecordServicesQuery } from "../../../Redux/Slices/SalesSlices/RecordServicesApi";
 import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../Components/CommonComponent/View/View";
 import formatString from "../../../Utils/formatString";
 import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
@@ -133,7 +133,7 @@ const RecordServiceOverview = () => {
   ];
   return (
     <>
-      <FormContainer mainTitle="Record Services" link={true} />
+      <PageHeader mainTitle="Record Services" link={true} />
 
       <View
         data={recordServicedata}

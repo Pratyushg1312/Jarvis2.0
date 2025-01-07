@@ -7,17 +7,6 @@ const Tab = ({ tabName, activeTabindex, onTabClick }) => {
     onTabClick(newValue);
   };
   return (
-    // <div className="tab">
-    //     {tabName.map((tab, index) => (
-    //         <button
-    //             key={index}
-    //             className={`named-tab ${activeTabindex === index ? "active-tab" : ""}`}
-    //             onClick={() => onTabClick(index)}
-    //         >
-    //             {tab}
-    //         </button>
-    //     ))}
-    // </div>
     <Tabs value={activeTabindex} onChange={handleChange} aria-label="Tab">
       {tabName.map((tab, index) => (
         <MTab label={tab} />
