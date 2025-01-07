@@ -23,7 +23,7 @@ jobs:
 
     - name: Add destination repo as remote
       run: |
-        git remote add destination https://username:${{ secrets.PAT_TOKEN }}@github.com/Pratyushg1312/deployAMS.git
+        git remote add destination https://Pratyushg1312:${{ secrets.PAT_TOKEN }}@github.com/Pratyushg1312/deployAMS.git
         git fetch destination
 
     - name: Push to destination repo
