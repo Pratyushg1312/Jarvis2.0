@@ -458,6 +458,69 @@ The `View` component is composed of the following parts:
 />
 ```
 
+# Tab
+
+## Overview
+
+The `Tab` component is a wrapper around the Material-UI `Tabs` and `Tab` components, designed to render a set of tabs that can be used for navigation or displaying different content sections. It provides an easy way to handle tab switching with customizable tab labels and an active tab indicator.
+
+## Props
+
+### Required Props
+
+- **`tabName`** (`array` of `string`): An array of strings representing the names of the tabs to be displayed.
+- **`activeTabindex`** (`number`): The index of the currently active tab, used to control which tab is selected.
+- **`onTabClick`** (`function`): A callback function that is called when a tab is clicked. It receives the new active tab index as a parameter.
+
+## Internal Functionality
+
+### `handleChange`
+
+This function is called when the active tab changes. It takes two parameters:
+- `event`: The event object from the tab change event.
+- `newValue`: The new active tab index.
+
+It calls the `onTabClick` prop function with the new active tab index.
+
+## Rendering
+
+The component renders a Material-UI `Tabs` component containing multiple `Tab` components, each corresponding to an item in the `tabName` array. The `Tabs` component uses the `activeTabindex` to determine which tab is currently active and applies the appropriate styling.
+
+### Key Elements
+
+- **`Tabs`**: The container for the individual tabs.
+  - **`value`**: Set to `activeTabindex` to control the selected tab.
+  - **`onChange`**: Set to `handleChange` to manage tab switching.
+  - **`aria-label`**: Provides an accessible label for the tab component.
+- **`MTab`**: The individual tab elements, each rendered with a label from the `tabName` array.
+
+## Usage Example
+
+```jsx
+import React, { useState } from "react";
+import Tab from "./Tab";
+
+const MyComponent = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const tabs = ["Home", "Profile", "Settings"];
+
+  const handleTabClick = (newIndex) => {
+    setActiveTab(newIndex);
+  };
+
+  return (
+    <Tab
+      tabName={tabs}
+      activeTabindex={activeTab}
+      onTabClick={handleTabClick}
+    />
+  );
+};
+
+export default MyComponent;
+```
+
+
 
 
 
