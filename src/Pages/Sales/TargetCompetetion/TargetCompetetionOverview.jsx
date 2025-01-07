@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import { formatIndianNumber } from "../../../Utils/formatIndianNumber";
 import Loader from "../../../Components/CommonComponent/Loader/Loader";
 import View from "../../../Components/CommonComponent/View/View";
@@ -142,7 +142,7 @@ const TargetCompetitionOverview = () => {
   }, [paymentUpdating]);
   return (
     <>
-      <FormContainer
+      <PageHeader
         mainTitle="Target Competition"
         link="/sales"
         submitButton={false}

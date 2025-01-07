@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../Components/CommonComponent/View/View";
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
@@ -229,7 +229,7 @@ const SalesReport = () => {
   ];
   return (
     <>
-      <FormContainer
+      <PageHeader
         link={true}
         mainTitle={"Sales Report"}
         LinkButtons={LinkButtons}

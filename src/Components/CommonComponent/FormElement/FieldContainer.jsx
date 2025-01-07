@@ -18,7 +18,6 @@ const FieldContainer = ({
   onKeyUp,
   required = false,
   disabled = false,
-  fieldGrid = 6,
   multiple,
   placeholder,
   accept,
@@ -84,7 +83,6 @@ const FieldContainer = ({
           variant="outlined"
           label={label}
         />
-
       )}
       {children}
     </Wrapper>

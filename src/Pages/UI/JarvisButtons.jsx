@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Plus } from "@phosphor-icons/react";
 const JarvisButtons = () => {
   return (
     <>
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Buttons</h2>
           <Breadcrumbs aria-label="breadcrumb">

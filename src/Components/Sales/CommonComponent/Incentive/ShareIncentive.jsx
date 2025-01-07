@@ -3,7 +3,7 @@ import View from "../../../CommonComponent/View/View";
 import EditIncentiveSharing from "./EditIncentiveSharing";
 import { useGetAllUsersQuery } from "../../../../Redux/Slices/UserSlices/UserApi";
 import GetDecodedToken from "../../../../Utils/GetDecodedToken";
-import FormContainer from "../../../CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../CommonComponent/FormElement/PageHeader";
 import {
   useAddIncentiveSharingMutation,
   useDeleteIncentiveSharingMutation,
@@ -230,7 +230,7 @@ const ShareIncentive = ({ closeModal, accountInfo }) => {
 
   return (
     <div className="w-700">
-      <FormContainer
+      <PageHeader
         link={true}
         mainTitle={"Share Incentive for" + " " + accountInfo?.[0]?.account_name}
         LinkButtons={LinkButtons}

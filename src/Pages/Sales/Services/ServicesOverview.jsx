@@ -7,7 +7,7 @@ import {
 import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import DeleteButton from "../../../Components/CommonComponent/DeleteButton/DeleteButton";
 import Loader from "../../../Components/CommonComponent/Loader/Loader";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import Tab from "../../../Components/CommonComponent/Tab/Tab";
 import View from "../../../Components/CommonComponent/View/View";
 import { Button } from "@mui/material";
@@ -144,7 +144,7 @@ const ServicesOverview = () => {
   }, [updatingSalesService]);
   return (
     <>
-      <FormContainer
+      <PageHeader
         mainTitle="Services"
         link="/sales/create-sales-services"
         LinkButtons={LinkButtons}

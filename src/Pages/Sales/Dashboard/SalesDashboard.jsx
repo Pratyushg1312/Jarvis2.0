@@ -12,7 +12,7 @@ import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import IncentiveRelease from "../../../Components/Sales/CommonComponent/Incentive/IncentiveRelease";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import axios from "axios";
 import { baseUrl } from "../../../Config";
 import formatString from "../../../Utils/formatString";
@@ -322,7 +322,7 @@ const SalesDashboard = () => {
         />
       </Modal>
 
-      <FormContainer
+      <PageHeader
         mainTitle={"Dashboard"}
         link={true}
         LinkButtons={LinkButtons}

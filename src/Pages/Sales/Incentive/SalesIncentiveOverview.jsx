@@ -1,15 +1,12 @@
-import React from 'react'
-import FormContainer from '../../../Components/CommonComponent/FormElement/FormContainer'
+import React from "react";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 
 const SalesIncentiveOverview = () => {
-    return (
-        <>
-            <FormContainer
-                mainTitle={"Incentive"}
-                link={"/sales"}
-            />
-        </>
-    )
-}
+  return (
+    <>
+      <PageHeader mainTitle={"Incentive"} link={"/sales"} />
+    </>
+  );
+};
 
-export default SalesIncentiveOverview
+export default SalesIncentiveOverview;

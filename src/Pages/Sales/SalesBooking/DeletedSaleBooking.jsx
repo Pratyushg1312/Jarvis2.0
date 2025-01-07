@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useGetAllNewDeletedSaleQuery } from "../../../Redux/Slices/SalesSlices/SaleBookingApi";
 import { useGetAllCreditApprovalsQuery } from "../../../Redux/Slices/SalesSlices/CreditApprovalApi";
 import View from "../../../Components/CommonComponent/View/View";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import formatString from "../../../Utils/formatString";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
@@ -252,7 +252,7 @@ const DeletedSaleBooking = () => {
 
   return (
     <div>
-      <FormContainer
+      <PageHeader
         mainTitle="Deleted Sale Booking"
         link="/sales/create-sales-booking"
       />

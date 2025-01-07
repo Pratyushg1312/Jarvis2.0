@@ -9,7 +9,7 @@ import {
   CheckSquare,
 } from "@phosphor-icons/react";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../Components/CommonComponent/View/View";
 import {
   useGetAdjustmentQuery,
@@ -254,7 +254,7 @@ const UserIncentive = () => {
   }
   return (
     <>
-      <FormContainer
+      <PageHeader
         mainTitle={"User Incentive"}
         link={true}
         LinkButtons={LinkButtons}

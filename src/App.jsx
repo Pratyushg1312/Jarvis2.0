@@ -8,6 +8,7 @@ import Router from "./Routes/Router.jsx";
 
 import OfflinePage from "./Components/CommonComponent/OfflinePage/OfflinePage.jsx";
 import { setthemeCollapse } from "./Redux/Slices/ThemeSlices/ThemeCollapseSlice.js";
+import Loader from "./Components/CommonComponent/Loader/Loader.jsx";
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const dispatch = useDispatch();

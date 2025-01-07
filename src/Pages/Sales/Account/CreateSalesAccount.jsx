@@ -45,7 +45,7 @@ import CreateCompanyType from "../../../Components/Sales/salesAccount/CreateComp
 import CreateDepartment from "../../../Components/Sales/salesAccount/CreateDepartment";
 import ShareIncentive from "../../../Components/Sales/CommonComponent/Incentive/ShareIncentive";
 import AccountSubmitDialog from "../../../Components/Sales/salesAccount/AccountSubmitDialog";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import DocumentUpload from "../../../Components/Sales/salesAccount/DocumentUpload";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
@@ -1059,7 +1059,7 @@ const CreateSalesAccount = () => {
         {renderModalContent()}
       </Modal>
 
-      <FormContainer
+      <PageHeader
         mainTitle={id == 0 ? "Add Your 10cr Brand 😉" : "Accounts Master"}
         link={true}
         LinkButtons={LinkButtons}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { useCreateInvoiceParticularMutation } from "../../../Redux/Slices/SalesSlices/InvoiceParticularApi";
-import FormContainer from "../../CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../CommonComponent/FormElement/PageHeader";
 import FieldContainer from "../../CommonComponent/FormElement/FieldContainer";
 
 const InvoiceParticular = ({ setIsModalOpen }) => {
@@ -31,7 +31,7 @@ const InvoiceParticular = ({ setIsModalOpen }) => {
 
   return (
     <div>
-      <FormContainer link={true} mainTitle={"Create Invoice Particular"} />
+      <PageHeader link={true} mainTitle={"Create Invoice Particular"} />
       <div className="card">
         <FieldContainer
           type="input"

@@ -20,7 +20,7 @@ const JarvisForms = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Forms</h2>
           <Breadcrumbs aria-label="breadcrumb">

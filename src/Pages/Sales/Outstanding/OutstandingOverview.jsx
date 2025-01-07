@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import View from "../../../Components/CommonComponent/View/View";
 import Tab from "../../../Components/CommonComponent/Tab/Tab";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
 import {
   useGetAccountWiseStatusQuery,
@@ -193,7 +193,7 @@ const OutstandingOverview = () => {
   ];
   return (
     <div>
-      <FormContainer mainTitle={"Outstanding"} LinkButtons={LinkButtons} />
+      <PageHeader mainTitle={"Outstanding"} LinkButtons={LinkButtons} />
       <View
         title={"Outstanding View"}
         columns={accountColumns}

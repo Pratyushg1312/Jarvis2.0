@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from "react";
-import FormContainer from "../../AdminPanel/FormContainer";
+import PageHeader from "../../AdminPanel/PageHeader";
 import View from "../../AdminPanel/Sales/Account/View/View";
 import {
   useEditIndividualPocMutation,
@@ -220,7 +220,7 @@ const ViewSalesPoc = () => {
 
   return (
     <div>
-      <FormContainer link={true} mainTitle={"POC Overview"} />
+      <PageHeader link={true} mainTitle={"POC Overview"} />
 
       <View
         columns={columns}

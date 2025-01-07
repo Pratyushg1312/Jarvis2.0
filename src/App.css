@@ -176,7 +176,7 @@ hr.body_hr {
   margin-left: calc(-0.4 * var(--bs-gutter-x));
 }
 
-.row>* {
+.row > * {
   padding-right: calc(var(--bs-gutter-x) * 0.4);
   padding-left: calc(var(--bs-gutter-x) * 0.4);
 }
@@ -313,8 +313,10 @@ hr.body_hr {
   color: var(--whiteText) !important;
 
   &:hover {
-    background-image: linear-gradient(var(--primary),
-        var(--primary2)) !important;
+    background-image: linear-gradient(
+      var(--primary),
+      var(--primary2)
+    ) !important;
     border-color: var(--primary2) !important;
     color: var(--whiteText) !important;
   }
@@ -340,14 +342,18 @@ hr.body_hr {
 
 .MuiButton-contained.MuiButton-colorSecondary,
 .btn-secondary {
-  background-image: linear-gradient(var(--secondary),
-      var(--secondary2)) !important;
+  background-image: linear-gradient(
+    var(--secondary),
+    var(--secondary2)
+  ) !important;
   border-color: var(--secondary2) !important;
   color: var(--whiteText) !important;
 
   &:hover {
-    background-image: linear-gradient(var(--secondary),
-        var(--secondary2)) !important;
+    background-image: linear-gradient(
+      var(--secondary),
+      var(--secondary2)
+    ) !important;
     border-color: var(--secondary2) !important;
     color: var(--whiteText) !important;
   }
@@ -378,8 +384,10 @@ hr.body_hr {
   color: var(--whiteText) !important;
 
   &:hover {
-    background-image: linear-gradient(var(--success),
-        var(--success2)) !important;
+    background-image: linear-gradient(
+      var(--success),
+      var(--success2)
+    ) !important;
     border-color: var(--success2) !important;
     color: var(--whiteText) !important;
   }
@@ -441,8 +449,10 @@ hr.body_hr {
   color: var(--whiteText) !important;
 
   &:hover {
-    background-image: linear-gradient(var(--warning),
-        var(--warning2)) !important;
+    background-image: linear-gradient(
+      var(--warning),
+      var(--warning2)
+    ) !important;
     border-color: var(--warning2) !important;
     color: var(--whiteText) !important;
   }
@@ -594,8 +604,10 @@ hr.body_hr {
       height: 100%;
       z-index: -1;
       border-radius: var(--radiusS);
-      background-image: linear-gradient(var(--primary),
-          var(--primary2)) !important;
+      background-image: linear-gradient(
+        var(--primary),
+        var(--primary2)
+      ) !important;
     }
   }
 }
@@ -873,7 +885,8 @@ select:-webkit-autofill:focus {
   width: auto !important;
   height: auto !important;
 
-  .MuiPickersCalendarHeader-root {}
+  .MuiPickersCalendarHeader-root {
+  }
 
   .MuiPickersDay-root.Mui-selected {
     color: var(--whiteText);
@@ -1123,7 +1136,6 @@ select:-webkit-autofill:focus {
       }
 
       .MuiFormGroup-root {
-
         .MuiButton-root,
         .btn {
           padding: 0px 0px !important;
@@ -3124,9 +3136,11 @@ i.bi {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(243deg,
-      rgb(100 169 242 / 10%) 0%,
-      rgb(109 84 248 / 10%) 100%);
+  background: linear-gradient(
+    243deg,
+    rgb(100 169 242 / 10%) 0%,
+    rgb(109 84 248 / 10%) 100%
+  );
   display: none;
 }
 
@@ -3293,7 +3307,7 @@ i.bi {
   padding: 20px 20px;
 }
 
-.toggle-sidebar-checkbox:checked~.sideBar {
+.toggle-sidebar-checkbox:checked ~ .sideBar {
   width: 260px;
 }
 
@@ -3724,7 +3738,7 @@ i.bi {
     left: 0;
   }
 
-  #theme-toggle+label {
+  #theme-toggle + label {
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -3732,7 +3746,7 @@ i.bi {
     overflow: hidden;
   }
 
-  #theme-toggle+label i {
+  #theme-toggle + label i {
     width: 24px;
     height: 24px;
     display: flex;
@@ -3743,17 +3757,17 @@ i.bi {
     transition: var(--transition);
   }
 
-  #theme-toggle+label i:first-child {
+  #theme-toggle + label i:first-child {
     top: 50%;
     transform: translate(-50%, -50%);
   }
 
-  #theme-toggle+label i:last-child {
+  #theme-toggle + label i:last-child {
     top: 0%;
     transform: translate(-50%, -100%);
   }
 
-  #theme-toggle:checked~label {
+  #theme-toggle:checked ~ label {
     overflow: hidden;
 
     i:first-child {
@@ -3848,7 +3862,7 @@ i.bi {
               box-shadow: none;
             }
 
-            input[type="radio"]:checked~label {
+            input[type="radio"]:checked ~ label {
               .colorCheck {
                 opacity: 1;
               }
@@ -3885,28 +3899,38 @@ i.bi {
               }
 
               .themeColorPalette.thm_blue {
-                background-image: linear-gradient(var(--thm-blue),
-                    var(--thm-blue2)) !important;
+                background-image: linear-gradient(
+                  var(--thm-blue),
+                  var(--thm-blue2)
+                ) !important;
               }
 
               .themeColorPalette.thm_purple {
-                background-image: linear-gradient(var(--thm-purple),
-                    var(--thm-purple2)) !important;
+                background-image: linear-gradient(
+                  var(--thm-purple),
+                  var(--thm-purple2)
+                ) !important;
               }
 
               .themeColorPalette.thm_navyblue {
-                background-image: linear-gradient(var(--thm-navyblue),
-                    var(--thm-navyblue2)) !important;
+                background-image: linear-gradient(
+                  var(--thm-navyblue),
+                  var(--thm-navyblue2)
+                ) !important;
               }
 
               .themeColorPalette.thm_green {
-                background-image: linear-gradient(var(--thm-green),
-                    var(--thm-green2)) !important;
+                background-image: linear-gradient(
+                  var(--thm-green),
+                  var(--thm-green2)
+                ) !important;
               }
 
               .themeColorPalette.thm_orange {
-                background-image: linear-gradient(var(--thm-orange),
-                    var(--thm-orange2)) !important;
+                background-image: linear-gradient(
+                  var(--thm-orange),
+                  var(--thm-orange2)
+                ) !important;
               }
 
               img {
@@ -3922,7 +3946,6 @@ i.bi {
               box-shadow: 0px 0px 0px 1px var(--primary);
             }
           }
-
 
           p {
             padding: 4px 0px 0px;
@@ -3955,7 +3978,7 @@ i.bi {
     left: 0;
   }
 
-  #theme-toggle+label {
+  #theme-toggle + label {
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -3963,7 +3986,7 @@ i.bi {
     overflow: hidden;
   }
 
-  #theme-toggle+label i {
+  #theme-toggle + label i {
     width: 24px;
     height: 24px;
     display: flex;
@@ -3974,17 +3997,17 @@ i.bi {
     transition: var(--transition);
   }
 
-  #theme-toggle+label i:first-child {
+  #theme-toggle + label i:first-child {
     top: 50%;
     transform: translate(-50%, -50%);
   }
 
-  #theme-toggle+label i:last-child {
+  #theme-toggle + label i:last-child {
     top: 0%;
     transform: translate(-50%, -100%);
   }
 
-  #theme-toggle:checked~label {
+  #theme-toggle:checked ~ label {
     overflow: hidden;
 
     i:first-child {
@@ -4006,7 +4029,7 @@ i.bi {
   overflow: visible !important;
 }
 
-.pageHeader {
+.PageHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -4297,8 +4320,10 @@ i.bi {
   background: var(--primaryLight);
 
   .MuiLinearProgress-bar {
-    background-image: linear-gradient(var(--primary),
-        var(--primary2)) !important;
+    background-image: linear-gradient(
+      var(--primary),
+      var(--primary2)
+    ) !important;
   }
 }
 
@@ -4566,8 +4591,6 @@ i.bi {
           }
         }
       }
-
-
     }
   }
 

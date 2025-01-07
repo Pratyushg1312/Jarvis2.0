@@ -10,7 +10,7 @@ import { useGetAllAccountQuery } from "../../../../Redux/Slices/SalesSlices/Sale
 import { useGetAllPaymentUpdatesQuery } from "../../../../Redux/Slices/SalesSlices/PaymentUpdateApi";
 import formatString from "../../../../Utils/formatString";
 import DateISOtoNormal from "../../../../Utils/DateISOtoNormal";
-import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../../Components/CommonComponent/View/View";
 import Tab from "../../../../Components/CommonComponent/Tab/Tab";
 
@@ -109,9 +109,10 @@ const PaymentUpdateOverview = () => {
       name: "Customer Name",
       renderRowCell: (row) => (
         <Link
-          to={`/sales/account-info/${allAccountData?.find((data) => data?.account_id === row.account_id)
+          to={`/sales/account-info/${
+            allAccountData?.find((data) => data?.account_id === row.account_id)
               ?._id
-            }`}
+          }`}
         >
           {row.account_name}
         </Link>
@@ -232,13 +233,15 @@ const PaymentUpdateOverview = () => {
   const LinkButtons = [
     {
       type: "element",
-      element: <Tab
-        tabName={tabName}
-        activeTabindex={activeTab}
-        onTabClick={onTabClick}
-      />,
-      access: [1, 2, 3, 4]
-    }
+      element: (
+        <Tab
+          tabName={tabName}
+          activeTabindex={activeTab}
+          onTabClick={onTabClick}
+        />
+      ),
+      access: [1, 2, 3, 4],
+    },
   ];
 
   return (
@@ -263,11 +266,7 @@ const PaymentUpdateOverview = () => {
       </Modal>
       <div className="action_heading">
         <div className="action_title">
-          <FormContainer
-            mainTitle="Payment Update"
-            LinkButtons={LinkButtons}
-
-          />
+          <PageHeader mainTitle="Payment Update" LinkButtons={LinkButtons} />
         </div>
       </div>
 

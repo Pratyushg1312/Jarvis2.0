@@ -30,7 +30,7 @@ import DateISOtoNormal from "../../../Utils/DateISOtoNormal";
 import convertNumberToIndianString from "../../../Utils/convertNumberToIndianString";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import CustomSelect from "../../../Components/CommonComponent/FormElement/CustomSelect";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import { Button } from "@mui/material";
 import DynamicSelect from "../../../Components/CommonComponent/FormElement/DynamicSelect";
 import { Download, Pencil, Plus } from "@phosphor-icons/react";
@@ -841,7 +841,7 @@ const CreateSaleBooking = () => {
         {renderModalContent()}
       </Modal>
 
-      <FormContainer mainTitle="Sale Booking" link={true} />
+      <PageHeader mainTitle="Sale Booking" link={true} />
 
       <div className="card">
         <div className="card-header">

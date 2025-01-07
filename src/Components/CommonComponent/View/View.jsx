@@ -13,9 +13,11 @@ const View = ({
   tableName,
   selectedData,
   showTotal = false,
+  addHtml,
+  exportData,
 }) => {
   return (
-    <CustomTableWrapper title={title}>
+    <CustomTableWrapper title={title} addHtml={addHtml}>
       <CustomTable
         fixedHeader
         columns={columns}
@@ -26,6 +28,7 @@ const View = ({
         tableName={tableName}
         selectedData={selectedData}
         showTotal={showTotal}
+        exportData={exportData}
       />
     </CustomTableWrapper>
   );

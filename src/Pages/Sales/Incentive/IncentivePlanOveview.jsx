@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useGetIncentivePlanListQuery } from "../../../Redux/Slices/SalesSlices/IncentivePlanApi";
 import { useGetAllSaleServiceQuery } from "../../../Redux/Slices/SalesSlices/SalesServiceApi";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import View from "../../../Components/CommonComponent/View/View";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import { useGetUserAuthQuery } from "../../../Redux/Slices/UserSlices/UserApi";
@@ -107,7 +107,7 @@ const IncentivePlanOverview = () => {
 
   return (
     <>
-      <FormContainer
+      <PageHeader
         mainTitle={`Incentive Plan`}
         LinkButtons={LinkButtons}
         link={true}

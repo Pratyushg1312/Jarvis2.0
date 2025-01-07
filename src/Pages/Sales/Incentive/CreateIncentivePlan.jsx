@@ -8,7 +8,7 @@ import {
 import { useGetAllSaleServiceQuery } from "../../../Redux/Slices/SalesSlices/SalesServiceApi";
 import { setLoader, toastAlert, toastError } from "../../../Utils/ToastUtil";
 import Loader from "../../../Components/CommonComponent/Loader/Loader";
-import FormContainer from "../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../Components/CommonComponent/FormElement/PageHeader";
 import FieldContainer from "../../../Components/CommonComponent/FormElement/FieldContainer";
 import GetDecodedToken from "../../../Utils/GetDecodedToken";
 import Select from "react-select";
@@ -112,7 +112,7 @@ const CreateIncentivePlan = () => {
 
   return (
     <div>
-      <FormContainer mainTitle="Incentive Plan" link={true} />
+      <PageHeader mainTitle="Incentive Plan" link={true} />
       <div className="card">
         <div className="card-header">
           <div className="cardHeading">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 import View from "../../../../Components/CommonComponent/View/View";
-import FormContainer from "../../../../Components/CommonComponent/FormElement/FormContainer";
+import PageHeader from "../../../../Components/CommonComponent/FormElement/PageHeader";
 import {
   useDeletePaymentModeMutation,
   useGetAllPaymentModesQuery,
@@ -77,7 +77,7 @@ const PaymentModeOverview = () => {
 
   return (
     <>
-      <FormContainer
+      <PageHeader
         mainTitle="Payment Mode"
         link="/sales/create-payment-mode"
         LinkButtons={LinkButtons}

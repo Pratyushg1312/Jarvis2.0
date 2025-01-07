@@ -55,7 +55,7 @@ const JarvisCards = () => {
 
   return (
     <>
-      <div className="pageHeader">
+      <div className="PageHeader">
         <div className="pageTitle">
           <h2>Cards</h2>
           <Breadcrumbs aria-label="breadcrumb">
