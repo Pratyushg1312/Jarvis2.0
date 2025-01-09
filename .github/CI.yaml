@@ -1,0 +1,33 @@
+name: Copy Repo to Another Repo
+
+on:
+  push:
+    branches:
+      - main  # Change if you want to copy from a different branch
+
+jobs:
+  copy-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source repo
+      uses: actions/checkout@v2
+
+    - name: Set up Git for pushing
+      run: |
+        git config --global user.email "pratyushg095@gmail.com"
+        git config --global user.name "Pratyushg1312"
+
+    - name: Add destination repo as remote
+      run: |
+        git remote add destination https://github.com/Pratyushg1312/citest.git
+        git fetch destination
+    - name: check branch
+      run: |
+        git remote -v      
+
+    - name: Push to destination repo
+      run: |
+        git push  destination main:main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
