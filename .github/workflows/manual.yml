@@ -1,4 +1,4 @@
-name: Copy Repo to Another Repo
+name: Copy Selected Files to Another Repo
 
 on:
   push:
@@ -11,25 +11,33 @@ jobs:
 
     steps:
     - name: Checkout source repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          .github
+          src
+          index.html
+          public
+          README.md
+          package.json
+          eslint.config.js
+          vite.config.js
 
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
+    - name: Checkout target repo
+      uses: actions/checkout@v4
+      with:
+        repository: Pratyushg1312/citest
+        token: ${{ secrets.PAT_AUTH }}
+        path: target-repo
 
-    - name: Add destination repo as remote
+    - name: Copy selected files from source to target
       run: |
-        git remote add destination https://github.com/Pratyushg1312/citest.git
-        git fetch destination
-    - name: check branch
-      run: |
-        git remote -v      
-
-    - name: Push to destination repo
-      run: |
-        git push  destination main:main
+        cp -r .github src index.html public README.md package.json eslint.config.js vite.config.js target-repo/
+        cd target-repo
+        git config user.name "pratyush"
+        git config user.email "pratyushg095@gmail.com"
+        git add .
+        git commit -m "Sync selected files from source repo"
+        git push origin main
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PAT_AUTH: ${{ secrets.PAT_AUTH }}
