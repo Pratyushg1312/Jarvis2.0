@@ -29,15 +29,35 @@ jobs:
         repository: Pratyushg1312/citest
         token: ${{ secrets.PAT_AUTH }}
         path: target-repo
+        ref: main
+        fetch-depth: 0  # Fetch all history for detecting if repo is empty
+
+    - name: Check if target repo is empty
+      id: check_empty
+      run: |
+        if [ -z "$(ls -A target-repo)" ]; then
+          echo "empty=true" >> $GITHUB_ENV
+        else
+          echo "empty=false" >> $GITHUB_ENV
+        fi
 
     - name: Copy selected files from source to target
       run: |
         cp -r .github src index.html public README.md package.json eslint.config.js vite.config.js target-repo/
+
+    - name: Commit and push changes
+      run: |
         cd target-repo
-        git config user.name "pratyush"
+        git config user.name "Pratyush Gupta"
         git config user.email "pratyushg095@gmail.com"
         git add .
-        git commit -m "Sync selected files from source repo"
-        git push origin main
+        if [ "${{ env.empty }}" == "true" ]; then
+          git commit -m "Initial commit from source repo"
+          git branch -M main
+          git push -u origin main
+        else
+          git commit -m "Sync selected files from source repo"
+          git push origin main
+        fi
       env:
         PAT_AUTH: ${{ secrets.PAT_AUTH }}
