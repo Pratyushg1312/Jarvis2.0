@@ -43,7 +43,7 @@ jobs:
 
     - name: Copy selected files from source to target
       run: |
-        cp -r .github src index.html public README.md package.json eslint.config.js vite.config.js target-repo/
+        cp -r src index.html public README.md package.json eslint.config.js vite.config.js target-repo/
 
     - name: Commit and push changes
       run: |
