@@ -14,7 +14,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         sparse-checkout: |
-          .github
+          .gitignore
           src
           index.html
           public
@@ -43,13 +43,11 @@ jobs:
 
     - name: Copy selected files from source to target
       run: |
-        cp -r src index.html public README.md package.json eslint.config.js vite.config.js target-repo/
+        cp -r src index.html public README.md package.json eslint.config.js vite.config.js .gitignore target-repo/
 
     - name: Commit and push changes
       run: |
         cd target-repo
-        git config user.name "Pratyush Gupta"
-        git config user.email "pratyushg095@gmail.com"
         git add .
         if [ "${{ env.empty }}" == "true" ]; then
           git commit -m "Initial commit from source repo"
