@@ -29,7 +29,7 @@ jobs:
         repository: sumit-sen-cf/jarvis-frontend-2
         token: ${{ secrets.PAT_AUTH }}
         path: target-repo
-        ref: main
+        ref: master
         fetch-depth: 0  # Fetch all history for detecting if repo is empty
 
     - name: Check if target repo is empty
@@ -53,11 +53,11 @@ jobs:
         git add .
         if [ "${{ env.empty }}" == "true" ]; then
           git commit -m "Initial commit from source repo"
-          git branch -M main
-          git push -u origin main
+          git branch -M master
+          git push -u origin master
         else
           git commit -m "Sync selected files from source repo"
-          git push origin main
+          git push origin master
         fi
       env:
         PAT_AUTH: ${{ secrets.PAT_AUTH }}
