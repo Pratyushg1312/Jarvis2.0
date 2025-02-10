@@ -3,66 +3,66 @@ name: Copy Selected Files to Another Repo
 on:
   push:
     branches:
-      - main  # Change if you want to copy from a different branch
+      - main # Change if you want to copy from a different branch
 
 jobs:
   copy-repo:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout source repo
-      uses: actions/checkout@v4
-      with:
-        sparse-checkout: |
-          .gitignore
-          src
-          index.html
-          public
-          README.md
-          package.json
-          eslint.config.js
-          vite.config.js
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .gitignore
+            src
+            index.html
+            public
+            README.md
+            package.json
+            eslint.config.js
+            vite.config.js
 
-    - name: Get the latest commit message from source repo
-      id: get_commit_message
-      run: |
-        echo "commit_message=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+      - name: Get the latest commit message from source repo
+        id: get_commit_message
+        run: |
+          echo "commit_message=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
 
-    - name: Checkout target repo
-      uses: actions/checkout@v4
-      with:
-        repository: sumit-sen-cf/jarvis-frontend-2
-        token: ${{ secrets.PAT_AUTH }}
-        path: target-repo
-        ref: master
-        fetch-depth: 0  # Fetch all history for detecting if repo is empty
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          repository: sumit-sen-cf/jarvis-frontend-2
+          token: ${{ secrets.PAT_AUTH }}
+          path: target-repo
+          ref: master
+          fetch-depth: 0
 
-    - name: Check if target repo is empty
-      id: check_empty
-      run: |
-        if [ -z "$(ls -A target-repo)" ]; then
-          echo "empty=true" >> $GITHUB_ENV
-        else
-          echo "empty=false" >> $GITHUB_ENV
-        fi
+      - name: Check if target repo is empty
+        id: check_empty
+        run: |
+          if [ -z "$(ls -A target-repo)" ]; then
+            echo "empty=true" >> $GITHUB_ENV
+          else
+            echo "empty=false" >> $GITHUB_ENV
+          fi
 
-    - name: Copy selected files from source to target
-      run: |
-        cp -r src index.html public README.md package.json eslint.config.js vite.config.js .gitignore target-repo/
+      - name: Copy selected files from source to target
+        run: |
+          cp -r src index.html public README.md package.json eslint.config.js vite.config.js .gitignore target-repo/
 
-    - name: Commit and push changes
-      run: |
-        cd target-repo
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
-        git add .
-        if [ "${{ env.empty }}" == "true" ]; then
-          git commit -m "Initial commit from source repo by $GITHUB_ACTOR: ${{ env.commit_message }}"
-          git branch -M master
-          git push -u origin master
-        else
-          git commit -m "Sync selected files from source repo by $GITHUB_ACTOR: ${{ env.commit_message }}"
-          git push origin master
-        fi
-      env:
-        PAT_AUTH: ${{ secrets.PAT_AUTH }}
+      - name: Commit and push changes
+        run: |
+          cd target-repo
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          if [ "${{ env.empty }}" == "true" ]; then
+            git commit -m "Initial commit from source repo by $GITHUB_ACTOR: ${{ env.commit_message }}"
+            git branch -M master
+            git push -u origin master
+          else
+            git commit -m "Sync selected files from source repo by $GITHUB_ACTOR: ${{ env.commit_message }}"
+            git push origin master
+          fi
+        env:
+          PAT_AUTH: ${{ secrets.PAT_AUTH }}
