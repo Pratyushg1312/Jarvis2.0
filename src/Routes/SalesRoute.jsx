@@ -134,4 +134,5 @@ const SalesRoute = () => {
   );
 };
 
+
 export default SalesRoute;
